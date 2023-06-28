@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { MainContainer } from './style'
-import React, { FC, useEffect, useState } from 'react'
-import { IconButton } from '@mui/material'
+import { ButtonContainer, MainContainer } from './style'
+import { FC, useEffect, useState } from 'react'
+import { Button, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
 interface Props {
@@ -89,6 +89,14 @@ const BasicModal: FC<Props> = ({
                         {direction}
                     </Typography>
                     {children}
+                    <ButtonContainer>
+                        <Button
+                            variant="contained"
+                            onClick={() => openMap(direction)}
+                        >
+                            Ir a Cebos Vivos
+                        </Button>
+                    </ButtonContainer>
                 </Box>
             </Modal>
         </MainContainer>
