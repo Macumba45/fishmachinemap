@@ -1,16 +1,18 @@
 'use client'
 
 import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
-
 import { FC, memo, useEffect, useState } from 'react'
 import CircularIndeterminate from '@/components/Loader'
-import { MainContainer, center, containerStyle, options } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import customMarkerIcon from '../../assets/icons8-worms-24.png'
+import customMarkerIconShop from '../../assets/icons8-shop-50.png'
 import BasicModal from '@/components/Modal'
-import { markersWithId } from './data'
+import { totalArray } from './data'
 import { IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { MainContainer, center, containerStyle, options } from './style'
+import FilterComponent from '@/components/FilterShop'
+
 
 let isGoogleMapsLoaded = false
 
@@ -32,6 +34,9 @@ const GoogleMapComp: FC = () => {
         useState<google.maps.LatLngLiteral | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [modalStates, setModalStates] = useState<ModalStates>({})
+    const [currentFilter, setCurrentFilter] = useState('all');
+    const [filteredMarkers, setFilteredMarkers] = useState(totalArray);
+
 
     const TOP = 3
 
@@ -55,6 +60,24 @@ const GoogleMapComp: FC = () => {
             [id]: false,
         }))
     }
+
+    useEffect(() => {
+        filterMarkers(currentFilter);
+    }, [currentFilter]);
+
+    const filterMarkers = (filter: any) => {
+        if (filter === 'all') {
+            setFilteredMarkers(totalArray);
+        } else if (filter === 'shop') {
+            setFilteredMarkers(totalArray.filter((marker) => marker.shop === 'shop'));
+        } else if (filter === 'worm') {
+            setFilteredMarkers(totalArray.filter((marker) => marker.shop !== 'shop'));
+        }
+    };
+
+    const handleFilterChange = (newFilter: any) => {
+        setCurrentFilter(newFilter);
+    };
 
     useEffect(() => {
         loadGoogleMapsAPI()
@@ -95,11 +118,15 @@ const GoogleMapComp: FC = () => {
                         zoom={6}
                         options={mapOptions}
                     >
-                        {markersWithId.map(marker => (
+                        {filteredMarkers.map(marker => (
                             <div key={marker.id}>
                                 <MarkerF
                                     position={marker}
-                                    icon={customMarkerIcon.src}
+                                    icon={
+                                        marker.shop === 'shop'
+                                            ? customMarkerIconShop.src
+                                            : customMarkerIcon.src
+                                    }
                                     onClick={() => handleModalOpen(marker.id)}
                                 />
 
@@ -108,18 +135,12 @@ const GoogleMapComp: FC = () => {
                                         <BasicModal
                                             label={marker.label}
                                             direction={marker.address}
-                                            onClose={() =>
-                                                handleModalClose(marker.id)
-                                            }
+                                            onClose={() => handleModalClose(marker.id)}
                                         >
                                             <div>
                                                 <IconButton
                                                     aria-label="Close"
-                                                    onClick={() =>
-                                                        handleModalClose(
-                                                            marker.id
-                                                        )
-                                                    }
+                                                    onClick={() => handleModalClose(marker.id)}
                                                     sx={{
                                                         position: 'absolute',
                                                         top: '10px',
@@ -129,7 +150,6 @@ const GoogleMapComp: FC = () => {
                                                 >
                                                     <CloseIcon />
                                                 </IconButton>
-                                                {/* Contenido del modal */}
                                             </div>
                                         </BasicModal>
                                     </div>
@@ -138,10 +158,12 @@ const GoogleMapComp: FC = () => {
                         ))}
                     </GoogleMap>
                 )}
+
+                <FilterComponent onChange={handleFilterChange} />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>
-    )
+    );
 }
 
 export default memo(GoogleMapComp)
