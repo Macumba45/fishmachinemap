@@ -2,8 +2,8 @@
 
 import {
     GoogleMap,
-    LoadScript,
     MarkerF,
+    useJsApiLoader,
 
 } from '@react-google-maps/api'
 
@@ -18,7 +18,22 @@ import { IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
 
+let isGoogleMapsLoaded = false;
+
+function loadGoogleMapsAPI() {
+    if (!isGoogleMapsLoaded) {
+        // Cargar la API de Google Maps aquí
+        isGoogleMapsLoaded = true;
+    }
+}
+
 const GoogleMapComp: FC = () => {
+
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: 'AIzaSyDw2bVFpPABnpSh7xogUBucTML69T4U9rY',
+    });
+
     type ModalStates = { [key: number]: boolean }
     const [currentLocation, setCurrentLocation] =
         useState<google.maps.LatLngLiteral | null>(null)
@@ -49,6 +64,8 @@ const GoogleMapComp: FC = () => {
     }
 
     useEffect(() => {
+        loadGoogleMapsAPI();
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 position => {
@@ -76,57 +93,53 @@ const GoogleMapComp: FC = () => {
     }
 
 
-
-
     return (
         <>
             <MainContainer>
-                <LoadScript
-                    googleMapsApiKey={'AIzaSyDw2bVFpPABnpSh7xogUBucTML69T4U9rY'}
-                >
-                    <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={currentLocation || center}
-                        zoom={6}
-                        options={mapOptions}
-                    >
-                        {markersWithId.map(marker => (
-                            <div key={marker.id}>
-                                <MarkerF
-                                    position={marker}
-                                    icon={customMarkerIcon.src}
-                                    onClick={() => handleModalOpen(marker.id)}
-                                />
 
-                                {modalStates[marker.id] && (
-                                    <div>
-                                        <BasicModal
-                                            label={marker.label}
-                                            direction={marker.address}
-                                            onClose={() => handleModalClose(marker.id)}
-                                        >
-                                            <div>
-                                                <IconButton
-                                                    aria-label="Close"
-                                                    onClick={() => handleModalClose(marker.id)}
-                                                    sx={{
-                                                        position: 'absolute',
-                                                        top: '10px',
-                                                        right: '10px',
-                                                        zIndex: 9999999
-                                                    }}
-                                                >
-                                                    <CloseIcon />
-                                                </IconButton>
-                                                {/* Contenido del modal */}
-                                            </div>
-                                        </BasicModal>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </GoogleMap>
-                </LoadScript>
+                {isLoaded && <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={currentLocation || center}
+                    zoom={6}
+                    options={mapOptions}
+                >
+                    {markersWithId.map(marker => (
+                        <div key={marker.id}>
+                            <MarkerF
+                                position={marker}
+                                icon={customMarkerIcon.src}
+                                onClick={() => handleModalOpen(marker.id)}
+                            />
+
+                            {modalStates[marker.id] && (
+                                <div>
+                                    <BasicModal
+                                        label={marker.label}
+                                        direction={marker.address}
+                                        onClose={() => handleModalClose(marker.id)}
+                                    >
+                                        <div>
+                                            <IconButton
+                                                aria-label="Close"
+                                                onClick={() => handleModalClose(marker.id)}
+                                                sx={{
+                                                    position: 'absolute',
+                                                    top: '10px',
+                                                    right: '10px',
+                                                    zIndex: 9999999
+                                                }}
+                                            >
+                                                <CloseIcon />
+                                            </IconButton>
+                                            {/* Contenido del modal */}
+                                        </div>
+                                    </BasicModal>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </GoogleMap>
+                }
                 <SimpleBottomNavigation />
             </MainContainer>
         </>
