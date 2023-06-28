@@ -17,10 +17,7 @@ export const options = {
     zoomControl: true,
     fullscreenControl: false,
     streetViewControl: false,
-
-
 }
-
 
 export const MainContainer = styled.div`
     display: flex;

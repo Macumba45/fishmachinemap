@@ -73,24 +73,29 @@ const BasicModal: FC<Props> = ({
                             position: 'absolute',
                             top: '10px',
                             right: '10px',
-                            zIndex: 9999999
+                            zIndex: 9999999,
                         }}
                     >
                         <CloseIcon />
                     </IconButton>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                    >
                         {label}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {direction}
                     </Typography>
-                    {children} {/* Renderiza el contenido pasado como children */}
+                    {children}{' '}
+                    {/* Renderiza el contenido pasado como children */}
                     <ButtonContainer>
                         <Button
                             variant="contained"
                             onClick={() => openMap(direction)}
                         >
-              Ir a Cebos Vivos
+                            Ir a Cebos Vivos
                         </Button>
                     </ButtonContainer>
                 </Box>
