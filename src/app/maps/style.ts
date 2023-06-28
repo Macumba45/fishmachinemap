@@ -22,7 +22,6 @@ export const options = {
 }
 
 
-
 export const MainContainer = styled.div`
     display: flex;
     justify-content: center;

@@ -286,4 +286,3 @@ export const markersWithId = markers.map((marker, index) => ({
     id: index + 1,
 }))
 
-console.log(markersWithId)
