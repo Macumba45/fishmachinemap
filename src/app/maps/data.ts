@@ -285,4 +285,3 @@ export const markersWithId = markers.map((marker, index) => ({
     ...marker,
     id: index + 1,
 }))
-
