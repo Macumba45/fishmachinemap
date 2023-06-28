@@ -1,7 +1,7 @@
+import StyledComponentsRegistry from './lib/registry'
 import './reset.css'
 import './fontWeb.css'
-import './globals.css'
-
+import StyledTheme from './style/styledTheme'
 
 export const metadata = {
     title: 'Create Next App',
@@ -14,8 +14,12 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
-            <body >{children}</body>
+        <html suppressHydrationWarning lang="es">
+            <body>
+                <StyledComponentsRegistry>
+                    <StyledTheme>{children}</StyledTheme>
+                </StyledComponentsRegistry>
+            </body>
         </html>
     )
 }
