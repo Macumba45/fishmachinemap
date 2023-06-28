@@ -26,7 +26,7 @@ function loadGoogleMapsAPI() {
 const GoogleMapComp: FC = () => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: 'AIzaSyDw2bVFpPABnpSh7xogUBucTML69T4U9rY',
+        googleMapsApiKey: process.env.API_KEY || ''
     })
 
     type ModalStates = { [key: number]: boolean }
