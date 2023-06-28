@@ -13,7 +13,7 @@ export const center = {
 }
 
 export const options = {
-    disableDefaultUI: false,
+    disableDefaultUI: true,
     zoomControl: true,
     fullscreenControl: false,
     streetViewControl: false,
@@ -45,4 +45,10 @@ export const TitleHeader = styled.h1`
     @media screen and (max-width: 600px) {
         font-size: 1.5rem;
     }
+`
+
+export const ContainerFilter = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
