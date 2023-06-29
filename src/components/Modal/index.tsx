@@ -3,8 +3,16 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { ButtonContainer, MainContainer } from './style'
 import { FC, useEffect, useState } from 'react'
-import { Button, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
+import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
+import NavigationIcon from '@mui/icons-material/Navigation'
+
+export const openMap = (address: any) => {
+    const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
+    const encodedAddress = encodeURIComponent(address)
+    window.open(baseUrl + encodedAddress, '_blank')
+}
 
 interface Props {
     label?: string
@@ -49,12 +57,7 @@ const BasicModal: FC<Props> = ({
         bgcolor: 'background.paper',
         boderShadow: '0 10px 100px #000',
         p: 4,
-    }
-
-    const openMap = (address: any) => {
-        const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
-        const encodedAddress = encodeURIComponent(address)
-        window.open(baseUrl + encodedAddress, '_blank')
+        borderRadius: '10px',
     }
 
     return (
@@ -90,12 +93,14 @@ const BasicModal: FC<Props> = ({
                     </Typography>
                     {children}
                     <ButtonContainer>
-                        <Button
+                        <ButtonComp
+                            icon={<NavigationIcon fontSize="medium" />}
+                            color="white"
+                            title="Abrir en Google Maps"
+                            bgColor="#135a5a"
                             variant="contained"
                             onClick={() => openMap(direction)}
-                        >
-                            Ir a Cebos Vivos
-                        </Button>
+                        ></ButtonComp>
                     </ButtonContainer>
                 </Box>
             </Modal>

@@ -3,9 +3,7 @@ interface Marker {
     lng: number
     label: string
     address: string
-
 }
-
 
 export const markers: Marker[] = [
     {
@@ -293,7 +291,7 @@ export const markers: Marker[] = [
 export const markersWithId = markers.map((marker, index) => ({
     ...marker,
     id: index + 1,
-    shop: "worm"
+    shop: 'worm',
 }))
 
 export const markersShop: Marker[] = [
@@ -1511,7 +1509,6 @@ export const markersShop: Marker[] = [
     },
 ]
 
-
 export const markersShopId = markersShop.map((marker, index) => ({
     ...marker,
     id: index + 100,
@@ -1519,7 +1516,3 @@ export const markersShopId = markersShop.map((marker, index) => ({
 }))
 
 export const totalArray = markersShopId.concat(markersWithId)
-
-
-
-
