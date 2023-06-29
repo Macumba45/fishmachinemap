@@ -15,6 +15,10 @@ export default function RootLayout({
 }) {
     return (
         <html suppressHydrationWarning lang="es">
+            <head>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw2bVFpPABnpSh7xogUBucTML69T4U9rY&libraries=geometry"></script>
+            </head>
+
             <body>
                 <StyledComponentsRegistry>
                     <StyledTheme>{children}</StyledTheme>

@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import RestoreIcon from '@mui/icons-material/Restore'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PhishingIcon from '@mui/icons-material/Phishing'
 import Link from 'next/link'
@@ -21,9 +21,9 @@ export default function SimpleBottomNavigation() {
             return 0 // Valor predeterminado en caso de que la ruta no coincida con ninguna de las opciones anteriores
         }
     }
-
+    // Añadir el estado local `value` y la función `setValue`
     const [value, setValue] = useState(getInitialValue(location.pathname))
-
+    // Añadir el efecto para actualizar el valor del estado `value` cuando cambie la ruta
     useEffect(() => {
         // Obtiene la ruta actual y establece el valor del estado `value` en función de esa ruta
         if (location.pathname === '/maps') {
@@ -34,6 +34,8 @@ export default function SimpleBottomNavigation() {
             setValue(2)
         }
     }, [location.pathname])
+
+    // Añadir el componente BottomNavigation
 
     return (
         <Box sx={{ width: '100%', position: 'fixed', bottom: '0' }}>
@@ -58,7 +60,7 @@ export default function SimpleBottomNavigation() {
                 />
                 <BottomNavigationAction
                     label="Perfil"
-                    icon={<RestoreIcon />}
+                    icon={<AccountCircleIcon />}
                     component={Link}
                     href="/perfil"
                 />

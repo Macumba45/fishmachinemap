@@ -1,169 +1,164 @@
-'use client'
+"use client";
 
-import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
-import { FC, memo, useEffect, useState } from 'react'
-import CircularIndeterminate from '@/components/Loader'
-import SimpleBottomNavigation from '@/components/BottomNav'
+import { useJsApiLoader } from '@react-google-maps/api';
+import { FC, memo, useEffect, useRef, useState } from 'react';
+import SimpleBottomNavigation from '@/components/BottomNav';
+import { MainContainer, center } from './style';
+import FilterComponent from '@/components/FilterComponet';
+import { totalArray } from './data';
+import { MarkerClusterer } from '@googlemaps/markerclusterer';
+import BasicModal from '@/components/Modal';
+import CircularIndeterminate from '@/components/Loader';
 import customMarkerIcon from '../../assets/icons8-worms-24.png'
 import customMarkerIconShop from '../../assets/icons8-shop-50.png'
-import BasicModal from '@/components/Modal'
-import { totalArray } from './data'
-import { IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import { MainContainer, center, containerStyle, options } from './style'
-import FilterComponent from '@/components/FilterShop'
 
-
-let isGoogleMapsLoaded = false
-
-function loadGoogleMapsAPI() {
-    if (!isGoogleMapsLoaded) {
-        // Cargar la API de Google Maps aquí
-        isGoogleMapsLoaded = true
-    }
-}
+let markerClusterer: MarkerClusterer | null = null;
 
 const GoogleMapComp: FC = () => {
+
+    enum MarkerType {
+        SHOP = 'shop',
+        WORM = 'worm',
+        ALL = 'all'
+    }
+    let map: google.maps.Map;
+    console.log(markerClusterer)
     const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: process.env.API_KEY || ''
-    })
+        googleMapsApiKey: process.env.API_KEY || '',
+    });
+    const [loading, setLoading] = useState<boolean>(true);
+    const [currentFilter, setCurrentFilter] = useState(MarkerType.ALL);
+    const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
+    console.log(markers)
+    const [selectedMarker, setSelectedMarker] = useState<
+        {
+            id: number;
+            shop: string;
+            lat: number;
+            lng: number;
+            label: string;
+            address: string;
+        } | null
+    >(null);
 
-    type ModalStates = { [key: number]: boolean }
-    const [currentLocation, setCurrentLocation] =
-        useState<google.maps.LatLngLiteral | null>(null)
-    const [loading, setLoading] = useState<boolean>(true)
-    const [modalStates, setModalStates] = useState<ModalStates>({})
-    const [currentFilter, setCurrentFilter] = useState('all');
-    const [filteredMarkers, setFilteredMarkers] = useState(totalArray);
+    const createMarker = (markerData: any) => {
+        const icon =
+            markerData.shop === 'shop' ? customMarkerIconShop.src : customMarkerIcon.src
+        const marker = new google.maps.Marker({
+            position: { lat: markerData.lat, lng: markerData.lng },
+            clickable: true,
+            cursor: 'pointer',
+            opacity: 1,
+            icon: {
+                url: icon,
+                scaledSize: new google.maps.Size(32, 32),
+            },
+            map,
+        });
+
+        marker.addListener('click', () => {
+            handleMarkerClick(markerData);
+        });
+
+        return marker;
+    };
 
 
-    const TOP = 3
 
-    const mapOptions = {
-        ...options,
-        zoomControlOptions: {
-            position: TOP,
-        },
-    }
+    const filterMarkers = (filter: MarkerType) => {
+        let filteredMarkerInstances: google.maps.Marker[] = [];
 
-    const handleModalOpen = (id: number) => {
-        setModalStates(prevModalStates => ({
-            ...prevModalStates,
-            [id]: !prevModalStates[id], // Invierte el estado actual del modal
-        }))
-    }
+        if (filter === MarkerType.ALL) {
+            filteredMarkerInstances = totalArray.map(createMarker);
+        } else if (filter === MarkerType.SHOP) {
+            filteredMarkerInstances = totalArray
+                .filter((marker) => marker.shop === 'shop')
+                .map(createMarker);
+        } else if (filter === MarkerType.WORM) {
+            filteredMarkerInstances = totalArray
+                .filter((marker) => marker.shop !== 'shop')
+                .map(createMarker);
+        }
 
-    const handleModalClose = (id: number) => {
-        setModalStates(prevModalStates => ({
-            ...prevModalStates,
-            [id]: false,
-        }))
-    }
+        setMarkers(filteredMarkerInstances);
+    };
+
+
+    const handleFilterChange = (newFilter: MarkerType) => {
+        setCurrentFilter(newFilter);
+    };
+
+    const handleMarkerClick = (marker: any) => {
+        setSelectedMarker(marker);
+    };
+
+    const closeModal = () => {
+        setSelectedMarker(null);
+    };
+
+    useEffect(() => {
+        if (isLoaded) {
+            map = new window.google.maps.Map(
+                document.getElementById('map') as HTMLElement,
+                {
+                    center: center,
+                    zoom: 6,
+                    minZoom: 6,
+                    zoomControl: true,
+                    zoomControlOptions: {
+                        position: google.maps.ControlPosition.RIGHT_TOP,
+                    },
+                    disableDefaultUI: true,
+                    streetViewControl: false,
+                }
+            );
+
+            markerClusterer = new MarkerClusterer({ map, markers })
+            console.log(markerClusterer)
+
+        }
+        setLoading(false);
+    }, [isLoaded]);
 
     useEffect(() => {
         filterMarkers(currentFilter);
     }, [currentFilter]);
 
-    const filterMarkers = (filter: any) => {
-        if (filter === 'all') {
-            setFilteredMarkers(totalArray);
-        } else if (filter === 'shop') {
-            setFilteredMarkers(totalArray.filter((marker) => marker.shop === 'shop'));
-        } else if (filter === 'worm') {
-            setFilteredMarkers(totalArray.filter((marker) => marker.shop !== 'shop'));
-        }
-    };
-
-    const handleFilterChange = (newFilter: any) => {
-        setCurrentFilter(newFilter);
-    };
 
     useEffect(() => {
-        loadGoogleMapsAPI()
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords
-                    setCurrentLocation({ lat: latitude, lng: longitude })
-                    setLoading(false)
-                },
-                error => {
-                    console.error('Error getting current location:', error)
-                    setLoading(false)
-                }
-            )
-        } else {
-            console.error('Geolocation is not supported by this browser.')
-            setLoading(false)
+        if (markerClusterer) {
+            console.log(markerClusterer)
+            markerClusterer.clearMarkers();
+            markerClusterer.addMarkers(markers);
+            console.log(markers)
         }
-    }, [])
+    }, [markers]);
+
+
 
     if (loading) {
         return (
             <div>
                 <CircularIndeterminate />
             </div>
-        )
+        );
     }
 
     return (
-        <>
-            <MainContainer>
-                {isLoaded && (
-                    <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={currentLocation || center}
-                        zoom={6}
-                        options={mapOptions}
-                    >
-                        {filteredMarkers.map(marker => (
-                            <div key={marker.id}>
-                                <MarkerF
-                                    position={marker}
-                                    icon={
-                                        marker.shop === 'shop'
-                                            ? customMarkerIconShop.src
-                                            : customMarkerIcon.src
-                                    }
-                                    onClick={() => handleModalOpen(marker.id)}
-                                />
-
-                                {modalStates[marker.id] && (
-                                    <div>
-                                        <BasicModal
-                                            label={marker.label}
-                                            direction={marker.address}
-                                            onClose={() => handleModalClose(marker.id)}
-                                        >
-                                            <div>
-                                                <IconButton
-                                                    aria-label="Close"
-                                                    onClick={() => handleModalClose(marker.id)}
-                                                    sx={{
-                                                        position: 'absolute',
-                                                        top: '10px',
-                                                        right: '10px',
-                                                        zIndex: 9999999,
-                                                    }}
-                                                >
-                                                    <CloseIcon />
-                                                </IconButton>
-                                            </div>
-                                        </BasicModal>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </GoogleMap>
-                )}
-
-                <FilterComponent onChange={handleFilterChange} />
-                <SimpleBottomNavigation />
-            </MainContainer>
-        </>
+        <MainContainer>
+            <div style={{ width: '100%', height: '100vh' }} id="map" />
+            {selectedMarker && (
+                <BasicModal
+                    key={selectedMarker.id}
+                    label={selectedMarker.label}
+                    direction={selectedMarker.address} isOpenProp={true} onClose={closeModal}>
+                </BasicModal>
+            )}
+            <FilterComponent onChange={handleFilterChange} />
+            <SimpleBottomNavigation />
+        </MainContainer>
     );
-}
+};
 
-export default memo(GoogleMapComp)
+export default memo(GoogleMapComp);
+
