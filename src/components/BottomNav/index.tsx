@@ -33,7 +33,7 @@ export default function SimpleBottomNavigation() {
         } else if (location.pathname === '/perfil') {
             setValue(2)
         }
-    }, [location.pathname])
+    }, [])
 
     // Añadir el componente BottomNavigation
 
