@@ -16,7 +16,6 @@ export const openMap = (address: string) => {
 }
 
 
-
 interface Props {
     label?: string
     direction?: string
@@ -39,7 +38,6 @@ const BasicModal: FC<Props> = ({
         { src: 'https://images.ecestaticos.com/QgNpC-WUOuhX5IBWxi74bU_bgAE=/0x0:1254x836/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F9a6%2F1ff%2F5eb%2F9a61ff5eb796f5dc603dc05f5764286c.jpg' },
         { src: 'https://offloadmedia.feverup.com/sevillasecreta.co/wp-content/uploads/2020/06/19141341/shutterstock_297099269-1.jpg' },
     ];
-
 
 
     const [isOpen, setIsOpen] = useState(false)

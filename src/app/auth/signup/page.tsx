@@ -1,49 +1,41 @@
-'use client'
+import { FC } from 'react';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { FC } from 'react'
-import * as React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
-import Link from '@mui/material/Link'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-
-function Copyright(props: any) {
+function Copyright() {
     return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            {...props as {}}
-        >
+        <Typography variant="body2" color="text.secondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
-                Your Website
+        Your Website
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
-    )
+    );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme()
+const defaultTheme = createTheme();
 
 const SignUp: FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const data = new FormData(event.currentTarget)
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
         console.log({
             email: data.get('email'),
             password: data.get('password'),
-        })
-    }
+        });
+    };
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -61,7 +53,7 @@ const SignUp: FC = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+            Sign up
                     </Typography>
                     <Box
                         component="form"
@@ -119,21 +111,23 @@ const SignUp: FC = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+              Sign Up
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    Already have an account? Sign in
+                  Already have an account? Sign in
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ marginTop: 5, marginBottom: 2 }} />
+                <Box sx={{ marginTop: 5, marginBottom: 2 }}>
+                    <Copyright />
+                </Box>
             </Container>
         </ThemeProvider>
-    )
-}
+    );
+};
 
-export default SignUp
+export default SignUp;
