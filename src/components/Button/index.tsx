@@ -14,7 +14,6 @@ const ButtonComp: FC<Props> = ({
     variant,
     color,
     fontFamily,
-    initial,
     children,
     onClick,
 }) => {
