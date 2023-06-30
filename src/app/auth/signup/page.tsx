@@ -1,3 +1,5 @@
+'use client'
+
 import { FC } from 'react'
 import * as React from 'react'
 import Avatar from '@mui/material/Avatar'
@@ -12,30 +14,19 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    )
-}
 
+// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const data = new FormData(event.currentTarget)
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
         console.log({
             email: data.get('email'),
             password: data.get('password'),
-        })
-    }
+        });
+    };
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -70,7 +61,7 @@ const SignUp: FC = () => {
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
-
+                                    autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -121,9 +112,6 @@ const SignUp: FC = () => {
                             </Grid>
                         </Grid>
                     </Box>
-                </Box>
-                <Box sx={{ marginTop: 5, marginBottom: 2 }}>
-                    <Copyright />
                 </Box>
             </Container>
         </ThemeProvider>
