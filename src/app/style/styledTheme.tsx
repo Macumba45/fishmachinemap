@@ -1,7 +1,7 @@
 'use client'
 import { ThemeProvider } from 'styled-components'
 import theme from './theme'
-import { FC } from 'react'
+import React, { FC } from 'react'
 
 interface Props {
     children: React.ReactNode

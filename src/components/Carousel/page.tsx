@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import Image from 'next/image'
 
 interface Picture {
     src: string
@@ -46,7 +47,7 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
                 {pictures.map((picture, index) => {
                     return (
                         <div key={index} style={{ borderRadius: '10px' }}>
-                            <img
+                            <Image
                                 style={{
                                     width: '100%',
                                     height: '250px',

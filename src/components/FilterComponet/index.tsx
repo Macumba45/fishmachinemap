@@ -1,4 +1,6 @@
 // FilterComponent
+
+'use client'
 import React, { FC, useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
@@ -11,7 +13,7 @@ enum MarkerType {
 }
 
 type FilterComponentProps = {
-    onChange: (newFilter: MarkerType) => void
+    onChange: (newFilter: any) => void
 }
 
 const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
