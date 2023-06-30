@@ -1,32 +1,53 @@
 'use client'
-
-import { FC } from 'react'
+import { FC} from 'react'
 import ButtonComp from '../Button'
-import { ButtonContainer, MainContainer, SpanBold, SubtitleContainer, SubtitleHeader, TitleContainer, TitleHeader, VideoContainer } from './style'
-import { Props } from './types'
+import {
+    ButtonContainer,
+    MainContainer,
+    SpanBold,
+    SubtitleContainer,
+    SubtitleHeader,
+    TitleContainer,
+    TitleHeader,
+    VideoContainer,
+} from './style'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
+import { useScrollBlock } from '@/hooks'
+
 const HeaderComp: FC = () => {
+    const [blockScroll] = useScrollBlock()
+
+    blockScroll()
+
     return (
         <MainContainer>
             <TitleContainer>
-                <TitleHeader>
-                    Bienvenido a FishApp
-                </TitleHeader>
+                <TitleHeader>Bienvenido a FishApp</TitleHeader>
             </TitleContainer>
             <SubtitleContainer>
                 <SubtitleHeader>
-                    Una web de pescadores,<br /> <SpanBold>creada para pescadores</SpanBold>
+                    Una web de pescadores,
+                    <br /> <SpanBold>creada para pescadores</SpanBold>
                 </SubtitleHeader>
             </SubtitleContainer>
             <ButtonContainer>
-                <Link style={{ textDecoration: 'none' }} href='/auth/login'>
-                    <ButtonComp color='#00a5f2' bgColor='white' variant='contained' title='Iniciar sesión' />
+                <Link style={{ textDecoration: 'none' }} href="/auth/login">
+                    <ButtonComp
+                        color="#00a5f2"
+                        bgColor="white"
+                        variant="contained"
+                        title="Iniciar sesión"
+                    />
                 </Link>
-                <Link style={{ textDecoration: 'none' }} href='/auth/signup'>
-                    <ButtonComp color='#00a5f2' bgColor='white' variant='contained' title='Registrarse' />
+                <Link style={{ textDecoration: 'none' }} href="/auth/signup">
+                    <ButtonComp
+                        color="#00a5f2"
+                        bgColor="white"
+                        variant="contained"
+                        title="Registrarse"
+                    />
                 </Link>
-
             </ButtonContainer>
             <VideoContainer>
                 <VideoPlayer url={'/video.mp4'} />

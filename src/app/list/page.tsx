@@ -6,7 +6,7 @@ import SimpleBottomNavigation from '@/components/BottomNav'
 import CardList from '@/components/CardList'
 import { shopsListID } from './data'
 
-const GoogleMapComp: FC = () => {
+const List: FC = () => {
     return (
         <>
             <MainContainer>
@@ -20,9 +20,10 @@ const GoogleMapComp: FC = () => {
                         city,
                         address,
                     }) => (
-                        <CardContainer>
+                        <CardContainer
+                            key={id}
+                        >
                             <CardList
-                                key={id}
                                 id={id}
                                 title={title}
                                 description={description}
@@ -41,4 +42,4 @@ const GoogleMapComp: FC = () => {
     )
 }
 
-export default memo(GoogleMapComp)
+export default memo(List)

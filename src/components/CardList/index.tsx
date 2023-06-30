@@ -31,8 +31,22 @@ const MediaCard: FC<Props> = ({
         window.open(baseUrl + encodedAddress, '_blank')
     }
 
+    let widthCard
+    switch (window.innerWidth <= 320) {
+        case true:
+            widthCard = 280
+            break
+        case false:
+            widthCard = 345
+            break;
+
+
+    }
+
+    console.log(widthCard)
+
     return (
-        <Card key={id} sx={{ width: 345 }}>
+        <Card key={id} sx={{ width: widthCard }}>
             <CardMedia sx={{ height: 140 }} image={image} title={titleImage} />
             <CardContent>
                 <Typography

@@ -4,7 +4,7 @@ import { FC, memo } from 'react'
 import { MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 
-const GoogleMapComp: FC = () => {
+const Profile: FC = () => {
     return (
         <>
             <MainContainer>
@@ -14,4 +14,4 @@ const GoogleMapComp: FC = () => {
     )
 }
 
-export default memo(GoogleMapComp)
+export default memo(Profile)
