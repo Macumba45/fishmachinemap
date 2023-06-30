@@ -12,26 +12,21 @@ export const MainContainer = styled.div`
     z-index: 999;
 `
 
-export const TypographyContainer = styled.div`
-
-`
+export const TypographyContainer = styled.div``
 
 export const ImageContainer = styled.div`
-
-width: 100%;
-height: 100%;
-margin-top: 2rem;
-object-fit: cover;
-background-size: cover;
-border-radius: 100px;
-
+    width: 100%;
+    height: 100%;
+    margin-top: 2rem;
+    object-fit: cover;
+    background-size: cover;
+    border-radius: 100px;
 `
 export const ImageModal = styled.img`
-width: 100%;
-object-fit: cover;
-background-size: cover;
-border-radius: 10px;
-
+    width: 100%;
+    object-fit: cover;
+    background-size: cover;
+    border-radius: 10px;
 `
 
 export const ButtonContainer = styled.div`

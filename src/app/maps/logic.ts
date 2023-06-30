@@ -6,7 +6,6 @@ import customMarkerIconPlace from '../../assets/destino.png'
 import { useState } from 'react'
 import { totalArray } from './data'
 
-
 export const useLogicMaps = () => {
     enum MarkerType {
         SHOP = 'shop',
@@ -14,7 +13,6 @@ export const useLogicMaps = () => {
         ALL = 'all',
         PLACE = 'place',
     }
-
 
     // Define los estados del componente.
     const [currentFilter, setCurrentFilter] = useState(MarkerType.ALL)

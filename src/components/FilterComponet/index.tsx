@@ -11,13 +11,10 @@ enum MarkerType {
 }
 
 type FilterComponentProps = {
-
-    onChange: (newFilter: MarkerType) => void;
-};
+    onChange: (newFilter: MarkerType) => void
+}
 
 const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
-
-
     // Añadir el estado local para el filtro
     const [filter, setFilter] = useState('all')
 
@@ -36,7 +33,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
             style={{
                 borderRadius: '10px',
                 fontFamily: 'Roboto',
-
             }}
         >
             <ToggleButtonGroup
@@ -46,8 +42,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                 sx={{
                     backgroundColor: 'grey',
                     borderRadius: '10px',
-
-
                 }}
             >
                 <ToggleButton
@@ -58,8 +52,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'all' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
-
-
                     }}
                     value="all"
                 >
@@ -73,7 +65,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'place' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
-
                     }}
                     value="place"
                 >
@@ -87,7 +78,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'shop' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
-
                     }}
                     value="shop"
                 >
@@ -101,7 +91,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'worm' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
-
                     }}
                     value="worm"
                 >

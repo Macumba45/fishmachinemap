@@ -38,9 +38,7 @@ const MediaCard: FC<Props> = ({
             break
         case false:
             widthCard = 345
-            break;
-
-
+            break
     }
 
     console.log(widthCard)
