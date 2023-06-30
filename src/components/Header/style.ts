@@ -52,7 +52,6 @@ export const TitleContainer = styled.div`
 
     @media screen and (max-width: 600px) {
         margin-top: 12rem;
-
     }
 `
 export const TitleHeader = styled.h1`
@@ -66,7 +65,7 @@ export const TitleHeader = styled.h1`
 `
 
 export const SubtitleContainer = styled.div`
- display: flex;
+    display: flex;
     position: absolute;
     justify-content: center;
     width: 100%;
@@ -74,7 +73,6 @@ export const SubtitleContainer = styled.div`
     z-index: 999;
     @media screen and (max-width: 600px) {
         margin-top: 18rem;
-
     }
 `
 export const SubtitleHeader = styled.h2`
@@ -83,11 +81,10 @@ export const SubtitleHeader = styled.h2`
     font-size: 2rem;
     text-align: center;
     line-height: 3rem;
-    font-weight: 200;   
+    font-weight: 200;
     @media screen and (max-width: 600px) {
         font-size: 1.5rem;
     }
-
 `
 
 export const SpanBold = styled.span`
@@ -97,32 +94,24 @@ export const SpanBold = styled.span`
     line-height: 5rem;
     font-size: 2.5rem;
 
-
     @media screen and (max-width: 600px) {
         font-size: 1.5rem;
         font-weight: 400;
         line-height: 0rem;
-
     }
 `
 
 export const ButtonContainer = styled.div`
-
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
     position: absolute;
     margin: 0 auto;
     z-index: 999999;
     margin-top: 30rem;
     @media screen and (max-width: 600px) {
-      flex-direction: column;
-      margin-top: 28rem;
-
-
+        flex-direction: column;
+        margin-top: 28rem;
     }
 `
-
-
-

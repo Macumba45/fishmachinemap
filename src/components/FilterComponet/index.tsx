@@ -1,9 +1,23 @@
 // FilterComponent
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-const FilterComponent = ({ onChange }: any) => {
+enum MarkerType {
+    SHOP = 'shop',
+    WORM = 'worm',
+    ALL = 'all',
+    PLACE = 'place',
+}
+
+type FilterComponentProps = {
+    
+    onChange: (newFilter: MarkerType) => void;
+};
+
+const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
+
+   
     // Añadir el estado local para el filtro
     const [filter, setFilter] = useState('all')
 
@@ -11,7 +25,7 @@ const FilterComponent = ({ onChange }: any) => {
 
     const handleFilterChange = (
         event: React.MouseEvent<HTMLElement>,
-        newFilter: string
+        newFilter: MarkerType
     ) => {
         setFilter(newFilter)
         onChange(newFilter) // Invocar la función onChange para propagar el cambio al componente padre
