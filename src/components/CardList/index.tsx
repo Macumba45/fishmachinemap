@@ -1,11 +1,20 @@
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import { FC } from 'react'
-import { Props } from './types'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { FC } from 'react';
+
+interface Props {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    titleImage: string;
+    city: string;
+    address: string | undefined
+}
 
 const MediaCard: FC<Props> = ({
     id,
@@ -16,11 +25,11 @@ const MediaCard: FC<Props> = ({
     city,
     address,
 }) => {
-    const openMap = (address: any) => {
-        const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
-        const encodedAddress = encodeURIComponent(address)
-        window.open(baseUrl + encodedAddress, '_blank')
-    }
+    const openMap = (address: string) => {
+        const baseUrl = 'https://www.google.com/maps/search/?api=1&query=';
+        const encodedAddress = encodeURIComponent(address);
+        window.open(baseUrl + encodedAddress, '_blank');
+    };
 
     return (
         <Card key={id} sx={{ width: 345 }}>
@@ -41,8 +50,8 @@ const MediaCard: FC<Props> = ({
                     {city}, {address}
                 </Typography>
                 {/* <Typography sx={{ fontSize: '15px', fontWeight: '500' }} gutterBottom component="div">
-                    {address}
-                </Typography> */}
+          {address}
+        </Typography> */}
                 <Typography variant="body2" color="text.terciary">
                     {description}
                 </Typography>
@@ -58,7 +67,7 @@ const MediaCard: FC<Props> = ({
                 {/* <Button size="small">Learn More</Button> */}
             </CardActions>
         </Card>
-    )
-}
+    );
+};
 
-export default MediaCard
+export default MediaCard;

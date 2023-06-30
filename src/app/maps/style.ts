@@ -1,15 +1,9 @@
 import styled from 'styled-components'
-
 export const containerStyle = {
     width: '100%',
     height: '100vh',
     // marginTop: '5rem',
     // border: '2px solid #9B786F',
-}
-
-export const center = {
-    lat: 40.463667 || undefined,
-    lng: -3.74922 || undefined,
 }
 
 export const options = {
@@ -23,9 +17,15 @@ export const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     background-size: cover;
+`
+
+export const MapContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100vh;
 `
 
 export const TitleContainer = styled.div`
@@ -51,4 +51,15 @@ export const ContainerFilter = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`
+
+export const FilterContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px; /* ajusta la altura según tus necesidades */
 `

@@ -15,7 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
-const Signup: FC = () => {
+const Login: FC = () => {
     const router = useRouter()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -90,7 +90,7 @@ const Signup: FC = () => {
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    {'Don\'t have an account? Sign Up'}
                                 </Link>
                             </Grid>
                         </Grid>
@@ -101,4 +101,4 @@ const Signup: FC = () => {
     )
 }
 
-export default Signup
+export default Login
