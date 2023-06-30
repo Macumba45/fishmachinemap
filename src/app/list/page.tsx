@@ -20,9 +20,7 @@ const List: FC = () => {
                         city,
                         address,
                     }) => (
-                        <CardContainer
-                            key={id}
-                        >
+                        <CardContainer key={id}>
                             <CardList
                                 id={id}
                                 title={title}
