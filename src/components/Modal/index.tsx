@@ -1,12 +1,12 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { Backdrop, Divider, IconButton } from '@mui/material'
+import { Divider, IconButton } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
 import NavigationIcon from '@mui/icons-material/Navigation'
-import { ButtonContainer, ImageContainer, ImageModal, TypographyContainer } from './style'
+import { ButtonContainer, ImageContainer, TypographyContainer } from './style'
 import SimpleSlider from '../Carousel/page'
 
 export const openMap = (address: string) => {
