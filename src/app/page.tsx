@@ -1,10 +1,10 @@
-import VideoPlayer from '@/components/VideoPlayer';
+import HeaderComp from '@/components/Header'
+import VideoPlayer from '@/components/VideoPlayer'
 
 export default function Home() {
     return (
         <div>
-            <VideoPlayer url={"/video.mp4"} />
-
+            <HeaderComp />
         </div>
     )
 }

@@ -4,13 +4,10 @@ export type Props = {
 }
 
 export type MarkerData = {
-
-
     id: number
     shop: string
     lat: number
     lng: number
     label: string
     address: string
-
 }

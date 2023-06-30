@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-
 const FilterComponent = ({ onChange }: any) => {
     // Añadir el estado local para el filtro
     const [filter, setFilter] = useState('all')
