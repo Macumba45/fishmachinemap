@@ -1,7 +1,10 @@
+import VideoPlayer from '@/components/VideoPlayer';
+
 export default function Home() {
     return (
-        <>
-            <div>HOME</div>
-        </>
+        <div>
+            <VideoPlayer url={"/video.mp4"} />
+
+        </div>
     )
 }

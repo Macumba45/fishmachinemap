@@ -1515,4 +1515,136 @@ export const markersShopId = markersShop.map((marker, index) => ({
     shop: 'shop',
 }))
 
-export const totalArray = markersShopId.concat(markersWithId)
+const markersPlaces: Marker[] = [
+    {
+        lat: 35.89084,
+        lng: -5.307905,
+        label: 'Algeciras',
+        address: 'Algeciras, España',
+    },
+    {
+        lat: 36.368605,
+        lng: -6.177141,
+        label: 'Tarifa',
+        address: 'Tarifa, Cádiz, España',
+    },
+    {
+        lat: 36.73556,
+        lng: -4.386101,
+        label: 'Playa de la Malagueta',
+        address: 'Málaga, España',
+    },
+    {
+        lat: 37.386052,
+        lng: -6.007894,
+        label: 'Playa de la Victoria',
+        address: 'Cádiz, España',
+    },
+    {
+        lat: 39.474194,
+        lng: 0.341225,
+        label: 'Playa de la Malvarrosa',
+        address: 'Valencia, España',
+    },
+    {
+        lat: 41.381563,
+        lng: 2.197505,
+        label: 'Barceloneta',
+        address: 'Barcelona, España',
+    },
+    {
+        lat: 37.98105,
+        lng: -0.678422,
+        label: 'Playa de la Zenia',
+        address: 'Orihuela Costa, Alicante, España',
+    },
+    {
+        lat: 36.498023,
+        lng: -4.884346,
+        label: 'Playa de Marbella',
+        address: 'Marbella, Málaga, España',
+    },
+    {
+        lat: 28.389435,
+        lng: -16.556908,
+        label: 'Playa de las Teresitas',
+        address: 'Santa Cruz de Tenerife, España',
+    },
+    {
+        lat: 43.55053,
+        lng: -5.678603,
+        label: 'Playa de San Lorenzo',
+        address: 'Gijón, Asturias, España',
+    },
+    {
+        lat: 39.552594,
+        lng: 2.676045,
+        label: 'Playa de Palma',
+        address: 'Palma de Mallorca, España',
+    },
+    {
+        lat: 37.180326,
+        lng: -7.44612,
+        label: 'Playa de Isla Canela',
+        address: 'Ayamonte, Huelva, España',
+    },
+    {
+        lat: 43.31283,
+        lng: -1.995192,
+        label: 'Playa de la Concha',
+        address: 'San Sebastián, España',
+    },
+    {
+        lat: 42.596374,
+        lng: 3.017972,
+        label: 'Playa de Cadaqués',
+        address: 'Cadaqués, Girona, España',
+    },
+    {
+        lat: 36.631127,
+        lng: -4.493447,
+        label: 'Playa de Fuengirola',
+        address: 'Fuengirola, Málaga, España',
+    },
+    {
+        lat: 37.24229,
+        lng: -3.927028,
+        label: 'Playa de Salobreña',
+        address: 'Salobreña, Granada, España',
+    },
+    {
+        lat: 28.03939,
+        lng: -16.731703,
+        label: 'Playa de Las Américas',
+        address: 'Arona, Santa Cruz de Tenerife, España',
+    },
+    {
+        lat: 41.333771,
+        lng: 2.745137,
+        label: 'Sitges',
+        address: 'Sitges, Barcelona, España',
+    },
+    {
+        lat: 43.471935,
+        lng: -3.79021,
+        label: 'Playa de Somo',
+        address: 'Ribamontán al Mar, Cantabria, España',
+    },
+    {
+        lat: 28.106482,
+        lng: -15.454792,
+        label: 'Playa de las Canteras',
+        address: 'Las Palmas de Gran Canaria, España',
+    },
+]
+
+export const markersPlacesId = markersPlaces.map((marker, index) => ({
+    ...marker,
+    id: index + 800,
+    shop: 'place',
+}))
+
+export const markers1 = markersShopId.concat(markersPlacesId)
+export const totalArray = markers1.concat(markersWithId)
+
+console.log(totalArray)

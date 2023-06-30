@@ -22,6 +22,7 @@ const GoogleMapComp: FC = () => {
                     }) => (
                         <CardContainer>
                             <CardList
+                                key={id}
                                 id={id}
                                 title={title}
                                 description={description}
