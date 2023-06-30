@@ -1,6 +1,6 @@
 const theme = {
     colors: {
-        primary: '#7B9BAA', // un tono de azul suave
+        primary: '#42c3ff', // un tono de azul suave
         primaryLight: '#E1E8F0', // un tono de gris claro
         secondary: '#9B786F', // un tono de marrón claro
         tertiary: '#FFFFFF',

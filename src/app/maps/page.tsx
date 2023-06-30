@@ -35,7 +35,6 @@ const GoogleMapComp: FC = () => {
     })
     let map: google.maps.Map
 
-
     // Define los estados del componente.
     const [loading, setLoading] = useState<boolean>(true)
     const [currentFilter, setCurrentFilter] = useState(MarkerType.ALL)

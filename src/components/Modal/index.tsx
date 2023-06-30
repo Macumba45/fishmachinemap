@@ -1,26 +1,26 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { IconButton } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
-import ButtonComp from '@/components/Button';
-import CloseIcon from '@mui/icons-material/Close';
-import NavigationIcon from '@mui/icons-material/Navigation';
-import { ButtonContainer } from './style';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import { IconButton } from '@mui/material'
+import { FC, useEffect, useState } from 'react'
+import ButtonComp from '@/components/Button'
+import CloseIcon from '@mui/icons-material/Close'
+import NavigationIcon from '@mui/icons-material/Navigation'
+import { ButtonContainer } from './style'
 
 export const openMap = (address: string) => {
-    const baseUrl = 'https://www.google.com/maps/search/?api=1&query=';
-    const encodedAddress = encodeURIComponent(address);
-    window.open(baseUrl + encodedAddress, '_blank');
-};
+    const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
+    const encodedAddress = encodeURIComponent(address)
+    window.open(baseUrl + encodedAddress, '_blank')
+}
 
 interface Props {
-    label?: string;
-    direction?: string;
-    onClose?: () => void;
-    isOpenProp?: boolean;
-    icon?: React.ReactNode;
-    children?: React.ReactNode;
+    label?: string
+    direction?: string
+    onClose?: () => void
+    isOpenProp?: boolean
+    icon?: React.ReactNode
+    children?: React.ReactNode
 }
 
 const BasicModal: FC<Props> = ({
@@ -30,22 +30,22 @@ const BasicModal: FC<Props> = ({
     isOpenProp,
     children,
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
-        setIsOpen(isOpenProp || true);
-    }, [isOpenProp]);
+        setIsOpen(isOpenProp || true)
+    }, [isOpenProp])
 
     const handleClose = () => {
-        setIsOpen(false);
-    };
+        setIsOpen(false)
+    }
 
-    let width = window.innerWidth;
+    let width = window.innerWidth
 
     if (width < 600) {
-        width = 300;
+        width = 300
     } else {
-        width = 400;
+        width = 400
     }
 
     const style = {
@@ -58,7 +58,7 @@ const BasicModal: FC<Props> = ({
         boderShadow: '0 10px 100px #000',
         p: 4,
         borderRadius: '10px',
-    };
+    }
 
     return (
         <Modal
@@ -99,7 +99,7 @@ const BasicModal: FC<Props> = ({
                 </ButtonContainer>
             </Box>
         </Modal>
-    );
-};
+    )
+}
 
-export default BasicModal;
+export default BasicModal

@@ -1,18 +1,18 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { FC } from 'react';
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { FC } from 'react'
 
 interface Props {
-    id: number;
-    title: string;
-    description: string;
-    image: string;
-    titleImage: string;
-    city: string;
+    id: number
+    title: string
+    description: string
+    image: string
+    titleImage: string
+    city: string
     address: string | undefined
 }
 
@@ -26,10 +26,10 @@ const MediaCard: FC<Props> = ({
     address,
 }) => {
     const openMap = (address: string) => {
-        const baseUrl = 'https://www.google.com/maps/search/?api=1&query=';
-        const encodedAddress = encodeURIComponent(address);
-        window.open(baseUrl + encodedAddress, '_blank');
-    };
+        const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
+        const encodedAddress = encodeURIComponent(address)
+        window.open(baseUrl + encodedAddress, '_blank')
+    }
 
     return (
         <Card key={id} sx={{ width: 345 }}>
@@ -67,7 +67,7 @@ const MediaCard: FC<Props> = ({
                 {/* <Button size="small">Learn More</Button> */}
             </CardActions>
         </Card>
-    );
-};
+    )
+}
 
-export default MediaCard;
+export default MediaCard
