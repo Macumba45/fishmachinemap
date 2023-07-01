@@ -128,7 +128,7 @@ const GoogleMapComp: FC = () => {
     useEffect(() => {
         const updatedStyle = styledMap ? stylesMaps : [];
         setStyle(updatedStyle);
-      }, [styledMap]);
+    }, [styledMap]);
 
     // Renderiza el componente.
     if (loading) {
@@ -140,6 +140,13 @@ const GoogleMapComp: FC = () => {
     }
 
     blockScroll()
+
+    let bottomPosition
+    if (window.innerWidth < 600) {
+        bottomPosition = '250px'
+    } else {
+        bottomPosition = '160px'
+    }
 
     return (
         <MainContainer>
@@ -162,7 +169,7 @@ const GoogleMapComp: FC = () => {
                     <SimpleBottomNavigation />
                     <ToastContainer autoClose={2000} limit={1} />
                     <CustomizedSwitches
-                        style={{ display: 'flex', marginLeft: '10px', top: '10px', position: 'absolute' }}
+                        style={{ display: 'flex', marginLeft: '0px', right: '0', bottom: bottomPosition, position: 'absolute' }}
                         onClick={() => selectMapStyle()}
 
                     />
