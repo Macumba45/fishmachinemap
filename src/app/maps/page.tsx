@@ -1,17 +1,19 @@
 'use client'
 
 import { useJsApiLoader } from '@react-google-maps/api'
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, use, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import BasicModal from '@/components/Modal'
 import CircularIndeterminate from '@/components/Loader'
 import { ToastContainer } from 'react-toastify'
-import { FilterContainer, MainContainer, MapContainer } from './style'
+import { FilterContainer, MainContainer, MapContainer, stylesMaps } from './style'
 import { useScrollBlock } from '@/hooks'
 import { useLogicMaps } from './logic'
 import 'react-toastify/dist/ReactToastify.css'
+import FloatHomeButton from '@/components/FloatHomeButton'
+import CustomizedSwitches from '@/components/MuiSwitch'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -26,14 +28,30 @@ const GoogleMapComp: FC = () => {
         notify,
         filterMarkers,
         handleFilterChange,
-        closeModal,
+        closeModal
     } = useLogicMaps()
+
+
 
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
     })
     let map: google.maps.Map
+
+    const [styledMap, setStyledMap] = useState(true)
+
+    const selectMapStyle = () => {
+        if (!styledMap) {
+            console.log('mapa cargado')
+            const updatedStyles = styledMap ? [] : stylesMaps
+            map.setOptions({ styles: updatedStyles })
+            setStyledMap(true)
+        } else if (styledMap) {
+            console.log('mapa no cargado')
+            setStyledMap(false)
+        }
+    }
 
     // Define los estados del componente.
     const [loading, setLoading] = useState<boolean>(true)
@@ -62,6 +80,10 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
+    const addMarkerDragable = (map: google.maps.Map) => {
+        console.log('addMarkerDragable')
+    }
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         if (isLoaded) {
@@ -76,6 +98,7 @@ const GoogleMapComp: FC = () => {
                     },
                     disableDefaultUI: true,
                     streetViewControl: false,
+                    styles: styledMap ? stylesMaps : [],
                 }
             )
 
@@ -83,7 +106,7 @@ const GoogleMapComp: FC = () => {
             markerClusterer = new MarkerClusterer({ map, markers })
         }
         setLoading(false)
-    }, [isLoaded, center])
+    }, [isLoaded, center, styledMap])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     useEffect(() => {
@@ -126,8 +149,14 @@ const GoogleMapComp: FC = () => {
                     <FilterContainer>
                         <FilterComponent onChange={handleFilterChange} />
                     </FilterContainer>
+                    <FloatHomeButton />
                     <SimpleBottomNavigation />
                     <ToastContainer autoClose={2000} limit={1} />
+                    <CustomizedSwitches
+                        style={{ display: 'flex', marginLeft: '10px', top: '10px', position: 'absolute' }}
+                        onClick={() => selectMapStyle()}
+
+                    />
                 </>
             )}
         </MainContainer>

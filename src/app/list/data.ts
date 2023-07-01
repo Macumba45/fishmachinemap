@@ -1,4 +1,3 @@
-
 export const shopsList = [
     {
         title: 'Tienda de Pesca Aventura',

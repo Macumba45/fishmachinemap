@@ -14,22 +14,21 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
 const Login: FC = () => {
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
         console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      
+            email: data.get('email'),
+            password: data.get('password'),
+        })
+
         // Utilizar Link para redirigir
         // El atributo href define la ruta de destino
         // y se puede personalizar según tus necesidades
         // Aquí se redirige al usuario a la página '/maps'
         // después de enviar el formulario
-        window.location.href = '/maps';
-      };
+        window.location.href = '/maps'
+    }
     return (
         <>
             <CssBaseline />
@@ -88,7 +87,7 @@ const Login: FC = () => {
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {'Don\'t have an account? Sign Up'}
+                                    {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>

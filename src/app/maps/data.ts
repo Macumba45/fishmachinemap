@@ -1646,4 +1646,3 @@ export const markersPlacesId = markersPlaces.map((marker, index) => ({
 
 export const markers1 = markersShopId.concat(markersPlacesId)
 export const totalArray = markers1.concat(markersWithId)
-

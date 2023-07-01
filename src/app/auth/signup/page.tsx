@@ -14,19 +14,18 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
         console.log({
             email: data.get('email'),
             password: data.get('password'),
-        });
-    };
+        })
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
