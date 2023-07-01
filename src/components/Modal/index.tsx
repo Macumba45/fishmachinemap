@@ -15,6 +15,10 @@ export const openMap = (address: string) => {
     window.open(baseUrl + encodedAddress)
 }
 
+interface Picture {
+    src: string;
+}
+
 interface Props {
     label?: string
     direction?: string
@@ -31,7 +35,7 @@ const BasicModal: FC<Props> = ({
     isOpenProp,
     children,
 }) => {
-    const pictures = [
+    const pictures: Picture[] = [
         {
             src: 'https://www.barcelo.com/content/dam/bpt/posts/2023/2/mejores%20playas%20del%20mundo%20tripadvisor%202023.jpg',
         },

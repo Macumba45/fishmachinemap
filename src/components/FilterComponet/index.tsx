@@ -13,7 +13,7 @@ enum MarkerType {
 }
 
 type FilterComponentProps = {
-    onChange: (newFilter: any) => void
+    onChange: (newFilter: MarkerType) => void
 }
 
 const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {

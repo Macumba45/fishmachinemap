@@ -2,19 +2,17 @@ import React, { FC, useEffect } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import Image from 'next/image'
 
 interface Picture {
     src: string
 }
 
 interface Props {
-    pictures: Picture[]
+    pictures?: Picture[]
 }
 
 const SimpleSlider: FC<Props> = ({ pictures }) => {
     const settings = {
-        arrow: true,
         dots: true,
         dotsClass: 'slick-dots slick-thumb',
         infinite: true,
@@ -44,10 +42,10 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
     return (
         <div style={{ width: '100%', borderRadius: '100px' }}>
             <Slider {...settings}>
-                {pictures.map((picture, index) => {
+                {pictures?.map((picture, index) => {
                     return (
                         <div key={index} style={{ borderRadius: '10px' }}>
-                            <Image
+                            <img
                                 style={{
                                     width: '100%',
                                     height: '250px',
