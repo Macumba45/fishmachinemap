@@ -16,7 +16,6 @@ export const MapContainer = styled.div`
 `
 
 
-
 export const ContainerFilter = styled.div`
     display: flex;
     justify-content: center;
