@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo } from 'react'
+import React, { FC } from 'react'
 import { MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 
@@ -14,4 +14,4 @@ const Profile: FC = () => {
     )
 }
 
-export default memo(Profile)
+export default Profile

@@ -2,7 +2,6 @@
 
 import { FC } from 'react'
 import * as React from 'react'
-import { useRouter } from 'next/navigation'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -15,19 +14,22 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
 const Login: FC = () => {
-    const router = useRouter()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const data = new FormData(event.currentTarget)
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
         console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
-
-        router.push('/maps')
-    }
-
+          email: data.get('email'),
+          password: data.get('password'),
+        });
+      
+        // Utilizar Link para redirigir
+        // El atributo href define la ruta de destino
+        // y se puede personalizar según tus necesidades
+        // Aquí se redirige al usuario a la página '/maps'
+        // después de enviar el formulario
+        window.location.href = '/maps';
+      };
     return (
         <>
             <CssBaseline />
@@ -59,7 +61,6 @@ const Login: FC = () => {
                             id="email"
                             label="Email Address"
                             name="email"
-                            autoComplete="email"
                         />
                         <TextField
                             margin="normal"
@@ -69,7 +70,6 @@ const Login: FC = () => {
                             label="Password"
                             type="password"
                             id="password"
-                            autoComplete="current-password"
                         />
 
                         <Button

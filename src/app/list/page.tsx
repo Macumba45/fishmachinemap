@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo } from 'react'
+import React, { FC } from 'react'
 import { CardContainer, MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardList from '@/components/CardList'
@@ -40,4 +40,4 @@ const List: FC = () => {
     )
 }
 
-export default memo(List)
+export default List
