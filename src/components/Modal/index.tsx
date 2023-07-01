@@ -16,7 +16,7 @@ export const openMap = (address: string) => {
 }
 
 interface Picture {
-    src: string;
+    src: string
 }
 
 interface Props {

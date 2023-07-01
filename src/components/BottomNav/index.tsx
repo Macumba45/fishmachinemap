@@ -48,21 +48,39 @@ export default function SimpleBottomNavigation() {
             >
                 <BottomNavigationAction
                     label="Mapa"
-                    icon={<LocationOnIcon />}
+                    icon={<LocationOnIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/maps"
+                    sx={{
+                        color: '#49007a',
+                        '&.Mui-selected': {
+                            color: '#49007a', // Color cuando está activo
+                        },
+                    }}
                 />
                 <BottomNavigationAction
                     label="Lista"
-                    icon={<PhishingIcon />}
+                    icon={<PhishingIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/list"
+                    sx={{
+                        color: '#49007a',
+                        '&.Mui-selected': {
+                            color: '#49007a', // Color cuando está activo
+                        },
+                    }}
                 />
                 <BottomNavigationAction
                     label="Perfil"
-                    icon={<AccountCircleIcon />}
+                    icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/perfil"
+                    sx={{
+                        color: '#49007a',
+                        '&.Mui-selected': {
+                            color: '#49007a', // Color cuando está activo
+                        },
+                    }}
                 />
             </BottomNavigation>
         </Box>
