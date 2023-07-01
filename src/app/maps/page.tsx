@@ -1,7 +1,7 @@
 'use client'
 
 import { useJsApiLoader } from '@react-google-maps/api'
-import { FC, memo, use, useEffect, useState } from 'react'
+import { FC, memo, use, useEffect, useRef, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
@@ -20,6 +20,8 @@ let markerClusterer: MarkerClusterer | null = null
 
 // Declara un componente de React llamado GoogleMapComp.
 const GoogleMapComp: FC = () => {
+    const mapRef = useRef<google.maps.Map>();
+
     const [blockScroll] = useScrollBlock()
     const {
         currentFilter,
@@ -39,19 +41,6 @@ const GoogleMapComp: FC = () => {
     })
     let map: google.maps.Map
 
-    const [styledMap, setStyledMap] = useState(true)
-
-    const selectMapStyle = () => {
-        if (!styledMap) {
-            console.log('mapa cargado')
-            const updatedStyles = styledMap ? [] : stylesMaps
-            map.setOptions({ styles: updatedStyles })
-            setStyledMap(true)
-        } else if (styledMap) {
-            console.log('mapa no cargado')
-            setStyledMap(false)
-        }
-    }
 
     // Define los estados del componente.
     const [loading, setLoading] = useState<boolean>(true)
@@ -59,6 +48,18 @@ const GoogleMapComp: FC = () => {
         lat: 40.463667 || undefined,
         lng: -3.74922 || undefined,
     })
+
+    const [styledMap, setStyledMap] = useState(true);
+    const [style, setStyle] = useState<
+        Array<{ elementType: string; stylers: Array<{ color: string }> }>
+    >([]);
+
+    const selectMapStyle = () => {
+        if (mapRef.current) {
+            mapRef.current.setOptions({ styles: styledMap ? [] : stylesMaps });
+            setStyledMap(!styledMap);
+        }
+    };
 
     // Función para mostrar una notificación de éxito.
 
@@ -98,15 +99,17 @@ const GoogleMapComp: FC = () => {
                     },
                     disableDefaultUI: true,
                     streetViewControl: false,
-                    styles: styledMap ? stylesMaps : [],
+                    styles: style,
                 }
             )
+            mapRef.current = map;
+
 
             // Crea el cluster de marcadores.
             markerClusterer = new MarkerClusterer({ map, markers })
         }
         setLoading(false)
-    }, [isLoaded, center, styledMap])
+    }, [isLoaded, center])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     useEffect(() => {
@@ -120,6 +123,12 @@ const GoogleMapComp: FC = () => {
             markerClusterer.addMarkers(markers)
         }
     }, [markers])
+
+    // Efecto que se ejecuta cuando cambia el estilo del mapa.
+    useEffect(() => {
+        const updatedStyle = styledMap ? stylesMaps : [];
+        setStyle(updatedStyle);
+      }, [styledMap]);
 
     // Renderiza el componente.
     if (loading) {
