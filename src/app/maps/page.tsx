@@ -34,7 +34,6 @@ const GoogleMapComp: FC = () => {
     } = useLogicMaps()
 
 
-
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
@@ -51,7 +50,7 @@ const GoogleMapComp: FC = () => {
 
     const [styledMap, setStyledMap] = useState(true);
     const [style, setStyle] = useState<
-        Array<{ elementType: string; stylers: Array<{ color: string }> }>
+    Array<{ elementType: string; stylers: Array<{ color: string }> }>
     >([]);
 
     const selectMapStyle = () => {
