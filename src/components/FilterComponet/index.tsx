@@ -54,6 +54,14 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'all' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
+                        '&.MuiToggleButton-root.Mui-selected': {
+
+                            color: '#b649ff',
+                            backgroundColor: 'white',
+
+                        }
+
+
                     }}
                     value="all"
                 >
@@ -67,6 +75,12 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'place' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
+                        '&.MuiToggleButton-root.Mui-selected': {
+
+                            color: '#b649ff',
+                            backgroundColor: 'white',
+
+                        }
                     }}
                     value="place"
                 >
@@ -80,6 +94,12 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'shop' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
+                        '&.MuiToggleButton-root.Mui-selected': {
+
+                            color: '#b649ff',
+                            backgroundColor: 'white',
+
+                        }
                     }}
                     value="shop"
                 >
@@ -93,6 +113,12 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         fontSize: '0.7rem',
                         fontWeight: filter === 'worm' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
+                        '&.MuiToggleButton-root.Mui-selected': {
+
+                            color: '#b649ff',
+                            backgroundColor: 'white',
+
+                        }
                     }}
                     value="worm"
                 >

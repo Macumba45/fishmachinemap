@@ -4,7 +4,6 @@ export const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
     object-fit: cover;
     background-size: cover;
 `
@@ -111,4 +110,13 @@ export const stylesMaps = [
         elementType: 'labels.text.stroke',
         stylers: [{ color: '#17263c' }],
     },
+    // {
+    //     featureType: "poi.business",
+    //     stylers: [{ visibility: "off" }],
+    // },
+    // {
+    //     featureType: "transit",
+    //     elementType: "labels.icon",
+    //     stylers: [{ visibility: "off" }],
+    // },
 ]

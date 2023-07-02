@@ -57,12 +57,12 @@ const GoogleMapComp: FC = () => {
     })
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<
-    Array<{ elementType: string; stylers: Array<{ color: string }> }>
+        Array<{ elementType: string; stylers: Array<{ color: string }> }>
     >([])
 
     const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
@@ -273,19 +273,12 @@ const GoogleMapComp: FC = () => {
                             direction={selectedMarker.address}
                             isOpenProp={true}
                             onClose={closeModal}
+
                         >
-                            {selectedMarker.shop === 'shop' && (
-                                <CardList
-                                    id={shopsListID[0].id}
-                                    title={shopsListID[0].title}
-                                    description={shopsListID[0].description}
-                                    image={shopsListID[0].image}
-                                    titleImage={shopsListID[0].titleImage}
-                                    city={shopsListID[0].city}
-                                    address={shopsListID[0].address}
-                                />
-                            )}
+                            {selectedMarker.shop === 'shop' && <CardList id={shopsListID[0].id} title={shopsListID[0].title} description={shopsListID[0].description} image={shopsListID[0].image} titleImage={shopsListID[0].titleImage} city={shopsListID[0].city} address={shopsListID[0].address} />}
+
                         </BasicModal>
+
                     )}
                     {addingMarker && (
                         <ButtonComp
