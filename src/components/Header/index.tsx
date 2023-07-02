@@ -16,9 +16,9 @@ import Link from 'next/link'
 import { useScrollBlock } from '@/hooks'
 
 const HeaderComp: FC = () => {
-    const [blockScroll] = useScrollBlock()
+    // const [blockScroll] = useScrollBlock()
 
-    blockScroll()
+    // blockScroll()
 
     return (
         <MainContainer>

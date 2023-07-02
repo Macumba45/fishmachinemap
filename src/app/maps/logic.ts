@@ -6,6 +6,7 @@ import customMarkerIconPlace from '../../assets/destino.png'
 import { useRef, useState } from 'react'
 import { totalArray } from './data'
 import { stylesMaps } from './style'
+import { shopsListID } from '../list/data'
 
 export const useLogicMaps = () => {
     enum MarkerType {
@@ -135,5 +136,6 @@ export const useLogicMaps = () => {
         styledMap,
         selectMapStyle,
         mapRef,
+        shopsListID,
     }
 }

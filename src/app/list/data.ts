@@ -1,4 +1,13 @@
-export const shopsList = [
+interface Shop {
+    title: string
+    description: string
+    image: string
+    titleImage: string
+    city: string
+    address: string
+}
+
+export const shopsList: Shop[] = [
     {
         title: 'Tienda de Pesca Aventura',
         description: 'Especialistas en equipos de pesca y accesorios.',
@@ -38,6 +47,7 @@ export const shopsList = [
         image: 'https://www.tutiendadepesca.es/wp-content/uploads/tiendapesca01.jpg',
         titleImage: 'PescaTop',
         city: 'Málaga',
+        address: 'Calle de la Pesca, 1',
     },
     {
         title: 'PescaSport',

@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
+import { MainContainer } from './style'
 
 interface Props {
     id: number
@@ -44,41 +45,47 @@ const MediaCard: FC<Props> = ({
     console.log(widthCard)
 
     return (
-        <Card key={id} sx={{ width: widthCard }}>
-            <CardMedia sx={{ height: 140 }} image={image} title={titleImage} />
-            <CardContent>
-                <Typography
-                    sx={{ fontSize: '25px', fontWeight: '500' }}
-                    gutterBottom
-                    component="div"
-                >
-                    {title}
-                </Typography>
-                <Typography
-                    sx={{ fontSize: '20px', fontWeight: '200' }}
-                    gutterBottom
-                    component="div"
-                >
-                    {city}, {address}
-                </Typography>
-                {/* <Typography sx={{ fontSize: '15px', fontWeight: '500' }} gutterBottom component="div">
+        <MainContainer>
+            <Card key={id} sx={{ width: widthCard }}>
+                <CardMedia
+                    sx={{ height: 140 }}
+                    image={image}
+                    title={titleImage}
+                />
+                <CardContent>
+                    <Typography
+                        sx={{ fontSize: '25px', fontWeight: '500' }}
+                        gutterBottom
+                        component="div"
+                    >
+                        {title}
+                    </Typography>
+                    <Typography
+                        sx={{ fontSize: '20px', fontWeight: '200' }}
+                        gutterBottom
+                        component="div"
+                    >
+                        {city}, {address}
+                    </Typography>
+                    {/* <Typography sx={{ fontSize: '15px', fontWeight: '500' }} gutterBottom component="div">
           {address}
         </Typography> */}
-                <Typography variant="body2" color="text.terciary">
-                    {description}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button
-                    sx={{ marginLeft: '0.4rem' }}
-                    onClick={() => openMap(city)}
-                    size="small"
-                >
-                    Llévame
-                </Button>
-                {/* <Button size="small">Learn More</Button> */}
-            </CardActions>
-        </Card>
+                    <Typography variant="body2" color="text.terciary">
+                        {description}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button
+                        sx={{ marginLeft: '0.4rem' }}
+                        onClick={() => openMap(city)}
+                        size="small"
+                    >
+                        Llévame
+                    </Button>
+                    {/* <Button size="small">Learn More</Button> */}
+                </CardActions>
+            </Card>
+        </MainContainer>
     )
 }
 

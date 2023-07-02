@@ -6,7 +6,12 @@ import React, { FC, useEffect, useState } from 'react'
 import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
 import NavigationIcon from '@mui/icons-material/Navigation'
-import { ButtonContainer, ImageContainer, TypographyContainer } from './style'
+import {
+    ButtonContainer,
+    ImageContainer,
+    MainContainer,
+    TypographyContainer,
+} from './style'
 import SimpleSlider from '../Carousel/page'
 
 export const openMap = (address: string) => {
@@ -26,6 +31,7 @@ interface Props {
     isOpenProp?: boolean
     icon?: React.ReactNode
     children?: React.ReactNode
+    selectedMarker: string
 }
 
 const BasicModal: FC<Props> = ({
@@ -34,6 +40,7 @@ const BasicModal: FC<Props> = ({
     onClose,
     isOpenProp,
     children,
+    selectedMarker,
 }) => {
     const pictures: Picture[] = [
         {
@@ -48,6 +55,10 @@ const BasicModal: FC<Props> = ({
     ]
 
     const [isOpen, setIsOpen] = useState(false)
+
+    const shouldShowPictures = selectedMarker !== 'shop'
+    console.log(selectedMarker)
+    console.log(shouldShowPictures)
 
     useEffect(() => {
         setIsOpen(isOpenProp || true)
@@ -77,57 +88,61 @@ const BasicModal: FC<Props> = ({
     }
 
     return (
-        <Modal
-            open={isOpen}
-            // onClose={handleClose}
-            disableEscapeKeyDown={true}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
-                <IconButton
-                    aria-label="Close"
-                    onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        top: '10px',
-                        right: '10px',
-                        zIndex: 9999999,
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-                <TypographyContainer>
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
+        <MainContainer>
+            <Modal
+                open={isOpen}
+                // onClose={handleClose}
+                disableEscapeKeyDown={true}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <IconButton
+                        aria-label="Close"
+                        onClick={onClose}
+                        sx={{
+                            position: 'absolute',
+                            top: '10px',
+                            right: '10px',
+                            zIndex: 9999999,
+                        }}
                     >
-                        {label}
-                    </Typography>
-                </TypographyContainer>
-                <TypographyContainer>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {direction}
-                    </Typography>
-                </TypographyContainer>
-                <ImageContainer>
-                    <SimpleSlider pictures={pictures} />
-                </ImageContainer>
-                <Divider sx={{ width: '100px', margin: '3rem auto' }} />
-                {children}
-                <ButtonContainer>
-                    <ButtonComp
-                        icon={<NavigationIcon fontSize="medium" />}
-                        color="white"
-                        title="Abrir en Google Maps"
-                        bgColor="#135a5a"
-                        variant="contained"
-                        onClick={() => openMap(direction || '')}
-                    ></ButtonComp>
-                </ButtonContainer>
-            </Box>
-        </Modal>
+                        <CloseIcon />
+                    </IconButton>
+                    <TypographyContainer>
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                        >
+                            {label}
+                        </Typography>
+                    </TypographyContainer>
+                    <TypographyContainer>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            {direction}
+                        </Typography>
+                    </TypographyContainer>
+                    {shouldShowPictures && (
+                        <ImageContainer>
+                            <SimpleSlider pictures={pictures} />
+                        </ImageContainer>
+                    )}
+                    <Divider sx={{ width: '100px', margin: '3rem auto' }} />
+                    {children}
+                    <ButtonContainer>
+                        <ButtonComp
+                            icon={<NavigationIcon fontSize="medium" />}
+                            color="white"
+                            title="Abrir en Google Maps"
+                            bgColor="#135a5a"
+                            variant="contained"
+                            onClick={() => openMap(direction || '')}
+                        ></ButtonComp>
+                    </ButtonContainer>
+                </Box>
+            </Modal>
+        </MainContainer>
     )
 }
 
