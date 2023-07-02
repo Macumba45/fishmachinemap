@@ -55,18 +55,17 @@ const GoogleMapComp: FC = () => {
     })
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<
-        Array<{ elementType: string; stylers: Array<{ color: string }> }>
+    Array<{ elementType: string; stylers: Array<{ color: string }> }>
     >([])
 
     const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
 
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -90,6 +89,7 @@ const GoogleMapComp: FC = () => {
                     const marker = new google.maps.Marker({
                         position: currentLatLng,
                         map: mapRef.current,
+                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
                         icon: {
                             path: google.maps.SymbolPath.CIRCLE,
                             fillColor: '#9900ff',
@@ -99,13 +99,12 @@ const GoogleMapComp: FC = () => {
                         },
                     })
 
-
-                    marker.addListener("click", () => {
+                    marker.addListener('click', () => {
                         infoWindow.open({
                             anchor: marker,
                             map,
-                        });
-                    });
+                        })
+                    })
                     // Actualiza la variable de estado con el nuevo marcador
                     setCurrentLocationMarker(marker)
 
@@ -125,36 +124,35 @@ const GoogleMapComp: FC = () => {
     const addMarkerDraggable = (map: google.maps.Map) => {
         if (!isAlreadyMarkedRef.current) {
             console.log('Ya se ha marcado')
-            return;
+            return
         }
 
         const listener = map.addListener('click', (event: any) => {
-            const latLng = event.latLng;
+            const latLng = event.latLng
             const marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
                 draggable: true,
-            });
+                animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+            })
             // Agregar el nuevo marcador al estado de marcadores
             setMarkers(prevMarkers => [...prevMarkers, marker])
 
             // Evento para controlar el movimiento del marcador
             google.maps.event.addListener(marker, 'dragend', () => {
                 // Acciones a realizar al soltar el marcador arrastrable
-            });
+            })
 
             // Evento para controlar el click del marcador
             google.maps.event.addListener(marker, 'click', () => {
                 // Acciones a realizar al hacer click en el marcador
-            });
+            })
 
             setAddingMarker(true)
-            google.maps.event.removeListener(listener);
-            isAlreadyMarkedRef.current = true;
+            google.maps.event.removeListener(listener)
+            isAlreadyMarkedRef.current = true
             // Aquí puedes realizar cualquier acción adicional con el marcador, como guardar su posición en un estado o enviarla al servidor.
         })
-
-
     }
 
     const clearMarkers = () => {
@@ -166,7 +164,7 @@ const GoogleMapComp: FC = () => {
 
     // Función para confirmar el marcador
     const confirmMarker = () => {
-        isAlreadyMarkedRef.current = false;
+        isAlreadyMarkedRef.current = false
         console.log(isAlreadyMarkedRef)
 
         // Agregar los marcadores confirmados al estado de marcadores confirmados
@@ -181,16 +179,15 @@ const GoogleMapComp: FC = () => {
         console.log(markers)
     }
 
-
     // Función para abrir el modo de "Añadir a marcadores"
     const openAddMarkerMode = () => {
         // Realizar acciones adicionales al abrir el modo de "Añadir a marcadores"
         // Restablecer el estado
         // clearMarkers()
-        isAlreadyMarkedRef.current = true;
+        isAlreadyMarkedRef.current = true
 
         if (mapRef.current) {
-            setIsButtonDisabled(true); // Deshabilita el botón
+            setIsButtonDisabled(true) // Deshabilita el botón
             addMarkerDraggable(mapRef.current)
         }
     }
@@ -285,7 +282,8 @@ const GoogleMapComp: FC = () => {
                                 left: '50%',
                                 transform: 'translate(-50%, -50%)',
                                 backgroundColor: '#49007a',
-                            }} title="Confirmar"
+                            }}
+                            title="Confirmar"
                             onClick={confirmMarker}
                         >
                             Confirmar Marcador
@@ -296,7 +294,8 @@ const GoogleMapComp: FC = () => {
                     </FilterContainer>
                     <FloatHomeButton
                         disabled={isButtonDisabled}
-                        onClick={openAddMarkerMode} />
+                        onClick={openAddMarkerMode}
+                    />
                     <SimpleBottomNavigation />
                     <ToastContainer autoClose={2000} limit={1} />
                     <CustomizedSwitches
