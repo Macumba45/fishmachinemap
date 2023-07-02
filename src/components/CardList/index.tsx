@@ -67,20 +67,17 @@ const MediaCard: FC<Props> = ({
                     >
                         {city}, {address}
                     </Typography>
-                    {/* <Typography sx={{ fontSize: '15px', fontWeight: '500' }} gutterBottom component="div">
-          {address}
-        </Typography> */}
                     <Typography variant="body2" color="text.terciary">
                         {description}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
-                        sx={{ marginLeft: '0.4rem' }}
+                        sx={{ marginLeft: '0.4rem', color: '#49007a' }}
                         onClick={() => openMap(city)}
                         size="small"
                     >
-                        Llévame
+                        Visitar tienda
                     </Button>
                     {/* <Button size="small">Learn More</Button> */}
                 </CardActions>

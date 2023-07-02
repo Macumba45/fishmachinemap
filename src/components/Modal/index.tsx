@@ -128,14 +128,23 @@ const BasicModal: FC<Props> = ({
                             <SimpleSlider pictures={pictures} />
                         </ImageContainer>
                     )}
-                    <Divider sx={{ width: '100px', margin: '3rem auto' }} />
+                    <Divider sx={{ width: '100px', margin: '2rem auto' }} />
                     {children}
+                    <ButtonContainer>
+                        <ButtonComp
+                            variant='outlined'
+                            title='+ Info'
+                            border='1px solid #49007a'
+                            color='#49007a'
+
+                        />
+                    </ButtonContainer>
                     <ButtonContainer>
                         <ButtonComp
                             icon={<NavigationIcon fontSize="medium" />}
                             color="white"
                             title="Abrir en Google Maps"
-                            bgColor="#135a5a"
+                            bgColor="#49007a"
                             variant="contained"
                             onClick={() => openMap(direction || '')}
                         ></ButtonComp>
