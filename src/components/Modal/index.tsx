@@ -132,11 +132,10 @@ const BasicModal: FC<Props> = ({
                     {children}
                     <ButtonContainer>
                         <ButtonComp
-                            variant='outlined'
-                            title='+ Info'
-                            border='1px solid #49007a'
-                            color='#49007a'
-
+                            variant="outlined"
+                            title="+ Info"
+                            border="1px solid #49007a"
+                            color="#49007a"
                         />
                     </ButtonContainer>
                     <ButtonContainer>
