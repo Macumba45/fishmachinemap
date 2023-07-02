@@ -14,5 +14,5 @@ export type Props = {
     initial?: number
     onClick?: () => void
     children?: React.ReactNode
-    disabled?: boolean  
+    disabled?: boolean
 }

@@ -65,6 +65,7 @@ export const useLogicMaps = () => {
             cursor: 'pointer',
             opacity: 1,
             icon: icon,
+            animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
         })
 
         // Agrega un evento de clic al marcador.
