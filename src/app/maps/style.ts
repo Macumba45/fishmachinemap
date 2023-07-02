@@ -15,7 +15,6 @@ export const MapContainer = styled.div`
     height: 100vh;
 `
 
-
 export const ContainerFilter = styled.div`
     display: flex;
     justify-content: center;

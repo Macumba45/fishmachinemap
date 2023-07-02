@@ -87,7 +87,7 @@ const Login: FC = () => {
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {'Don\'t have an account? Sign Up'}
+                                    {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>

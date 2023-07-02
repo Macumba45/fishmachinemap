@@ -31,8 +31,8 @@ const MediaCard: FC<Props> = ({
         window.open(baseUrl + encodedAddress, '_blank')
     }
 
-    let widthCard
-    switch (window.innerWidth <= 320) {
+    let widthCard = window.innerWidth
+    switch (widthCard <= 320) {
         case true:
             widthCard = 280
             break

@@ -16,6 +16,7 @@ const ButtonComp: FC<Props> = ({
     fontFamily,
     children,
     onClick,
+    disabled,
 }) => {
     const ButtonStyles = {
         backgroundColor: bgColor || 'transparent',
@@ -39,6 +40,7 @@ const ButtonComp: FC<Props> = ({
                 href={href || ''} // Proporciona un valor predeterminado en caso de que href sea undefined
                 onClick={onClick}
                 variant={variant as 'text' | 'outlined' | 'contained'} // Añadir el tipo correcto para la prop variant
+                disabled={disabled}
             >
                 {icon}
                 {title}

@@ -4,44 +4,44 @@ import RoomIcon from '@mui/icons-material/Room'
 
 interface Props {
     onClick?: () => void
+    disabled?: boolean
 }
 
-const FloatHomeButton: FC<Props> = ({ onClick }) => {
+const FloatHomeButton: FC<Props> = ({ onClick, disabled }) => {
     const isSmallScreen = useMediaQuery('(max-width:600px)')
 
     const CustomTooltip = ({ title, children }: any) => {
         return (
             <Tooltip title={title} placement="top">
-                {children}
+                <span>{children}</span>
             </Tooltip>
         )
-    }
-
-    const handleClick = () => {
-        console.log('click dragable')
     }
 
     return (
         <>
             <CustomTooltip title="Añadir marcador">
-                <Fab
-                    onClick={handleClick}
-                    size={isSmallScreen ? 'medium' : 'large'}
-                    sx={{
-                        position: 'fixed',
-                        bottom: '5rem',
-                        right: 0,
-                        marginRight: '2rem',
-                        backgroundColor: '#9900ff',
-                        '&:hover': {
-                            backgroundColor: '#49007a', // Cambiar color del hover
-                        },
-                    }}
-                    color="primary"
-                    aria-label="add"
-                >
-                    <RoomIcon />
-                </Fab>
+                <span>
+                    <Fab
+                        onClick={onClick}
+                        size={isSmallScreen ? 'medium' : 'large'}
+                        sx={{
+                            position: 'fixed',
+                            bottom: '5rem',
+                            right: 0,
+                            marginRight: '2rem',
+                            backgroundColor: '#9900ff',
+                            '&:hover': {
+                                backgroundColor: '#49007a', // Cambiar color del hover
+                            },
+                        }}
+                        disabled={disabled}
+                        color="primary"
+                        aria-label="add"
+                    >
+                        <RoomIcon />
+                    </Fab>
+                </span>
             </CustomTooltip>
         </>
     )
