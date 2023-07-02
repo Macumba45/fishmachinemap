@@ -20,6 +20,7 @@ import FloatHomeButton from '@/components/FloatHomeButton'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
 import 'react-toastify/dist/ReactToastify.css'
+import CardList from '@/components/CardList'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -39,6 +40,7 @@ const GoogleMapComp: FC = () => {
         styledMap,
         selectMapStyle,
         mapRef,
+        shopsListID,
     } = useLogicMaps()
 
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
@@ -265,12 +267,25 @@ const GoogleMapComp: FC = () => {
                     <MapContainer id="map" />
                     {selectedMarker && (
                         <BasicModal
+                            selectedMarker={selectedMarker.shop} // Aquí pasas el valor correspondiente
                             key={selectedMarker.id}
                             label={selectedMarker.label}
                             direction={selectedMarker.address}
                             isOpenProp={true}
                             onClose={closeModal}
-                        />
+                        >
+                            {selectedMarker.shop === 'shop' && (
+                                <CardList
+                                    id={shopsListID[0].id}
+                                    title={shopsListID[0].title}
+                                    description={shopsListID[0].description}
+                                    image={shopsListID[0].image}
+                                    titleImage={shopsListID[0].titleImage}
+                                    city={shopsListID[0].city}
+                                    address={shopsListID[0].address}
+                                />
+                            )}
+                        </BasicModal>
                     )}
                     {addingMarker && (
                         <ButtonComp
@@ -285,9 +300,7 @@ const GoogleMapComp: FC = () => {
                             }}
                             title="Confirmar"
                             onClick={confirmMarker}
-                        >
-                            Confirmar Marcador
-                        </ButtonComp>
+                        />
                     )}
                     <FilterContainer>
                         <FilterComponent onChange={handleFilterChange} />
