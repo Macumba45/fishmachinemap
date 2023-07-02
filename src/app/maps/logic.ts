@@ -3,8 +3,9 @@ import { MarkerData } from './type'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { totalArray } from './data'
+import { stylesMaps } from './style'
 
 export const useLogicMaps = () => {
     enum MarkerType {
@@ -17,6 +18,7 @@ export const useLogicMaps = () => {
     // Define los estados del componente.
     const [currentFilter, setCurrentFilter] = useState(MarkerType.ALL)
     const [markers, setMarkers] = useState<google.maps.Marker[]>([])
+    const mapRef = useRef<google.maps.Map>()
 
     const [selectedMarker, setSelectedMarker] = useState<{
         id: number
@@ -111,6 +113,14 @@ export const useLogicMaps = () => {
         setSelectedMarker(null)
     }
 
+    const [styledMap, setStyledMap] = useState(true)
+    const selectMapStyle = () => {
+        if (typeof window !== 'undefined' && mapRef.current) {
+            mapRef.current.setOptions({ styles: styledMap ? [] : stylesMaps })
+            setStyledMap(!styledMap)
+        }
+    }
+
     return {
         currentFilter,
         markers,
@@ -120,5 +130,9 @@ export const useLogicMaps = () => {
         handleFilterChange,
         handleMarkerClick,
         closeModal,
+        setMarkers,
+        styledMap,
+        selectMapStyle,
+        mapRef,
     }
 }
