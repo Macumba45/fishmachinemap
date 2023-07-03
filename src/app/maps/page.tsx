@@ -28,7 +28,6 @@ let markerClusterer: MarkerClusterer | null = null
 
 // Declara un componente de React llamado GoogleMapComp.
 const GoogleMapComp: FC = () => {
-    const [blockScroll] = useScrollBlock()
     const {
         currentFilter,
         markers,
@@ -55,7 +54,7 @@ const GoogleMapComp: FC = () => {
 
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
-    let map: google.maps.Map
+    let map: google.maps.Map 
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
@@ -148,8 +147,11 @@ const GoogleMapComp: FC = () => {
                 map,
                 markers: [...confirmedMarkers, ...markers],
             })
+            // // Bloquea el scroll de la fista maps.
+            // blockScroll()
         }
         setLoading(false)
+
     }, [isLoaded])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
@@ -171,6 +173,22 @@ const GoogleMapComp: FC = () => {
         setStyle(updatedStyle)
     }, [styledMap])
 
+    useEffect(() => {
+        const handleScroll = (event: Event) => {
+            event.preventDefault();
+        };
+
+        // Bloquear el desplazamiento cuando se monta el componente
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('scroll', handleScroll, { passive: false });
+
+        return () => {
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = '';
+            document.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     // Renderiza el componente.
     if (loading) {
         return (
@@ -183,13 +201,13 @@ const GoogleMapComp: FC = () => {
     // cambia la posición del switch dependiendo del tamaño de la pantalla
     let bottomPosition
     if (window.innerWidth < 600) {
-        bottomPosition = '250px'
+        bottomPosition = '150px'
     } else {
         bottomPosition = '160px'
     }
 
-    // Bloquea el scroll de la fista maps.
-    blockScroll()
+    // // Bloquea el scroll de la fista maps.
+    // blockScroll()
 
     return (
         <MainContainer>

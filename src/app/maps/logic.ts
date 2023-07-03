@@ -9,6 +9,7 @@ import { stylesMaps } from './style'
 import { shopsListID } from '../feed/data'
 
 export const useLogicMaps = () => {
+ 
     enum MarkerType {
         SHOP = 'shop',
         WORM = 'worm',
@@ -73,6 +74,7 @@ export const useLogicMaps = () => {
         }
         return icon
     }
+
 
     // Función para crear un marcador en el mapa.
     const createMarker = (markerData: MarkerData) => {

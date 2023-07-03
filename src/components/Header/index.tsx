@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import ButtonComp from '../Button'
 import {
     ButtonContainer,
@@ -16,9 +16,22 @@ import Link from 'next/link'
 import { useScrollBlock } from '@/hooks'
 
 const HeaderComp: FC = () => {
-    // const [blockScroll] = useScrollBlock()
 
-    // blockScroll()
+    useEffect(() => {
+        const handleScroll = (event: Event) => {
+            event.preventDefault();
+        };
+
+        // Bloquear el desplazamiento cuando se monta el componente
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('scroll', handleScroll, { passive: false });
+
+        return () => {
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = '';
+            document.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <MainContainer>
