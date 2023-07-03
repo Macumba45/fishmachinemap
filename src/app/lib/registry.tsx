@@ -3,6 +3,7 @@
 import { useServerInsertedHTML } from 'next/dist/client/components/navigation'
 import React, { useState } from 'react'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { Reset } from 'styled-reset'
 
 export default function StyledComponentsRegistry({
     children,
@@ -23,6 +24,7 @@ export default function StyledComponentsRegistry({
 
     return (
         <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+            <Reset />
             {children}
         </StyleSheetManager>
     )
