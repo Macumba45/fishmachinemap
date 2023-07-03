@@ -56,7 +56,6 @@ const GoogleMapComp: FC = () => {
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
 
-
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
         if (navigator.geolocation) {
@@ -108,12 +107,10 @@ const GoogleMapComp: FC = () => {
                     }
                 )
             }, 1000)
-        }
-        else {
+        } else {
             console.error('Geolocation is not supported by this browser.')
         }
     }, [])
-
 
     async function initMap(): Promise<void> {
         if (typeof window !== 'undefined' && isLoaded) {
@@ -144,14 +141,11 @@ const GoogleMapComp: FC = () => {
             // blockScroll()
         }
         setLoading(false)
-
     }
-
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
-        initMap();
-
+        initMap()
     }, [isLoaded])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
