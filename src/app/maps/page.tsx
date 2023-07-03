@@ -1,26 +1,27 @@
 'use client'
 
 import { useJsApiLoader } from '@react-google-maps/api'
-import { FC, memo, useEffect, useRef, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import BasicModal from '@/components/Modal'
 import CircularIndeterminate from '@/components/Loader'
 import { ToastContainer } from 'react-toastify'
+import { useScrollBlock } from '@/hooks'
+import { useLogicMaps } from './logic'
+import FloatHomeButton from '@/components/FloatHomeButton'
+import ButtonComp from '@/components/Button'
+import CustomizedSwitches from '@/components/MuiSwitch'
+import CardList from '@/components/CardList'
+import 'react-toastify/dist/ReactToastify.css'
 import {
     FilterContainer,
     MainContainer,
     MapContainer,
     stylesMaps,
 } from './style'
-import { useScrollBlock } from '@/hooks'
-import { useLogicMaps } from './logic'
-import FloatHomeButton from '@/components/FloatHomeButton'
-import ButtonComp from '@/components/Button'
-import CustomizedSwitches from '@/components/MuiSwitch'
-import 'react-toastify/dist/ReactToastify.css'
-import CardList from '@/components/CardList'
+
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -32,42 +33,39 @@ const GoogleMapComp: FC = () => {
         currentFilter,
         markers,
         selectedMarker,
-        notify,
+        notifySucces,
         filterMarkers,
         handleFilterChange,
         closeModal,
-        setMarkers,
         styledMap,
         selectMapStyle,
         mapRef,
         shopsListID,
+        confirmMarker,
+        openAddMarkerMode,
+        confirmedMarkers,
+        setCurrentLocationMarker,
+        addingMarker,
+        currentLocationMarker,
+        isButtonDisabled,
+        style,
+        setStyle
+
     } = useLogicMaps()
 
+
+    // Crea una referencia mutable para almacenar el mapa de Google Maps.
+    let map: google.maps.Map
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
     })
-    let map: google.maps.Map
-
     // Define los estados del componente.
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
         lat: 40.463667 || undefined,
         lng: -3.74922 || undefined,
     })
-    const [addingMarker, setAddingMarker] = useState(false)
-    const [confirmedMarkers, setConfirmedMarkers] = useState<
-    google.maps.Marker[]
-    >([])
-    const [currentLocationMarker, setCurrentLocationMarker] =
-        useState<google.maps.Marker | null>(null)
-    const [style, setStyle] = useState<
-    Array<{ elementType: string; stylers: Array<{ color: string }> }>
-    >([])
-
-    const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
-
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -112,7 +110,7 @@ const GoogleMapComp: FC = () => {
 
                     // Centra el mapa en la ubicación actual
                     mapRef.current?.setCenter(currentLatLng)
-                    notify()
+                    notifySucces()
                 },
                 error => {
                     console.error('Error getting current location:', error)
@@ -123,76 +121,6 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-    const addMarkerDraggable = (map: google.maps.Map) => {
-        if (!isAlreadyMarkedRef.current) {
-            console.log('Ya se ha marcado')
-            return
-        }
-
-        const listener = map.addListener('click', (event: any) => {
-            const latLng = event.latLng
-            const marker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                draggable: true,
-                animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
-            })
-            // Agregar el nuevo marcador al estado de marcadores
-            setMarkers(prevMarkers => [...prevMarkers, marker])
-
-            // Evento para controlar el movimiento del marcador
-            google.maps.event.addListener(marker, 'dragend', () => {
-                // Acciones a realizar al soltar el marcador arrastrable
-            })
-
-            // Evento para controlar el click del marcador
-            google.maps.event.addListener(marker, 'click', () => {
-                // Acciones a realizar al hacer click en el marcador
-            })
-
-            setAddingMarker(true)
-            google.maps.event.removeListener(listener)
-            isAlreadyMarkedRef.current = true
-            // Aquí puedes realizar cualquier acción adicional con el marcador, como guardar su posición en un estado o enviarla al servidor.
-        })
-    }
-
-    const clearMarkers = () => {
-        if (markerClusterer) {
-            markerClusterer.clearMarkers()
-        }
-        setMarkers([]) // Eliminar todos los marcadores del estado
-    }
-
-    // Función para confirmar el marcador
-    const confirmMarker = () => {
-        isAlreadyMarkedRef.current = false
-        console.log(isAlreadyMarkedRef)
-
-        // Agregar los marcadores confirmados al estado de marcadores confirmados
-        setConfirmedMarkers(prevMarkers => [...prevMarkers, ...markers])
-
-        // Restablecer el estado
-        // clearMarkers()
-        setMarkers([...markers])
-        setAddingMarker(false)
-        setIsButtonDisabled(false)
-
-        console.log(markers)
-    }
-
-    // Función para abrir el modo de "Añadir a marcadores"
-    const openAddMarkerMode = () => {
-        // Realizar acciones adicionales al abrir el modo de "Añadir a marcadores"
-        // Restablecer el estado
-        // clearMarkers()
-        isAlreadyMarkedRef.current = true
-
-        if (mapRef.current) {
-            setIsButtonDisabled(true) // Deshabilita el botón
-            addMarkerDraggable(mapRef.current)
-        }
-    }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -252,12 +180,15 @@ const GoogleMapComp: FC = () => {
         )
     }
 
+    // cambia la posición del switch dependiendo del tamaño de la pantalla
     let bottomPosition
     if (window.innerWidth < 600) {
         bottomPosition = '250px'
     } else {
         bottomPosition = '160px'
     }
+
+    // Bloquea el scroll de la fista maps.
     blockScroll()
 
     return (
