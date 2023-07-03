@@ -1,14 +1,12 @@
 'use client'
 
-import { useJsApiLoader } from '@react-google-maps/api'
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import BasicModal from '@/components/Modal'
 import CircularIndeterminate from '@/components/Loader'
 import { ToastContainer } from 'react-toastify'
-import { useScrollBlock } from '@/hooks'
 import { useLogicMaps } from './logic'
 import FloatHomeButton from '@/components/FloatHomeButton'
 import ButtonComp from '@/components/Button'
@@ -21,7 +19,6 @@ import {
     MapContainer,
     stylesMaps,
 } from './style'
-
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -48,23 +45,15 @@ const GoogleMapComp: FC = () => {
         currentLocationMarker,
         isButtonDisabled,
         style,
-        setStyle
-
+        setStyle,
+        isLoaded,
+        loading,
+        setLoading,
+        center,
     } = useLogicMaps()
 
-
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
-    let map: google.maps.Map 
-    // Carga el API de Google Maps utilizando el hook useJsApiLoader.
-    const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: process.env.API_KEY || '',
-    })
-    // Define los estados del componente.
-    const [loading, setLoading] = useState<boolean>(true)
-    const [center] = useState<google.maps.LatLngLiteral>({
-        lat: 40.463667 || undefined,
-        lng: -3.74922 || undefined,
-    })
+    let map: google.maps.Map
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -88,7 +77,7 @@ const GoogleMapComp: FC = () => {
                     const marker = new google.maps.Marker({
                         position: currentLatLng,
                         map: mapRef.current,
-                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+                        animation: window.google.maps.Animation.BOUNCE, // Agregar la animación de "drop"
                         icon: {
                             path: google.maps.SymbolPath.CIRCLE,
                             fillColor: '#9900ff',
@@ -120,7 +109,6 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         if (typeof window !== 'undefined' && isLoaded) {
@@ -147,11 +135,11 @@ const GoogleMapComp: FC = () => {
                 map,
                 markers: [...confirmedMarkers, ...markers],
             })
+            console.log(markers)
             // // Bloquea el scroll de la fista maps.
             // blockScroll()
         }
         setLoading(false)
-
     }, [isLoaded])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
@@ -175,19 +163,19 @@ const GoogleMapComp: FC = () => {
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
-            event.preventDefault();
-        };
+            event.preventDefault()
+        }
 
         // Bloquear el desplazamiento cuando se monta el componente
-        document.body.style.overflow = 'hidden';
-        document.addEventListener('scroll', handleScroll, { passive: false });
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('scroll', handleScroll, { passive: false })
 
         return () => {
             // Permitir el desplazamiento cuando se desmonta el componente
-            document.body.style.overflow = '';
-            document.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     // Renderiza el componente.
     if (loading) {

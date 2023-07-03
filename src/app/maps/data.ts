@@ -1,8 +1,20 @@
+import { MarkerData } from "./type"
+
 interface Marker {
     lat: number
     lng: number
     label: string
     address: string
+}
+interface Pictures {
+    id: number
+    lat: number
+    lng: number
+    imagen: string
+    date: string
+    shop: string
+    label?: string
+    address?: string
 }
 
 export const markers: Marker[] = [
@@ -1643,6 +1655,210 @@ export const markersPlacesId = markersPlaces.map((marker, index) => ({
     id: index + 800,
     shop: 'place',
 }))
+
+export const pictures: MarkerData[] = [
+    {
+        id: 1,
+        lat: 43.263012,
+        lng: -2.935781,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-02',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 2,
+        lat: 43.353393,
+        lng: -3.009427,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-03',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+
+    },
+    {
+        id: 3,
+        lat: 43.459587,
+        lng: -3.804320,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-04',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 4,
+        lat: 43.470632,
+        lng: -3.799361,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-05',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 5,
+        lat: 43.546063,
+        lng: -5.633472,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-06',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 6,
+        lat: 43.548682,
+        lng: -5.688692,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-07',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 7,
+        lat: 43.539447,
+        lng: -5.722805,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-08',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 8,
+        lat: 43.548455,
+        lng: -5.779898,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-09',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 9,
+        lat: 43.545274,
+        lng: -5.788171,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-10',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 10,
+        lat: 43.543257,
+        lng: -5.793466,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-11',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 11,
+        lat: 41.384191,
+        lng: 2.175935,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-12',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 12,
+        lat: 41.380653,
+        lng: 2.184186,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-13',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 13,
+        lat: 41.383478,
+        lng: 2.192007,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-14',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 14,
+        lat: 41.382333,
+        lng: 2.196998,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-15',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 15,
+        lat: 39.470971,
+        lng: -0.375335,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-16',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 16,
+        lat: 39.470033,
+        lng: -0.372804,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-17',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 17,
+        lat: 39.468468,
+        lng: -0.369941,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-18',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 18,
+        lat: 41.466527,
+        lng: -0.366234,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-19',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 19,
+        lat: 38.392566,
+        lng: -6.001667,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-20',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'Gran Vía, 48001 Bilbao',
+    },
+    {
+        id: 20,
+        lat: 39.392440,
+        lng: -6.005183,
+        imagen: "https://www.club-caza.com/img/article/pescadegrandespargos.jpg",
+        date: '2023-07-21',
+        shop: 'pictures',
+        label: 'Bilbao',
+        address: 'PRUEBA',
+    }
+];
 
 export const markers1 = markersShopId.concat(markersPlacesId)
 export const totalArray = markers1.concat(markersWithId)

@@ -35,7 +35,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 32,
         height: 32,
         '&:before': {
-            content: '\'\'',
+            content: "''",
             position: 'absolute',
             width: '100%',
             height: '100%',
@@ -196,7 +196,7 @@ interface Props {
 
 const CustomizedSwitches: FC<Props> = ({ style, onClick }) => {
     return (
-        <FormGroup>
+        <FormGroup sx={{ display: 'flex', flexDirection: 'column' }}>
             <FormControlLabel
                 control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
                 label=""

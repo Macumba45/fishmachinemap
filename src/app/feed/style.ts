@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const MainContainer = styled.div`
     display: flex;
     justify-content: center;
@@ -13,17 +12,13 @@ export const MainContainer = styled.div`
     margin-bottom: 4rem;
     min-width: 320px;
     @media screen and (min-width: 600px) {
-        
-flex-wrap: nowrap;
-display: flex;
-flex-direction:column;
-justify-content: center;
-margin: 0 auto;
-margin-bottom: 4rem;
-width: 450px;
-
-
-
+        flex-wrap: nowrap;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 4rem;
+        width: 450px;
     }
 `
 export const CardContainer = styled.div`

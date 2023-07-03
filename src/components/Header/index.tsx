@@ -16,22 +16,21 @@ import Link from 'next/link'
 import { useScrollBlock } from '@/hooks'
 
 const HeaderComp: FC = () => {
-
     useEffect(() => {
         const handleScroll = (event: Event) => {
-            event.preventDefault();
-        };
+            event.preventDefault()
+        }
 
         // Bloquear el desplazamiento cuando se monta el componente
-        document.body.style.overflow = 'hidden';
-        document.addEventListener('scroll', handleScroll, { passive: false });
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('scroll', handleScroll, { passive: false })
 
         return () => {
             // Permitir el desplazamiento cuando se desmonta el componente
-            document.body.style.overflow = '';
-            document.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     return (
         <MainContainer>
