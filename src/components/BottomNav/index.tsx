@@ -5,7 +5,7 @@ import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import PhishingIcon from '@mui/icons-material/Phishing'
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -61,10 +61,10 @@ export default function SimpleBottomNavigation() {
                     }}
                 />
                 <BottomNavigationAction
-                    label="Lista"
-                    icon={<PhishingIcon sx={{ color: '#49007a' }} />}
+                    label="Fotos"
+                    icon={<ViewCarouselIcon sx={{ color: '#49007a' }} />}
                     component={Link}
-                    href="/list"
+                    href="/feed"
                     sx={{
                         color: '#49007a',
                         '&.Mui-selected': {

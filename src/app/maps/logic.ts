@@ -6,7 +6,7 @@ import customMarkerIconPlace from '../../assets/destino.png'
 import { useRef, useState } from 'react'
 import { totalArray } from './data'
 import { stylesMaps } from './style'
-import { shopsListID } from '../list/data'
+import { shopsListID } from '../feed/data'
 
 export const useLogicMaps = () => {
     enum MarkerType {
@@ -20,7 +20,6 @@ export const useLogicMaps = () => {
     const [currentFilter, setCurrentFilter] = useState(MarkerType.ALL)
     const [markers, setMarkers] = useState<google.maps.Marker[]>([])
     const mapRef = useRef<google.maps.Map>()
-
     const [selectedMarker, setSelectedMarker] = useState<{
         id: number
         shop: string
@@ -29,13 +28,34 @@ export const useLogicMaps = () => {
         label: string
         address: string
     } | null>(null)
+    const [addingMarker, setAddingMarker] = useState(false)
+    const [confirmedMarkers, setConfirmedMarkers] = useState<
+        google.maps.Marker[]
+    >([])
+    const [currentLocationMarker, setCurrentLocationMarker] =
+        useState<google.maps.Marker | null>(null)
+    const [style, setStyle] = useState<
+        Array<{ elementType: string; stylers: Array<{ color: string }> }>
+    >([])
 
-    const notify = () => {
+    const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
+
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+
+    const notifySucces = () => {
         toast.success('Ubicación cargada correctamente', {
             position: toast.POSITION.TOP_LEFT,
             toastId: 'success1',
         })
     }
+
+    const notifyMarker = () => {
+        toast.success('Marcador añadido correctamente', {
+            position: toast.POSITION.TOP_LEFT,
+            toastId: 'marker1',
+        })
+    }
+
 
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): string | undefined {
@@ -123,19 +143,102 @@ export const useLogicMaps = () => {
         }
     }
 
+
+    const addMarkerDraggable = (map: google.maps.Map) => {
+        if (!isAlreadyMarkedRef.current) {
+            console.log('Ya se ha marcado')
+            return
+        }
+
+        const listener = map.addListener('click', (event: any) => {
+            const latLng = event.latLng
+            const marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                draggable: true,
+                animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+            })
+            // Agregar el nuevo marcador al estado de marcadores
+            setMarkers(prevMarkers => [...prevMarkers, marker])
+
+            // Evento para controlar el movimiento del marcador
+            google.maps.event.addListener(marker, 'dragend', () => {
+                // Acciones a realizar al soltar el marcador arrastrable
+            })
+
+            // Evento para controlar el click del marcador
+            google.maps.event.addListener(marker, 'click', () => {
+                // Acciones a realizar al hacer click en el marcador
+            })
+
+            setAddingMarker(true)
+            google.maps.event.removeListener(listener)
+            isAlreadyMarkedRef.current = true
+            // Aquí puedes realizar cualquier acción adicional con el marcador, como guardar su posición en un estado o enviarla al servidor.
+        })
+    }
+
+    // const clearMarkers = () => {
+    //     if (markerClusterer) {
+    //         markerClusterer.clearMarkers()
+    //     }
+    //     setMarkers([]) // Eliminar todos los marcadores del estado
+    // }
+
+    // Función para confirmar el marcador
+    const confirmMarker = () => {
+        isAlreadyMarkedRef.current = false
+        console.log(isAlreadyMarkedRef)
+
+        // Agregar los marcadores confirmados al estado de marcadores confirmados
+        setConfirmedMarkers(prevMarkers => [...prevMarkers, ...markers])
+
+        // Restablecer el estado
+        // clearMarkers()
+        setMarkers([...markers])
+        setAddingMarker(false)
+        setIsButtonDisabled(false)
+        notifyMarker()
+
+    }
+
+    // Función para abrir el modo de "Añadir a marcadores"
+    const openAddMarkerMode = () => {
+        // Realizar acciones adicionales al abrir el modo de "Añadir a marcadores"
+        // Restablecer el estado
+        // clearMarkers()
+        isAlreadyMarkedRef.current = true
+
+        if (mapRef.current) {
+            setIsButtonDisabled(true) // Deshabilita el botón
+            addMarkerDraggable(mapRef.current)
+        }
+    }
+
     return {
         currentFilter,
         markers,
         selectedMarker,
-        notify,
+        notifySucces,
         filterMarkers,
         handleFilterChange,
         handleMarkerClick,
         closeModal,
-        setMarkers,
         styledMap,
         selectMapStyle,
         mapRef,
         shopsListID,
+        notifyMarker,
+        confirmMarker,
+        openAddMarkerMode,
+        currentLocationMarker,
+        confirmedMarkers,
+        setConfirmedMarkers,
+        setCurrentLocationMarker,
+        addingMarker,
+        isButtonDisabled,
+        style,
+        setStyle
+
     }
 }
