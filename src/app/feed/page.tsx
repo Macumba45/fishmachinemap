@@ -11,8 +11,6 @@ import { useScrollBlock } from '@/hooks'
 const Feed: FC = () => {
 
 
-
-
     return (
         <>
             <MainContainer>

@@ -1,10 +1,10 @@
-import { FC } from "react"
-import { FeedPros } from "./type"
-import { Imagen, ImagenContainer, CardContainer, Icons, IconsContainer, LikesLabel, Description, DescriptionContainer } from "./style"
+import { FC } from 'react'
+import { FeedPros } from './type'
+import { Imagen, ImagenContainer, CardContainer, Icons, IconsContainer, LikesLabel, Description, DescriptionContainer } from './style'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CommentIcon from '@mui/icons-material/Comment';
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 
 
 const CardFeed: FC<FeedPros> = ({ id, userName, imagen, date, comentarios }) => {

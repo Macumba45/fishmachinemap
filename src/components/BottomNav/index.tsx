@@ -23,20 +23,26 @@ export default function SimpleBottomNavigation() {
     }
 
     // Añadir el estado local `value` y la función `setValue`
-    const locationNav = location.pathname
+    const [locationNav, setLocationNav] = useState('');
+
     const [value, setValue] = useState(getInitialValue(locationNav))
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const locationPathname = location.pathname;
+            setLocationNav(locationPathname);
+        }
+    }, []);
     // Añadir el efecto para actualizar el valor del estado `value` cuando cambie la ruta
     useEffect(() => {
-        // Obtiene la ruta actual y establece el valor del estado `value` en función de esa ruta
         if (locationNav === '/maps') {
-            setValue(0)
+            setValue(0);
         } else if (locationNav === '/list') {
-            setValue(1)
+            setValue(1);
         } else if (locationNav === '/perfil') {
-            setValue(2)
+            setValue(2);
         }
-    }, [])
-
+    }, [locationNav]);
     // Añadir el componente BottomNavigation
 
     return (
