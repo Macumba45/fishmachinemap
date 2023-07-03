@@ -2,7 +2,6 @@ import { useRef } from 'react'
 
 const useScrollBlock = () => {
     const scroll = useRef(false)
-
     const blockScroll = () => {
         if (typeof document === 'undefined') return
 
