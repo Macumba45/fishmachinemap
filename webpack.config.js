@@ -1,6 +1,6 @@
 // webpack.config.js
 
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
     // Configuraciones de tu proyecto Webpack
@@ -10,4 +10,4 @@ module.exports = {
             'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
         }),
     ],
-};
+}

@@ -157,11 +157,9 @@ export const stylesMaps: Style[] = [
         elementType: 'labels',
         stylers: [{ visibility: 'off' }],
     },
-
 ]
 
 export const defaultStylesMaps: Style[] = [
-
     {
         featureType: 'poi.business',
         stylers: [{ visibility: 'off' }],
