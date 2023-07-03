@@ -44,12 +44,12 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<
-        Array<{ elementType: string; stylers: Array<{ color: string }> }>
+    Array<{ elementType: string; stylers: Array<{ color: string }> }>
     >([])
 
     const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
