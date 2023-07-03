@@ -175,7 +175,7 @@ export const useLogicMaps = () => {
             const marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
-                draggable: true,
+                // draggable: true,
                 animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
             })
             // Agregar el nuevo marcador al estado de marcadores

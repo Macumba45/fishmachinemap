@@ -128,7 +128,7 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'fotos' ? 800 : 'inherit',
+                        fontWeight: filter === 'pictures' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',
