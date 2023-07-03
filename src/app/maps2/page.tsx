@@ -1,7 +1,7 @@
 'use client'
 
-import { FC } from "react";
-import { MapContainer, stylesMaps } from "./style";
+import { FC } from 'react';
+import { MapContainer, stylesMaps } from './style';
 
 const GoogleMapComp: FC = () => {
 
@@ -55,8 +55,6 @@ const GoogleMapComp: FC = () => {
     return (
 
         <MapContainer id="map" />
-
-
 
 
     )
