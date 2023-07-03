@@ -135,7 +135,6 @@ const GoogleMapComp: FC = () => {
                 map,
                 markers: [...confirmedMarkers, ...markers],
             })
-            console.log(markers)
             // // Bloquea el scroll de la fista maps.
             // blockScroll()
         }

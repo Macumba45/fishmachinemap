@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Style } from './type'
 
 export const MainContainer = styled.div`
     display: flex;
@@ -31,7 +32,7 @@ export const FilterContainer = styled.div`
     height: 60px; /* ajusta la altura según tus necesidades */
 `
 
-export const stylesMaps = [
+export const stylesMaps: Style[] = [
     { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
     { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
     { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
@@ -110,13 +111,100 @@ export const stylesMaps = [
         elementType: 'labels.text.stroke',
         stylers: [{ color: '#17263c' }],
     },
-    // {
-    //     featureType: "poi.business",
-    //     stylers: [{ visibility: "off" }],
-    // },
-    // {
-    //     featureType: "transit",
-    //     elementType: "labels.icon",
-    //     stylers: [{ visibility: "off" }],
-    // },
+    {
+        featureType: 'poi.business',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.government',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.school',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.medical',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.attraction',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.place_of_worship',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.sports_complex',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'transit',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'transit.station',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.park',
+        stylers: [{ visibility: 'off' }],
+    },
+
+    {
+        featureType: 'road',
+        elementType: 'labels',
+        stylers: [{ visibility: 'off' }],
+    },
+
+]
+
+export const defaultStylesMaps: Style[] = [
+
+    {
+        featureType: 'poi.business',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.government',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.school',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.medical',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.attraction',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.place_of_worship',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.sports_complex',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'transit',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'transit.station',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'poi.park',
+        stylers: [{ visibility: 'off' }],
+    },
+    {
+        featureType: 'road',
+        elementType: 'labels',
+        stylers: [{ visibility: 'off' }],
+    },
 ]

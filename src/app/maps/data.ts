@@ -1676,12 +1676,11 @@ export const pictures: MarkerData[] = [
         shop: 'pictures',
         label: 'Bilbao',
         address: 'Gran Vía, 48001 Bilbao',
-
     },
     {
         id: 3,
         lat: 43.459587,
-        lng: -3.804320,
+        lng: -3.80432,
         imagen: 'https://www.club-caza.com/img/article/pescadegrandespargos.jpg',
         date: '2023-07-04',
         shop: 'pictures',
@@ -1850,15 +1849,15 @@ export const pictures: MarkerData[] = [
     },
     {
         id: 20,
-        lat: 39.392440,
+        lat: 39.39244,
         lng: -6.005183,
         imagen: 'https://www.club-caza.com/img/article/pescadegrandespargos.jpg',
         date: '2023-07-21',
         shop: 'pictures',
         label: 'Bilbao',
         address: 'PRUEBA',
-    }
-];
+    },
+]
 
 export const markers1 = markersShopId.concat(markersPlacesId)
 export const totalArray = markers1.concat(markersWithId)

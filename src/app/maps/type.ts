@@ -12,5 +12,10 @@ export type MarkerData = {
     address: string
     imagen?: string
     date?: string
-  
+}
+
+export type Style = {
+    elementType?: string
+    featureType?: string
+    stylers: Array<{ color?: string; visibility?: string }>
 }
