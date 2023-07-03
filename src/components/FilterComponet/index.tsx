@@ -136,7 +136,7 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                             backgroundColor: 'white',
                         },
                     }}
-                    value="worm"
+                    value="fotos"
                 >
                     Fotos
                 </ToggleButton>
