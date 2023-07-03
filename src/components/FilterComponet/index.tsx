@@ -29,6 +29,12 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
         setFilter(newFilter)
         onChange(newFilter) // Invocar la función onChange para propagar el cambio al componente padre
     }
+    let widthFilter
+    if (window.innerWidth < 350) {
+        widthFilter = '300px'
+    } else {
+        widthFilter = '100%'
+    }
 
     return (
         <div
@@ -44,6 +50,9 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                 sx={{
                     backgroundColor: 'grey',
                     borderRadius: '10px',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+
                 }}
             >
                 <ToggleButton
@@ -112,7 +121,24 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                     }}
                     value="worm"
                 >
-                    Cebos 24h
+                    Cebos24h
+                </ToggleButton>
+                <ToggleButton
+                    sx={{
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: 'white',
+                        fontSize: '0.7rem',
+                        fontWeight: filter === 'worm' ? 800 : 'inherit',
+                        fontFamily: 'Roboto',
+                        '&.MuiToggleButton-root.Mui-selected': {
+                            color: '#b649ff',
+                            backgroundColor: 'white',
+                        },
+                    }}
+                    value="worm"
+                >
+                    Fotos
                 </ToggleButton>
             </ToggleButtonGroup>
         </div>
