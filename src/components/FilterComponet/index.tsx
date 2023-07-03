@@ -52,7 +52,6 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                     borderRadius: '10px',
                     display: 'flex',
                     flexWrap: 'wrap',
-
                 }}
             >
                 <ToggleButton
@@ -129,14 +128,14 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'worm' ? 800 : 'inherit',
+                        fontWeight: filter === 'fotos' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',
                             backgroundColor: 'white',
                         },
                     }}
-                    value="fotos"
+                    value="pictures"
                 >
                     Fotos
                 </ToggleButton>

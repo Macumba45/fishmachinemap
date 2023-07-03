@@ -57,8 +57,6 @@ const BasicModal: FC<Props> = ({
     const [isOpen, setIsOpen] = useState(false)
 
     const shouldShowPictures = selectedMarker !== 'shop'
-    console.log(selectedMarker)
-    console.log(shouldShowPictures)
 
     useEffect(() => {
         setIsOpen(isOpenProp || true)

@@ -1,12 +1,15 @@
-import { toast } from 'react-toastify'
+import { useRef, useState } from 'react'
 import { MarkerData } from './type'
+import { pictures, totalArray } from './data'
+import { stylesMaps } from './style'
+import { shopsListID } from '../feed/data'
+import { useJsApiLoader } from '@react-google-maps/api'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
-import { useRef, useState } from 'react'
-import { totalArray } from './data'
-import { stylesMaps } from './style'
-import { shopsListID } from '../feed/data'
+import customMarkerIconPicture from '../../assets/back-camera.png'
+import { toast } from 'react-toastify'
+
 
 export const useLogicMaps = () => {
     enum MarkerType {
@@ -14,8 +17,19 @@ export const useLogicMaps = () => {
         WORM = 'worm',
         ALL = 'all',
         PLACE = 'place',
+        PICTURES = 'pictures',
     }
 
+    // Carga el API de Google Maps utilizando el hook useJsApiLoader.
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: process.env.API_KEY || '',
+    })
+    // Define los estados del componente.
+    const [loading, setLoading] = useState<boolean>(true)
+    const [center] = useState<google.maps.LatLngLiteral>({
+        lat: 40.463667 || undefined,
+        lng: -3.74922 || undefined,
+    })
     // Define los estados del componente.
     const [currentFilter, setCurrentFilter] = useState(MarkerType.ALL)
     const [markers, setMarkers] = useState<google.maps.Marker[]>([])
@@ -56,10 +70,10 @@ export const useLogicMaps = () => {
         })
     }
 
-
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): string | undefined {
         let icon
+
         switch (selectIcon) {
             case MarkerType.SHOP:
                 icon = customMarkerIconShop.src
@@ -70,12 +84,16 @@ export const useLogicMaps = () => {
             case MarkerType.PLACE:
                 icon = customMarkerIconPlace.src
                 break
+            case MarkerType.PICTURES:
+                icon = customMarkerIconPicture.src
+                break
         }
         return icon
     }
 
     // Función para crear un marcador en el mapa.
     const createMarker = (markerData: MarkerData) => {
+        console.log(markerData)
         const icon = {
             url: getIcon(markerData.shop),
             scaledSize: new google.maps.Size(32, 32),
@@ -100,20 +118,24 @@ export const useLogicMaps = () => {
     // Función para filtrar los marcadores según el tipo de filtro.
     const filterMarkers = (filter: MarkerType) => {
         let filteredMarkerInstances: google.maps.Marker[] = []
-
+        console.log(filteredMarkerInstances)
         if (filter === MarkerType.ALL) {
-            filteredMarkerInstances = totalArray.map(createMarker)
+            filteredMarkerInstances = [...totalArray, ...pictures].map(createMarker);
         } else if (filter === MarkerType.SHOP) {
             filteredMarkerInstances = totalArray
                 .filter(marker => marker.shop === 'shop')
                 .map(createMarker)
         } else if (filter === MarkerType.WORM) {
             filteredMarkerInstances = totalArray
-                .filter(marker => marker.shop !== 'shop')
+                .filter(marker => marker.shop === 'worm')
                 .map(createMarker)
         } else if (filter === MarkerType.PLACE) {
             filteredMarkerInstances = totalArray
                 .filter(marker => marker.shop === 'place')
+                .map(createMarker)
+        } else if (filter === MarkerType.PICTURES) {
+            filteredMarkerInstances = pictures
+                .filter(marker => marker.shop === 'pictures')
                 .map(createMarker)
         }
 
@@ -143,10 +165,8 @@ export const useLogicMaps = () => {
         }
     }
 
-
     const addMarkerDraggable = (map: google.maps.Map) => {
         if (!isAlreadyMarkedRef.current) {
-            console.log('Ya se ha marcado')
             return
         }
 
@@ -188,7 +208,6 @@ export const useLogicMaps = () => {
     // Función para confirmar el marcador
     const confirmMarker = () => {
         isAlreadyMarkedRef.current = false
-        console.log(isAlreadyMarkedRef)
 
         // Agregar los marcadores confirmados al estado de marcadores confirmados
         setConfirmedMarkers(prevMarkers => [...prevMarkers, ...markers])
@@ -199,7 +218,6 @@ export const useLogicMaps = () => {
         setAddingMarker(false)
         setIsButtonDisabled(false)
         notifyMarker()
-
     }
 
     // Función para abrir el modo de "Añadir a marcadores"
@@ -238,7 +256,10 @@ export const useLogicMaps = () => {
         addingMarker,
         isButtonDisabled,
         style,
-        setStyle
-
+        setStyle,
+        isLoaded,
+        loading,
+        setLoading,
+        center,
     }
 }

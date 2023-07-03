@@ -5,7 +5,7 @@ import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -23,26 +23,26 @@ export default function SimpleBottomNavigation() {
     }
 
     // Añadir el estado local `value` y la función `setValue`
-    const [locationNav, setLocationNav] = useState('');
+    const [locationNav, setLocationNav] = useState('')
 
     const [value, setValue] = useState(getInitialValue(locationNav))
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const locationPathname = location.pathname;
-            setLocationNav(locationPathname);
+            const locationPathname = location.pathname
+            setLocationNav(locationPathname)
         }
-    }, []);
+    }, [])
     // Añadir el efecto para actualizar el valor del estado `value` cuando cambie la ruta
     useEffect(() => {
         if (locationNav === '/maps') {
-            setValue(0);
+            setValue(0)
         } else if (locationNav === '/list') {
-            setValue(1);
+            setValue(1)
         } else if (locationNav === '/perfil') {
-            setValue(2);
+            setValue(2)
         }
-    }, [locationNav]);
+    }, [locationNav])
     // Añadir el componente BottomNavigation
 
     return (

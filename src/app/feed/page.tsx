@@ -1,15 +1,13 @@
 'use client'
 
-import React, { FC, useEffect } from 'react'
-import { CardContainer, MainContainer } from './style'
+import { FC } from 'react'
+import { MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
-import CardList from '@/components/CardList'
-import { shopsListID, objetosFeed } from './data'
 import CardFeed from '@/components/CardFeed'
-import { useScrollBlock } from '@/hooks'
+import { objetos } from './data'
 
 const Feed: FC = () => {
-
+    console.log(objetos)
 
     return (
         <>
@@ -23,7 +21,6 @@ const Feed: FC = () => {
                 <CardFeed />
             </MainContainer>
             <SimpleBottomNavigation />
-
         </>
     )
 }

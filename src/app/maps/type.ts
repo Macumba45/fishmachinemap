@@ -10,4 +10,7 @@ export type MarkerData = {
     lng: number
     label: string
     address: string
+    imagen?: string
+    date?: string
+  
 }

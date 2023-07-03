@@ -42,7 +42,6 @@ const MediaCard: FC<Props> = ({
             break
     }
 
-    console.log(widthCard)
 
     return (
         <MainContainer>
