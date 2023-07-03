@@ -12,6 +12,7 @@ import FloatHomeButton from '@/components/FloatHomeButton'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
 import CardList from '@/components/CardList'
+
 import 'react-toastify/dist/ReactToastify.css'
 import {
     FilterContainer,
@@ -55,62 +56,66 @@ const GoogleMapComp: FC = () => {
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
 
+
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords
-                    const currentLatLng = { lat: latitude, lng: longitude }
+            setTimeout(() => {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const { latitude, longitude } = position.coords
+                        const currentLatLng = { lat: latitude, lng: longitude }
 
-                    const infoWindow = new google.maps.InfoWindow({
-                        content: 'Usted está aquí',
-                        ariaLabel: 'Usted está aquí',
-                    })
-
-                    // Elimina el marcador de ubicación actual si ya existe
-                    if (currentLocationMarker) {
-                        currentLocationMarker.setMap(null)
-                    }
-
-                    // Crea un nuevo marcador para la ubicación actual
-                    const marker = new google.maps.Marker({
-                        position: currentLatLng,
-                        map: mapRef.current,
-                        animation: window.google.maps.Animation.BOUNCE, // Agregar la animación de "drop"
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillColor: '#9900ff',
-                            fillOpacity: 10,
-                            strokeWeight: 10,
-                            scale: 10,
-                        },
-                    })
-
-                    marker.addListener('click', () => {
-                        infoWindow.open({
-                            anchor: marker,
-                            map,
+                        const infoWindow = new google.maps.InfoWindow({
+                            content: 'Usted está aquí',
+                            ariaLabel: 'Usted está aquí',
                         })
-                    })
-                    // Actualiza la variable de estado con el nuevo marcador
-                    setCurrentLocationMarker(marker)
 
-                    // Centra el mapa en la ubicación actual
-                    mapRef.current?.setCenter(currentLatLng)
-                    notifySucces()
-                },
-                error => {
-                    console.error('Error getting current location:', error)
-                }
-            )
-        } else {
+                        // Elimina el marcador de ubicación actual si ya existe
+                        if (currentLocationMarker) {
+                            currentLocationMarker.setMap(null)
+                        }
+
+                        // Crea un nuevo marcador para la ubicación actual
+                        const marker = new google.maps.Marker({
+                            position: currentLatLng,
+                            map: mapRef.current,
+                            animation: window.google.maps.Animation.BOUNCE, // Agregar la animación de "drop"
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillColor: '#9900ff',
+                                fillOpacity: 10,
+                                strokeWeight: 10,
+                                scale: 10,
+                            },
+                        })
+
+                        marker.addListener('click', () => {
+                            infoWindow.open({
+                                anchor: marker,
+                                map,
+                            })
+                        })
+                        // Actualiza la variable de estado con el nuevo marcador
+                        setCurrentLocationMarker(marker)
+
+                        // Centra el mapa en la ubicación actual
+                        mapRef.current?.setCenter(currentLatLng)
+                        notifySucces()
+                    },
+                    error => {
+                        console.error('Error getting current location:', error)
+                    }
+                )
+            }, 1000)
+        }
+        else {
             console.error('Geolocation is not supported by this browser.')
         }
     }, [])
 
-    // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
-    useEffect(() => {
+
+    async function initMap(): Promise<void> {
         if (typeof window !== 'undefined' && isLoaded) {
             map = new window.google.maps.Map(
                 document.getElementById('map') as HTMLElement,
@@ -139,6 +144,14 @@ const GoogleMapComp: FC = () => {
             // blockScroll()
         }
         setLoading(false)
+
+    }
+
+
+    // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
+    useEffect(() => {
+        initMap();
+
     }, [isLoaded])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
