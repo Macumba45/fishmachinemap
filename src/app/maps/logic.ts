@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
-import { MarkerData } from './type'
+import { MarkerData, Style } from './type'
 import { pictures, totalArray } from './data'
-import { stylesMaps } from './style'
+import { defaultStylesMaps, stylesMaps } from './style'
 import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
 import customMarkerIcon from '../../assets/anzuelo.png'
@@ -9,7 +9,6 @@ import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import { toast } from 'react-toastify'
-
 
 export const useLogicMaps = () => {
     enum MarkerType {
@@ -44,13 +43,11 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
-    const [style, setStyle] = useState<
-    Array<{ elementType: string; stylers: Array<{ color: string }> }>
-    >([])
+    const [style, setStyle] = useState<Array<Style>>([])
 
     const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
 
@@ -93,7 +90,6 @@ export const useLogicMaps = () => {
 
     // Función para crear un marcador en el mapa.
     const createMarker = (markerData: MarkerData) => {
-        console.log(markerData)
         const icon = {
             url: getIcon(markerData.shop),
             scaledSize: new google.maps.Size(32, 32),
@@ -120,7 +116,9 @@ export const useLogicMaps = () => {
         let filteredMarkerInstances: google.maps.Marker[] = []
         console.log(filteredMarkerInstances)
         if (filter === MarkerType.ALL) {
-            filteredMarkerInstances = [...totalArray, ...pictures].map(createMarker);
+            filteredMarkerInstances = [...totalArray, ...pictures].map(
+                createMarker
+            )
         } else if (filter === MarkerType.SHOP) {
             filteredMarkerInstances = totalArray
                 .filter(marker => marker.shop === 'shop')
@@ -160,7 +158,7 @@ export const useLogicMaps = () => {
     const [styledMap, setStyledMap] = useState(true)
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
-            mapRef.current.setOptions({ styles: styledMap ? [] : stylesMaps })
+            mapRef.current.setOptions({ styles: styledMap ? defaultStylesMaps : stylesMaps })
             setStyledMap(!styledMap)
         }
     }

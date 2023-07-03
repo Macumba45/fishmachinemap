@@ -42,7 +42,6 @@ const MediaCard: FC<Props> = ({
             break
     }
 
-
     return (
         <MainContainer>
             <Card key={id} sx={{ width: widthCard }}>
