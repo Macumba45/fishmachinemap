@@ -401,7 +401,7 @@ const GoogleMapComp: FC = () => {
                     />
                     {modalIsOpen && (
                         <BasicModal
-                            onClick={closeModal}
+                            onClose={closeModal}
                             label={place?.name?.toLocaleUpperCase()}
                             direction={place?.formatted_address}
                         >
