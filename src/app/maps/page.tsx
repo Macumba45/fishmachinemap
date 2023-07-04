@@ -61,10 +61,13 @@ const GoogleMapComp: FC = () => {
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
-    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(null)
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectedMarkers, setSelectedMarkers] = useState<google.maps.Marker[]>([]);
-
+    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
+        null
+    )
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [selectedMarkers, setSelectedMarkers] = useState<
+    google.maps.Marker[]
+    >([])
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -162,7 +165,7 @@ const GoogleMapComp: FC = () => {
         setLoading(false)
     }
 
-    let markers: google.maps.Marker[] = []
+    const markers: google.maps.Marker[] = []
 
     function performSearch() {
         const center = map.getCenter()
@@ -211,7 +214,6 @@ const GoogleMapComp: FC = () => {
     }
 
     function createMarker(place: google.maps.places.PlaceResult) {
-
         let iconUrl =
             'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
         // Icono predeterminado
@@ -223,7 +225,6 @@ const GoogleMapComp: FC = () => {
         ) {
             iconUrl = customMarkerIconPlace.src
         }
-
 
         const infoWindowContent = `
     <div>
@@ -258,8 +259,7 @@ const GoogleMapComp: FC = () => {
 
         marker.addListener('click', () => {
             if (!selectedMarkers.includes(marker)) {
-                setSelectedMarkers(prevMarkers => [...prevMarkers, marker]);
-
+                setSelectedMarkers(prevMarkers => [...prevMarkers, marker])
             }
             setPlace(place)
         })
@@ -275,7 +275,6 @@ const GoogleMapComp: FC = () => {
                         ) {
                             openModal(result)
                             // Aquí puedes acceder a los detalles del lugar en la variable "result"
-
                         }
                     }
                 )
@@ -297,13 +296,13 @@ const GoogleMapComp: FC = () => {
 
     const openModal = (place: any) => {
         console.log(place)
-        setPlace(place);
-        setModalIsOpen(true);
-    };
+        setPlace(place)
+        setModalIsOpen(true)
+    }
 
     const closeModal = () => {
-        setModalIsOpen(false);
-    };
+        setModalIsOpen(false)
+    }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -322,7 +321,7 @@ const GoogleMapComp: FC = () => {
             markerClusterer.addMarkers(markers)
             console.log(markers)
         }
-    }, []);
+    }, [])
 
     // Efecto que se ejecuta cuando cambia el estilo del mapa.
     useEffect(() => {
@@ -406,13 +405,17 @@ const GoogleMapComp: FC = () => {
                             label={place?.name?.toLocaleUpperCase()}
                             direction={place?.formatted_address}
                         >
-                            {<SimpleSlider
-                                pictures={place?.photos?.map((photo: any) => {
-                                    return {
-                                        src: photo.getUrl(),
-                                    }
-                                })}
-                            />}
+                            {
+                                <SimpleSlider
+                                    pictures={place?.photos?.map(
+                                        (photo: any) => {
+                                            return {
+                                                src: photo.getUrl(),
+                                            }
+                                        }
+                                    )}
+                                />
+                            }
                         </BasicModal>
                     )}
                     <SimpleBottomNavigation />

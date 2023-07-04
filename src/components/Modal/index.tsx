@@ -44,7 +44,6 @@ const BasicModal: FC<Props> = ({
     selectedMarker,
     onClick,
 }) => {
-
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
@@ -128,8 +127,7 @@ const BasicModal: FC<Props> = ({
                             bgColor="#49007a"
                             variant="contained"
                             onClick={() => openMap(direction || '')}
-                        >
-                        </ButtonComp>
+                        ></ButtonComp>
                     </ButtonContainer>
                 </Box>
             </Modal>
