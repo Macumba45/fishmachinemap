@@ -7,7 +7,7 @@ interface Props {
     disabled?: boolean
 }
 
-const FloatHomeButton: FC<Props> = ({ onClick, disabled }) => {
+const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
     const isSmallScreen = useMediaQuery('(max-width:600px)')
 
     const CustomTooltip = ({ title, children }: any) => {
@@ -29,7 +29,7 @@ const FloatHomeButton: FC<Props> = ({ onClick, disabled }) => {
                             position: 'fixed',
                             bottom: '5rem',
                             right: 0,
-                            marginRight: '2rem',
+                            marginRight: '1rem',
                             backgroundColor: '#9900ff',
                             '&:hover': {
                                 backgroundColor: '#49007a', // Cambiar color del hover
@@ -47,4 +47,4 @@ const FloatHomeButton: FC<Props> = ({ onClick, disabled }) => {
     )
 }
 
-export default memo(FloatHomeButton)
+export default memo(FloatAddMarkerButton)
