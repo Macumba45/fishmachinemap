@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react'
 import Slider, { CustomArrowProps } from 'react-slick'
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import next from 'next/types';
+import next from 'next/types'
 
 interface Picture {
     src: string
@@ -44,8 +44,12 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
     useEffect(() => {
         // Aplica estilos personalizados a los dots después de que el componente se haya renderizado
         const dots = document.getElementsByClassName('slick-dots slick-thumb')
-        const nextArrow = document.getElementsByClassName('slick-arrow slick-next')
-        const prevArrow = document.getElementsByClassName('slick-arrow slick-prev')
+        const nextArrow = document.getElementsByClassName(
+            'slick-arrow slick-next'
+        )
+        const prevArrow = document.getElementsByClassName(
+            'slick-arrow slick-prev'
+        )
         if (dots.length > 0) {
             const dotList = dots[0] as HTMLElement
             // Aplica los estilos CSS personalizados
@@ -60,7 +64,6 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
             // Aplica los estilos CSS personalizados al icono de siguiente
             nextArrowIcon.style.color = '#49007a'
             prevArrowIcon.style.color = '#49007a'
-
 
             // Agrega otros estilos según tus necesidades
         }
