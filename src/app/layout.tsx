@@ -17,8 +17,14 @@ export default function RootLayout({
     return (
         <html suppressHydrationWarning lang="es">
             <head>
-                <script
+                {/* <script
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&libraries=geometry`}
+                >
+
+                </script> */}
+                <script
+                    async
+                    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&libraries=places`}
                 ></script>
                 {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw2bVFpPABnpSh7xogUBucTML69T4U9rY&libraries=places"></script> */}
             </head>

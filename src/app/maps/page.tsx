@@ -20,6 +20,7 @@ import {
     MapContainer,
     stylesMaps,
 } from './style'
+import { Button } from '@mui/material'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -55,6 +56,7 @@ const GoogleMapComp: FC = () => {
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
+    let service: google.maps.places.PlacesService
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -131,6 +133,15 @@ const GoogleMapComp: FC = () => {
             )
             mapRef.current = map
 
+            service = new google.maps.places.PlacesService(map)
+
+            const updateResultsButton = document.getElementById(
+                'updateResultsButton'
+            )
+            if (updateResultsButton) {
+                updateResultsButton.addEventListener('click', performSearch)
+            }
+
             // addMarkerDraggable(map)
             // Crea el cluster de marcadores.
             markerClusterer = new MarkerClusterer({
@@ -141,6 +152,68 @@ const GoogleMapComp: FC = () => {
             // blockScroll()
         }
         setLoading(false)
+    }
+    function performSearch() {
+        const center = map.getCenter()
+
+        const request = {
+            location: center,
+            radius: 100,
+            query: 'Tienda de Pesca',
+            // locationBias: {
+            //     radius: 100,
+            // },
+            // type: ['']
+        }
+
+        service.textSearch(request, callback)
+    }
+
+    function createMarker(place: google.maps.places.PlaceResult) {
+        const infoWindowContent = `
+            <div>
+                <h3>${place.name}</h3>
+                <p>Latitud: ${place.geometry!.location}</p>
+                <p>Longitud: ${place.geometry!.location}</p>
+
+            </div>
+        `
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: infoWindowContent,
+            position: place.geometry!.location,
+        })
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry!.location,
+            title: place.name,
+        })
+
+        marker.addListener('click', () => {
+            infoWindow.open({
+                anchor: marker,
+                map,
+            })
+        })
+
+        google.maps.event.addListener(marker, 'click', function () {
+            // Acción al hacer clic en el marcador
+        })
+    }
+
+    function callback(
+        results: google.maps.places.PlaceResult[] | null,
+        status: google.maps.places.PlacesServiceStatus,
+        pagination: google.maps.places.PlaceSearchPagination | null
+    ) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (const place of results!) {
+                createMarker(place)
+
+                console.log(place)
+            }
+        }
     }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
@@ -217,7 +290,7 @@ const GoogleMapComp: FC = () => {
                             isOpenProp={true}
                             onClose={closeModal}
                         >
-                            {selectedMarker.shop === 'shop' && (
+                            {/* {selectedMarker.shop === 'shop' && (
                                 <CardList
                                     id={shopsListID[0].id}
                                     title={shopsListID[0].title}
@@ -227,7 +300,7 @@ const GoogleMapComp: FC = () => {
                                     city={shopsListID[0].city}
                                     address={shopsListID[0].address}
                                 />
-                            )}
+                            )} */}
                         </BasicModal>
                     )}
                     {addingMarker && (
@@ -266,6 +339,13 @@ const GoogleMapComp: FC = () => {
                     />
                 </>
             )}
+            <Button
+                variant="contained"
+                sx={{ zIndex: '999999', position: 'absolute' }}
+                id="updateResultsButton"
+            >
+                Actulizar resultados
+            </Button>
         </MainContainer>
     )
 }
