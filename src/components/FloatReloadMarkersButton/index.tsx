@@ -1,7 +1,6 @@
 import { FC, memo } from 'react'
 import { Fab, Tooltip, useMediaQuery } from '@mui/material'
-import ReplayIcon from '@mui/icons-material/Replay';
-
+import ReplayIcon from '@mui/icons-material/Replay'
 
 interface Props {
     onClick?: () => void
