@@ -17,13 +17,15 @@ import {
     MapContainer,
     stylesMaps,
 } from './style'
-import { Button } from '@mui/material'
+import { Button, Modal } from '@mui/material'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import FloatReloadMarkersButton from '@/components/FloatReloadMarkersButton'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
+import BasicModal from '@/components/Modal'
+import SimpleSlider from '@/components/Carousel/page'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -36,7 +38,6 @@ const GoogleMapComp: FC = () => {
         notifySucces,
         filterMarkers,
         handleFilterChange,
-        closeModal,
         styledMap,
         selectMapStyle,
         mapRef,
@@ -55,9 +56,15 @@ const GoogleMapComp: FC = () => {
         center,
     } = useLogicMaps()
 
+    console.log(center)
+
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
+    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(null)
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [selectedMarkers, setSelectedMarkers] = useState<google.maps.Marker[]>([]);
+
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -92,12 +99,12 @@ const GoogleMapComp: FC = () => {
                             },
                         })
 
-                        marker.addListener('click', () => {
-                            infoWindow.open({
-                                anchor: marker,
-                                map,
-                            })
-                        })
+                        // marker.addListener('click', () => {
+                        //     infoWindow.open({
+                        //         anchor: marker,
+                        //         map,
+                        //     })
+                        // })
                         // Actualiza la variable de estado con el nuevo marcador
                         setCurrentLocationMarker(marker)
 
@@ -155,12 +162,12 @@ const GoogleMapComp: FC = () => {
         setLoading(false)
     }
 
-    const markers: google.maps.Marker[] = []
+    let markers: google.maps.Marker[] = []
 
     function performSearch() {
         const center = map.getCenter()
         console.log(center?.lat(), center?.lng())
-        console.log(markers)
+        // console.log(markers)
 
         // Eliminar los marcadores anteriores
         if (markerClusterer) markerClusterer.clearMarkers()
@@ -204,6 +211,7 @@ const GoogleMapComp: FC = () => {
     }
 
     function createMarker(place: google.maps.places.PlaceResult) {
+
         let iconUrl =
             'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
         // Icono predeterminado
@@ -215,6 +223,7 @@ const GoogleMapComp: FC = () => {
         ) {
             iconUrl = customMarkerIconPlace.src
         }
+
 
         const infoWindowContent = `
     <div>
@@ -248,10 +257,11 @@ const GoogleMapComp: FC = () => {
         markerClusterer?.addMarker(marker) // Agregar el marcador al clúster
 
         marker.addListener('click', () => {
-            infoWindow.open({
-                anchor: marker,
-                map,
-            })
+            if (!selectedMarkers.includes(marker)) {
+                setSelectedMarkers(prevMarkers => [...prevMarkers, marker]);
+
+            }
+            setPlace(place)
         })
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -263,8 +273,9 @@ const GoogleMapComp: FC = () => {
                         if (
                             status === google.maps.places.PlacesServiceStatus.OK
                         ) {
+                            openModal(result)
                             // Aquí puedes acceder a los detalles del lugar en la variable "result"
-                            console.log(result)
+
                         }
                     }
                 )
@@ -284,6 +295,16 @@ const GoogleMapComp: FC = () => {
         }
     }
 
+    const openModal = (place: any) => {
+        console.log(place)
+        setPlace(place);
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -299,8 +320,9 @@ const GoogleMapComp: FC = () => {
         if (markerClusterer) {
             markerClusterer.clearMarkers()
             markerClusterer.addMarkers(markers)
+            console.log(markers)
         }
-    }, [markers])
+    }, []);
 
     // Efecto que se ejecuta cuando cambia el estilo del mapa.
     useEffect(() => {
@@ -378,6 +400,21 @@ const GoogleMapComp: FC = () => {
                         disabled={isButtonDisabled}
                         onClick={openAddMarkerMode}
                     />
+                    {modalIsOpen && (
+                        <BasicModal
+                            onClick={closeModal}
+                            label={place?.name?.toLocaleUpperCase()}
+                            direction={place?.formatted_address}
+                        >
+                            {<SimpleSlider
+                                pictures={place?.photos?.map((photo: any) => {
+                                    return {
+                                        src: photo.getUrl(),
+                                    }
+                                })}
+                            />}
+                        </BasicModal>
+                    )}
                     <SimpleBottomNavigation />
                     <ToastContainer autoClose={2000} limit={1} />
                     <CustomizedSwitches
