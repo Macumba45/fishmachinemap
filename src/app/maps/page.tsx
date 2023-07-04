@@ -3,7 +3,7 @@
 import { FC, memo, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
-import { MarkerClusterer, } from '@googlemaps/markerclusterer'
+import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CircularIndeterminate from '@/components/Loader'
 import { ToastContainer } from 'react-toastify'
 import { useLogicMaps } from './logic'
@@ -58,9 +58,6 @@ const GoogleMapComp: FC = () => {
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
-
-
-
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
     useEffect(() => {
@@ -158,7 +155,7 @@ const GoogleMapComp: FC = () => {
         setLoading(false)
     }
 
-    let markers: google.maps.Marker[] = []
+    const markers: google.maps.Marker[] = []
 
     function performSearch() {
         const center = map.getCenter()
@@ -207,12 +204,15 @@ const GoogleMapComp: FC = () => {
     }
 
     function createMarker(place: google.maps.places.PlaceResult) {
-        let iconUrl = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+        let iconUrl =
+            'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
         // Icono predeterminado
         // Verificar el tipo de lugar y asignar un icono específico
         if (place.types!.includes('store' || 'establishment')) {
             iconUrl = customMarkerIconShop.src
-        } else if (place.types!.includes('natural_feature' || 'point_of_interest')) {
+        } else if (
+            place.types!.includes('natural_feature' || 'point_of_interest')
+        ) {
             iconUrl = customMarkerIconPlace.src
         }
 
@@ -282,7 +282,6 @@ const GoogleMapComp: FC = () => {
                 createMarker(place)
             }
         }
-
     }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
@@ -341,7 +340,6 @@ const GoogleMapComp: FC = () => {
     } else {
         bottomPosition = '180px'
     }
-
 
     const styleButton = {
         position: 'absolute' as const,
