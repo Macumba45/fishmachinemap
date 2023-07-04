@@ -11,6 +11,18 @@ import customMarkerIconPicture from '../../assets/back-camera.png'
 import { toast } from 'react-toastify'
 
 export const useLogicMaps = () => {
+    function loadGoogleMapsAPI(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            const script = document.createElement('script')
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&libraries=geometry`
+            script.async = true
+            script.onload = () => resolve() // Utiliza una función de flecha para asegurar que el tipo de parámetro sea correcto
+            script.onerror = () => reject() // Utiliza una función de flecha para asegurar que el tipo de parámetro sea correcto
+            document.body.appendChild(script)
+            console.log('entro')
+        })
+    }
+
     enum MarkerType {
         SHOP = 'shop',
         WORM = 'worm',
@@ -261,5 +273,6 @@ export const useLogicMaps = () => {
         loading,
         setLoading,
         center,
+        loadGoogleMapsAPI,
     }
 }
