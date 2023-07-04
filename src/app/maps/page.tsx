@@ -338,7 +338,7 @@ const GoogleMapComp: FC = () => {
     if (window.innerWidth < 600) {
         bottomPosition = '150px'
     } else {
-        bottomPosition = '180px'
+        bottomPosition = '160px'
     }
 
     const styleButton = {

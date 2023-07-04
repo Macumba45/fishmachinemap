@@ -196,9 +196,9 @@ interface Props {
 
 const CustomizedSwitches: FC<Props> = ({ style, onClick }) => {
     return (
-        <FormGroup sx={{ display: 'flex', flexDirection: 'column' }}>
+        <FormGroup sx={{ display: 'flex' }}>
             <FormControlLabel
-                control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked />}
+                control={<MaterialUISwitch sx={{ backgroundColor: 'white', borderRadius: '10px' }} defaultChecked />}
                 label=""
                 style={style}
                 onClick={onClick}
