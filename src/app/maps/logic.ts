@@ -114,7 +114,6 @@ export const useLogicMaps = () => {
     // Función para filtrar los marcadores según el tipo de filtro.
     const filterMarkers = (filter: MarkerType) => {
         let filteredMarkerInstances: google.maps.Marker[] = []
-        console.log(filteredMarkerInstances)
         if (filter === MarkerType.ALL) {
             filteredMarkerInstances = [...totalArray, ...pictures].map(
                 createMarker

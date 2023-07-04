@@ -50,7 +50,7 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
                                     width: '100%',
                                     height: '250px',
                                     borderRadius: '10px',
-                                    marginBottom: '3rem',
+                                    marginBottom: '1rem',
                                 }}
                                 src={picture.src}
                                 alt=""

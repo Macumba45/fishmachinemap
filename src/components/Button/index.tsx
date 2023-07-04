@@ -21,7 +21,7 @@ const ButtonComp: FC<Props> = ({
     const ButtonStyles = {
         backgroundColor: bgColor || 'transparent',
         color: color || '#00b1f6',
-        marginBottom: marginBottom || '1rem',
+        marginBottom: marginBottom || '0rem',
         marginLeft: '1rem',
         marginRight: '1rem',
         border: border || 'none',
@@ -30,6 +30,7 @@ const ButtonComp: FC<Props> = ({
         cursor: 'pointer',
         opacity: 1,
         fontFamily: fontFamily,
+        marginTop: '1rem',
     }
 
     return (
