@@ -184,7 +184,7 @@ const GoogleMapComp: FC = () => {
             position: place.geometry!.location,
         })
 
-        var marker = new google.maps.Marker({
+        const marker = new google.maps.Marker({
             map: map,
             position: place.geometry!.location,
             title: place.name,
