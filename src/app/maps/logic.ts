@@ -24,6 +24,8 @@ export const useLogicMaps = () => {
         googleMapsApiKey: process.env.API_KEY || '',
     })
     // Define los estados del componente.
+    const [floatingMarker, setFloatingMarker] = useState<google.maps.LatLngLiteral | null>(null);
+
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
         lat: 40.463667 || undefined,
@@ -169,7 +171,7 @@ export const useLogicMaps = () => {
             return
         }
 
-        const listener = map.addListener('click', (event: any) => {
+        const listener = map.addListener('click', (event: google.maps.MapMouseEvent) => {
             const latLng = event.latLng
             const marker = new google.maps.Marker({
                 position: latLng,
@@ -226,16 +228,15 @@ export const useLogicMaps = () => {
 
     // Función para abrir el modo de "Añadir a marcadores"
     const openAddMarkerMode = () => {
-        // Realizar acciones adicionales al abrir el modo de "Añadir a marcadores"
         // Restablecer el estado
-        // clearMarkers()
-        isAlreadyMarkedRef.current = true
-
+        isAlreadyMarkedRef.current = true;
+    
         if (mapRef.current) {
-            setIsButtonDisabled(true) // Deshabilita el botón
-            addMarkerDraggable(mapRef.current)
+            setIsButtonDisabled(true); // Deshabilita el botón
+            setFloatingMarker(center); // Establece la posición del marcador flotante en el centro de la pantalla
+            addMarkerDraggable(mapRef.current);
         }
-    }
+    };
 
     return {
         currentFilter,
@@ -265,5 +266,6 @@ export const useLogicMaps = () => {
         loading,
         setLoading,
         center,
+        floatingMarker,
     }
 }
