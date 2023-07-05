@@ -61,8 +61,6 @@ const BasicModal: FC<Props> = ({
     value,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
-    const [openChildModal, setOpenChildModal] = useState(false)
-    console.log(openChildModal)
 
     useEffect(() => {
         setIsOpen(isOpenProp || true)
@@ -97,6 +95,7 @@ const BasicModal: FC<Props> = ({
         <MainContainer>
             <Modal
                 open={isOpen}
+                onClose={onClose}
                 onClick={onClick}
                 disableEscapeKeyDown={true}
                 aria-labelledby="modal-modal-title"
