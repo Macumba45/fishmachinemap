@@ -15,4 +15,5 @@ export type Props = {
     onClick?: () => void
     children?: React.ReactNode
     disabled?: boolean
+    type?: 'button' | 'submit' | 'reset' | undefined
 }

@@ -17,6 +17,7 @@ const ButtonComp: FC<Props> = ({
     children,
     onClick,
     disabled,
+    type,
 }) => {
     const ButtonStyles = {
         backgroundColor: bgColor || 'transparent',
@@ -42,6 +43,7 @@ const ButtonComp: FC<Props> = ({
                 onClick={onClick}
                 variant={variant as 'text' | 'outlined' | 'contained'} // Añadir el tipo correcto para la prop variant
                 disabled={disabled}
+                type={type}
             >
                 {icon}
                 {title}

@@ -208,7 +208,6 @@ const CustomizedSwitchesLocation: FC<Props> = ({
                 sx={{
                     backgroundColor: disabled ? 'black' : 'white',
                     borderRadius: '100px',
-                    height: '50px',
                     display: disabled ? 'none' : 'flex',
                 }}
                 control={

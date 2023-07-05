@@ -28,6 +28,7 @@ import {
 } from './style'
 import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
+import ModalCrearMarcador from '@/components/ModalAddMarker'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -75,7 +76,6 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
 
     const getMyPosition = () => {
-        console.log('entro')
         setLoadingLocation(true)
         setDisableLocation(false)
         if (navigator.geolocation) {
@@ -113,7 +113,6 @@ const GoogleMapComp: FC = () => {
                     // Centra el mapa en la ubicación actual
                     mapRef.current?.setCenter(currentLatLng)
                     notifySucces()
-                    console.log('entro de nuevo')
                     setLoadingLocation(false)
                     setDisableLocation(false)
                     performSearch()
@@ -169,7 +168,7 @@ const GoogleMapComp: FC = () => {
 
     function performSearch() {
         const center = map.getCenter()
-        console.log(center?.lat(), center?.lng())
+        // console.log(center?.lat(), center?.lng())
         // Eliminar los marcadores anteriores
         if (markerClusterer) markerClusterer.clearMarkers()
 
@@ -375,18 +374,14 @@ const GoogleMapComp: FC = () => {
             <>
                 <MapContainer id="map" />
                 {addingMarker && (
-                    <ButtonComp
-                        variant="contained"
-                        style={{
-                            position: 'absolute',
-                            zIndex: 999999,
-                            top: '12%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            backgroundColor: '#49007a',
+                    <ModalCrearMarcador
+
+                        isOpen={addingMarker}
+                        onClose={() => {
+                            confirmMarker()
                         }}
-                        title="Confirmar"
-                        onClick={confirmMarker}
+
+
                     />
                 )}
                 <FilterContainer>
@@ -464,7 +459,7 @@ const GoogleMapComp: FC = () => {
                         display: !disableLocation ? 'none' : 'flex',
                         marginLeft: '0px',
                         right: '0px',
-                        bottom: '230px',
+                        bottom: '210px',
                         position: 'absolute',
                     }}
                     onClick={getMyPosition}
