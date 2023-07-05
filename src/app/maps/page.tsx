@@ -26,6 +26,10 @@ import FloatReloadMarkersButton from '@/components/FloatReloadMarkersButton'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
 import BasicModal from '@/components/Modal'
 import SimpleSlider from '@/components/Carousel/page'
+import CustomizedSwitchesLocation from '@/components/MuiSwitchLocation'
+import { get } from 'http'
+import SimpleBackdrop from '@/components/CircularColor'
+import CircularColor from '@/components/CircularColor'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -56,8 +60,6 @@ const GoogleMapComp: FC = () => {
         center,
     } = useLogicMaps()
 
-    console.log(center)
-
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -66,64 +68,64 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
+    const [loadingLocation, setLoadingLocation] = useState(false)
+    const [disableLocation, setDisableLocation] = useState(true)
+
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
-    useEffect(() => {
+
+    const getMyPosition = () => {
+        console.log("entro")
+        setLoadingLocation(true)
+        setDisableLocation(false)
         if (navigator.geolocation) {
-            setTimeout(() => {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const { latitude, longitude } = position.coords
-                        const currentLatLng = { lat: latitude, lng: longitude }
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords
+                    const currentLatLng = { lat: latitude, lng: longitude }
 
-                        const infoWindow = new google.maps.InfoWindow({
-                            content: 'Usted está aquí',
-                            ariaLabel: 'Usted está aquí',
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: 'Usted está aquí',
+                        ariaLabel: 'Usted está aquí',
+                    })
+                    // Crea un nuevo marcador para la ubicación actual
+                    const marker = new google.maps.Marker({
+                        position: currentLatLng,
+                        map: mapRef.current,
+                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillColor: '#9900ff',
+                            fillOpacity: 8,
+                            strokeWeight: 8,
+                            scale: 8,
+                        },
+                    })
+
+                    marker.addListener('click', () => {
+                        infoWindow.open({
+                            anchor: marker,
+                            map,
                         })
+                    })
+                    // Actualiza la variable de estado con el nuevo marcador
+                    setCurrentLocationMarker(marker)
+                    // Centra el mapa en la ubicación actual
+                    mapRef.current?.setCenter(currentLatLng)
+                    notifySucces()
+                    console.log("entro de nuevo")
+                    setLoadingLocation(false)
+                    setDisableLocation(false)
+                },
+                error => {
+                    console.error('Error getting current location:', error)
+                }
 
-                        // Elimina el marcador de ubicación actual si ya existe
-                        if (currentLocationMarker) {
-                            currentLocationMarker.setMap(null)
-                        }
-
-                        // Crea un nuevo marcador para la ubicación actual
-                        const marker = new google.maps.Marker({
-                            position: currentLatLng,
-                            map: mapRef.current,
-                            animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
-                            icon: {
-                                path: google.maps.SymbolPath.CIRCLE,
-                                fillColor: '#9900ff',
-                                fillOpacity: 8,
-                                strokeWeight: 8,
-                                scale: 8,
-                            },
-                        })
-
-                        // marker.addListener('click', () => {
-                        //     infoWindow.open({
-                        //         anchor: marker,
-                        //         map,
-                        //     })
-                        // })
-                        // Actualiza la variable de estado con el nuevo marcador
-                        setCurrentLocationMarker(marker)
-
-                        // Centra el mapa en la ubicación actual
-                        mapRef.current?.setCenter(currentLatLng)
-                        notifySucces()
-                    },
-                    error => {
-                        console.error('Error getting current location:', error)
-                    }
-                )
-            }, 1000)
-        } else {
-            console.error('Geolocation is not supported by this browser.')
+            )
         }
-    }, [])
+    }
 
     async function initMap(): Promise<void> {
         if (typeof window !== 'undefined' && isLoaded) {
@@ -131,7 +133,7 @@ const GoogleMapComp: FC = () => {
                 document.getElementById('map') as HTMLElement,
                 {
                     center: center,
-                    zoom: 10,
+                    zoom: 8,
                     zoomControl: false,
                     zoomControlOptions: {
                         position: 9,
@@ -307,7 +309,8 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
-    }, [isLoaded])
+
+    }, [isLoaded, center])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     useEffect(() => {
@@ -345,6 +348,7 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
+
     // Renderiza el componente.
     if (loading) {
         return (
@@ -374,64 +378,94 @@ const GoogleMapComp: FC = () => {
     }
     return (
         <MainContainer>
-            {center && (
-                <>
-                    <MapContainer id="map" />
-                    {addingMarker && (
-                        <ButtonComp
-                            variant="contained"
-                            style={{
-                                position: 'absolute',
-                                zIndex: 999999,
-                                top: '12%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                backgroundColor: '#49007a',
-                            }}
-                            title="Confirmar"
-                            onClick={confirmMarker}
-                        />
-                    )}
-                    <FilterContainer>
-                        <FilterComponent onChange={handleFilterChange} />
-                    </FilterContainer>
-                    <FloatAddMarkerButton
-                        disabled={isButtonDisabled}
-                        onClick={openAddMarkerMode}
-                    />
-                    {modalIsOpen && (
-                        <BasicModal
-                            onClose={closeModal}
-                            label={place?.name?.toLocaleUpperCase()}
-                            direction={place?.formatted_address}
-                        >
-                            {
-                                <SimpleSlider
-                                    pictures={place?.photos?.map(
-                                        (photo: any) => {
-                                            return {
-                                                src: photo.getUrl(),
-                                            }
-                                        }
-                                    )}
-                                />
-                            }
-                        </BasicModal>
-                    )}
-                    <SimpleBottomNavigation />
-                    <ToastContainer autoClose={2000} limit={1} />
-                    <CustomizedSwitches
+
+            <>
+                <MapContainer id="map" />
+                {addingMarker && (
+                    <ButtonComp
+                        variant="contained"
                         style={{
-                            display: 'flex',
-                            marginLeft: '0px',
-                            right: '0',
-                            bottom: bottomPosition,
                             position: 'absolute',
+                            zIndex: 999999,
+                            top: '12%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: '#49007a',
                         }}
-                        onClick={() => selectMapStyle()}
+                        title="Confirmar"
+                        onClick={confirmMarker}
                     />
-                </>
-            )}
+                )}
+                <FilterContainer>
+                    <FilterComponent onChange={handleFilterChange} />
+                </FilterContainer>
+                <FloatAddMarkerButton
+                    disabled={isButtonDisabled}
+                    onClick={openAddMarkerMode}
+                />
+                {modalIsOpen && (
+                    <BasicModal
+                        onClose={closeModal}
+                        label={place?.name?.toLocaleUpperCase()}
+                        direction={place?.formatted_address}
+                        value={place?.rating}
+                    >
+                        {
+                            <SimpleSlider
+                                pictures={place?.photos?.map(
+                                    (photo: any) => {
+                                        return {
+                                            src: photo.getUrl(),
+                                        }
+                                    }
+                                )}
+                            />
+                        }
+                    </BasicModal>
+                )}
+                {loadingLocation && (
+
+                    <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semi-transparente oscuro
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <CircularColor />
+                    </div>
+                )}
+                <SimpleBottomNavigation />
+                <ToastContainer autoClose={2000} limit={1} />
+                <CustomizedSwitches
+                    style={{
+                        display: 'flex',
+                        marginLeft: '0px',
+                        right: '0',
+                        bottom: bottomPosition,
+                        position: 'absolute',
+                    }}
+                    onClick={() => selectMapStyle()}
+                />
+                <CustomizedSwitchesLocation
+                    disabled={!disableLocation}
+                    style={{
+                        display: 'flex',
+                        marginLeft: '0px',
+                        right: '0px',
+                        bottom: '230px',
+                        position: 'absolute',
+                    }}
+                    onClick={getMyPosition}
+                />
+            </>
+
             <FloatReloadMarkersButton />
         </MainContainer>
     )

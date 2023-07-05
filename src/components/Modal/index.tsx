@@ -13,6 +13,7 @@ import {
     TypographyContainer,
 } from './style'
 import SimpleSlider from '../Carousel/page'
+import BasicRating from '../Rating'
 
 export const openMap = (address: string) => {
     const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
@@ -33,6 +34,7 @@ interface Props {
     icon?: React.ReactNode
     children?: React.ReactNode
     selectedMarker?: string
+    value?: number
 }
 
 const BasicModal: FC<Props> = ({
@@ -43,6 +45,7 @@ const BasicModal: FC<Props> = ({
     children,
     selectedMarker,
     onClick,
+    value
 }) => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -109,7 +112,12 @@ const BasicModal: FC<Props> = ({
                             {direction}
                         </Typography>
                     </TypographyContainer>
-                    <Divider sx={{ width: '100px', margin: '2rem auto' }} />
+                    <TypographyContainer>
+                        <Typography sx={{ marginTop: '1rem' }}>
+                            Valoraciones:<BasicRating value={value} />
+                        </Typography>
+                    </TypographyContainer>
+                    <Divider sx={{ width: '100px', margin: '1.5rem auto' }} />
                     {children}
                     <ButtonContainer>
                         <ButtonComp
