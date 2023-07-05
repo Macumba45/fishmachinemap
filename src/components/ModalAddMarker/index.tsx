@@ -1,51 +1,58 @@
 'use client'
 
-
-import React, { FC, useState } from 'react';
-import { Modal, Box, Typography, Select, MenuItem, TextField, Button, Input } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material';
-import ButtonComp from '@/components/Button';
-
+import React, { FC, useState } from 'react'
+import {
+    Modal,
+    Box,
+    Typography,
+    Select,
+    MenuItem,
+    TextField,
+    Button,
+    Input,
+} from '@mui/material'
+import { SelectChangeEvent } from '@mui/material'
+import ButtonComp from '@/components/Button'
 
 interface Props {
-    isOpen: boolean;
-    onClose: () => void;
+    isOpen: boolean
+    onClose: () => void
 }
 
 const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
-    const [tipoLugar, setTipoLugar] = useState('');
-    const [descripcion, setDescripcion] = useState('');
-    const [fotos, setFotos] = useState<File[]>([]);
-    console.log(fotos);
-    console.log(tipoLugar);
-    console.log(descripcion);
+    const [tipoLugar, setTipoLugar] = useState('')
+    const [descripcion, setDescripcion] = useState('')
+    const [fotos, setFotos] = useState<File[]>([])
+    console.log(fotos)
+    console.log(tipoLugar)
+    console.log(descripcion)
 
     const handleTipoLugarChange = (event: SelectChangeEvent<string>) => {
-        setTipoLugar(event.target.value);
-    };
+        setTipoLugar(event.target.value)
+    }
     const handleDescripcionChange = (event: any) => {
-        setDescripcion(event.target.value);
-    };
+        setDescripcion(event.target.value)
+    }
 
     const handleFotosChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
+        const files = event.target.files
         if (files) {
-            const fileArray = Array.from(files) as File[];
-            setFotos(fileArray);
+            const fileArray = Array.from(files) as File[]
+            setFotos(fileArray)
         } else {
-            setFotos([]);
+            setFotos([])
         }
-    };
+    }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+        event.preventDefault()
         // Aquí puedes enviar los datos del marcador al servidor
         // y realizar cualquier otra acción necesaria
         // ...
 
         // Cerrar el modal después de enviar el formulario
-        onClose();
-    };
+        onClose()
+    }
 
     return (
         <Modal open={isOpen} onClose={onClose}>
@@ -77,7 +84,9 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                             fullWidth
                             required
                         >
-                            <MenuItem value="">Seleccionar tipo de lugar</MenuItem>
+                            <MenuItem value="">
+                                Seleccionar tipo de lugar
+                            </MenuItem>
                             <MenuItem value="restaurante">Restaurante</MenuItem>
                             <MenuItem value="hotel">Hotel</MenuItem>
                             <MenuItem value="parque">Parque</MenuItem>
@@ -102,7 +111,12 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                         <Typography variant="body2" component="label">
                             Subir fotos:
                         </Typography>
-                        <input multiple required type="file" onChange={handleFotosChange} />
+                        <input
+                            multiple
+                            required
+                            type="file"
+                            onChange={handleFotosChange}
+                        />
                     </Box>
 
                     <Box sx={{ mt: 2 }}>
@@ -123,7 +137,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                 </form>
             </Box>
         </Modal>
-    );
-};
+    )
+}
 
-export default ModalCrearMarcador;
+export default ModalCrearMarcador

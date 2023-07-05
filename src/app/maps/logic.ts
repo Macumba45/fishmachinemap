@@ -177,7 +177,10 @@ export const useLogicMaps = () => {
                 // draggable: true,
                 animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
             })
-            console.log(marker.getPosition()?.lat(), marker.getPosition()?.lng())
+            console.log(
+                marker.getPosition()?.lat(),
+                marker.getPosition()?.lng()
+            )
 
             // Agregar el nuevo marcador al estado de marcadores
             setMarkers(prevMarkers => [...prevMarkers, marker])
