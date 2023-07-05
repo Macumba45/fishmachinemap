@@ -375,13 +375,10 @@ const GoogleMapComp: FC = () => {
                 <MapContainer id="map" />
                 {addingMarker && (
                     <ModalCrearMarcador
-
                         isOpen={addingMarker}
                         onClose={() => {
                             confirmMarker()
                         }}
-
-
                     />
                 )}
                 <FilterContainer>
