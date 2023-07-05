@@ -45,7 +45,7 @@ const BasicModal: FC<Props> = ({
     children,
     selectedMarker,
     onClick,
-    value
+    value,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -114,7 +114,8 @@ const BasicModal: FC<Props> = ({
                     </TypographyContainer>
                     <TypographyContainer>
                         <Typography sx={{ marginTop: '1rem' }}>
-                            Valoraciones:<BasicRating value={value} />
+                            Valoraciones:
+                            <BasicRating value={value} />
                         </Typography>
                     </TypographyContainer>
                     <Divider sx={{ width: '100px', margin: '1.5rem auto' }} />
