@@ -12,11 +12,10 @@ const BasicRating: FC<Props> = ({ value }) => {
     return (
         <Box
             sx={{
-                marginTop: '10px',
                 '& > legend': { mt: 2 },
             }}
         >
-            <Rating name="read-only" value={value} readOnly />
+            <Rating precision={0.5} name="read-only" value={value} readOnly />
         </Box>
     )
 }

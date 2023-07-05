@@ -32,6 +32,17 @@ export const FilterContainer = styled.div`
     height: 60px; /* ajusta la altura según tus necesidades */
 `
 
+export const ReviewsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    font-family: ${({ theme }) => theme.fonts.roboto};
+    font-size: 1.8rem;
+    font-weight: 200;
+`
+
 export const stylesMaps: Style[] = [
     { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
     { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },

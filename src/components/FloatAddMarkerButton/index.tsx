@@ -19,12 +19,19 @@ const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
     }
 
     return (
-        <>
+        <div
+            style={{
+                position: 'absolute',
+                bottom: '130px',
+                right: '30px',
+                marginRight: '1rem',
+            }}
+        >
             <CustomTooltip title="Añadir marcador">
                 <span>
                     <Fab
                         onClick={onClick}
-                        size={isSmallScreen ? 'medium' : 'large'}
+                        // size={isSmallScreen ? 'medium' : 'large'}
                         sx={{
                             position: 'fixed',
                             bottom: '5rem',
@@ -43,7 +50,7 @@ const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
                     </Fab>
                 </span>
             </CustomTooltip>
-        </>
+        </div>
     )
 }
 

@@ -13,6 +13,18 @@ export const MainContainer = styled.div`
 `
 
 export const TypographyContainer = styled.div``
+export const ReviewsContainer = styled.div`
+    position: absolute;
+    display: flex;
+    width: 400px;
+    align-items: center;
+    height: 500px;
+    object-fit: cover;
+    background-size: cover;
+    z-index: 999;
+    background-color: red;
+    margin-top: 2.5rem;
+`
 
 export const ImageContainer = styled.div`
     width: 100%;
@@ -33,4 +45,19 @@ export const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`
+
+export const RatingContainer = styled.div`
+    display: flex;
+    margin-top: 1rem;
+    align-items: center;
+`
+export const NumberOfRating = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: ${({ theme }) => theme.fonts.roboto};
+    font-weight: 100;
+    font-size: 1rem;
+    margin-right: 0.5rem;
 `

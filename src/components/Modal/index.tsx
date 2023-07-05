@@ -6,14 +6,18 @@ import React, { FC, useEffect, useState } from 'react'
 import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
 import NavigationIcon from '@mui/icons-material/Navigation'
+import CallIcon from '@mui/icons-material/Call'
 import {
     ButtonContainer,
     ImageContainer,
     MainContainer,
+    NumberOfRating,
+    RatingContainer,
+    ReviewsContainer,
     TypographyContainer,
 } from './style'
-import SimpleSlider from '../Carousel/page'
 import BasicRating from '../Rating'
+import ReviewsComp from '../Reviews'
 
 export const openMap = (address: string) => {
     const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
@@ -21,8 +25,15 @@ export const openMap = (address: string) => {
     window.open(baseUrl + encodedAddress)
 }
 
-interface Picture {
-    src: string
+export interface PlaceReview {
+    author_name?: string
+    author_url?: string
+    language?: string
+    profile_photo_url?: string
+    rating?: number
+    relative_time_description?: string
+    text?: string
+    time?: number
 }
 
 interface Props {
@@ -35,11 +46,13 @@ interface Props {
     children?: React.ReactNode
     selectedMarker?: string
     value?: number
+    phone?: string
 }
 
 const BasicModal: FC<Props> = ({
     label,
     direction,
+    phone,
     onClose,
     isOpenProp,
     children,
@@ -48,14 +61,16 @@ const BasicModal: FC<Props> = ({
     value,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
+    const [openChildModal, setOpenChildModal] = useState(false)
+    console.log(openChildModal)
 
     useEffect(() => {
         setIsOpen(isOpenProp || true)
     }, [isOpenProp])
 
-    // const handleClose = () => {
-    //     setIsOpen(false)
-    // }
+    const handleClose = () => {
+        setIsOpen(false)
+    }
 
     let width = window.innerWidth
     if (width < 600) {
@@ -71,9 +86,11 @@ const BasicModal: FC<Props> = ({
         transform: 'translate(-50%, -50%)',
         width: width,
         bgcolor: 'background.paper',
-        boderShadow: '0 10px 100px #000',
+        boxShadow: '0 10px 100px #000', // Corrección aquí
         p: 4,
         borderRadius: '10px',
+        maxHeight: '500px',
+        overflowY: 'scroll',
     }
 
     return (
@@ -86,18 +103,19 @@ const BasicModal: FC<Props> = ({
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <IconButton
-                        aria-label="Close"
-                        onClick={onClose}
-                        sx={{
-                            position: 'absolute',
-                            top: '10px',
-                            right: '10px',
-                            zIndex: 9999999,
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
+                    <TypographyContainer>
+                        <IconButton
+                            aria-label="Close"
+                            onClick={onClose}
+                            sx={{
+                                position: 'absolute',
+                                top: '10px',
+                                right: '10px',
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </TypographyContainer>
                     <TypographyContainer>
                         <Typography
                             id="modal-modal-title"
@@ -112,22 +130,13 @@ const BasicModal: FC<Props> = ({
                             {direction}
                         </Typography>
                     </TypographyContainer>
-                    <TypographyContainer>
-                        <Typography sx={{ marginTop: '1rem' }}>
-                            Valoraciones:
-                            <BasicRating value={value} />
-                        </Typography>
-                    </TypographyContainer>
+
+                    <RatingContainer>
+                        <NumberOfRating>{value}</NumberOfRating>
+                        <BasicRating value={value} />
+                    </RatingContainer>
                     <Divider sx={{ width: '100px', margin: '1.5rem auto' }} />
                     {children}
-                    <ButtonContainer>
-                        <ButtonComp
-                            variant="outlined"
-                            title="+ Info"
-                            border="1px solid #49007a"
-                            color="#49007a"
-                        />
-                    </ButtonContainer>
                     <ButtonContainer>
                         <ButtonComp
                             icon={<NavigationIcon fontSize="medium" />}
