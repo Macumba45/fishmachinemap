@@ -449,7 +449,7 @@ const GoogleMapComp: FC = () => {
                 <CustomizedSwitchesLocation
                     disabled={!disableLocation}
                     style={{
-                        display: 'flex',
+                        display: !disableLocation ? 'none' : 'flex',
                         marginLeft: '0px',
                         right: '0px',
                         bottom: '230px',

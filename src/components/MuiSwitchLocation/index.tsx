@@ -209,7 +209,7 @@ const CustomizedSwitchesLocation: FC<Props> = ({
                     backgroundColor: disabled ? 'black' : 'white',
                     borderRadius: '100px',
                     height: '50px',
-                    opacity: disabled ? '0' : '1',
+                    display: disabled ? 'none' : 'flex',
                 }}
                 control={
                     <MaterialUISwitch disabled={disabled} defaultChecked />
