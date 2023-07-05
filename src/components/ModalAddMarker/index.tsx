@@ -84,12 +84,12 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                             fullWidth
                             required
                         >
-                            <MenuItem value="">
-                                Seleccionar tipo de lugar
-                            </MenuItem>
-                            <MenuItem value="restaurante">Restaurante</MenuItem>
-                            <MenuItem value="hotel">Hotel</MenuItem>
-                            <MenuItem value="parque">Parque</MenuItem>
+
+                            <MenuItem value="Pesquero">Pesquero</MenuItem>
+                            <MenuItem value="store">Tienda de Pesca</MenuItem>
+                            <MenuItem value="worm">Cebos 24H</MenuItem>
+                            <MenuItem value="pictures">Fotos de Capturas</MenuItem>
+
                         </Select>
                     </Box>
 

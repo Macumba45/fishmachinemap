@@ -56,8 +56,9 @@ const GoogleMapComp: FC = () => {
         loading,
         setLoading,
         center,
+        floatingMarker,
     } = useLogicMaps()
-
+    console.log(floatingMarker)
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -71,7 +72,6 @@ const GoogleMapComp: FC = () => {
 
     const [loadingLocation, setLoadingLocation] = useState(false)
     const [disableLocation, setDisableLocation] = useState(true)
-    const [buttonReload, setButtonReload] = useState(false)
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
 
@@ -462,6 +462,19 @@ const GoogleMapComp: FC = () => {
                     onClick={getMyPosition}
                 />
             </>
+            {floatingMarker !== null && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        /* ... estilos adicionales ... */
+                    }}
+                >
+                    {/* Contenido del marcador flotante */}
+                </div>
+            )}
             <FloatAddMarkerButton
                 disabled={isButtonDisabled}
                 onClick={openAddMarkerMode}
