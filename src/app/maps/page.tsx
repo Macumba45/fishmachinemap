@@ -7,29 +7,27 @@ import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CircularIndeterminate from '@/components/Loader'
 import { ToastContainer } from 'react-toastify'
 import { useLogicMaps } from './logic'
-import FloatHomeButton from '@/components/FloatReloadMarkersButton'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
-import 'react-toastify/dist/ReactToastify.css'
-import {
-    FilterContainer,
-    MainContainer,
-    MapContainer,
-    stylesMaps,
-} from './style'
-import { Button, Modal } from '@mui/material'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import FloatReloadMarkersButton from '@/components/FloatReloadMarkersButton'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
-import BasicModal from '@/components/Modal'
+import BasicModal, { PlaceReview } from '@/components/Modal'
 import SimpleSlider from '@/components/Carousel/page'
 import CustomizedSwitchesLocation from '@/components/MuiSwitchLocation'
-import { get } from 'http'
-import SimpleBackdrop from '@/components/CircularColor'
 import CircularColor from '@/components/CircularColor'
+import {
+    FilterContainer,
+    MainContainer,
+    MapContainer,
+    ReviewsContainer,
+    stylesMaps,
+} from './style'
+import 'react-toastify/dist/ReactToastify.css'
+import ReviewsComp from '@/components/Reviews'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -50,7 +48,6 @@ const GoogleMapComp: FC = () => {
         confirmedMarkers,
         setCurrentLocationMarker,
         addingMarker,
-        currentLocationMarker,
         isButtonDisabled,
         style,
         setStyle,
@@ -73,6 +70,7 @@ const GoogleMapComp: FC = () => {
 
     const [loadingLocation, setLoadingLocation] = useState(false)
     const [disableLocation, setDisableLocation] = useState(true)
+    const [buttonReload, setButtonReload] = useState(false)
 
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
 
@@ -118,6 +116,7 @@ const GoogleMapComp: FC = () => {
                     console.log('entro de nuevo')
                     setLoadingLocation(false)
                     setDisableLocation(false)
+                    performSearch()
                 },
                 error => {
                     console.error('Error getting current location:', error)
@@ -171,8 +170,6 @@ const GoogleMapComp: FC = () => {
     function performSearch() {
         const center = map.getCenter()
         console.log(center?.lat(), center?.lng())
-        // console.log(markers)
-
         // Eliminar los marcadores anteriores
         if (markerClusterer) markerClusterer.clearMarkers()
 
@@ -182,7 +179,7 @@ const GoogleMapComp: FC = () => {
                 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
             gridSize: 30,
             zoomOnClick: false,
-            maxZoom: 10,
+            maxZoom: 8,
             minimunClusterSize: 2,
         }
 
@@ -395,16 +392,14 @@ const GoogleMapComp: FC = () => {
                 <FilterContainer>
                     <FilterComponent onChange={handleFilterChange} />
                 </FilterContainer>
-                <FloatAddMarkerButton
-                    disabled={isButtonDisabled}
-                    onClick={openAddMarkerMode}
-                />
+
                 {modalIsOpen && (
                     <BasicModal
                         onClose={closeModal}
                         label={place?.name?.toLocaleUpperCase()}
                         direction={place?.formatted_address}
                         value={place?.rating}
+                        phone={place?.international_phone_number}
                     >
                         {
                             <SimpleSlider
@@ -415,6 +410,23 @@ const GoogleMapComp: FC = () => {
                                 })}
                             />
                         }
+                        <ReviewsContainer>Reviews</ReviewsContainer>
+                        {place?.reviews?.map(
+                            (review: PlaceReview, index: number) => (
+                                <ReviewsComp
+                                    key={index}
+                                    author_name={review.author_name}
+                                    author_url={review.author_url}
+                                    language={review.language}
+                                    profile_photo_url={review.profile_photo_url}
+                                    rating={review.rating}
+                                    relative_time_description={
+                                        review.relative_time_description
+                                    }
+                                    text={review.text}
+                                />
+                            )
+                        )}
                     </BasicModal>
                 )}
                 {loadingLocation && (
@@ -458,7 +470,10 @@ const GoogleMapComp: FC = () => {
                     onClick={getMyPosition}
                 />
             </>
-
+            <FloatAddMarkerButton
+                disabled={isButtonDisabled}
+                onClick={openAddMarkerMode}
+            />
             <FloatReloadMarkersButton />
         </MainContainer>
     )

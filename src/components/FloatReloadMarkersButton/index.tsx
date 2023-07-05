@@ -20,8 +20,15 @@ const FloatReloadMarkersButton: FC<Props> = ({ onClick, disabled, id }) => {
     }
 
     return (
-        <>
-            <CustomTooltip title="Añadir marcador">
+        <div
+            style={{
+                position: 'absolute',
+                bottom: '10px',
+                left: '50px',
+                marginRight: '1rem',
+            }}
+        >
+            <CustomTooltip title="Recargar datos">
                 <span>
                     <Fab
                         id="updateResultsButton"
@@ -45,7 +52,7 @@ const FloatReloadMarkersButton: FC<Props> = ({ onClick, disabled, id }) => {
                     </Fab>
                 </span>
             </CustomTooltip>
-        </>
+        </div>
     )
 }
 
