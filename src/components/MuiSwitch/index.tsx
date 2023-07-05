@@ -198,13 +198,12 @@ const CustomizedSwitches: FC<Props> = ({ style, onClick }) => {
     return (
         <FormGroup sx={{ display: 'flex' }}>
             <FormControlLabel
-                sx={{ backgroundColor: 'white', borderRadius: '100px', height: '50px' }}
-
-                control={
-                    <MaterialUISwitch
-                        defaultChecked
-                    />
-                }
+                sx={{
+                    backgroundColor: 'white',
+                    borderRadius: '100px',
+                    height: '50px',
+                }}
+                control={<MaterialUISwitch defaultChecked />}
                 label=""
                 style={style}
                 onClick={onClick}

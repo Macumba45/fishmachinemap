@@ -68,7 +68,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
 
     const getMyPosition = () => {
-        console.log("entro")
+        console.log('entro')
         setLoadingLocation(true)
         setDisableLocation(false)
         if (navigator.geolocation) {
@@ -115,14 +115,13 @@ const GoogleMapComp: FC = () => {
                     // Centra el mapa en la ubicación actual
                     mapRef.current?.setCenter(currentLatLng)
                     notifySucces()
-                    console.log("entro de nuevo")
+                    console.log('entro de nuevo')
                     setLoadingLocation(false)
                     setDisableLocation(false)
                 },
                 error => {
                     console.error('Error getting current location:', error)
                 }
-
             )
         }
     }
@@ -309,7 +308,6 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
-
     }, [isLoaded, center])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
@@ -348,7 +346,6 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-
     // Renderiza el componente.
     if (loading) {
         return (
@@ -378,7 +375,6 @@ const GoogleMapComp: FC = () => {
     }
     return (
         <MainContainer>
-
             <>
                 <MapContainer id="map" />
                 {addingMarker && (
@@ -412,19 +408,16 @@ const GoogleMapComp: FC = () => {
                     >
                         {
                             <SimpleSlider
-                                pictures={place?.photos?.map(
-                                    (photo: any) => {
-                                        return {
-                                            src: photo.getUrl(),
-                                        }
+                                pictures={place?.photos?.map((photo: any) => {
+                                    return {
+                                        src: photo.getUrl(),
                                     }
-                                )}
+                                })}
                             />
                         }
                     </BasicModal>
                 )}
                 {loadingLocation && (
-
                     <div
                         style={{
                             position: 'fixed',

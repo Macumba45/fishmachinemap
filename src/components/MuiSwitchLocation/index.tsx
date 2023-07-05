@@ -2,7 +2,7 @@ import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 import Switch, { SwitchProps } from '@mui/material/Switch'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -197,17 +197,22 @@ interface Props {
     disabled?: boolean
 }
 
-const CustomizedSwitchesLocation: FC<Props> = ({ style, onClick, disabled }) => {
+const CustomizedSwitchesLocation: FC<Props> = ({
+    style,
+    onClick,
+    disabled,
+}) => {
     return (
         <FormGroup sx={{ display: 'flex' }}>
             <FormControlLabel
-                sx={{ backgroundColor: disabled ? 'black' : 'white', borderRadius: '100px', height: '50px', opacity: disabled ? '0' : '1' }}
-
+                sx={{
+                    backgroundColor: disabled ? 'black' : 'white',
+                    borderRadius: '100px',
+                    height: '50px',
+                    opacity: disabled ? '0' : '1',
+                }}
                 control={
-                    <MaterialUISwitch
-                        disabled={disabled}
-                        defaultChecked
-                    />
+                    <MaterialUISwitch disabled={disabled} defaultChecked />
                 }
                 label=""
                 style={style}
