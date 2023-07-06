@@ -22,6 +22,10 @@ import CustomizedSwitchesLocation from '@/components/MuiSwitchLocation'
 import CircularColor from '@/components/CircularColor'
 import SearchIcon from '@mui/icons-material/Search'
 import {
+    ButtonStyleBuscarLugares,
+    ButtonStyleConfirmarLugar,
+    CustomizedSwitchesLocationStyles,
+    CustomizedSwitchesStyles,
     FilterContainer,
     IconMarker,
     MainContainer,
@@ -441,22 +445,18 @@ const GoogleMapComp: FC = () => {
                 <ToastContainer autoClose={2000} limit={1} />
                 <CustomizedSwitches
                     style={{
-                        display: 'flex',
-                        marginLeft: '0px',
-                        right: '0',
                         bottom: bottomPosition,
                         position: 'absolute',
+                        ...CustomizedSwitchesStyles
                     }}
                     onClick={() => selectMapStyle()}
                 />
                 <CustomizedSwitchesLocation
                     disabled={!disableLocation}
                     style={{
-                        display: !disableLocation ? 'none' : 'flex',
-                        marginLeft: '0px',
-                        right: '0px',
-                        bottom: '210px',
                         position: 'absolute',
+                        display: !disableLocation ? 'none' : 'flex',
+                        ...CustomizedSwitchesLocationStyles
                     }}
                     onClick={getMyPosition}
                 />
@@ -480,12 +480,7 @@ const GoogleMapComp: FC = () => {
                         title="Confirmar lugar"
                         style={{
                             position: 'absolute',
-                            top: '90%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: '200px',
-                            backgroundColor: '#ffffff',
-                            color: '#000000',
+                            ...ButtonStyleConfirmarLugar,
                         }}
                         variant="contained"
                         onClick={handlerConfirmation}
@@ -501,12 +496,7 @@ const GoogleMapComp: FC = () => {
                 id="updateResultsButton"
                 style={{
                     position: 'absolute',
-                    top: '4%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '200px',
-                    backgroundColor: '#ffffff',
-                    color: '#000000',
+                    ...ButtonStyleBuscarLugares,
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"
