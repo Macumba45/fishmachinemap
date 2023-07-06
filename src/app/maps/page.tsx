@@ -72,7 +72,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -129,7 +129,7 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-    async function initMap(): Promise<void> {
+    function initMap() {
         if (typeof window !== 'undefined' && isLoaded) {
             map = new window.google.maps.Map(
                 document.getElementById('map') as HTMLElement,
@@ -372,9 +372,7 @@ const GoogleMapComp: FC = () => {
                 {addingMarker && (
                     <ModalCrearMarcador
                         isOpen={addingMarker}
-                        onClose={() => {
-                            confirmMarker()
-                        }}
+                        onClick={confirmMarker}
                     />
                 )}
                 {/* <FilterContainer>
