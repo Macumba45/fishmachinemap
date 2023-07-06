@@ -49,6 +49,38 @@ export const IconMarker = styled.img`
     height: 32px;
 `
 
+export const ButtonStyleConfirmarLugar = {
+    top: '90%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '200px',
+    backgroundColor: '#ffffff',
+    color: '#000000',
+}
+
+export const ButtonStyleBuscarLugares = {
+    top: '4%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '200px',
+    backgroundColor: '#ffffff',
+    color: '#000000',
+}
+
+export const CustomizedSwitchesLocationStyles = {
+
+    marginLeft: '0px',
+    right: '0px',
+    bottom: '210px',
+}
+
+export const CustomizedSwitchesStyles = {
+    marginLeft: '0px',
+    right: '0',
+    display: 'flex',
+}
+
+
 export const stylesMaps: Style[] = [
     { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
     { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },

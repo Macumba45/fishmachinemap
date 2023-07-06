@@ -17,4 +17,5 @@ export type Props = {
     disabled?: boolean
     type?: 'button' | 'submit' | 'reset' | undefined
     id?: string
+    position?: 'absolute' | 'relative' | 'fixed' | 'sticky' | undefined
 }
