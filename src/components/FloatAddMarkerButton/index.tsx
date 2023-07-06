@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { Fab, Tooltip, useMediaQuery } from '@mui/material'
-import RoomIcon from '@mui/icons-material/Room'
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 
 interface Props {
     onClick?: () => void
@@ -46,7 +46,7 @@ const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
                         color="primary"
                         aria-label="add"
                     >
-                        <RoomIcon />
+                        <AddLocationAltIcon />
                     </Fab>
                 </span>
             </CustomTooltip>
