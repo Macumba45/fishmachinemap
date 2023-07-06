@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Style } from './type'
+import MarkerUser from '../../assets/location.png'
 
 export const MainContainer = styled.div`
     display: flex;
@@ -41,6 +42,11 @@ export const ReviewsContainer = styled.div`
     font-family: ${({ theme }) => theme.fonts.roboto};
     font-size: 1.8rem;
     font-weight: 200;
+`
+
+export const IconMarker = styled.img`
+    width: 32px;
+    height: 32px;
 `
 
 export const stylesMaps: Style[] = [

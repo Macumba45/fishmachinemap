@@ -10,6 +10,7 @@ import { useLogicMaps } from './logic'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
 import customMarkerIcon from '../../assets/anzuelo.png'
+import MarkerUserIcon from '../../assets/location.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
@@ -19,8 +20,10 @@ import BasicModal, { PlaceReview } from '@/components/Modal'
 import SimpleSlider from '@/components/Carousel/page'
 import CustomizedSwitchesLocation from '@/components/MuiSwitchLocation'
 import CircularColor from '@/components/CircularColor'
+import SearchIcon from '@mui/icons-material/Search'
 import {
     FilterContainer,
+    IconMarker,
     MainContainer,
     MapContainer,
     ReviewsContainer,
@@ -56,9 +59,11 @@ const GoogleMapComp: FC = () => {
         loading,
         setLoading,
         center,
-        floatingMarker,
+        positionMarkerUser,
+        floatMarker,
+        handlerConfirmation,
     } = useLogicMaps()
-    console.log(floatingMarker)
+    console.log(positionMarkerUser)
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -168,6 +173,7 @@ const GoogleMapComp: FC = () => {
 
     function performSearch() {
         const center = map.getCenter()
+        console.log(center)
         // console.log(center?.lat(), center?.lng())
         // Eliminar los marcadores anteriores
         if (markerClusterer) markerClusterer.clearMarkers()
@@ -359,16 +365,6 @@ const GoogleMapComp: FC = () => {
         bottomPosition = '160px'
     }
 
-    const styleButton = {
-        position: 'absolute' as const,
-        width: '30px',
-        height: '60px',
-        bgcolor: 'background.paper',
-        boderShadow: '0 10px 100px #000',
-        borderRadius: '50px',
-        marginLeft: '1rem',
-        bottom: '5rem',
-    }
     return (
         <MainContainer>
             <>
@@ -381,9 +377,9 @@ const GoogleMapComp: FC = () => {
                         }}
                     />
                 )}
-                <FilterContainer>
+                {/* <FilterContainer>
                     <FilterComponent onChange={handleFilterChange} />
-                </FilterContainer>
+                </FilterContainer> */}
 
                 {modalIsOpen && (
                     <BasicModal
@@ -403,20 +399,25 @@ const GoogleMapComp: FC = () => {
                             />
                         }
                         <ReviewsContainer>Reviews</ReviewsContainer>
+
                         {place?.reviews?.map(
                             (review: PlaceReview, index: number) => (
-                                <ReviewsComp
-                                    key={index}
-                                    author_name={review.author_name}
-                                    author_url={review.author_url}
-                                    language={review.language}
-                                    profile_photo_url={review.profile_photo_url}
-                                    rating={review.rating}
-                                    relative_time_description={
-                                        review.relative_time_description
-                                    }
-                                    text={review.text}
-                                />
+                                <>
+                                    <ReviewsComp
+                                        key={index}
+                                        author_name={review.author_name}
+                                        author_url={review.author_url}
+                                        language={review.language}
+                                        profile_photo_url={
+                                            review.profile_photo_url
+                                        }
+                                        rating={review.rating}
+                                        relative_time_description={
+                                            review.relative_time_description
+                                        }
+                                        text={review.text}
+                                    />
+                                </>
                             )
                         )}
                     </BasicModal>
@@ -462,24 +463,56 @@ const GoogleMapComp: FC = () => {
                     onClick={getMyPosition}
                 />
             </>
-            {floatingMarker !== null && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        /* ... estilos adicionales ... */
-                    }}
-                >
-                    {/* Contenido del marcador flotante */}
-                </div>
+            {floatMarker && (
+                <>
+                    <IconMarker
+                        src={MarkerUserIcon.src}
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '50%',
+                            /* ... estilos adicionales ... */
+                        }}
+                    ></IconMarker>
+                    <ButtonComp
+                        title="Confirmar marcador"
+                        style={{
+                            position: 'absolute',
+                            top: '10%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '200px',
+                            backgroundColor: '#ffffff',
+                            color: '#000000',
+                        }}
+                        variant="contained"
+                        onClick={handlerConfirmation}
+                    />
+                </>
             )}
             <FloatAddMarkerButton
                 disabled={isButtonDisabled}
                 onClick={openAddMarkerMode}
             />
-            <FloatReloadMarkersButton />
+            <ButtonComp
+                title="Buscar lugares"
+                id="updateResultsButton"
+                style={{
+                    position: 'absolute',
+                    top: '10%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '200px',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                }}
+                icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
+                variant="contained"
+            />
         </MainContainer>
     )
 }

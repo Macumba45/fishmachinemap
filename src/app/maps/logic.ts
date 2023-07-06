@@ -8,6 +8,7 @@ import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
+import MarkerUserIcon from '../../assets/location.png'
 import { toast } from 'react-toastify'
 
 export const useLogicMaps = () => {
@@ -24,7 +25,13 @@ export const useLogicMaps = () => {
         googleMapsApiKey: process.env.API_KEY || '',
     })
     // Define los estados del componente.
-    const [floatingMarker, setFloatingMarker] = useState<google.maps.LatLngLiteral | null>(null);
+    const [positionMarkerUser, setpositionMarkerUser] = useState<
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
+    >()
 
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -51,7 +58,7 @@ export const useLogicMaps = () => {
         useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<Array<Style>>([])
 
-    const isAlreadyMarkedRef = useRef<boolean>(false) // Utiliza una referencia en lugar de un estado
+    const [floatMarker, setFloatMarker] = useState(false)
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
@@ -167,41 +174,39 @@ export const useLogicMaps = () => {
     }
 
     const addMarkerDraggable = (map: google.maps.Map) => {
-        if (!isAlreadyMarkedRef.current) {
-            return
+        const centerLatLng = map.getCenter() // Obtener las coordenadas del centro del mapa
+        const position = {
+            lat: centerLatLng?.lat(),
+            lng: centerLatLng?.lng(),
         }
+        const marker = new google.maps.Marker({
+            position: centerLatLng, // Establecer el centro del mapa como posición del marcador
+            map: map,
+            icon: {
+                url: MarkerUserIcon.src,
+                scaledSize: new google.maps.Size(32, 32),
+            },
+            // draggable: true,
+        }) as google.maps.Marker
 
-        const listener = map.addListener('click', (event: google.maps.MapMouseEvent) => {
-            const latLng = event.latLng
-            const marker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                // draggable: true,
-                animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
-            })
-            console.log(
-                marker.getPosition()?.lat(),
-                marker.getPosition()?.lng()
-            )
+        console.log(position)
 
-            // Agregar el nuevo marcador al estado de marcadores
-            setMarkers(prevMarkers => [...prevMarkers, marker])
+        setpositionMarkerUser(position)
 
-            // Evento para controlar el movimiento del marcador
-            google.maps.event.addListener(marker, 'dragend', () => {
-                // Acciones a realizar al soltar el marcador arrastrable
-            })
+        // Agregar el nuevo marcador al estado de marcadores
+        setMarkers(prevMarkers => [...prevMarkers, marker])
 
-            // Evento para controlar el click del marcador
-            google.maps.event.addListener(marker, 'click', () => {
-                // Acciones a realizar al hacer click en el marcador
-            })
-
-            setAddingMarker(true)
-            google.maps.event.removeListener(listener)
-            isAlreadyMarkedRef.current = true
-            // Aquí puedes realizar cualquier acción adicional con el marcador, como guardar su posición en un estado o enviarla al servidor.
+        // Evento para controlar el movimiento del marcador
+        google.maps.event.addListener(marker, 'dragend', () => {
+            // Acciones a realizar al soltar el marcador arrastrable
         })
+
+        // Evento para controlar el click del marcador
+        google.maps.event.addListener(marker, 'click', () => {
+            // Acciones a realizar al hacer click en el marcador
+        })
+
+        // Aquí puedes realizar cualquier acción adicional con el marcador, como guardar su posición en un estado o enviarla al servidor.
     }
 
     // const clearMarkers = () => {
@@ -213,8 +218,6 @@ export const useLogicMaps = () => {
 
     // Función para confirmar el marcador
     const confirmMarker = () => {
-        isAlreadyMarkedRef.current = false
-
         // Agregar los marcadores confirmados al estado de marcadores confirmados
         setConfirmedMarkers(prevMarkers => [...prevMarkers, ...markers])
 
@@ -223,20 +226,27 @@ export const useLogicMaps = () => {
         setMarkers([...markers])
         setAddingMarker(false)
         setIsButtonDisabled(false)
+        setFloatMarker(false)
         notifyMarker()
     }
 
     // Función para abrir el modo de "Añadir a marcadores"
     const openAddMarkerMode = () => {
         // Restablecer el estado
-        isAlreadyMarkedRef.current = true;
-    
+
         if (mapRef.current) {
-            setIsButtonDisabled(true); // Deshabilita el botón
-            setFloatingMarker(center); // Establece la posición del marcador flotante en el centro de la pantalla
-            addMarkerDraggable(mapRef.current);
+            setIsButtonDisabled(true) // Deshabilita el botón
+            // setpositionMarkerUser(center) // Establece la posición del marcador flotante en el centro de la pantalla
+            // addMarkerDraggable(mapRef.current) // Agrega el marcador flotante al mapa
+            setFloatMarker(true)
         }
-    };
+    }
+
+    const handlerConfirmation = () => {
+        setFloatMarker(false)
+        setAddingMarker(true)
+        addMarkerDraggable(mapRef.current as google.maps.Map)
+    }
 
     return {
         currentFilter,
@@ -266,6 +276,8 @@ export const useLogicMaps = () => {
         loading,
         setLoading,
         center,
-        floatingMarker,
+        positionMarkerUser,
+        floatMarker,
+        handlerConfirmation,
     }
 }
