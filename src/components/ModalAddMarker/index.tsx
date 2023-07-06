@@ -16,10 +16,11 @@ import ButtonComp from '@/components/Button'
 
 interface Props {
     isOpen: boolean
-    onClose: () => void
+    onClose?: () => void
+    onClick?: () => void
 }
 
-const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
+const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
     const [tipoLugar, setTipoLugar] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [fotos, setFotos] = useState<File[]>([])
@@ -50,12 +51,11 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
         // y realizar cualquier otra acción necesaria
         // ...
 
-        // Cerrar el modal después de enviar el formulario
-        onClose()
+
     }
 
     return (
-        <Modal open={isOpen} onClose={onClose}>
+        <Modal  open={isOpen}>
             <Box
                 sx={{
                     position: 'absolute',
@@ -82,7 +82,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
-                            // required
+                        // required
                         >
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
@@ -103,7 +103,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                             fullWidth
                             multiline
                             rows={4}
-                            // required
+                        // required
                         />
                     </Box>
 
@@ -132,6 +132,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                                 backgroundColor: '#49007a',
                             }}
                             title="Confirmar"
+                            onClick={onClick}
                         />
                     </Box>
                 </form>
