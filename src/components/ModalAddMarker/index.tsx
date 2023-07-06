@@ -82,14 +82,14 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
-                            required
+                            // required
                         >
-
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
                             <MenuItem value="worm">Cebos 24H</MenuItem>
-                            <MenuItem value="pictures">Fotos de Capturas</MenuItem>
-
+                            <MenuItem value="pictures">
+                                Fotos de Capturas
+                            </MenuItem>
                         </Select>
                     </Box>
 
@@ -103,7 +103,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                             fullWidth
                             multiline
                             rows={4}
-                            required
+                            // required
                         />
                     </Box>
 
@@ -113,7 +113,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose }) => {
                         </Typography>
                         <input
                             multiple
-                            required
+                            // required
                             type="file"
                             onChange={handleFotosChange}
                         />

@@ -16,4 +16,5 @@ export type Props = {
     children?: React.ReactNode
     disabled?: boolean
     type?: 'button' | 'submit' | 'reset' | undefined
+    id?: string
 }

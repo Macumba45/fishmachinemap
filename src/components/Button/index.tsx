@@ -18,6 +18,7 @@ const ButtonComp: FC<Props> = ({
     onClick,
     disabled,
     type,
+    id,
 }) => {
     const ButtonStyles = {
         backgroundColor: bgColor || 'transparent',
@@ -37,6 +38,7 @@ const ButtonComp: FC<Props> = ({
     return (
         <MainContainer>
             <Button
+                id={id}
                 target="blank"
                 style={style || ButtonStyles}
                 href={href || ''} // Proporciona un valor predeterminado en caso de que href sea undefined
