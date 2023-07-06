@@ -148,6 +148,7 @@ const GoogleMapComp: FC = () => {
                     streetViewControl: false,
                     styles: style,
                     draggable: true,
+                    gestureHandling: 'greedy',
                 }
             )
             mapRef.current = map
