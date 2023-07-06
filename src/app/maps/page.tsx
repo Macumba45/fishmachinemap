@@ -479,10 +479,10 @@ const GoogleMapComp: FC = () => {
                         }}
                     ></IconMarker>
                     <ButtonComp
-                        title="Confirmar marcador"
+                        title="Confirmar lugar"
                         style={{
                             position: 'absolute',
-                            top: '10%',
+                            top: '90%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
                             width: '200px',
@@ -503,7 +503,7 @@ const GoogleMapComp: FC = () => {
                 id="updateResultsButton"
                 style={{
                     position: 'absolute',
-                    top: '10%',
+                    top: '4%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: '200px',
