@@ -68,7 +68,6 @@ export const ButtonStyleBuscarLugares = {
 }
 
 export const CustomizedSwitchesLocationStyles = {
-
     marginLeft: '0px',
     right: '0px',
     bottom: '210px',
@@ -79,7 +78,6 @@ export const CustomizedSwitchesStyles = {
     right: '0',
     display: 'flex',
 }
-
 
 export const stylesMaps: Style[] = [
     { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },

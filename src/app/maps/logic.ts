@@ -236,8 +236,6 @@ export const useLogicMaps = () => {
 
         if (mapRef.current) {
             setIsButtonDisabled(true) // Deshabilita el botón
-            // setpositionMarkerUser(center) // Establece la posición del marcador flotante en el centro de la pantalla
-            // addMarkerDraggable(mapRef.current) // Agrega el marcador flotante al mapa
             setFloatMarker(true)
         }
     }

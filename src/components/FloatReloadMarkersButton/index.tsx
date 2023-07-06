@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import { Fab, Tooltip, useMediaQuery } from '@mui/material'
 import ReplayIcon from '@mui/icons-material/Replay'
 
@@ -56,4 +56,4 @@ const FloatReloadMarkersButton: FC<Props> = ({ onClick, disabled, id }) => {
     )
 }
 
-export default memo(FloatReloadMarkersButton)
+export default FloatReloadMarkersButton

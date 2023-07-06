@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
@@ -9,12 +9,11 @@ import { ToastContainer } from 'react-toastify'
 import { useLogicMaps } from './logic'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
-import customMarkerIcon from '../../assets/anzuelo.png'
+import customAnzueloMarkerIcon from '../../assets/anzuelo.png'
 import MarkerUserIcon from '../../assets/location.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
-import FloatReloadMarkersButton from '@/components/FloatReloadMarkersButton'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
 import BasicModal, { PlaceReview } from '@/components/Modal'
 import SimpleSlider from '@/components/Carousel/page'
@@ -67,7 +66,6 @@ const GoogleMapComp: FC = () => {
         floatMarker,
         handlerConfirmation,
     } = useLogicMaps()
-    console.log(positionMarkerUser)
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -76,7 +74,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -447,17 +445,17 @@ const GoogleMapComp: FC = () => {
                 <CustomizedSwitches
                     style={{
                         bottom: bottomPosition,
-                        position: 'absolute',
-                        ...CustomizedSwitchesStyles
+                        position: 'fixed',
+                        ...CustomizedSwitchesStyles,
                     }}
                     onClick={() => selectMapStyle()}
                 />
                 <CustomizedSwitchesLocation
                     disabled={!disableLocation}
                     style={{
-                        position: 'absolute',
+                        position: 'fixed',
                         display: !disableLocation ? 'none' : 'flex',
-                        ...CustomizedSwitchesLocationStyles
+                        ...CustomizedSwitchesLocationStyles,
                     }}
                     onClick={getMyPosition}
                 />
@@ -480,7 +478,7 @@ const GoogleMapComp: FC = () => {
                     <ButtonComp
                         title="Confirmar lugar"
                         style={{
-                            position: 'absolute',
+                            position: 'fixed',
                             ...ButtonStyleConfirmarLugar,
                         }}
                         variant="contained"
@@ -496,7 +494,7 @@ const GoogleMapComp: FC = () => {
                 title="Buscar lugares"
                 id="updateResultsButton"
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     ...ButtonStyleBuscarLugares,
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
@@ -506,4 +504,4 @@ const GoogleMapComp: FC = () => {
     )
 }
 
-export default memo(GoogleMapComp)
+export default GoogleMapComp

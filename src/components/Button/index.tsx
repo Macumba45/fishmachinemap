@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import { MainContainer } from './style'
 import { Button } from '@mui/material'
 import { Props } from './type'
@@ -55,4 +55,4 @@ const ButtonComp: FC<Props> = ({
     )
 }
 
-export default memo(ButtonComp)
+export default ButtonComp

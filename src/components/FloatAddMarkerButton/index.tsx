@@ -1,6 +1,6 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import { Fab, Tooltip, useMediaQuery } from '@mui/material'
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt'
 
 interface Props {
     onClick?: () => void
@@ -54,4 +54,4 @@ const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
     )
 }
 
-export default memo(FloatAddMarkerButton)
+export default FloatAddMarkerButton
