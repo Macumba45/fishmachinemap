@@ -50,12 +50,10 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
         // Aquí puedes enviar los datos del marcador al servidor
         // y realizar cualquier otra acción necesaria
         // ...
-
-
     }
 
     return (
-        <Modal  open={isOpen}>
+        <Modal open={isOpen}>
             <Box
                 sx={{
                     position: 'absolute',
@@ -82,7 +80,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
-                        // required
+                            // required
                         >
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
@@ -103,7 +101,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
                             fullWidth
                             multiline
                             rows={4}
-                        // required
+                            // required
                         />
                     </Box>
 
