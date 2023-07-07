@@ -210,6 +210,7 @@ export const useLogicMaps = () => {
             icon: {
                 url: MarkerUserIcon.src,
                 scaledSize: new google.maps.Size(32, 32),
+                anchor: new google.maps.Point(16, 16),
             },
             // draggable: true,
         }) as google.maps.Marker
