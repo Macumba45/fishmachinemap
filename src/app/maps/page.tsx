@@ -65,6 +65,7 @@ const GoogleMapComp: FC = () => {
         positionMarkerUser,
         floatMarker,
         handlerConfirmation,
+        address
     } = useLogicMaps()
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
@@ -74,7 +75,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -374,6 +375,7 @@ const GoogleMapComp: FC = () => {
                 <MapContainer id="map" />
                 {addingMarker && (
                     <ModalCrearMarcador
+                        address={address}
                         isOpen={addingMarker}
                         onClick={confirmMarker}
                     />

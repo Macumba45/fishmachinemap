@@ -24,13 +24,15 @@ export const useLogicMaps = () => {
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
     })
+
+
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+            lat: number | undefined
+            lng: number | undefined
+        }
     >()
 
     const [loading, setLoading] = useState<boolean>(true)
@@ -52,7 +54,7 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
@@ -61,6 +63,7 @@ export const useLogicMaps = () => {
     const [floatMarker, setFloatMarker] = useState(false)
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+    const [address, setAddress] = useState('')
 
     const notifySucces = () => {
         toast.success('Ubicación cargada correctamente', {
@@ -174,11 +177,33 @@ export const useLogicMaps = () => {
     }
 
     const addMarkerDraggable = (map: google.maps.Map) => {
+        const geocoder = new google.maps.Geocoder();
+
         const centerLatLng = map.getCenter() // Obtener las coordenadas del centro del mapa
         const position = {
             lat: centerLatLng?.lat(),
             lng: centerLatLng?.lng(),
         }
+        const { lat, lng } = position;
+
+        const geocodeRequest = {
+            location: new google.maps.LatLng({
+                lat: lat as number,
+                lng: lng as number,
+            }),
+        };
+        geocoder.geocode(geocodeRequest, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results && results.length > 0) {
+                    const address = results[0].formatted_address;
+                    console.log(address);
+                    setAddress(address)
+                    // Aquí puedes utilizar la dirección obtenida como necesites
+                }
+            } else {
+                console.log('Error en la geocodificación inversa:', status);
+            }
+        });
         const marker = new google.maps.Marker({
             position: centerLatLng, // Establecer el centro del mapa como posición del marcador
             map: map,
@@ -220,7 +245,6 @@ export const useLogicMaps = () => {
     const confirmMarker = () => {
         // Agregar los marcadores confirmados al estado de marcadores confirmados
         setConfirmedMarkers(prevMarkers => [...prevMarkers, ...markers])
-
         // Restablecer el estado
         // clearMarkers()
         setMarkers([...markers])
@@ -277,5 +301,6 @@ export const useLogicMaps = () => {
         positionMarkerUser,
         floatMarker,
         handlerConfirmation,
+        address
     }
 }

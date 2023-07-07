@@ -18,9 +18,10 @@ interface Props {
     isOpen: boolean
     onClose?: () => void
     onClick?: () => void
+    address?: string
 }
 
-const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
+const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick, address }) => {
     const [tipoLugar, setTipoLugar] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [fotos, setFotos] = useState<File[]>([])
@@ -50,6 +51,8 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
         // Aquí puedes enviar los datos del marcador al servidor
         // y realizar cualquier otra acción necesaria
         // ...
+
+
     }
 
     return (
@@ -60,7 +63,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: 400,
+                    width: 300,
                     bgcolor: 'background.paper',
                     boxShadow: 24,
                     borderRadius: '30px',
@@ -73,6 +76,11 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
 
                 <form onSubmit={handleSubmit}>
                     <Box sx={{ mt: 2, borderRadius: '20px' }}>
+                        <div style={{ marginBottom: '1rem' }}>
+                            <Typography variant="body1" component="label">
+                                Direccion: {address}
+                            </Typography>
+                        </div>
                         <Typography variant="body2" component="label">
                             Tipo de lugar:
                         </Typography>
@@ -80,7 +88,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
-                            // required
+                        // required
                         >
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
@@ -101,7 +109,7 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick }) => {
                             fullWidth
                             multiline
                             rows={4}
-                            // required
+                        // required
                         />
                     </Box>
 
