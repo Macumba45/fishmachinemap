@@ -27,11 +27,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-        | google.maps.LatLngLiteral
-        | {
-            lat: number | undefined
-            lng: number | undefined
-        }
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -52,7 +52,7 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
@@ -85,7 +85,6 @@ export const useLogicMaps = () => {
             toastId: 'marker1',
         })
     }
-
 
 
     // Función para obtener la URL del ícono del marcador según el tipo.
@@ -159,7 +158,6 @@ export const useLogicMaps = () => {
 
         setMarkers(filteredMarkerInstances)
     }
-
 
 
     // Función para abrir el modo de "Añadir a marcadores"
