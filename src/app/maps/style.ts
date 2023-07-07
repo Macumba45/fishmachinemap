@@ -50,7 +50,7 @@ export const IconMarker = styled.img`
 `
 
 export const ButtonStyleConfirmarLugar = {
-    top: '90%',
+    top: '80%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '200px',
@@ -59,7 +59,7 @@ export const ButtonStyleConfirmarLugar = {
 }
 
 export const ButtonStyleBuscarLugares = {
-    top: '4%',
+    top: '10%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '200px',
@@ -204,6 +204,11 @@ export const stylesMaps: Style[] = [
         elementType: 'labels',
         stylers: [{ visibility: 'off' }],
     },
+    {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{ visibility: 'on' }],
+    },
 ]
 
 export const defaultStylesMaps: Style[] = [
@@ -252,4 +257,10 @@ export const defaultStylesMaps: Style[] = [
         elementType: 'labels',
         stylers: [{ visibility: 'off' }],
     },
+    {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{ visibility: 'on' }],
+    },
+
 ]
