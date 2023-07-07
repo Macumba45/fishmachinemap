@@ -67,6 +67,8 @@ const GoogleMapComp: FC = () => {
         handlerConfirmation,
         address
     } = useLogicMaps()
+
+    console.log(positionMarkerUser)
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -467,16 +469,37 @@ const GoogleMapComp: FC = () => {
                     <IconMarker
                         src={MarkerUserIcon.src}
                         style={{
-                            position: 'absolute',
-                            top: '50%',
+                            position: 'fixed',
+                            top: '48%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
                             width: '32px',
                             height: '32px',
-                            borderRadius: '50%',
                             /* ... estilos adicionales ... */
                         }}
-                    ></IconMarker>
+
+
+                    />
+                    <span
+                        style={{
+                            position: 'relative',
+                            display: 'inline-block',
+                        }}
+                    >
+                        {/* Punto debajo del icono */}
+                        <span
+                            style={{
+                                position: 'fixed',
+                                top: '52%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '6px',
+                                height: '6px',
+                                borderRadius: '50%',
+                                backgroundColor: 'red',
+                            }}
+                        ></span>
+                    </span>
                     <ButtonComp
                         title="Confirmar lugar"
                         style={{
