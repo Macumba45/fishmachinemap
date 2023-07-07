@@ -262,5 +262,4 @@ export const defaultStylesMaps: Style[] = [
         elementType: 'labels.text.fill',
         stylers: [{ visibility: 'on' }],
     },
-
 ]

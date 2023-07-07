@@ -21,7 +21,12 @@ interface Props {
     address?: string
 }
 
-const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick, address }) => {
+const ModalCrearMarcador: FC<Props> = ({
+    isOpen,
+    onClose,
+    onClick,
+    address,
+}) => {
     const [tipoLugar, setTipoLugar] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [fotos, setFotos] = useState<File[]>([])
@@ -51,8 +56,6 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick, address }) =>
         // Aquí puedes enviar los datos del marcador al servidor
         // y realizar cualquier otra acción necesaria
         // ...
-
-
     }
 
     return (
@@ -78,7 +81,9 @@ const ModalCrearMarcador: FC<Props> = ({ isOpen, onClose, onClick, address }) =>
                     <Box sx={{ mt: 2, borderRadius: '20px' }}>
                         <div style={{ marginBottom: '1rem' }}>
                             <Typography variant="body1" component="label">
-                                Direccion: {address}
+                                <TextField fullWidth id="outlined-controlled"
+                                    label="Introduce la Dirección/Lugar"
+                                />
                             </Typography>
                         </div>
                         <Typography variant="body2" component="label">
