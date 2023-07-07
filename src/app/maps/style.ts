@@ -59,7 +59,7 @@ export const ButtonStyleConfirmarLugar = {
 }
 
 export const ButtonStyleBuscarLugares = {
-    top: '10%',
+    top: '8%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '200px',
