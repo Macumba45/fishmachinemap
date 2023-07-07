@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -202,17 +202,17 @@ const GoogleMapComp: FC = () => {
 
         const requestShops = {
             location: center,
-            radius: 100,
+            radius: 10000,
             query: 'Tienda de articulos pesca',
-            locationBias: { radius: 100, center: center },
+            locationBias: { radius: 10000, center: center },
 
             // type: ['']
         }
         const requestPlayas = {
             location: center,
-            radius: 100,
+            radius: 10000,
             query: 'Playas',
-            locationBias: { radius: 100, center: center },
+            locationBias: { radius: 10000, center: center },
 
             // type: ['']
         }
