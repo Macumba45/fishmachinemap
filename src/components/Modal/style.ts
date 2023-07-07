@@ -63,34 +63,25 @@ export const NumberOfRating = styled.div`
 `
 
 export const NumberContainer = styled.div`
-
-display: flex;
-margin-top: 1rem;
+    display: flex;
+    margin-top: 1rem;
 `
 export const CallNumber = styled.a`
-
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: ${({ theme }) => theme.fonts.roboto};
     text-decoration: none;
-     color: #4285F4; 
-
+    color: #4285f4;
 `
 
 export const ContenidoGoogle = styled.div`
     font-family: ${({ theme }) => theme.fonts.roboto};
-
-
-
-
 `
 
 export const TotalRating = styled.div`
-
-font-family: ${({ theme }) => theme.fonts.roboto};
-font-weight: 100;
-font-size: 0.8rem;
-margin-left: 0.5rem;
-
+    font-family: ${({ theme }) => theme.fonts.roboto};
+    font-weight: 100;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
 `

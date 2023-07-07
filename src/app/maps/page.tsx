@@ -65,7 +65,7 @@ const GoogleMapComp: FC = () => {
         positionMarkerUser,
         floatMarker,
         handlerConfirmation,
-        address
+        address,
     } = useLogicMaps()
 
     console.log(positionMarkerUser)
@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -235,7 +235,6 @@ const GoogleMapComp: FC = () => {
             iconUrl = customMarkerIconPlace.src
         }
 
-
         const infoWindowContent = `
     <div>
         <h3>${place.name}</h3>
@@ -300,7 +299,6 @@ const GoogleMapComp: FC = () => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (const place of results!) {
                 createMarker(place)
-
             }
         }
     }
@@ -379,7 +377,7 @@ const GoogleMapComp: FC = () => {
                 <MapContainer id="map" />
                 {addingMarker && (
                     <ModalCrearMarcador
-                        address={address}
+                        address=""
                         isOpen={addingMarker}
                         onClick={confirmMarker}
                     />
@@ -471,7 +469,6 @@ const GoogleMapComp: FC = () => {
                 <>
                     <IconMarker
                         key="iconMarker"
-
                         src={MarkerUserIcon.src}
                         style={{
                             position: 'fixed',
@@ -482,12 +479,9 @@ const GoogleMapComp: FC = () => {
                             height: '32px',
                             /* ... estilos adicionales ... */
                         }}
-
-
                     />
                     <span
                         key="iconPoint"
-
                         style={{
                             position: 'relative',
                             display: 'inline-block',
@@ -496,7 +490,6 @@ const GoogleMapComp: FC = () => {
                         {/* Punto debajo del icono */}
                         <span
                             key="point"
-
                             style={{
                                 position: 'fixed',
                                 top: '52%',

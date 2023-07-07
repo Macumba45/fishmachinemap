@@ -25,16 +25,14 @@ export const useLogicMaps = () => {
         googleMapsApiKey: process.env.API_KEY || '',
     })
 
-
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+            lat: number | undefined
+            lng: number | undefined
+        }
     >()
-
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
         lat: 40.463667 || undefined,
@@ -54,16 +52,25 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<Array<Style>>([])
-
+    const [styledMap, setStyledMap] = useState(true)
     const [floatMarker, setFloatMarker] = useState(false)
-
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const [address, setAddress] = useState('')
+
+
+    const selectMapStyle = () => {
+        if (typeof window !== 'undefined' && mapRef.current) {
+            mapRef.current.setOptions({
+                styles: styledMap ? defaultStylesMaps : stylesMaps,
+            })
+            setStyledMap(!styledMap)
+        }
+    }
 
     const notifySucces = () => {
         toast.success('Ubicación cargada correctamente', {
@@ -78,6 +85,8 @@ export const useLogicMaps = () => {
             toastId: 'marker1',
         })
     }
+
+
 
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): string | undefined {
@@ -151,59 +160,45 @@ export const useLogicMaps = () => {
         setMarkers(filteredMarkerInstances)
     }
 
-    // Maneja el cambio de filtro.
-    const handleFilterChange = (newFilter: MarkerType) => {
-        setCurrentFilter(newFilter)
-    }
 
-    // Maneja el clic en un marcador.
-    const handleMarkerClick = (marker: MarkerData): void => {
-        setSelectedMarker(marker)
-    }
 
-    // Cierra el modal.
-    const closeModal = () => {
-        setSelectedMarker(null)
-    }
-
-    const [styledMap, setStyledMap] = useState(true)
-    const selectMapStyle = () => {
-        if (typeof window !== 'undefined' && mapRef.current) {
-            mapRef.current.setOptions({
-                styles: styledMap ? defaultStylesMaps : stylesMaps,
-            })
-            setStyledMap(!styledMap)
+    // Función para abrir el modo de "Añadir a marcadores"
+    const openAddMarkerMode = () => {
+        if (mapRef.current) {
+            setIsButtonDisabled(true) // Deshabilita el botón
+            setFloatMarker(true)
         }
     }
 
+
     const addMarkerDraggable = (map: google.maps.Map) => {
-        const geocoder = new google.maps.Geocoder();
+        const geocoder = new google.maps.Geocoder()
 
         const centerLatLng = map.getCenter() // Obtener las coordenadas del centro del mapa
         const position = {
             lat: centerLatLng?.lat(),
             lng: centerLatLng?.lng(),
         }
-        const { lat, lng } = position;
+        const { lat, lng } = position
 
         const geocodeRequest = {
             location: new google.maps.LatLng({
                 lat: lat as number,
                 lng: lng as number,
             }),
-        };
+        }
         geocoder.geocode(geocodeRequest, (results, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results && results.length > 0) {
-                    const address = results[0].formatted_address;
-                    console.log(address);
+                    const address = results[0].formatted_address
+                    console.log(address)
                     setAddress(address)
                     // Aquí puedes utilizar la dirección obtenida como necesites
                 }
             } else {
-                console.log('Error en la geocodificación inversa:', status);
+                console.log('Error en la geocodificación inversa:', status)
             }
-        });
+        })
         const marker = new google.maps.Marker({
             position: centerLatLng, // Establecer el centro del mapa como posición del marcador
             map: map,
@@ -235,19 +230,10 @@ export const useLogicMaps = () => {
         // Aquí puedes realizar cualquier acción adicional con el marcador, como guardar su posición en un estado o enviarla al servidor.
     }
 
-    // const clearMarkers = () => {
-    //     if (markerClusterer) {
-    //         markerClusterer.clearMarkers()
-    //     }
-    //     setMarkers([]) // Eliminar todos los marcadores del estado
-    // }
-
     // Función para confirmar el marcador
     const confirmMarker = () => {
         // Agregar los marcadores confirmados al estado de marcadores confirmados
         setConfirmedMarkers(prevMarkers => [...prevMarkers, ...markers])
-        // Restablecer el estado
-        // clearMarkers()
         setMarkers([...markers])
         setAddingMarker(false)
         setIsButtonDisabled(false)
@@ -255,21 +241,28 @@ export const useLogicMaps = () => {
         notifyMarker()
     }
 
-    // Función para abrir el modo de "Añadir a marcadores"
-    const openAddMarkerMode = () => {
-        // Restablecer el estado
-
-        if (mapRef.current) {
-            setIsButtonDisabled(true) // Deshabilita el botón
-            setFloatMarker(true)
-        }
-    }
 
     const handlerConfirmation = () => {
         setFloatMarker(false)
         setAddingMarker(true)
         addMarkerDraggable(mapRef.current as google.maps.Map)
     }
+
+    // Maneja el cambio de filtro.
+    const handleFilterChange = (newFilter: MarkerType) => {
+        setCurrentFilter(newFilter)
+    }
+
+    // Maneja el clic en un marcador.
+    const handleMarkerClick = (marker: MarkerData): void => {
+        setSelectedMarker(marker)
+    }
+
+    // Cierra el modal.
+    const closeModal = () => {
+        setSelectedMarker(null)
+    }
+
 
     return {
         currentFilter,
@@ -302,6 +295,6 @@ export const useLogicMaps = () => {
         positionMarkerUser,
         floatMarker,
         handlerConfirmation,
-        address
+        address,
     }
 }
