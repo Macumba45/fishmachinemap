@@ -6,14 +6,19 @@ import React, { FC, useEffect, useState } from 'react'
 import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
 import NavigationIcon from '@mui/icons-material/Navigation'
-import CallIcon from '@mui/icons-material/Call'
+import GoogleIcon from '@mui/icons-material/Google';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import {
     ButtonContainer,
+    CallNumber,
+    ContenidoGoogle,
     ImageContainer,
     MainContainer,
+    NumberContainer,
     NumberOfRating,
     RatingContainer,
     ReviewsContainer,
+    TotalRating,
     TypographyContainer,
 } from './style'
 import BasicRating from '../Rating'
@@ -47,6 +52,7 @@ interface Props {
     selectedMarker?: string
     value?: number
     phone?: string
+    numberRating?: number
 }
 
 const BasicModal: FC<Props> = ({
@@ -59,6 +65,7 @@ const BasicModal: FC<Props> = ({
     selectedMarker,
     onClick,
     value,
+    numberRating,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -116,6 +123,16 @@ const BasicModal: FC<Props> = ({
                         </IconButton>
                     </TypographyContainer>
                     <TypographyContainer>
+                        <ContenidoGoogle
+                            id="modal-modal-title"
+                            style={{
+                                marginBottom: '1rem', display: 'flex', alignItems: 'center'
+                            }}
+                        >
+                            Contenido de <img style={{ width: '16px', height: '16px', marginLeft: '0.5rem' }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png" alt="" />
+                        </ContenidoGoogle>
+                    </TypographyContainer>
+                    <TypographyContainer>
                         <Typography
                             id="modal-modal-title"
                             variant="h6"
@@ -129,11 +146,25 @@ const BasicModal: FC<Props> = ({
                             {direction}
                         </Typography>
                     </TypographyContainer>
-
                     <RatingContainer>
                         <NumberOfRating>{value}</NumberOfRating>
                         <BasicRating value={value} />
+                        <TotalRating>
+
+                            ({numberRating} valoraciones totales)
+                        </TotalRating>
+
+
                     </RatingContainer>
+                    {phone === undefined ? null : (
+                        <NumberContainer>
+                            <CallNumber href={`tel:${phone}`}>
+                                <ContactPhoneIcon sx={{ marginRight: '0.5rem' }} /> Llamar al lugar
+                            </CallNumber>
+                        </NumberContainer>
+
+                    )}
+
                     <Divider sx={{ width: '100px', margin: '1.5rem auto' }} />
                     {children}
                     <ButtonContainer>
@@ -148,7 +179,7 @@ const BasicModal: FC<Props> = ({
                     </ButtonContainer>
                 </Box>
             </Modal>
-        </MainContainer>
+        </MainContainer >
     )
 }
 
