@@ -467,6 +467,8 @@ const GoogleMapComp: FC = () => {
             {floatMarker && (
                 <>
                     <IconMarker
+                        key="iconMarker"
+
                         src={MarkerUserIcon.src}
                         style={{
                             position: 'fixed',
@@ -481,6 +483,8 @@ const GoogleMapComp: FC = () => {
 
                     />
                     <span
+                        key="iconPoint"
+
                         style={{
                             position: 'relative',
                             display: 'inline-block',
@@ -488,6 +492,8 @@ const GoogleMapComp: FC = () => {
                     >
                         {/* Punto debajo del icono */}
                         <span
+                            key="point"
+
                             style={{
                                 position: 'fixed',
                                 top: '52%',
@@ -501,6 +507,7 @@ const GoogleMapComp: FC = () => {
                         ></span>
                     </span>
                     <ButtonComp
+                        key="confirmButton"
                         title="Confirmar lugar"
                         style={{
                             position: 'fixed',
