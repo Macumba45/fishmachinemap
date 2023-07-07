@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -235,6 +235,7 @@ const GoogleMapComp: FC = () => {
             iconUrl = customMarkerIconPlace.src
         }
 
+
         const infoWindowContent = `
     <div>
         <h3>${place.name}</h3>
@@ -299,6 +300,7 @@ const GoogleMapComp: FC = () => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (const place of results!) {
                 createMarker(place)
+
             }
         }
     }
@@ -393,6 +395,7 @@ const GoogleMapComp: FC = () => {
                         direction={place?.formatted_address}
                         value={place?.rating}
                         phone={place?.international_phone_number}
+                        numberRating={place?.user_ratings_total}
                     >
                         {
                             <SimpleSlider
