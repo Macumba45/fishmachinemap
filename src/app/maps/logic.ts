@@ -28,11 +28,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-        | google.maps.LatLngLiteral
-        | {
-            lat: number | undefined
-            lng: number | undefined
-        }
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
     >()
 
     const [loading, setLoading] = useState<boolean>(true)
@@ -54,7 +54,7 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
