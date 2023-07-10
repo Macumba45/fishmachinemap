@@ -13,18 +13,44 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useRouter } from 'next/navigation'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const router = useRouter();
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+        const form = event.currentTarget as HTMLFormElement
+        const formData = new FormData(form)
+        const email = formData.get('email') as string
+        const password = formData.get('password') as string
+
+        if (email && password) {
+            try {
+                const response = await fetch('../../api/auth', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                console.log(response)
+                if (response.ok) {
+                    const data = await response.json()
+                    console.log(data.message)
+                    router.push('/maps');
+                    // Realiza alguna acción en respuesta al éxito
+                } else {
+                    console.error('Error al registrar usuario:', response.statusText)
+                    // Realiza alguna acción en respuesta al error
+                }
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error)
+                // Realiza alguna acción en caso de error de red u otro error
+            }
+        } else {
+            console.log('Los valores de email y/o password son nulos')
+        }
     }
 
     return (
@@ -88,10 +114,11 @@ const SignUp: FC = () => {
                             </Grid>
                         </Grid>
                         <Button
-                            type="submit"
+                            type='submit'
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                        // onClick={() => handleSubmit}
                         >
                             Registrarse
                         </Button>
