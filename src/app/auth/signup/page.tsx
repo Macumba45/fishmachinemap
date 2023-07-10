@@ -43,7 +43,7 @@ const SignUp: FC = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Registrate
                     </Typography>
                     <Box
                         component="form"
@@ -52,33 +52,25 @@ const SignUp: FC = () => {
                         sx={{ mt: 3 }}
                     >
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={12}>
                                 <TextField
                                     autoComplete="given-name"
                                     name="firstName"
                                     required
                                     fullWidth
                                     id="firstName"
-                                    label="First Name"
+                                    label="Nombre"
                                     autoFocus
+
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                />
-                            </Grid>
+
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="Email"
                                     name="email"
                                     autoComplete="email"
                                 />
@@ -88,7 +80,7 @@ const SignUp: FC = () => {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="Contraseña"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
@@ -101,12 +93,12 @@ const SignUp: FC = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            Registrarse
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    Already have an account? Sign in
+                                    ¿Tienes una cuenta ya? Inicia sesión
                                 </Link>
                             </Grid>
                         </Grid>
