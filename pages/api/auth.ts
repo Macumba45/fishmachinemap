@@ -2,10 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from './db';
 
 const handleSubmitSignUp = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== 'POST') {
-        res.status(405).json({ message: 'Method Not Allowed' });
-        return;
-    }
     const { email, password } = req.body;
 
     if (typeof email !== 'string' || typeof password !== 'string') {
