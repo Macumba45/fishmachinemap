@@ -35,6 +35,7 @@ import {
 import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
+import FloatLogOut from '@/components/FloatLogOut'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -68,7 +69,6 @@ const GoogleMapComp: FC = () => {
         address,
     } = useLogicMaps()
 
-    console.log(positionMarkerUser)
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -179,8 +179,6 @@ const GoogleMapComp: FC = () => {
 
     function performSearch() {
         const center = map.getCenter()
-        console.log(center)
-        // console.log(center?.lat(), center?.lng())
         // Eliminar los marcadores anteriores
         if (markerClusterer) markerClusterer.clearMarkers()
 
@@ -316,7 +314,7 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
-    }, [isLoaded, center])
+    }, [isLoaded, center, loading])
 
     // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     useEffect(() => {
@@ -353,6 +351,11 @@ const GoogleMapComp: FC = () => {
             document.removeEventListener('scroll', handleScroll)
         }
     }, [])
+
+    const logOut = () => {
+        localStorage.removeItem('token')
+        window.location.href = '/'
+    }
 
     // Renderiza el componente.
     if (loading) {
@@ -518,6 +521,7 @@ const GoogleMapComp: FC = () => {
                 disabled={isButtonDisabled}
                 onClick={openAddMarkerMode}
             />
+            <FloatLogOut onClick={logOut} />
             <ButtonComp
                 title="Buscar lugares"
                 id="updateResultsButton"

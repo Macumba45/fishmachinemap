@@ -28,7 +28,7 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "pages/api/auth.ts",
+        "pages/api/signup.ts",
         "pages/api/auth/NextAuth.js"
     ],
     "exclude": ["node_modules"]

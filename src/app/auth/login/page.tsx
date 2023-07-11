@@ -1,7 +1,6 @@
 'use client'
 
-import { FC } from 'react'
-import * as React from 'react'
+import { FC, useState } from 'react'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,26 +12,54 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { useScrollBlock } from '@/hooks'
+import { setAuthenticatedToken } from '../../../../pages/storage/storage'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+import { SpanError } from './styles'
 
 const Login: FC = () => {
     const [blockScroll] = useScrollBlock()
 
     blockScroll()
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+    const router = useRouter()
+    const [error, setError] = useState('')
 
-        // Utilizar Link para redirigir
-        // El atributo href define la ruta de destino
-        // y se puede personalizar según tus necesidades
-        // Aquí se redirige al usuario a la página '/maps'
-        // después de enviar el formulario
-        window.location.href = '/maps'
+    const notifySucces = () => {
+        toast.success('Inicio de sesión correctamente', {
+            position: toast.POSITION.TOP_LEFT,
+            toastId: 'success1',
+        })
+    }
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const email = event.currentTarget.email.value
+        const password = event.currentTarget.password.value
+
+        if (email && password) {
+            try {
+                const response = await fetch('../../api/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password }),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                console.log(response)
+                if (response.ok) {
+                    const data = await response.json()
+                    setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
+                    notifySucces()
+                    router.push('/maps')
+                    // Realiza alguna acción en respuesta al éxito
+                } else {
+                    // Error al hacer login de usuario
+                    const errorMessage = await response.text()
+                    setError(errorMessage)
+                }
+            } catch (error) {
+                console.log('Error al realizar la solicitud:', error)
+            }
+        }
     }
     return (
         <>
@@ -50,7 +77,7 @@ const Login: FC = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Inicia sesión
                     </Typography>
                     <Box
                         component="form"
@@ -63,7 +90,7 @@ const Login: FC = () => {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Email"
                             name="email"
                         />
                         <TextField
@@ -71,10 +98,15 @@ const Login: FC = () => {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                         />
+                        {error && (
+                            <SpanError>
+                                Usuario o contraseña inválidos
+                            </SpanError>
+                        )}
 
                         <Button
                             type="submit"
@@ -82,17 +114,17 @@ const Login: FC = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Iniciar Sesión
                         </Button>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
-                                    Forgot password?
+                                    Olvidaste la contraseña?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
-                                    {'Don\'t have an account? Sign Up'}
+                                <Link href="/auth/signup" variant="body2">
+                                    {'¿No tienes una cuenta? Regístrate'}
                                 </Link>
                             </Grid>
                         </Grid>
