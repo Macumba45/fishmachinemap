@@ -27,11 +27,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+              lat: number | undefined
+              lng: number | undefined
+          }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -52,7 +52,7 @@ export const useLogicMaps = () => {
     } | null>(null)
     const [addingMarker, setAddingMarker] = useState(false)
     const [confirmedMarkers, setConfirmedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
     const [currentLocationMarker, setCurrentLocationMarker] =
         useState<google.maps.Marker | null>(null)
@@ -61,7 +61,6 @@ export const useLogicMaps = () => {
     const [floatMarker, setFloatMarker] = useState(false)
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const [address, setAddress] = useState('')
-
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -85,7 +84,6 @@ export const useLogicMaps = () => {
             toastId: 'marker1',
         })
     }
-
 
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): string | undefined {
@@ -159,7 +157,6 @@ export const useLogicMaps = () => {
         setMarkers(filteredMarkerInstances)
     }
 
-
     // Función para abrir el modo de "Añadir a marcadores"
     const openAddMarkerMode = () => {
         if (mapRef.current) {
@@ -167,7 +164,6 @@ export const useLogicMaps = () => {
             setFloatMarker(true)
         }
     }
-
 
     const addMarkerDraggable = (map: google.maps.Map) => {
         const geocoder = new google.maps.Geocoder()
@@ -239,7 +235,6 @@ export const useLogicMaps = () => {
         notifyMarker()
     }
 
-
     const handlerConfirmation = () => {
         setFloatMarker(false)
         setAddingMarker(true)
@@ -260,7 +255,6 @@ export const useLogicMaps = () => {
     const closeModal = () => {
         setSelectedMarker(null)
     }
-
 
     return {
         currentFilter,

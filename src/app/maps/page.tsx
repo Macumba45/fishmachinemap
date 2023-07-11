@@ -68,7 +68,7 @@ const GoogleMapComp: FC = () => {
         address,
     } = useLogicMaps()
 
-    console.log(isLoaded)
+    console.log(positionMarkerUser)
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -355,7 +355,7 @@ const GoogleMapComp: FC = () => {
     }, [])
 
     // Renderiza el componente.
-    if (loading || !isLoaded) {
+    if (loading) {
         return (
             <div>
                 <CircularIndeterminate />

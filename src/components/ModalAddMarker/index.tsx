@@ -81,7 +81,9 @@ const ModalCrearMarcador: FC<Props> = ({
                     <Box sx={{ mt: 2, borderRadius: '20px' }}>
                         <div style={{ marginBottom: '1rem' }}>
                             <Typography variant="body1" component="label">
-                                <TextField fullWidth id="outlined-controlled"
+                                <TextField
+                                    fullWidth
+                                    id="outlined-controlled"
                                     label="Introduce la Dirección/Lugar"
                                 />
                             </Typography>
@@ -93,7 +95,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
-                        // required
+                            // required
                         >
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
@@ -114,7 +116,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             fullWidth
                             multiline
                             rows={4}
-                        // required
+                            // required
                         />
                     </Box>
 
