@@ -1,7 +1,6 @@
 'use client'
 
 import { FC, useState } from 'react'
-import * as React from 'react'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -15,12 +14,21 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
 import { setAuthenticatedToken } from '../../../../pages/storage/storage'
+import { toast } from 'react-toastify'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
-    const [token, setToken] = useState('');
+    const [error, setError] = useState<string>('')
+
+    const notifySucces = () => {
+        toast.success('Registro correctamente', {
+            position: toast.POSITION.TOP_LEFT,
+            toastId: 'success1',
+        })
+    }
+
     const router = useRouter()
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
@@ -34,7 +42,7 @@ const SignUp: FC = () => {
 
         if (email && password && name) {
             try {
-                const response = await fetch('../../api/auth', {
+                const response = await fetch('../../api/auth/signup', {
                     method: 'POST',
                     body: JSON.stringify({ email, password, name }),
                     headers: { 'Content-Type': 'application/json' },
@@ -43,15 +51,13 @@ const SignUp: FC = () => {
                 if (response.ok) {
                     const data = await response.json()
                     console.log(data.message)
-                    setAuthenticatedToken(data.token); // Almacena el token JWT en el estado
+                    setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
+                    notifySucces()
                     router.push('/maps')
                     // Realiza alguna acción en respuesta al éxito
                 } else {
-                    console.error(
-                        'Error al registrar usuario:',
-                        response.statusText
-                    )
-                    // Realiza alguna acción en respuesta al error
+                    const errorData = await response.json()
+                    setError(errorData.message)
                 }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error)
@@ -121,6 +127,16 @@ const SignUp: FC = () => {
                                 />
                             </Grid>
                         </Grid>
+                        {error && (
+                            <Typography
+                                variant="body2"
+                                color="error"
+                                align="center"
+                                sx={{ mt: 2 }}
+                            >
+                                {error}
+                            </Typography>
+                        )}
                         <Button
                             type="submit"
                             fullWidth
