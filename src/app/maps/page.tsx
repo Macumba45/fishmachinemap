@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -383,9 +383,16 @@ const GoogleMapComp: FC = () => {
                         address=""
                         onClose={() => setAddingMarker(false)} // Cierra el modal
                         isOpen={addingMarker}
-                        onClick={() => confirmMarker(positionMarkerUser, direccion, tipoLugar, descripcion, fotos)}
+                        onClick={() =>
+                            confirmMarker(
+                                positionMarkerUser,
+                                direccion,
+                                tipoLugar,
+                                descripcion,
+                                fotos
+                            )
+                        }
                         positionMarkerUser={positionMarkerUser}
-
                     />
                 )}
                 {/* <FilterContainer>
@@ -537,7 +544,6 @@ const GoogleMapComp: FC = () => {
                     backgroundColor: '#ffffff',
                     color: '#000000',
                     display: isButtonDisabled ? 'none' : 'flex',
-
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"

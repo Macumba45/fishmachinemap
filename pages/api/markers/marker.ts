@@ -1,38 +1,40 @@
-import { getAuthenticatedToken } from '@/app/lib/storage/storage'
-import { PositionMarker, UserMarker } from '@/app/maps/type'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../lib/db'
 
 const createMarker = async (
-    markerData: UserMarker,
-    locationData: PositionMarker,
+    req: NextApiRequest,
+    res: NextApiResponse,
     userId: string
 ) => {
+    const { direction, markerType, description, picture } = req.body
+    const { lat, lng } = req.body.location
 
     try {
-        console.log("ENTRO 1")
         // Crear una nueva instancia del modelo Marker
         const marker = await prisma.marker.create({
             data: {
-                ...markerData,
-                userId
+                direction,
+                markerType,
+                description,
+                picture,
+                userId,
             },
         })
-        console.log("ENTRO 2")
+
         // Crear una nueva instancia del modelo Location
         const location = await prisma.location.create({
             data: {
-                ...locationData,
+                lat,
+                lng,
                 markerId: marker.id,
             },
         })
-        console.log("ENTRO 3")
+
         console.log(location)
-        return {
-            marker,
-            location,
-        }
+        res.status(200).json({ message: 'Marcador creado correctamente' })
     } catch (error: any) {
-        console.log("Este es el error:", error.message) // Muestra el mensaje de error completo
+        res.status(500).json({ message: error.message })
+        console.log('Este es el error:', error.message) // Muestra el mensaje de error completo
         throw new Error('Error al crear el marcador')
     }
 }

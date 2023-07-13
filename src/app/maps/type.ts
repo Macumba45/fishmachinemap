@@ -5,19 +5,17 @@ export type Style = {
 }
 
 export type PositionMarker = {
-    lat: number;
-    lng: number;
+    lat: number
+    lng: number
 }
 
 export type UserMarker = {
-    direction: string;
-    markerType: string;
-    description: string;
-    picture: string;
+    direction: string
+    markerType: string
+    description: string
+    picture: string
     location: {
-        create: {
-            lat: number;
-            lng: number
-        }
-    };
-};
+        lat: number
+        lng: number
+    }
+}
