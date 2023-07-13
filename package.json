@@ -15,7 +15,7 @@
         "@googlemaps/markerclusterer": "^2.3.1",
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.13.6",
-        "@prisma/client": "4.16.2",
+        "@prisma/client": "^5.0.0",
         "@react-google-maps/api": "^2.18.1",
         "@types/googlemaps": "^3.43.3",
         "@types/jsonwebtoken": "^9.0.2",
@@ -33,7 +33,6 @@
         "next": "13.4.7",
         "next-auth": "^4.22.1",
         "prettier": "^2.8.8",
-        "prisma": "^4.16.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-slick": "^0.29.0",
@@ -52,6 +51,7 @@
         "eslint-plugin-jsx-a11y": "^6.7.1",
         "eslint-plugin-next": "^0.0.0",
         "eslint-plugin-react": "^7.32.2",
-        "eslint-plugin-react-hooks": "^4.6.0"
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "prisma": "^5.0.0"
     }
 }

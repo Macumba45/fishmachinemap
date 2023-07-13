@@ -36,6 +36,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
+import { getAuthenticatedToken } from '../lib/storage/storage'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -67,7 +68,7 @@ const GoogleMapComp: FC = () => {
         descripcion,
         fotos,
     } = useLogicMaps()
-2
+    2
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -76,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -529,7 +530,14 @@ const GoogleMapComp: FC = () => {
                 id="updateResultsButton"
                 style={{
                     position: 'fixed',
-                    ...ButtonStyleBuscarLugares,
+                    top: '8%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '200px',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                    display: isButtonDisabled ? 'none' : 'flex',
+
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Style } from './type'
-import MarkerUser from '../../assets/location.png'
 
 export const MainContainer = styled.div`
     display: flex;
