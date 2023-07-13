@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
-import { prisma } from '../db'
+import { prisma } from '../../lib/db'
 const bcrypt = require('bcrypt')
 
 const handleSubmitSignUp = async (

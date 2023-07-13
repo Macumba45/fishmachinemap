@@ -25,11 +25,11 @@ model User {
 
 model Marker {
   id          String    @id @default(cuid())
-  location    Location?
   direction   String?
   markerType  String?
   description String?
   picture     String?
+   location    Location?
   icon        String?
   published   Boolean?  @default(false)
   user        User?     @relation(fields: [userId], references: [id])

@@ -77,7 +77,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -314,7 +314,7 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
-    }, [isLoaded, center, loading])
+    }, [isLoaded])
 
     // // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     // useEffect(() => {
