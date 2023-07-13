@@ -36,7 +36,7 @@
         ".next/types/**/*.ts",
         "src/app/api/signup.ts",
         "src/app/api/auth/NextAuth.js"
-    ],
+, "pages/api/markers/marker.ts"    ],
     "exclude": [
         "node_modules"
     ]
