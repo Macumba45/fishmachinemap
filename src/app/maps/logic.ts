@@ -6,10 +6,9 @@ import { toast } from 'react-toastify'
 import { Style, UserMarker } from './type'
 
 export const useLogicMaps = () => {
-
     const addUserMarker = async (userMark: UserMarker) => {
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token')
             const response = await fetch('/api/markers/marker', {
                 method: 'POST',
                 headers: {
@@ -17,16 +16,16 @@ export const useLogicMaps = () => {
                     Authorization: 'Bearer ' + token,
                 },
                 body: JSON.stringify(userMark),
-            });
-            console.log('Respuesta:', response);
+            })
+            console.log('Respuesta:', response)
             if (response.ok) {
-                const data = await response.json();
-                console.log('Objeto enviado correctamente:', data);
+                const data = await response.json()
+                console.log('Objeto enviado correctamente:', data)
             } else {
-                throw new Error('Error en la respuesta del servidor');
+                throw new Error('Error en la respuesta del servidor')
             }
         } catch (error) {
-            console.error('Error al enviar el objeto:', error);
+            console.error('Error al enviar el objeto:', error)
         }
     }
 
@@ -37,11 +36,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-        | google.maps.LatLngLiteral
-        | {
-            lat: number | undefined
-            lng: number | undefined
-        }
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -62,7 +61,7 @@ export const useLogicMaps = () => {
     const [descripcion, setDescripcion] = useState(
         'Esto es la prueba de las pruebas de las repruebas'
     )
-    const [fotos, setFotos] = useState("")
+    const [fotos, setFotos] = useState('')
     console.log(positionMarkerUser)
     console.log(fotos)
 
@@ -115,18 +114,18 @@ export const useLogicMaps = () => {
     // Función para confirmar el marcador
     const confirmMarker = async (
         location:
-            | google.maps.LatLngLiteral
-            | { lat: number | undefined; lng: number | undefined }
-            | undefined,
+        | google.maps.LatLngLiteral
+        | { lat: number | undefined; lng: number | undefined }
+        | undefined,
         direction: string,
         markerType: string,
         description: string,
-        picture: string,
+        picture: string
     ) => {
         const latLng: google.maps.LatLngLiteral = {
             lat: location?.lat || 0,
             lng: location?.lng || 0,
-        };
+        }
 
         const nuevoMarcador = {
             direction,
@@ -134,22 +133,18 @@ export const useLogicMaps = () => {
             description,
             picture,
             location: {
-                create: {
-                    lat: latLng.lat,
-                    lng: latLng.lng,
-
-                },
+                lat: latLng.lat,
+                lng: latLng.lng,
             },
-        };
+        }
 
-        console.log(nuevoMarcador);
-        await addUserMarker(nuevoMarcador);
-        setAddingMarker(false);
-        setIsButtonDisabled(false);
-        setFloatMarker(false);
-        notifyMarker();
-    };
-
+        console.log(nuevoMarcador)
+        await addUserMarker(nuevoMarcador)
+        setAddingMarker(false)
+        setIsButtonDisabled(false)
+        setFloatMarker(false)
+        notifyMarker()
+    }
 
     const handlerConfirmation = () => {
         setFloatMarker(false)

@@ -17,9 +17,11 @@ interface Props {
     onClose?: () => void
     onClick?: () => void
     address?: string
-    positionMarkerUser?: google.maps.LatLngLiteral | {
-        lat: number | undefined;
-        lng: number | undefined;
+    positionMarkerUser?:
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
     }
 }
 
@@ -28,7 +30,7 @@ const ModalCrearMarcador: FC<Props> = ({
     onClose,
     onClick,
     address,
-    positionMarkerUser
+    positionMarkerUser,
 }) => {
     const {
         confirmMarker,

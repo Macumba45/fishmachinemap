@@ -29,7 +29,7 @@ model Marker {
   markerType  String?
   description String?
   picture     String?
-   location    Location?
+  location    Location?
   icon        String?
   published   Boolean?  @default(false)
   user        User?     @relation(fields: [userId], references: [id])
@@ -39,8 +39,8 @@ model Marker {
 
 model Location {
   id       String  @id @default(cuid())
-  lat      Float
-  lng      Float
+  lat      Float?
+  lng      Float?
   marker   Marker? @relation(fields: [markerId], references: [id])
   markerId String? @unique
 }

@@ -45,5 +45,4 @@ const handledSubmitLogin = async (
     }
 }
 
-
 export default handledSubmitLogin
