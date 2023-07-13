@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react'
-import { Style, userMarker } from './type'
 import { defaultStylesMaps, stylesMaps } from './style'
 import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { toast } from 'react-toastify'
+import { Style, UserMarker } from './type'
 
 export const useLogicMaps = () => {
 
-    const addUserMarker = async (userMark: userMarker) => {
+    const addUserMarker = async (userMark: UserMarker) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('/api/marker/markers', {
+            const response = await fetch('/api/markers/marker', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const useLogicMaps = () => {
                 const data = await response.json();
                 console.log('Objeto enviado correctamente:', data);
             } else {
-                throw Error;
+                throw new Error('Error en la respuesta del servidor');
             }
         } catch (error) {
             console.error('Error al enviar el objeto:', error);
@@ -37,11 +37,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-        | google.maps.LatLngLiteral
-        | {
-            lat: number | undefined
-            lng: number | undefined
-        }
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -62,7 +62,7 @@ export const useLogicMaps = () => {
     const [descripcion, setDescripcion] = useState(
         'Esto es la prueba de las pruebas de las repruebas'
     )
-    const [fotos, setFotos] = useState<File[]>([])
+    const [fotos, setFotos] = useState('')
     console.log(positionMarkerUser)
     console.log(fotos)
 
@@ -114,35 +114,37 @@ export const useLogicMaps = () => {
 
     // Función para confirmar el marcador
     const confirmMarker = async (
-        positionMarkerUser:
-            | google.maps.LatLngLiteral
-            | { lat: number | undefined; lng: number | undefined }
-            | undefined,
-        direccion: string,
-        tipoLugar: string,
-        descripcion: string,
-        fotos: File[]
+        location:
+        | google.maps.LatLngLiteral
+        | { lat: number | undefined; lng: number | undefined }
+        | undefined,
+        direction: string,
+        markerType: string,
+        description: string,
+        picture: string
     ) => {
         const latLng: google.maps.LatLngLiteral = {
-            lat: positionMarkerUser?.lat || 0,
-            lng: positionMarkerUser?.lng || 0,
-        }
+            lat: location?.lat || 0,
+            lng: location?.lng || 0,
+        };
 
         const nuevoMarcador = {
-            direccion,
-            tipoLugar,
-            descripcion,
-            fotos,
-            positionMarkerUser: latLng,
-        }
+            direction,
+            markerType,
+            description,
+            picture,
+            location: latLng,
 
-        console.log(nuevoMarcador)
-        setAddingMarker(false)
-        setIsButtonDisabled(false)
-        setFloatMarker(false)
-        notifyMarker()
-        await addUserMarker(nuevoMarcador)
-    }
+        };
+
+        console.log(nuevoMarcador);
+        setAddingMarker(false);
+        setIsButtonDisabled(false);
+        setFloatMarker(false);
+        notifyMarker();
+        await addUserMarker(nuevoMarcador);
+    };
+
 
     const handlerConfirmation = () => {
         setFloatMarker(false)

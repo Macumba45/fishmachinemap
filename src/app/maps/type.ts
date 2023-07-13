@@ -1,4 +1,4 @@
-import { type } from "os"
+import { type } from 'os'
 
 export type Props = {
     lat: number
@@ -6,7 +6,7 @@ export type Props = {
 }
 
 export type MarkerData = {
-    id: number
+    id: string
     shop: string
     lat: number
     lng: number
@@ -30,16 +30,15 @@ export type Marker = {
     // Agrega aquí las demás propiedades requeridas por un objeto de tipo Marker
 }
 
-type PositionMarker = {
+export type PositionMarker = {
     lat: number;
     lng: number;
 }
 
-export type userMarker = {
-    direccion: string;
-    tipoLugar: string;
-    descripcion: string;
-    fotos: File[];
-    positionMarkerUser: PositionMarker;
-}
-
+export type UserMarker = {
+    direction: string;
+    markerType: string;
+    description: string;
+    picture: string;
+    location: PositionMarker;
+};
