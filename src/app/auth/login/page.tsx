@@ -39,7 +39,7 @@ const Login: FC = () => {
 
         if (email && password) {
             try {
-                const response = await fetch('../../api/auth/login', {
+                const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     body: JSON.stringify({ email, password }),
                     headers: { 'Content-Type': 'application/json' },

@@ -1,3 +1,5 @@
+import { type } from "os"
+
 export type Props = {
     lat: number
     lng: number
@@ -19,3 +21,25 @@ export type Style = {
     featureType?: string
     stylers: Array<{ color?: string; visibility?: string }>
 }
+
+export type Marker = {
+    direccion: string
+    tipoLugar: string
+    descripcion: string
+    fotos: File[]
+    // Agrega aquí las demás propiedades requeridas por un objeto de tipo Marker
+}
+
+type PositionMarker = {
+    lat: number;
+    lng: number;
+}
+
+export type userMarker = {
+    direccion: string;
+    tipoLugar: string;
+    descripcion: string;
+    fotos: File[];
+    positionMarkerUser: PositionMarker;
+}
+

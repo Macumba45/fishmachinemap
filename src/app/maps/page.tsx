@@ -43,17 +43,12 @@ let markerClusterer: MarkerClusterer | null = null
 // Declara un componente de React llamado GoogleMapComp.
 const GoogleMapComp: FC = () => {
     const {
-        currentFilter,
-        selectedMarker,
         notifySucces,
-        filterMarkers,
-        handleFilterChange,
         styledMap,
         selectMapStyle,
         mapRef,
         confirmMarker,
         openAddMarkerMode,
-        confirmedMarkers,
         setCurrentLocationMarker,
         addingMarker,
         isButtonDisabled,
@@ -66,9 +61,13 @@ const GoogleMapComp: FC = () => {
         positionMarkerUser,
         floatMarker,
         handlerConfirmation,
-        address,
+        setAddingMarker,
+        direccion,
+        tipoLugar,
+        descripcion,
+        fotos,
     } = useLogicMaps()
-
+2
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
@@ -77,7 +76,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -134,7 +133,7 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-    function initMap() {
+    async function initMap() {
         if (typeof window !== 'undefined' && isLoaded) {
             map = new window.google.maps.Map(
                 document.getElementById('map') as HTMLElement,
@@ -316,10 +315,10 @@ const GoogleMapComp: FC = () => {
         initMap()
     }, [isLoaded, center, loading])
 
-    // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
-    useEffect(() => {
-        filterMarkers(currentFilter)
-    }, [currentFilter])
+    // // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
+    // useEffect(() => {
+    //     filterMarkers(currentFilter)
+    // }, [currentFilter])
 
     // Efecto que se ejecuta cuando cambian los marcadores para actualizar el cluster de marcadores.
     useEffect(() => {
@@ -381,8 +380,11 @@ const GoogleMapComp: FC = () => {
                 {addingMarker && (
                     <ModalCrearMarcador
                         address=""
+                        onClose={() => setAddingMarker(false)} // Cierra el modal
                         isOpen={addingMarker}
-                        onClick={confirmMarker}
+                        onClick={() => confirmMarker(positionMarkerUser, direccion, tipoLugar, descripcion, fotos)}
+                        positionMarkerUser={positionMarkerUser}
+
                     />
                 )}
                 {/* <FilterContainer>
