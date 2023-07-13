@@ -1,8 +1,7 @@
 // schema.prisma
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -25,25 +24,23 @@ model User {
 }
 
 model Marker {
-  id          String  @id @default(cuid())
+  id          String    @id @default(cuid())
   location    Location?
   direction   String?
   markerType  String?
   description String?
   picture     String?
   icon        String?
-  published   Boolean @default(false)
-  user        User?   @relation(fields: [userId], references: [id])
+  published   Boolean   @default(false)
+  user        User?     @relation(fields: [userId], references: [id])
   userId      String?
-  createdAt   DateTime @default(now()) @map(name: "created_at")
-  
-  
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
 }
 
 model Location {
-  id  String @id @default(cuid())
-  lat Float?
-  lng Float?
-  marker Marker? @relation(fields: [markerId], references: [id])
+  id       String  @id @default(cuid())
+  lat      Float?
+  lng      Float?
+  marker   Marker? @relation(fields: [markerId], references: [id])
   markerId String? @unique
 }

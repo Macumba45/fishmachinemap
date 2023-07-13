@@ -1,6 +1,5 @@
-'use client'
-
 import React, { FC, useState } from 'react'
+import { useLogicMaps } from '@/app/maps/logic'
 import {
     Modal,
     Box,
@@ -9,7 +8,6 @@ import {
     MenuItem,
     TextField,
     Button,
-    Input,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material'
 import ButtonComp from '@/components/Button'
@@ -19,6 +17,10 @@ interface Props {
     onClose?: () => void
     onClick?: () => void
     address?: string
+    positionMarkerUser?: google.maps.LatLngLiteral | {
+        lat: number | undefined;
+        lng: number | undefined;
+    }
 }
 
 const ModalCrearMarcador: FC<Props> = ({
@@ -26,18 +28,37 @@ const ModalCrearMarcador: FC<Props> = ({
     onClose,
     onClick,
     address,
+    positionMarkerUser
 }) => {
-    const [tipoLugar, setTipoLugar] = useState('')
-    const [descripcion, setDescripcion] = useState('')
-    const [fotos, setFotos] = useState<File[]>([])
-    console.log(fotos)
+    const {
+        confirmMarker,
+        direccion,
+        setDireccion,
+        tipoLugar,
+        setTipoLugar,
+        descripcion,
+        setDescripcion,
+        fotos,
+        setFotos,
+    } = useLogicMaps()
+    console.log(direccion)
     console.log(tipoLugar)
     console.log(descripcion)
+    console.log(fotos)
+
+    const handleDireccionChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setDireccion(event.target.value)
+    }
 
     const handleTipoLugarChange = (event: SelectChangeEvent<string>) => {
         setTipoLugar(event.target.value)
     }
-    const handleDescripcionChange = (event: any) => {
+
+    const handleDescripcionChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         setDescripcion(event.target.value)
     }
 
@@ -53,10 +74,16 @@ const ModalCrearMarcador: FC<Props> = ({
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // Aquí puedes enviar los datos del marcador al servidor
-        // y realizar cualquier otra acción necesaria
-        // ...
+        confirmMarker(
+            positionMarkerUser,
+            direccion,
+            tipoLugar,
+            descripcion,
+            fotos
+        )
     }
+
+    console.log(positionMarkerUser)
 
     return (
         <Modal open={isOpen}>
@@ -82,9 +109,11 @@ const ModalCrearMarcador: FC<Props> = ({
                         <div style={{ marginBottom: '1rem' }}>
                             <Typography variant="body1" component="label">
                                 <TextField
+                                    value={direccion}
                                     fullWidth
                                     id="outlined-controlled"
                                     label="Introduce la Dirección/Lugar"
+                                    onChange={handleDireccionChange}
                                 />
                             </Typography>
                         </div>
@@ -95,7 +124,6 @@ const ModalCrearMarcador: FC<Props> = ({
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
-                            // required
                         >
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
@@ -116,7 +144,6 @@ const ModalCrearMarcador: FC<Props> = ({
                             fullWidth
                             multiline
                             rows={4}
-                            // required
                         />
                     </Box>
 
@@ -126,7 +153,6 @@ const ModalCrearMarcador: FC<Props> = ({
                         </Typography>
                         <input
                             multiple
-                            // required
                             type="file"
                             onChange={handleFotosChange}
                         />
@@ -134,14 +160,9 @@ const ModalCrearMarcador: FC<Props> = ({
 
                     <Box sx={{ mt: 2 }}>
                         <ButtonComp
-                            type="submit"
+                            type="button"
                             variant="contained"
                             style={{
-                                // position: 'absolute',
-                                // zIndex: 999999,
-                                // top: '12%',
-                                // left: '50%',
-                                // transform: 'translate(-50%, -50%)',
                                 backgroundColor: '#49007a',
                             }}
                             title="Confirmar"
