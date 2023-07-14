@@ -41,6 +41,6 @@ model Location {
   id       String  @id @default(cuid())
   lat      Float?
   lng      Float?
-  marker   Marker? @relation(fields: [markerId], references: [id])
+  marker   Marker? @relation(fields: [markerId], references: [id], onDelete: Cascade)
   markerId String? @unique
 }

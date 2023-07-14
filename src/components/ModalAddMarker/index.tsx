@@ -16,20 +16,22 @@ interface Props {
     isOpen: boolean
     onClose?: () => void
     onClick?: () => void
-    address?: string
     positionMarkerUser?:
     | google.maps.LatLngLiteral
     | {
         lat: number | undefined
         lng: number | undefined
     }
+    direction?: string
+    markerType?: string
+    description?: string
+    pictures?: string
 }
 
 const ModalCrearMarcador: FC<Props> = ({
     isOpen,
     onClose,
     onClick,
-    address,
     positionMarkerUser,
 }) => {
     const {
@@ -42,11 +44,8 @@ const ModalCrearMarcador: FC<Props> = ({
         setDescripcion,
         fotos,
         setFotos,
+        setAddingMarker
     } = useLogicMaps()
-    console.log(direccion)
-    console.log(tipoLugar)
-    console.log(descripcion)
-    console.log(fotos)
 
     const handleDireccionChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -67,25 +66,23 @@ const ModalCrearMarcador: FC<Props> = ({
     const handleFotosChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files
         if (files) {
-            const fileArray = Array.from(files) as File[]
-            setFotos(fileArray)
-        } else {
-            setFotos([])
+            setFotos(URL.createObjectURL(files[0])) // Guarda la URL de la imagen en el estado
         }
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        confirmMarker(
+        setAddingMarker(false)
+        await confirmMarker(
             positionMarkerUser,
-            direccion,
-            tipoLugar,
-            descripcion,
-            fotos
+            direccion || '',
+            tipoLugar || '',
+            descripcion || '',
+            fotos || ''
         )
     }
 
-    console.log(positionMarkerUser)
+    console.log(positionMarkerUser, direccion, tipoLugar, descripcion, fotos)
 
     return (
         <Modal open={isOpen}>
@@ -160,16 +157,26 @@ const ModalCrearMarcador: FC<Props> = ({
                         />
                     </Box>
 
-                    <Box sx={{ mt: 2 }}>
+                    <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+                        <ButtonComp
+                            type="submit"
+                            variant="contained"
+                            style={{
+                                backgroundColor: '#49007a',
+                                marginRight: '0.5rem',
+                            }}
+                            title="Confirmar"
+                        />
                         <ButtonComp
                             type="button"
                             variant="contained"
                             style={{
                                 backgroundColor: '#49007a',
                             }}
-                            title="Confirmar"
-                            onClick={onClick}
+                            title="Cancelar"
+                            onClick={onClose}
                         />
+
                     </Box>
                 </form>
             </Box>

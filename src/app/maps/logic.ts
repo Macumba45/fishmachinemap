@@ -4,10 +4,8 @@ import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { toast } from 'react-toastify'
 import { Style, UserMarker } from './type'
-import customAnzueloMarkerIcon from '../../assets/anzuelo.png'
 
 export const useLogicMaps = () => {
-    const [confirmedMarkers, setConfirmedMarkers] = useState(false)
 
     const addUserMarker = async (userMark: UserMarker) => {
         try {
@@ -63,11 +61,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+            lat: number | undefined
+            lng: number | undefined
+        }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -77,20 +75,20 @@ export const useLogicMaps = () => {
     // Define los estados del componente.
     const mapRef = useRef<google.maps.Map>()
     const [addingMarker, setAddingMarker] = useState(false)
-    const [currentLocationMarker, setCurrentLocationMarker] =
-        useState<google.maps.Marker | null>(null)
+    const [currentLocationMarker, setCurrentLocationMarker] = useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<Array<Style>>([])
     const [styledMap, setStyledMap] = useState(true)
     const [floatMarker, setFloatMarker] = useState(false)
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
-    const [direccion, setDireccion] = useState('Mi casa')
-    const [tipoLugar, setTipoLugar] = useState('store')
-    const [descripcion, setDescripcion] = useState(
-        'Esto es la prueba de las pruebas de las repruebas'
-    )
+    const [direccion, setDireccion] = useState('')
+    const [tipoLugar, setTipoLugar] = useState('')
+    const [descripcion, setDescripcion] = useState('')
     const [fotos, setFotos] = useState('')
-
+    const [confirmedMarkers, setConfirmedMarkers] = useState(false)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
+    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(null)
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -99,20 +97,6 @@ export const useLogicMaps = () => {
             })
             setStyledMap(!styledMap)
         }
-    }
-
-    const notifySucces = () => {
-        toast.success('Ubicación cargada correctamente', {
-            position: toast.POSITION.TOP_LEFT,
-            toastId: 'success1',
-        })
-    }
-
-    const notifyMarker = () => {
-        toast.success('Marcador añadido correctamente', {
-            position: toast.POSITION.TOP_LEFT,
-            toastId: 'marker1',
-        })
     }
 
     // Función para abrir el modo de "Añadir a marcadores"
@@ -141,14 +125,26 @@ export const useLogicMaps = () => {
     // Función para confirmar el marcador
     const confirmMarker = async (
         location:
-        | google.maps.LatLngLiteral
-        | { lat: number | undefined; lng: number | undefined }
-        | undefined,
+            | google.maps.LatLngLiteral
+            | { lat: number | undefined; lng: number | undefined }
+            | undefined,
         direction: string,
         markerType: string,
         description: string,
         picture: string
     ) => {
+
+        console.log('location:', location)
+        console.log('direction:', direction)
+        console.log('markerType:', markerType)
+        console.log('description:', description)
+
+        // console.log('direccion:', direccion)
+        // console.log('tipode lugar:', tipoLugar)
+        // console.log('descriocion:', descripcion)
+        // console.log('fotos', fotos)
+
+
         const latLng: google.maps.LatLngLiteral = {
             lat: location?.lat || 0,
             lng: location?.lng || 0,
@@ -169,9 +165,9 @@ export const useLogicMaps = () => {
         await addUserMarker(nuevoMarcador)
         setAddingMarker(false)
         setIsButtonDisabled(false)
-        setFloatMarker(false)
         notifyMarker()
     }
+
 
     const handlerConfirmation = () => {
         setFloatMarker(false)
@@ -179,6 +175,46 @@ export const useLogicMaps = () => {
         if (mapRef.current && isLoaded) {
             addMarkerDraggable(mapRef.current)
         }
+    }
+
+    const notifySucces = () => {
+        toast.success('Ubicación cargada correctamente', {
+            position: toast.POSITION.TOP_LEFT,
+            toastId: 'success1',
+        })
+    }
+
+    const notifyMarker = () => {
+        toast.success('Marcador añadido correctamente', {
+            position: toast.POSITION.TOP_LEFT,
+            toastId: 'marker1',
+        })
+    }
+
+    const logOut = () => {
+        localStorage.removeItem('token')
+        window.location.href = '/'
+    }
+
+    const handleCloseModal = () => {
+        setAddingMarker(false);
+        setIsButtonDisabled(false);
+    };
+
+    const handleCloseLugar = () => {
+        setFloatMarker(false);
+        setIsButtonDisabled(false);
+
+    }
+
+    const openModal = (place: any) => {
+        console.log(place)
+        setPlace(place)
+        setModalIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setModalIsOpen(false)
     }
 
     return {
@@ -194,6 +230,7 @@ export const useLogicMaps = () => {
         setCurrentLocationMarker,
         addingMarker,
         isButtonDisabled,
+        setIsButtonDisabled,
         style,
         setStyle,
         isLoaded,
@@ -202,6 +239,7 @@ export const useLogicMaps = () => {
         center,
         positionMarkerUser,
         floatMarker,
+        setFloatMarker,
         handlerConfirmation,
         direccion,
         setDireccion,
@@ -216,5 +254,15 @@ export const useLogicMaps = () => {
         userMarkers,
         confirmedMarkers,
         setConfirmedMarkers,
+        logOut,
+        handleCloseModal,
+        handleCloseLugar,
+        place,
+        modalIsOpen,
+        setPlace,
+        setModalIsOpen,
+        openModal,
+        closeModal
+
     }
 }
