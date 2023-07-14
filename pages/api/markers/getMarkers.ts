@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { prisma } from '../../lib/db'
+import { prisma } from '../../../src/app/lib/db'
 
 const getMarkersUser = async (
     req: NextApiRequest,
