@@ -48,7 +48,6 @@ const GoogleMapComp: FC = () => {
         styledMap,
         selectMapStyle,
         mapRef,
-        confirmMarker,
         openAddMarkerMode,
         setCurrentLocationMarker,
         addingMarker,
@@ -76,8 +75,7 @@ const GoogleMapComp: FC = () => {
         modalIsOpen,
         setPlace,
         openModal,
-        closeModal
-
+        closeModal,
     } = useLogicMaps()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
@@ -86,7 +84,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -186,7 +184,6 @@ const GoogleMapComp: FC = () => {
                     })
                     markers.setMap(map)
                 })
-
             }
 
             setLoading(false)
@@ -299,8 +296,6 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-
-
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -344,8 +339,6 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-
-
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
         return (
@@ -367,17 +360,17 @@ const GoogleMapComp: FC = () => {
         <MainContainer>
             <>
                 <MapContainer id="map" />
-                {addingMarker && (
-                    <ModalCrearMarcador
-                        onClose={handleCloseModal} // Cierra el modal
-                        isOpen={addingMarker}
-                        positionMarkerUser={positionMarkerUser}
-                        direction={direccion}
-                        markerType={tipoLugar}
-                        description={descripcion}
-                        pictures={fotos}
-                    />
-                )}
+
+                <ModalCrearMarcador
+                    onClose={handleCloseModal} // Cierra el modal
+                    isOpen={addingMarker}
+                    positionMarkerUser={positionMarkerUser}
+                    direction={direccion}
+                    markerType={tipoLugar}
+                    description={descripcion}
+                    pictures={fotos}
+                />
+
                 {/* <FilterContainer>
                     <FilterComponent onChange={handleFilterChange} />
                 </FilterContainer> */}
@@ -531,7 +524,7 @@ const GoogleMapComp: FC = () => {
                 style={{
                     position: 'fixed',
                     display: isButtonDisabled ? 'none' : 'flex',
-                    ...ButtonStyleBuscarLugares
+                    ...ButtonStyleBuscarLugares,
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"
