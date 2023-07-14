@@ -113,7 +113,7 @@
 //         } as google.maps.Icon
 //         const marker = new google.maps.Marker({
 //             position: { lat: markerData.lat, lng: markerData.lng },
-//             clickable: true,
+//             clickable: true,<
 //             cursor: 'pointer',
 //             opacity: 1,
 //             icon: icon,
