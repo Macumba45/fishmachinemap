@@ -132,7 +132,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -247,7 +247,6 @@ const GoogleMapComp: FC = () => {
             setLoading(false)
         }
     }
-
 
 
     function performSearch() {
