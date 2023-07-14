@@ -44,7 +44,7 @@ const ModalCrearMarcador: FC<Props> = ({
         setDescripcion,
         fotos,
         setFotos,
-        setAddingMarker
+        setAddingMarker,
     } = useLogicMaps()
 
     const handleDireccionChange = (
@@ -72,7 +72,6 @@ const ModalCrearMarcador: FC<Props> = ({
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setAddingMarker(false)
         await confirmMarker(
             positionMarkerUser,
             direccion || '',
@@ -80,6 +79,7 @@ const ModalCrearMarcador: FC<Props> = ({
             descripcion || '',
             fotos || ''
         )
+        onClose!()
     }
 
     console.log(positionMarkerUser, direccion, tipoLugar, descripcion, fotos)
@@ -157,7 +157,13 @@ const ModalCrearMarcador: FC<Props> = ({
                         />
                     </Box>
 
-                    <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+                    <Box
+                        sx={{
+                            mt: 2,
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
                         <ButtonComp
                             type="submit"
                             variant="contained"
@@ -176,7 +182,6 @@ const ModalCrearMarcador: FC<Props> = ({
                             title="Cancelar"
                             onClick={onClose}
                         />
-
                     </Box>
                 </form>
             </Box>

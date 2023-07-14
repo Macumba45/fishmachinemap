@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 import { Style, UserMarker } from './type'
 
 export const useLogicMaps = () => {
-
     const addUserMarker = async (userMark: UserMarker) => {
         try {
             const token = localStorage.getItem('token')
@@ -44,8 +43,6 @@ export const useLogicMaps = () => {
                 const data = await response.json()
                 setUserMarkers(data.markers)
                 setConfirmedMarkers(true)
-
-
             } else {
                 throw new Error('Error en la respuesta del servidor')
             }
@@ -61,11 +58,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-        | google.maps.LatLngLiteral
-        | {
-            lat: number | undefined
-            lng: number | undefined
-        }
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -75,7 +72,8 @@ export const useLogicMaps = () => {
     // Define los estados del componente.
     const mapRef = useRef<google.maps.Map>()
     const [addingMarker, setAddingMarker] = useState(false)
-    const [currentLocationMarker, setCurrentLocationMarker] = useState<google.maps.Marker | null>(null)
+    const [currentLocationMarker, setCurrentLocationMarker] =
+        useState<google.maps.Marker | null>(null)
     const [style, setStyle] = useState<Array<Style>>([])
     const [styledMap, setStyledMap] = useState(true)
     const [floatMarker, setFloatMarker] = useState(false)
@@ -86,9 +84,10 @@ export const useLogicMaps = () => {
     const [fotos, setFotos] = useState('')
     const [confirmedMarkers, setConfirmedMarkers] = useState(false)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
-    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(null)
+    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
+        null
+    )
     const [modalIsOpen, setModalIsOpen] = useState(false)
-
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -125,26 +124,14 @@ export const useLogicMaps = () => {
     // Función para confirmar el marcador
     const confirmMarker = async (
         location:
-            | google.maps.LatLngLiteral
-            | { lat: number | undefined; lng: number | undefined }
-            | undefined,
+        | google.maps.LatLngLiteral
+        | { lat: number | undefined; lng: number | undefined }
+        | undefined,
         direction: string,
         markerType: string,
         description: string,
         picture: string
     ) => {
-
-        console.log('location:', location)
-        console.log('direction:', direction)
-        console.log('markerType:', markerType)
-        console.log('description:', description)
-
-        // console.log('direccion:', direccion)
-        // console.log('tipode lugar:', tipoLugar)
-        // console.log('descriocion:', descripcion)
-        // console.log('fotos', fotos)
-
-
         const latLng: google.maps.LatLngLiteral = {
             lat: location?.lat || 0,
             lng: location?.lng || 0,
@@ -163,11 +150,12 @@ export const useLogicMaps = () => {
 
         console.log(nuevoMarcador)
         await addUserMarker(nuevoMarcador)
+        console.log('entro')
         setAddingMarker(false)
+        console.log('entro2')
         setIsButtonDisabled(false)
         notifyMarker()
     }
-
 
     const handlerConfirmation = () => {
         setFloatMarker(false)
@@ -197,14 +185,13 @@ export const useLogicMaps = () => {
     }
 
     const handleCloseModal = () => {
-        setAddingMarker(false);
-        setIsButtonDisabled(false);
-    };
+        setAddingMarker(false)
+        setIsButtonDisabled(false)
+    }
 
     const handleCloseLugar = () => {
-        setFloatMarker(false);
-        setIsButtonDisabled(false);
-
+        setFloatMarker(false)
+        setIsButtonDisabled(false)
     }
 
     const openModal = (place: any) => {
@@ -216,6 +203,8 @@ export const useLogicMaps = () => {
     const closeModal = () => {
         setModalIsOpen(false)
     }
+
+    console.log(addingMarker)
 
     return {
         notifySucces,
@@ -262,7 +251,6 @@ export const useLogicMaps = () => {
         setPlace,
         setModalIsOpen,
         openModal,
-        closeModal
-
+        closeModal,
     }
 }
