@@ -16,7 +16,7 @@ import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
-import BasicModal, { PlaceReview } from '@/components/Modal'
+import BasicModal, { PlaceReview } from '@/components/ModalPlaces'
 import SimpleSlider from '@/components/Carousel/page'
 import CustomizedSwitchesLocation from '@/components/MuiSwitchLocation'
 import CircularColor from '@/components/CircularColor'
@@ -38,6 +38,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
+import ModalUserMarkers from '@/components/ModalMarkersUser'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -76,55 +77,23 @@ const GoogleMapComp: FC = () => {
         setPlace,
         openModal,
         closeModal,
-        getMarkersUser
+        getMarkersUser,
+        isButtonDisabledPlaces,
+        setIsButtonDisabledPlaces,
+        getIcon
     } = useLogicMaps()
 
-    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false);
 
-    enum MarkerType {
-        SHOP = 'tienda',
-        WORM = 'cebos',
-        PESQUERO = 'pesquero',
-        PICTURES = 'fotos',
-    }
+    const [dataMarkerUser, setDataMarkerUser] = useState({
+        positionMarkerUser: positionMarkerUser,
+        direction: direccion,
+        markerType: tipoLugar,
+        description: descripcion,
+        picture: fotos
+    })
+    const [modalUserMarker, setModalUserMarker] = useState(false)
 
-    // Función para obtener la URL del ícono del marcador según el tipo.
-    function getIcon(selectIcon: string): google.maps.Icon {
-        let icon: google.maps.Icon;
-
-        switch (selectIcon) {
-            case MarkerType.SHOP:
-                icon = {
-                    url: customMarkerIconShop.src,
-                    scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
-            case MarkerType.WORM:
-                icon = {
-                    url: customMarkerIcon.src,
-                    scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
-            case MarkerType.PESQUERO:
-                icon = {
-                    url: customMarkerIconPlace.src,
-                    scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
-            case MarkerType.PICTURES:
-                icon = {
-                    url: customMarkerIconPicture.src,
-                    scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
-            default:
-                icon = {
-                    url: customMarkerIcon.src,
-                    scaledSize: new google.maps.Size(32, 32),
-                }
-        }
-        return icon;
-    }
+    console.log(dataMarkerUser)
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -132,7 +101,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -234,9 +203,10 @@ const GoogleMapComp: FC = () => {
                     const markers = new google.maps.Marker({
                         position: location,
                         map: map,
+                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
                         icon: {
                             url: iconUrl?.url,
-                            scaledSize: new google.maps.Size(32, 32),
+                            scaledSize: new google.maps.Size(40, 40),
                         }
                     })
                     markers.setMap(map)
@@ -244,6 +214,8 @@ const GoogleMapComp: FC = () => {
                     markers.addListener('click', () => {
 
                         console.log(marker)
+                        setModalUserMarker(true)
+                        setDataMarkerUser(marker)
 
                     })
 
@@ -435,6 +407,17 @@ const GoogleMapComp: FC = () => {
                     description={descripcion}
                     pictures={fotos}
                 />
+
+                <ModalUserMarkers
+                    isOpen={modalUserMarker}
+                    // dataMarkerUser={dataMarkerUser}
+                    direction={dataMarkerUser.direction.charAt(0).toUpperCase() + dataMarkerUser.direction.slice(1)}
+                    markerType={dataMarkerUser.markerType.charAt(0).toUpperCase() + dataMarkerUser.markerType.slice(1)}
+                    description={dataMarkerUser.description.charAt(0).toUpperCase() + dataMarkerUser.description.slice(1)}
+                    pictures={dataMarkerUser.picture}
+                    onClose={() => setModalUserMarker(false)}
+                />
+
 
                 {/* <FilterContainer>
                     <FilterComponent onChange={handleFilterChange} />
