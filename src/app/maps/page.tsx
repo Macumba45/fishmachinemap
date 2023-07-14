@@ -22,6 +22,7 @@ import CircularColor from '@/components/CircularColor'
 import SearchIcon from '@mui/icons-material/Search'
 import {
     ButtonStyleBuscarLugares,
+    ButtonStyleCancelarLugar,
     ButtonStyleConfirmarLugar,
     CustomizedSwitchesLocationStyles,
     CustomizedSwitchesStyles,
@@ -61,27 +62,31 @@ const GoogleMapComp: FC = () => {
         positionMarkerUser,
         floatMarker,
         handlerConfirmation,
-        setAddingMarker,
         direccion,
         tipoLugar,
         descripcion,
         fotos,
-        userMarkers,
         getMarkersUser,
+        userMarkers,
         confirmedMarkers,
-        setConfirmedMarkers,
+        logOut,
+        handleCloseModal,
+        handleCloseLugar,
+        place,
+        modalIsOpen,
+        setPlace,
+        openModal,
+        closeModal
+
     } = useLogicMaps()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
-    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
-        null
-    )
-    const [modalIsOpen, setModalIsOpen] = useState(false)
+
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -129,7 +134,6 @@ const GoogleMapComp: FC = () => {
                     notifySucces()
                     setLoadingLocation(false)
                     setDisableLocation(false)
-                    performSearch()
                 },
                 error => {
                     console.error('Error getting current location:', error)
@@ -295,15 +299,7 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-    const openModal = (place: any) => {
-        console.log(place)
-        setPlace(place)
-        setModalIsOpen(true)
-    }
 
-    const closeModal = () => {
-        setModalIsOpen(false)
-    }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -348,10 +344,7 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-    const logOut = () => {
-        localStorage.removeItem('token')
-        window.location.href = '/'
-    }
+
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
@@ -376,19 +369,13 @@ const GoogleMapComp: FC = () => {
                 <MapContainer id="map" />
                 {addingMarker && (
                     <ModalCrearMarcador
-                        address=""
-                        onClose={() => setAddingMarker(false)} // Cierra el modal
+                        onClose={handleCloseModal} // Cierra el modal
                         isOpen={addingMarker}
-                        onClick={() =>
-                            confirmMarker(
-                                positionMarkerUser,
-                                direccion,
-                                tipoLugar,
-                                descripcion,
-                                fotos
-                            )
-                        }
                         positionMarkerUser={positionMarkerUser}
+                        direction={direccion}
+                        markerType={tipoLugar}
+                        description={descripcion}
+                        pictures={fotos}
                     />
                 )}
                 {/* <FilterContainer>
@@ -521,6 +508,16 @@ const GoogleMapComp: FC = () => {
                         variant="contained"
                         onClick={handlerConfirmation}
                     />
+                    <ButtonComp
+                        key="cancelarButton"
+                        title="Cancelar lugar"
+                        style={{
+                            position: 'fixed',
+                            ...ButtonStyleCancelarLugar,
+                        }}
+                        variant="outlined"
+                        onClick={handleCloseLugar}
+                    />
                 </>
             )}
             <FloatAddMarkerButton
@@ -533,13 +530,8 @@ const GoogleMapComp: FC = () => {
                 id="updateResultsButton"
                 style={{
                     position: 'fixed',
-                    top: '8%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '200px',
-                    backgroundColor: '#ffffff',
-                    color: '#000000',
                     display: isButtonDisabled ? 'none' : 'flex',
+                    ...ButtonStyleBuscarLugares
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"

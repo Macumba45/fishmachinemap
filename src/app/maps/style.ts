@@ -49,16 +49,24 @@ export const IconMarker = styled.img`
 `
 
 export const ButtonStyleConfirmarLugar = {
-    top: '80%',
+    top: '85%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '200px',
     backgroundColor: '#ffffff',
     color: '#000000',
 }
+export const ButtonStyleCancelarLugar = {
+    top: '6%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '200px',
+    color: 'white',
+    borderColor: 'white',
+}
 
 export const ButtonStyleBuscarLugares = {
-    top: '8%',
+    top: '6%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '200px',
