@@ -125,10 +125,10 @@ const ModalCrearMarcador: FC<Props> = ({
                             fullWidth
                             required
                         >
-                            <MenuItem value="Pesquero">Pesquero</MenuItem>
-                            <MenuItem value="store">Tienda de Pesca</MenuItem>
-                            <MenuItem value="worm">Cebos 24H</MenuItem>
-                            <MenuItem value="pictures">
+                            <MenuItem value="pesquero">Pesquero</MenuItem>
+                            <MenuItem value="tienda">Tienda de Pesca</MenuItem>
+                            <MenuItem value="cebos">Cebos 24H</MenuItem>
+                            <MenuItem value="fotos">
                                 Fotos de Capturas
                             </MenuItem>
                         </Select>
