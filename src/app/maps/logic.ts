@@ -114,7 +114,6 @@ export const useLogicMaps = () => {
             lng: centerLatLng?.lng(),
         }
 
-        console.log('Position:', position)
 
         if (position.lat !== undefined && position.lng !== undefined) {
             setpositionMarkerUser(position)
@@ -148,11 +147,8 @@ export const useLogicMaps = () => {
             },
         }
 
-        console.log(nuevoMarcador)
         await addUserMarker(nuevoMarcador)
-        console.log('entro')
         setAddingMarker(false)
-        console.log('entro2')
         setIsButtonDisabled(false)
         notifyMarker()
     }
@@ -203,8 +199,6 @@ export const useLogicMaps = () => {
     const closeModal = () => {
         setModalIsOpen(false)
     }
-
-    console.log(addingMarker)
 
     return {
         notifySucces,
