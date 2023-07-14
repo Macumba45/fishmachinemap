@@ -38,8 +38,6 @@ const SignUp: FC = () => {
         const email = formData.get('email') as string
         const password = formData.get('password') as string
 
-        console.log(name, email, password)
-
         if (email && password && name) {
             try {
                 const response = await fetch('/api/auth/signup', {
@@ -47,10 +45,8 @@ const SignUp: FC = () => {
                     body: JSON.stringify({ email, password, name }),
                     headers: { 'Content-Type': 'application/json' },
                 })
-                console.log(response)
                 if (response.ok) {
                     const data = await response.json()
-                    console.log(data.message)
                     setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
                     notifySucces()
                     router.push('/maps')

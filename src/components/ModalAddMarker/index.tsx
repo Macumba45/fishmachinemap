@@ -82,8 +82,6 @@ const ModalCrearMarcador: FC<Props> = ({
         onClose!()
     }
 
-    console.log(positionMarkerUser, direccion, tipoLugar, descripcion, fotos)
-
     return (
         <Modal open={isOpen}>
             <Box
@@ -106,15 +104,17 @@ const ModalCrearMarcador: FC<Props> = ({
                 <form onSubmit={handleSubmit}>
                     <Box sx={{ mt: 2, borderRadius: '20px' }}>
                         <div style={{ marginBottom: '1rem' }}>
-                            <Typography variant="body1" component="label">
-                                <TextField
-                                    value={direccion}
-                                    fullWidth
-                                    id="outlined-controlled"
-                                    label="Introduce la Dirección/Lugar"
-                                    onChange={handleDireccionChange}
-                                />
+                            <Typography variant="body2" component="label">
+                                Introduce la Dirección/Lugar
                             </Typography>
+                            <TextField
+                                value={direccion}
+                                fullWidth
+                                id="outlined-controlled"
+                                onChange={handleDireccionChange}
+                                required
+                            />
+
                         </div>
                         <Typography variant="body2" component="label">
                             Tipo de lugar:
@@ -123,6 +123,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             value={tipoLugar}
                             onChange={handleTipoLugarChange}
                             fullWidth
+                            required
                         >
                             <MenuItem value="Pesquero">Pesquero</MenuItem>
                             <MenuItem value="store">Tienda de Pesca</MenuItem>
@@ -143,6 +144,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             fullWidth
                             multiline
                             rows={4}
+                            required
                         />
                     </Box>
 
