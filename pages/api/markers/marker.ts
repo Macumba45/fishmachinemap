@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../lib/db'
+const jwt = require('jsonwebtoken')
 
-const createMarker = async (
-    req: NextApiRequest,
-    res: NextApiResponse,
-    userId: string
-) => {
+const postMarkersUser = async (req: NextApiRequest, res: NextApiResponse) => {
+    const token = req.headers.authorization?.split(' ')[1]
     const { direction, markerType, description, picture } = req.body
     const { lat, lng } = req.body.location
+    const decodedToken = jwt.verify(token, 'token')
+
+    const userId = decodedToken.userId
 
     try {
         // Crear una nueva instancia del modelo Marker
@@ -39,4 +40,4 @@ const createMarker = async (
     }
 }
 
-export default createMarker
+export default postMarkersUser

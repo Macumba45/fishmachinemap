@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, use, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
@@ -36,7 +36,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
-import { getAuthenticatedToken } from '../lib/storage/storage'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -67,9 +66,14 @@ const GoogleMapComp: FC = () => {
         tipoLugar,
         descripcion,
         fotos,
+        userMarkers,
+        getMarkersUser,
+        confirmedMarkers,
+        setConfirmedMarkers,
     } = useLogicMaps()
-    2
+
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
+    const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
     const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
@@ -77,7 +81,7 @@ const GoogleMapComp: FC = () => {
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -135,12 +139,12 @@ const GoogleMapComp: FC = () => {
     }
 
     async function initMap() {
-        if (typeof window !== 'undefined' && isLoaded) {
+        if (typeof window !== 'undefined' && isLoaded && confirmedMarkers) {
             map = new window.google.maps.Map(
                 document.getElementById('map') as HTMLElement,
                 {
                     center: center,
-                    zoom: 8,
+                    zoom: 6,
                     zoomControl: false,
                     zoomControlOptions: {
                         position: 9,
@@ -153,7 +157,6 @@ const GoogleMapComp: FC = () => {
                 }
             )
             mapRef.current = map
-
             service = new google.maps.places.PlacesService(map)
 
             const updateResultsButton = document.getElementById(
@@ -162,20 +165,29 @@ const GoogleMapComp: FC = () => {
             if (updateResultsButton) {
                 updateResultsButton.addEventListener('click', performSearch)
             }
+            if (userMarkers.length > 0) {
+                userMarkers.map((marker: any) => {
+                    const location = {
+                        lat: marker.location.lat,
+                        lng: marker.location.lng,
+                    }
+                    const icon = {
+                        url: customAnzueloMarkerIcon.src,
+                        scaledSize: new google.maps.Size(32, 32),
+                    } as google.maps.Icon
+                    const markers = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        icon: icon,
+                    })
+                    markers.setMap(map)
+                })
 
-            // addMarkerDraggable(map)
-            // Crea el cluster de marcadores.
-            // markerClusterer = new MarkerClusterer({
-            //     map,
-            //     markers: [...confirmedMarkers, ...markers],
-            // })
-            // // Bloquea el scroll de la fista maps.
-            // blockScroll()
+            }
+
+            setLoading(false)
         }
-        setLoading(false)
     }
-
-    const markers: google.maps.Marker[] = []
 
     function performSearch() {
         const center = map.getCenter()
@@ -220,7 +232,7 @@ const GoogleMapComp: FC = () => {
         service.textSearch(requestPlayas, callback)
     }
 
-    function createMarker(place: google.maps.places.PlaceResult) {
+    function markerPlaceGoogle(place: google.maps.places.PlaceResult) {
         let iconUrl =
             'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
         // Icono predeterminado
@@ -233,24 +245,6 @@ const GoogleMapComp: FC = () => {
             iconUrl = customMarkerIconPlace.src
         }
 
-        const infoWindowContent = `
-    <div>
-        <h3>${place.name}</h3>
-        <p>Dirección: ${place.formatted_address}</p>
-      <p>Telefono: ${place.international_phone_number}</p>
-        <p>Valoración: ${place.rating || 'N/A'}</p>
-        ${place.reviews ? `<p>Opiniones: ${place.reviews}</p>` : ''}
-        <p>Latitud: ${place.geometry?.location?.lat()}</p>
-        <p>Longitud: ${place.geometry?.location?.lng()}</p>
-        <a>Web: ${place.url}</a>
-        
-    </div>
-`
-
-        const infoWindow = new google.maps.InfoWindow({
-            content: infoWindowContent,
-            position: place.geometry!.location,
-        })
         const icon = {
             url: iconUrl,
             scaledSize: new google.maps.Size(32, 32),
@@ -296,7 +290,7 @@ const GoogleMapComp: FC = () => {
     ) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (const place of results!) {
-                createMarker(place)
+                markerPlaceGoogle(place)
             }
         }
     }
@@ -314,7 +308,10 @@ const GoogleMapComp: FC = () => {
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
-    }, [isLoaded])
+        if (!confirmedMarkers) {
+            getMarkersUser()
+        }
+    }, [isLoaded, confirmedMarkers])
 
     // // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     // useEffect(() => {
@@ -326,7 +323,6 @@ const GoogleMapComp: FC = () => {
         if (markerClusterer) {
             markerClusterer.clearMarkers()
             markerClusterer.addMarkers(markers)
-            console.log(markers)
         }
     }, [])
 
@@ -358,7 +354,7 @@ const GoogleMapComp: FC = () => {
     }
 
     // Renderiza el componente.
-    if (loading) {
+    if (loading && userMarkers.length === 0) {
         return (
             <div>
                 <CircularIndeterminate />

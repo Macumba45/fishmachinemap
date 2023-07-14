@@ -18,11 +18,11 @@ interface Props {
     onClick?: () => void
     address?: string
     positionMarkerUser?:
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+              lat: number | undefined
+              lng: number | undefined
+          }
 }
 
 const ModalCrearMarcador: FC<Props> = ({
