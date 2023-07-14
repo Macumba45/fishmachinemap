@@ -30,7 +30,6 @@ model Marker {
   description String?
   picture     String?
   location    Location?
-  icon        String?
   published   Boolean?  @default(false)
   user        User?     @relation(fields: [userId], references: [id])
   userId      String?
@@ -43,4 +42,5 @@ model Location {
   lng      Float?
   marker   Marker? @relation(fields: [markerId], references: [id], onDelete: Cascade)
   markerId String? @unique
+  createdAt DateTime @default(now()) @map(name: "created_at")
 }

@@ -11,6 +11,7 @@ import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
 import customAnzueloMarkerIcon from '../../assets/anzuelo.png'
 import MarkerUserIcon from '../../assets/location.png'
+import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
@@ -65,7 +66,6 @@ const GoogleMapComp: FC = () => {
         tipoLugar,
         descripcion,
         fotos,
-        getMarkersUser,
         userMarkers,
         confirmedMarkers,
         logOut,
@@ -76,7 +76,55 @@ const GoogleMapComp: FC = () => {
         setPlace,
         openModal,
         closeModal,
+        getMarkersUser
     } = useLogicMaps()
+
+    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false);
+
+    enum MarkerType {
+        SHOP = 'tienda',
+        WORM = 'cebos',
+        PESQUERO = 'pesquero',
+        PICTURES = 'fotos',
+    }
+
+    // Función para obtener la URL del ícono del marcador según el tipo.
+    function getIcon(selectIcon: string): google.maps.Icon {
+        let icon: google.maps.Icon;
+
+        switch (selectIcon) {
+            case MarkerType.SHOP:
+                icon = {
+                    url: customMarkerIconShop.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            case MarkerType.WORM:
+                icon = {
+                    url: customMarkerIcon.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            case MarkerType.PESQUERO:
+                icon = {
+                    url: customMarkerIconPlace.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            case MarkerType.PICTURES:
+                icon = {
+                    url: customMarkerIconPicture.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            default:
+                icon = {
+                    url: customMarkerIcon.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                }
+        }
+        return icon;
+    }
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -84,7 +132,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [loadingLocation, setLoadingLocation] = useState(false)
@@ -161,11 +209,19 @@ const GoogleMapComp: FC = () => {
             mapRef.current = map
             service = new google.maps.places.PlacesService(map)
 
-            const updateResultsButton = document.getElementById(
-                'updateResultsButton'
-            )
+            const updateResultsButton = document.getElementById('updateResultsButton')
             if (updateResultsButton) {
-                updateResultsButton.addEventListener('click', performSearch)
+                const handleClick = () => {
+                    setIsButtonDisabledPlaces(true); // Deshabilita el botón
+                    performSearch(); // Llama a la función performSearch
+
+
+                    setTimeout(() => {
+                        setIsButtonDisabledPlaces(false); // Habilita el botón después de 5 segundos
+                    }, 2000); // 5000 milisegundos = 5 segundos
+                };
+
+                updateResultsButton.addEventListener('click', handleClick);
             }
             if (userMarkers.length > 0) {
                 userMarkers.map((marker: any) => {
@@ -173,22 +229,26 @@ const GoogleMapComp: FC = () => {
                         lat: marker.location.lat,
                         lng: marker.location.lng,
                     }
-                    const icon = {
-                        url: customAnzueloMarkerIcon.src,
-                        scaledSize: new google.maps.Size(32, 32),
-                    } as google.maps.Icon
+                    const iconUrl = getIcon(marker.markerType)
+
                     const markers = new google.maps.Marker({
                         position: location,
                         map: map,
-                        icon: icon,
+                        icon: {
+                            url: iconUrl?.url,
+                            scaledSize: new google.maps.Size(32, 32),
+                        }
                     })
                     markers.setMap(map)
+
                 })
             }
 
             setLoading(false)
         }
     }
+
+
 
     function performSearch() {
         const center = map.getCenter()
@@ -524,10 +584,18 @@ const GoogleMapComp: FC = () => {
                 style={{
                     position: 'fixed',
                     display: isButtonDisabled ? 'none' : 'flex',
-                    ...ButtonStyleBuscarLugares,
+                    top: '6%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '200px',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                    opacity: isButtonDisabledPlaces ? 0 : 1,
+
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"
+                disabled={isButtonDisabledPlaces}
             />
         </MainContainer>
     )

@@ -246,5 +246,6 @@ export const useLogicMaps = () => {
         setModalIsOpen,
         openModal,
         closeModal,
+        
     }
 }

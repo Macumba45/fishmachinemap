@@ -77,7 +77,7 @@ export const ButtonStyleBuscarLugares = {
 export const CustomizedSwitchesLocationStyles = {
     marginLeft: '0px',
     right: '0px',
-    bottom: '210px',
+    bottom: '200px',
 }
 
 export const CustomizedSwitchesStyles = {
