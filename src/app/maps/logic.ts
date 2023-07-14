@@ -1,4 +1,8 @@
 import { useRef, useState } from 'react'
+import customMarkerIcon from '../../assets/anzuelo.png'
+import customMarkerIconShop from '../../assets/tienda.png'
+import customMarkerIconPlace from '../../assets/destino.png'
+import customMarkerIconPicture from '../../assets/back-camera.png'
 import { defaultStylesMaps, stylesMaps } from './style'
 import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
@@ -51,6 +55,13 @@ export const useLogicMaps = () => {
         }
     }
 
+    enum MarkerType {
+        SHOP = 'tienda',
+        WORM = 'cebos',
+        PESQUERO = 'pesquero',
+        PICTURES = 'fotos',
+    }
+
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
@@ -88,6 +99,8 @@ export const useLogicMaps = () => {
         null
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false);
+
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -160,6 +173,45 @@ export const useLogicMaps = () => {
             addMarkerDraggable(mapRef.current)
         }
     }
+
+    // Función para obtener la URL del ícono del marcador según el tipo.
+    function getIcon(selectIcon: string): google.maps.Icon {
+        let icon: google.maps.Icon;
+
+        switch (selectIcon) {
+            case MarkerType.SHOP:
+                icon = {
+                    url: customMarkerIconShop.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            case MarkerType.WORM:
+                icon = {
+                    url: customMarkerIcon.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            case MarkerType.PESQUERO:
+                icon = {
+                    url: customMarkerIconPlace.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            case MarkerType.PICTURES:
+                icon = {
+                    url: customMarkerIconPicture.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                };
+                break;
+            default:
+                icon = {
+                    url: customMarkerIcon.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                }
+        }
+        return icon;
+    }
+
 
     const notifySucces = () => {
         toast.success('Ubicación cargada correctamente', {
@@ -246,6 +298,9 @@ export const useLogicMaps = () => {
         setModalIsOpen,
         openModal,
         closeModal,
+        isButtonDisabledPlaces,
+        setIsButtonDisabledPlaces,
+        getIcon
         
     }
 }
