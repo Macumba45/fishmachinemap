@@ -241,6 +241,12 @@ const GoogleMapComp: FC = () => {
                     })
                     markers.setMap(map)
 
+                    markers.addListener('click', () => {
+
+                        console.log(marker)
+
+                    })
+
                 })
             }
 

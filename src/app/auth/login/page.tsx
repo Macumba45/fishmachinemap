@@ -22,6 +22,7 @@ const Login: FC = () => {
 
     blockScroll()
 
+    // const urlApi = (window && window.location.href.search('localhost') === -1) ? 'https://fishmachinemap.vercel.app/api/auth/login' : '/api/auth/login'
     const router = useRouter()
     const [error, setError] = useState('')
 
@@ -92,6 +93,8 @@ const Login: FC = () => {
                             id="email"
                             label="Email"
                             name="email"
+                            autoComplete="email"
+                            autoFocus
                         />
                         <TextField
                             margin="normal"
@@ -101,6 +104,7 @@ const Login: FC = () => {
                             label="Contraseña"
                             type="password"
                             id="password"
+                            defaultValue='jiefjidifjsjf'
                         />
                         {error && (
                             <SpanError>
