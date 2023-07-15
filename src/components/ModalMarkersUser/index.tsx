@@ -8,6 +8,8 @@ import {
     Rating,
 } from '@mui/material';
 import { TypographyContainer, ContenidoGoogle } from './style';
+import ButtonComp from '../Button';
+import { useLogicMaps } from '@/app/maps/logic';
 
 interface Props {
     isOpen: boolean;
@@ -21,20 +23,37 @@ interface Props {
     markerType?: string;
     description?: string;
     pictures?: string;
+    location?: {
+        lat: number;
+        lng: number;
+    };
 }
 
 const ModalUserMarkers: FC<Props> = ({
     isOpen,
     onClose,
-    dataMarkerUser,
     direction,
     description,
     markerType,
     pictures,
+    location
 
 }) => {
+
+   
+    const { dataMarkerUser, positionMarkerUser } = useLogicMaps()
     const [comments, setComments] = useState('');
     const [rating, setRating] = useState(0);
+
+    console.log(dataMarkerUser)
+    const openMap = (location: { lat: number; lng: number; } | undefined) => {
+        console.log(location)
+        if (location) {
+            const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
+            const encodedCoordinates = encodeURIComponent(`${location.lat},${location.lng}`)
+            window.open(baseUrl + encodedCoordinates)
+        }
+    }
 
     const handleSubmit = () => {
         // Aquí puedes realizar la lógica para guardar los comentarios y la valoración
@@ -123,12 +142,16 @@ const ModalUserMarkers: FC<Props> = ({
                 </Box>
 
                 <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
-                    <Button variant="contained" onClick={onClose}>
-                        Cerrar
-                    </Button>
+                    <ButtonComp
+                        title="Ir a Google Maps"
+                        variant="contained"
+                        onClick={() => openMap(location)}
+                    />
+
+
                 </Box>
             </Box>
-        </Modal>
+        </Modal >
     );
 };
 

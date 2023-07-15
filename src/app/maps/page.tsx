@@ -39,6 +39,7 @@ import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
+import AccountMenu from '@/components/Menu'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -69,7 +70,6 @@ const GoogleMapComp: FC = () => {
         fotos,
         userMarkers,
         confirmedMarkers,
-        logOut,
         handleCloseModal,
         handleCloseLugar,
         place,
@@ -80,20 +80,15 @@ const GoogleMapComp: FC = () => {
         getMarkersUser,
         isButtonDisabledPlaces,
         setIsButtonDisabledPlaces,
-        getIcon
+        getIcon,
+        modalUserMarker,
+        setModalUserMarker,
+        setDataMarkerUser,
+        dataMarkerUser,
+        loadingLocation,
+        setLoadingLocation
+
     } = useLogicMaps()
-
-
-    const [dataMarkerUser, setDataMarkerUser] = useState({
-        positionMarkerUser: positionMarkerUser,
-        direction: direccion,
-        markerType: tipoLugar,
-        description: descripcion,
-        picture: fotos
-    })
-    const [modalUserMarker, setModalUserMarker] = useState(false)
-
-    console.log(dataMarkerUser)
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -104,14 +99,9 @@ const GoogleMapComp: FC = () => {
     google.maps.Marker[]
     >([])
 
-    const [loadingLocation, setLoadingLocation] = useState(false)
-    const [disableLocation, setDisableLocation] = useState(true)
-
-    // Efecto que se ejecuta al cargar el componente para obtener la ubicación actual del usuario.
 
     const getMyPosition = () => {
         setLoadingLocation(true)
-        setDisableLocation(false)
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 position => {
@@ -148,7 +138,6 @@ const GoogleMapComp: FC = () => {
                     mapRef.current?.setCenter(currentLatLng)
                     notifySucces()
                     setLoadingLocation(false)
-                    setDisableLocation(false)
                 },
                 error => {
                     console.error('Error getting current location:', error)
@@ -221,6 +210,7 @@ const GoogleMapComp: FC = () => {
 
                 })
             }
+            getMyPosition()
 
             setLoading(false)
         }
@@ -285,7 +275,7 @@ const GoogleMapComp: FC = () => {
 
         const icon = {
             url: iconUrl,
-            scaledSize: new google.maps.Size(32, 32),
+            scaledSize: new google.maps.Size(26, 26),
         } as google.maps.Icon
         const marker = new google.maps.Marker({
             map: map,
@@ -395,6 +385,8 @@ const GoogleMapComp: FC = () => {
 
     return (
         <MainContainer>
+
+            <AccountMenu />
             <>
                 <MapContainer id="map" />
 
@@ -492,15 +484,6 @@ const GoogleMapComp: FC = () => {
                     }}
                     onClick={() => selectMapStyle()}
                 />
-                <CustomizedSwitchesLocation
-                    disabled={!disableLocation}
-                    style={{
-                        position: 'fixed',
-                        display: !disableLocation ? 'none' : 'flex',
-                        ...CustomizedSwitchesLocationStyles,
-                    }}
-                    onClick={getMyPosition}
-                />
             </>
             {floatMarker && (
                 <>
@@ -565,9 +548,8 @@ const GoogleMapComp: FC = () => {
                 disabled={isButtonDisabled}
                 onClick={openAddMarkerMode}
             />
-            <FloatLogOut onClick={logOut} />
             <ButtonComp
-                title="Buscar lugares"
+                title="Buscar por esta zona"
                 id="updateResultsButton"
                 style={{
                     position: 'fixed',
@@ -575,9 +557,10 @@ const GoogleMapComp: FC = () => {
                     top: '6%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: '200px',
+                    width: '240px',
                     backgroundColor: '#ffffff',
                     color: '#000000',
+                    height: '2rem',
                     opacity: isButtonDisabledPlaces ? 0 : 1,
 
                 }}
