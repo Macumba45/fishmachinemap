@@ -1,4 +1,4 @@
-import { prisma } from "@/app/lib/db";
+import { prisma } from '@/app/lib/db';
 
 
 export const userInfo = async (userId: any) => {
