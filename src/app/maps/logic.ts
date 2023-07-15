@@ -101,6 +101,16 @@ export const useLogicMaps = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false);
 
+    const [dataMarkerUser, setDataMarkerUser] = useState({
+        positionMarkerUser: positionMarkerUser,
+        direction: direccion,
+        markerType: tipoLugar,
+        description: descripcion,
+        picture: fotos
+    })
+    const [modalUserMarker, setModalUserMarker] = useState(false)
+    const [loadingLocation, setLoadingLocation] = useState(false)
+
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -227,11 +237,6 @@ export const useLogicMaps = () => {
         })
     }
 
-    const logOut = () => {
-        localStorage.removeItem('token')
-        window.location.href = '/'
-    }
-
     const handleCloseModal = () => {
         setAddingMarker(false)
         setIsButtonDisabled(false)
@@ -289,7 +294,6 @@ export const useLogicMaps = () => {
         userMarkers,
         confirmedMarkers,
         setConfirmedMarkers,
-        logOut,
         handleCloseModal,
         handleCloseLugar,
         place,
@@ -300,7 +304,13 @@ export const useLogicMaps = () => {
         closeModal,
         isButtonDisabledPlaces,
         setIsButtonDisabledPlaces,
-        getIcon
-        
+        getIcon,
+        modalUserMarker,
+        setModalUserMarker,
+        setDataMarkerUser,
+        dataMarkerUser,
+        loadingLocation,
+        setLoadingLocation,
+
     }
 }

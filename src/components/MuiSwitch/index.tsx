@@ -190,9 +190,10 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 interface Props {
     style?: React.CSSProperties
     onClick?: () => void
+    label?: string
 }
 
-const CustomizedSwitches: FC<Props> = ({ style, onClick }) => {
+const CustomizedSwitches: FC<Props> = ({ style, onClick, label }) => {
     return (
         <FormGroup sx={{ display: 'flex' }}>
             <FormControlLabel
@@ -201,7 +202,7 @@ const CustomizedSwitches: FC<Props> = ({ style, onClick }) => {
                     borderRadius: '100px',
                 }}
                 control={<MaterialUISwitch defaultChecked />}
-                label=""
+                label={label}
                 style={style}
                 onClick={onClick}
             />
