@@ -1,13 +1,13 @@
-import { User } from "next-auth"
-import { useState } from "react"
-import { getAuthenticatedToken } from "../lib/storage/storage"
+import { User } from 'next-auth'
+import { useState } from 'react'
+import { getAuthenticatedToken } from '../lib/storage/storage'
 
 export const useLogicUser = () => {
 
     const [user, setUser] = useState<User | null>(null)
 
     const getUser = async () => {
-        if (typeof window !== "undefined") {
+        if (typeof window !== 'undefined') {
             const token = localStorage.getItem('token');
             const response = await fetch('/api/user/user', {
                 method: 'GET',
