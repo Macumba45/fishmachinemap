@@ -1,16 +1,28 @@
 'use client'
 
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
-import { get } from 'http'
 
 const Profile: FC = () => {
 
-    const { getUser } = useLogicUser()
+    const {
+        user,
+        userMarkers,
+        getUser,
+        getUserMarkers
+    }
+        = useLogicUser()
 
-    getUser()
+    console.log(userMarkers)
+
+    useEffect(() => {
+        getUser()
+        getUserMarkers()
+    }, [])
+
+
     return (
         <>
             <MainContainer>

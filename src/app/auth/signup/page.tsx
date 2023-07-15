@@ -15,12 +15,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
 import { setAuthenticatedToken } from '../../lib/storage/storage'
 import { toast } from 'react-toastify'
+import { LoadingButton } from '@mui/lab'
+import { Stack } from '@mui/material'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
     const [error, setError] = useState<string>('')
+    const [loading, setLoading] = useState(false)
+
 
     const notifySucces = () => {
         toast.success('Registro correctamente', {
@@ -37,6 +41,7 @@ const SignUp: FC = () => {
         const name = formData.get('firstName') as string
         const email = formData.get('email') as string
         const password = formData.get('password') as string
+        setLoading(true)
 
         if (email && password && name) {
             try {
@@ -54,13 +59,17 @@ const SignUp: FC = () => {
                 } else {
                     const errorData = await response.json()
                     setError(errorData.message)
+                    setLoading(false)
+
                 }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error)
+                setLoading(false)
                 // Realiza alguna acción en caso de error de red u otro error
             }
         } else {
             console.log('Los valores de email y/o password son nulos')
+
         }
     }
 
@@ -133,14 +142,17 @@ const SignUp: FC = () => {
                                 {error}
                             </Typography>
                         )}
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Registrarse
-                        </Button>
+                        <Stack direction="row" mb={2} mt={2} spacing={2}>
+                            <LoadingButton
+                                id="signup-button"
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                loading={loading}
+                            >
+                                Crear cuenta
+                            </LoadingButton>
+                        </Stack>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
