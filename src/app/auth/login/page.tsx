@@ -15,6 +15,10 @@ import { useScrollBlock } from '@/hooks'
 import { setAuthenticatedToken } from '../../lib/storage/storage'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 import { SpanError } from './styles'
 
 const Login: FC = () => {
@@ -25,6 +29,7 @@ const Login: FC = () => {
     // const urlApi = (window && window.location.href.search('localhost') === -1) ? 'https://fishmachinemap.vercel.app/api/auth/login' : '/api/auth/login'
     const router = useRouter()
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const notifySucces = () => {
         toast.success('Inicio de sesión correctamente', {
@@ -40,6 +45,7 @@ const Login: FC = () => {
 
         if (email && password) {
             try {
+                setLoading(true)
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     body: JSON.stringify({ email, password }),
@@ -54,6 +60,7 @@ const Login: FC = () => {
                     // Realiza alguna acción en respuesta al éxito
                 } else {
                     // Error al hacer login de usuario
+                    setLoading(false)
                     const errorMessage = await response.text()
                     setError(errorMessage)
                 }
@@ -93,7 +100,6 @@ const Login: FC = () => {
                             id="email"
                             label="Email"
                             name="email"
-                            autoComplete="email"
                             autoFocus
                         />
                         <TextField
@@ -104,7 +110,6 @@ const Login: FC = () => {
                             label="Contraseña"
                             type="password"
                             id="password"
-                            defaultValue='jiefjidifjsjf'
                         />
                         {error && (
                             <SpanError>
@@ -112,14 +117,18 @@ const Login: FC = () => {
                             </SpanError>
                         )}
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Iniciar Sesión
-                        </Button>
+                        <Stack direction="row" mb={2} mt={2} spacing={2}>
+                            <LoadingButton
+                                id="login-button"
+                                type="submit"
+                                // startIcon={<SaveIcon />}
+                                variant="contained"
+                                fullWidth
+                                loading={loading}
+                            >
+                                Iniciar sesión
+                            </LoadingButton>
+                        </Stack>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
