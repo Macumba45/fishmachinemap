@@ -88,7 +88,10 @@ const ModalUserMarkers: FC<Props> = ({
                 </TypographyContainer>
                 <TypographyContainer>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Descripción: {description}
+                        <Typography sx={{ mb: 1, fontWeight: '800' }}>
+                            Descripción:
+                        </Typography>
+                        {description}
                     </Typography>
                 </TypographyContainer>
                 <TypographyContainer>
