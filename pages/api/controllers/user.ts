@@ -1,19 +1,16 @@
-import { prisma } from '@/app/lib/db';
-
+import { prisma } from '@/app/lib/db'
 
 export const userInfo = async (userId: any) => {
-
     const data = await prisma.user.findUnique({
         where: {
             id: userId,
         },
-    });
+    })
 
-    return data;
+    return data
 }
 
 export const findUserMarkers = async (userId: any) => {
-
     const data = await prisma.user.findUnique({
         where: {
             id: userId,
@@ -25,7 +22,7 @@ export const findUserMarkers = async (userId: any) => {
                 },
             },
         },
-    });
+    })
 
-    return data;
+    return data
 }

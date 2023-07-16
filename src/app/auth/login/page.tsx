@@ -15,9 +15,9 @@ import { useScrollBlock } from '@/hooks'
 import { setAuthenticatedToken } from '../../lib/storage/storage'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
-import SaveIcon from '@mui/icons-material/Save';
-import Stack from '@mui/material/Stack';
-import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save'
+import Stack from '@mui/material/Stack'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 import { SpanError } from './styles'
 

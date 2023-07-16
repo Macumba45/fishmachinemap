@@ -99,18 +99,17 @@ export const useLogicMaps = () => {
         null
     )
     const [modalIsOpen, setModalIsOpen] = useState(false)
-    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false);
+    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false)
 
     const [dataMarkerUser, setDataMarkerUser] = useState({
         positionMarkerUser: positionMarkerUser,
         direction: direccion,
         markerType: tipoLugar,
         description: descripcion,
-        picture: fotos
+        picture: fotos,
     })
     const [modalUserMarker, setModalUserMarker] = useState(false)
     const [loadingLocation, setLoadingLocation] = useState(false)
-
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -136,7 +135,6 @@ export const useLogicMaps = () => {
             lat: centerLatLng?.lat(),
             lng: centerLatLng?.lng(),
         }
-
 
         if (position.lat !== undefined && position.lng !== undefined) {
             setpositionMarkerUser(position)
@@ -186,42 +184,41 @@ export const useLogicMaps = () => {
 
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): google.maps.Icon {
-        let icon: google.maps.Icon;
+        let icon: google.maps.Icon
 
         switch (selectIcon) {
             case MarkerType.SHOP:
                 icon = {
                     url: customMarkerIconShop.src,
                     scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
+                }
+                break
             case MarkerType.WORM:
                 icon = {
                     url: customMarkerIcon.src,
                     scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
+                }
+                break
             case MarkerType.PESQUERO:
                 icon = {
                     url: customMarkerIconPlace.src,
                     scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
+                }
+                break
             case MarkerType.PICTURES:
                 icon = {
                     url: customMarkerIconPicture.src,
                     scaledSize: new google.maps.Size(32, 32),
-                };
-                break;
+                }
+                break
             default:
                 icon = {
                     url: customMarkerIcon.src,
                     scaledSize: new google.maps.Size(32, 32),
                 }
         }
-        return icon;
+        return icon
     }
-
 
     const notifySucces = () => {
         toast.success('Ubicación cargada correctamente', {
@@ -311,6 +308,5 @@ export const useLogicMaps = () => {
         dataMarkerUser,
         loadingLocation,
         setLoadingLocation,
-
     }
 }

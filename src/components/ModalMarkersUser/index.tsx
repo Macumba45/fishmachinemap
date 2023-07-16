@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState } from 'react'
 import {
     Modal,
     Box,
@@ -6,27 +6,27 @@ import {
     TextField,
     Button,
     Rating,
-} from '@mui/material';
-import { TypographyContainer, ContenidoGoogle } from './style';
-import ButtonComp from '../Button';
-import { useLogicMaps } from '@/app/maps/logic';
+} from '@mui/material'
+import { TypographyContainer, ContenidoGoogle } from './style'
+import ButtonComp from '../Button'
+import { useLogicMaps } from '@/app/maps/logic'
 
 interface Props {
-    isOpen: boolean;
-    onClose?: () => void;
-    onClick?: () => void;
+    isOpen: boolean
+    onClose?: () => void
+    onClick?: () => void
     dataMarkerUser?: {
-        comments: string;
-        rating: number;
-    };
-    direction?: string;
-    markerType?: string;
-    description?: string;
-    pictures?: string;
+        comments: string
+        rating: number
+    }
+    direction?: string
+    markerType?: string
+    description?: string
+    pictures?: string
     location?: {
-        lat: number;
-        lng: number;
-    };
+        lat: number
+        lng: number
+    }
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -36,19 +36,18 @@ const ModalUserMarkers: FC<Props> = ({
     description,
     markerType,
     pictures,
-    location
-
+    location,
 }) => {
-
-
     const { dataMarkerUser, positionMarkerUser } = useLogicMaps()
-    const [comments, setComments] = useState('');
-    const [rating, setRating] = useState(0);
-    const openMap = (location: { lat: number; lng: number; } | undefined) => {
+    const [comments, setComments] = useState('')
+    const [rating, setRating] = useState(0)
+    const openMap = (location: { lat: number; lng: number } | undefined) => {
         console.log(location)
         if (location) {
             const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
-            const encodedCoordinates = encodeURIComponent(`${location.lat},${location.lng}`)
+            const encodedCoordinates = encodeURIComponent(
+                `${location.lat},${location.lng}`
+            )
             window.open(baseUrl + encodedCoordinates)
         }
     }
@@ -56,7 +55,7 @@ const ModalUserMarkers: FC<Props> = ({
     const handleSubmit = () => {
         // Aquí puedes realizar la lógica para guardar los comentarios y la valoración
         // Puedes acceder a los datos de dataMarkerUser y los nuevos comentarios y valoración
-    };
+    }
 
     return (
         <Modal open={isOpen} onClose={onClose}>
@@ -104,7 +103,10 @@ const ModalUserMarkers: FC<Props> = ({
                     </Typography>
                 </TypographyContainer>
                 <TypographyContainer>
-                    <TypographyContainer id="modal-modal-description" style={{ marginTop: 2, fontFamily: 'Roboto' }}>
+                    <TypographyContainer
+                        id="modal-modal-description"
+                        style={{ marginTop: 2, fontFamily: 'Roboto' }}
+                    >
                         <Typography sx={{ mb: 1, fontWeight: '800' }}>
                             Descripción:
                         </Typography>
@@ -122,7 +124,7 @@ const ModalUserMarkers: FC<Props> = ({
                     </Typography>
                     <TextField
                         value={comments}
-                        onChange={(e) => setComments(e.target.value)}
+                        onChange={e => setComments(e.target.value)}
                         fullWidth
                         multiline
                         rows={4}
@@ -145,12 +147,10 @@ const ModalUserMarkers: FC<Props> = ({
                         variant="contained"
                         onClick={() => openMap(location)}
                     />
-
-
                 </Box>
             </Box>
-        </Modal >
-    );
-};
+        </Modal>
+    )
+}
 
-export default ModalUserMarkers;
+export default ModalUserMarkers

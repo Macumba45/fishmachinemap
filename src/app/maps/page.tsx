@@ -86,8 +86,7 @@ const GoogleMapComp: FC = () => {
         setDataMarkerUser,
         dataMarkerUser,
         loadingLocation,
-        setLoadingLocation
-
+        setLoadingLocation,
     } = useLogicMaps()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
@@ -96,9 +95,8 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
-
 
     const getMyPosition = async () => {
         setLoadingLocation(true)
@@ -141,14 +139,14 @@ const GoogleMapComp: FC = () => {
                     setLoadingLocation(false)
                 },
                 error => {
-                    console.error('Error getting current location:', error);
-                    setLoadingLocation(false);
+                    console.error('Error getting current location:', error)
+                    setLoadingLocation(false)
                     // Manejar la situación de ubicación desactivada en la interfaz de usuario
                 }
             )
         } else {
             // El navegador no admite la geolocalización
-            setLoadingLocation(false);
+            setLoadingLocation(false)
             // Manejar la situación de geolocalización no admitida en la interfaz de usuario
         }
     }
@@ -174,19 +172,20 @@ const GoogleMapComp: FC = () => {
             mapRef.current = map
             service = new google.maps.places.PlacesService(map)
 
-            const updateResultsButton = document.getElementById('updateResultsButton')
+            const updateResultsButton = document.getElementById(
+                'updateResultsButton'
+            )
             if (updateResultsButton) {
                 const handleClick = () => {
-                    setIsButtonDisabledPlaces(true); // Deshabilita el botón
-                    performSearch(); // Llama a la función performSearch
-
+                    setIsButtonDisabledPlaces(true) // Deshabilita el botón
+                    performSearch() // Llama a la función performSearch
 
                     setTimeout(() => {
-                        setIsButtonDisabledPlaces(false); // Habilita el botón después de 5 segundos
-                    }, 2000); // 5000 milisegundos = 5 segundos
-                };
+                        setIsButtonDisabledPlaces(false) // Habilita el botón después de 5 segundos
+                    }, 2000) // 5000 milisegundos = 5 segundos
+                }
 
-                updateResultsButton.addEventListener('click', handleClick);
+                updateResultsButton.addEventListener('click', handleClick)
             }
             if (userMarkers.length > 0) {
                 userMarkers.map((marker: any) => {
@@ -203,30 +202,23 @@ const GoogleMapComp: FC = () => {
                         icon: {
                             url: iconUrl?.url,
                             scaledSize: new google.maps.Size(40, 40),
-                        }
+                        },
                     })
                     markers.setMap(map)
 
                     markers.addListener('click', () => {
-
                         console.log(marker)
                         setModalUserMarker(true)
                         setDataMarkerUser(marker)
-
                     })
-
-
                 })
-
             }
 
             await getMyPosition()
 
-
             setLoading(false)
         }
     }
-
 
     function performSearch() {
         const center = map.getCenter()
@@ -396,7 +388,6 @@ const GoogleMapComp: FC = () => {
 
     return (
         <MainContainer>
-
             <AccountMenu />
             <>
                 <MapContainer id="map" />
@@ -414,13 +405,21 @@ const GoogleMapComp: FC = () => {
                 <ModalUserMarkers
                     isOpen={modalUserMarker}
                     // dataMarkerUser={dataMarkerUser}
-                    direction={dataMarkerUser.direction.charAt(0).toUpperCase() + dataMarkerUser.direction.slice(1)}
-                    markerType={dataMarkerUser.markerType.charAt(0).toUpperCase() + dataMarkerUser.markerType.slice(1)}
-                    description={dataMarkerUser.description.charAt(0).toUpperCase() + dataMarkerUser.description.slice(1)}
+                    direction={
+                        dataMarkerUser.direction.charAt(0).toUpperCase() +
+                        dataMarkerUser.direction.slice(1)
+                    }
+                    markerType={
+                        dataMarkerUser.markerType.charAt(0).toUpperCase() +
+                        dataMarkerUser.markerType.slice(1)
+                    }
+                    description={
+                        dataMarkerUser.description.charAt(0).toUpperCase() +
+                        dataMarkerUser.description.slice(1)
+                    }
                     pictures={dataMarkerUser.picture}
                     onClose={() => setModalUserMarker(false)}
                 />
-
 
                 {/* <FilterContainer>
                     <FilterComponent onChange={handleFilterChange} />
@@ -573,7 +572,6 @@ const GoogleMapComp: FC = () => {
                     color: '#000000',
                     height: '2rem',
                     opacity: isButtonDisabledPlaces ? 0 : 1,
-
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"
