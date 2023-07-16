@@ -96,11 +96,11 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
 
-    const getMyPosition = () => {
+    const getMyPosition = async () => {
         setLoadingLocation(true)
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -129,20 +129,27 @@ const GoogleMapComp: FC = () => {
                     marker.addListener('click', () => {
                         infoWindow.open({
                             anchor: marker,
-                            map,
+                            map: mapRef.current,
                         })
                     })
                     // Actualiza la variable de estado con el nuevo marcador
                     setCurrentLocationMarker(marker)
                     // Centra el mapa en la ubicación actual
                     mapRef.current?.setCenter(currentLatLng)
+                    console.log('currentLatLng', currentLatLng)
                     notifySucces()
                     setLoadingLocation(false)
                 },
                 error => {
-                    console.error('Error getting current location:', error)
+                    console.error('Error getting current location:', error);
+                    setLoadingLocation(false);
+                    // Manejar la situación de ubicación desactivada en la interfaz de usuario
                 }
             )
+        } else {
+            // El navegador no admite la geolocalización
+            setLoadingLocation(false);
+            // Manejar la situación de geolocalización no admitida en la interfaz de usuario
         }
     }
 
@@ -191,7 +198,7 @@ const GoogleMapComp: FC = () => {
 
                     const markers = new google.maps.Marker({
                         position: location,
-                        map: map,
+                        map: mapRef.current,
                         animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
                         icon: {
                             url: iconUrl?.url,
@@ -208,9 +215,13 @@ const GoogleMapComp: FC = () => {
 
                     })
 
+
                 })
+
             }
-            getMyPosition()
+
+            await getMyPosition()
+
 
             setLoading(false)
         }

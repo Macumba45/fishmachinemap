@@ -14,9 +14,11 @@ import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import CustomizedSwitches from '../MuiSwitch';
 import { useEffect, useState } from 'react';
+import { useLogicMaps } from '@/app/maps/logic';
 
 
 export default function AccountMenu() {
+    const { selectMapStyle } = useLogicMaps()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [avatar, setAvatar] = useState<string>('')
     const open = Boolean(anchorEl);
@@ -85,13 +87,15 @@ export default function AccountMenu() {
             >
                 <MenuItem onClick={handleClose}>
                     <img
-                        style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '1rem' }}
+                        style={{ width: '36px', height: '36px', borderRadius: '50%', marginRight: '1rem' }}
                         src="https://api.dicebear.com/6.x/adventurer/svg?seed=Abby"
                         alt="avatar" />Mi perfil
                 </MenuItem>
                 <MenuItem >
                     <ListItemIcon>
-                        <CustomizedSwitches label='Modo oscuro' />
+                        <CustomizedSwitches
+                            onClick={selectMapStyle}
+                            label='Modo oscuro' />
                     </ListItemIcon>
                 </MenuItem>
                 <Divider />
@@ -106,3 +110,4 @@ export default function AccountMenu() {
         </React.Fragment>
     );
 }
+
