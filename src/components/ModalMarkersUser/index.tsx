@@ -40,12 +40,10 @@ const ModalUserMarkers: FC<Props> = ({
 
 }) => {
 
-   
+
     const { dataMarkerUser, positionMarkerUser } = useLogicMaps()
     const [comments, setComments] = useState('');
     const [rating, setRating] = useState(0);
-
-    console.log(dataMarkerUser)
     const openMap = (location: { lat: number; lng: number; } | undefined) => {
         console.log(location)
         if (location) {
@@ -106,12 +104,12 @@ const ModalUserMarkers: FC<Props> = ({
                     </Typography>
                 </TypographyContainer>
                 <TypographyContainer>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <TypographyContainer id="modal-modal-description" style={{ marginTop: 2, fontFamily: 'Roboto' }}>
                         <Typography sx={{ mb: 1, fontWeight: '800' }}>
                             Descripción:
                         </Typography>
                         {description}
-                    </Typography>
+                    </TypographyContainer>
                 </TypographyContainer>
                 <TypographyContainer>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>

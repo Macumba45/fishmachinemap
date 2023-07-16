@@ -4,7 +4,6 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import next from 'next/types'
 
 interface Picture {
     src: string
