@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
         "allowJs": true,
         "skipLibCheck": true,
         "strict": true,
@@ -20,7 +24,9 @@
             }
         ],
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": [
+                "./src/*"
+            ]
         }
     },
     "include": [
@@ -31,9 +37,11 @@
         "src/app/api/signup.ts",
         "src/app/api/auth/NextAuth.js",
         "pages/api/markers/marker.ts",
-        "pages/utils/cloudinary.ts",
-        "pages/utils/formidable.js",
+        "src/app/utils/cloudinary.ts",
+        "src/app/utils/formidable.js",
         "pages/api/upload.js"
     ],
-    "exclude": ["node_modules"]
+    "exclude": [
+        "node_modules"
+    ]
 }

@@ -11,6 +11,7 @@ import {
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material'
 import ButtonComp from '@/components/Button'
+import { LoadingButton } from '@mui/lab'
 
 interface Props {
     isOpen: boolean
@@ -47,7 +48,7 @@ const ModalCrearMarcador: FC<Props> = ({
         setAddingMarker,
     } = useLogicMaps()
 
-    console.log(fotos)
+    const [isLoading, setIsLoading] = useState(false)
     const handleDireccionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -90,6 +91,8 @@ const ModalCrearMarcador: FC<Props> = ({
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true)
+
         event.preventDefault()
         await confirmMarker(
             positionMarkerUser,
@@ -98,6 +101,7 @@ const ModalCrearMarcador: FC<Props> = ({
             descripcion || '',
             fotos || null
         )
+        setIsLoading(false)
         onClose!()
     }
 
@@ -169,6 +173,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             Subir fotos:
                         </Typography>
                         <input
+                            required
                             accept=".jpg, .png, .gif, .jpeg"
                             type="file"
                             onChange={handleFotosChange}
@@ -182,23 +187,30 @@ const ModalCrearMarcador: FC<Props> = ({
                             justifyContent: 'center',
                         }}
                     >
-                        <ButtonComp
+                        <LoadingButton
                             type="submit"
                             variant="contained"
                             style={{
-                                backgroundColor: '#49007a',
-                                marginRight: '0.5rem',
+                                backgroundColor: isLoading ? 'white' : '#49007a',
+                                marginRight: isLoading ? '0' : '0.5rem',
                             }}
                             title="Confirmar"
-                        />
+                            loading={isLoading}
+                            loadingPosition='center'
+                        >
+                            Confirmar
+
+                        </LoadingButton>
                         <ButtonComp
                             type="button"
                             variant="contained"
                             style={{
                                 backgroundColor: '#49007a',
+                                display: isLoading ? 'none' : 'block',
                             }}
                             title="Cancelar"
                             onClick={onClose}
+                            disabled={isLoading}
                         />
                     </Box>
                 </form>
