@@ -47,6 +47,7 @@ const ModalCrearMarcador: FC<Props> = ({
         setAddingMarker,
     } = useLogicMaps()
 
+    console.log(fotos)
     const handleDireccionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -63,10 +64,28 @@ const ModalCrearMarcador: FC<Props> = ({
         setDescripcion(event.target.value)
     }
 
-    const handleFotosChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const getBase64FromUrl = async (url: string) => {
+        const data = await fetch(url)
+        const blob = await data.blob()
+        return new Promise<string>(resolve => {
+            const reader = new FileReader()
+            reader.readAsDataURL(blob)
+            reader.onloadend = () => {
+                const base64data = reader.result as string
+                resolve(base64data)
+            }
+        })
+    }
+
+    const handleFotosChange = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const files = event.target.files
-        if (files) {
-            setFotos(URL.createObjectURL(files[0])) // Guarda la URL de la imagen en el estado
+        if (files && files.length > 0) {
+            const file = files[0]
+            const fileUrl = URL.createObjectURL(file)
+            const base64Data = await getBase64FromUrl(fileUrl)
+            setFotos(base64Data) // Guarda la imagen en formato Base64 en el estado
         }
     }
 
@@ -77,7 +96,7 @@ const ModalCrearMarcador: FC<Props> = ({
             direccion || '',
             tipoLugar || '',
             descripcion || '',
-            fotos || ''
+            fotos || null
         )
         onClose!()
     }
@@ -101,7 +120,7 @@ const ModalCrearMarcador: FC<Props> = ({
                     Crear Marcador
                 </Typography>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <Box sx={{ mt: 2, borderRadius: '20px' }}>
                         <div style={{ marginBottom: '1rem' }}>
                             <Typography variant="body2" component="label">
@@ -150,7 +169,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             Subir fotos:
                         </Typography>
                         <input
-                            multiple
+                            accept=".jpg, .png, .gif, .jpeg"
                             type="file"
                             onChange={handleFotosChange}
                         />

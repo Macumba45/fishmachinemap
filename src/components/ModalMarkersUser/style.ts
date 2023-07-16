@@ -12,7 +12,9 @@ export const MainContainer = styled.div`
     z-index: 999;
 `
 
-export const TypographyContainer = styled.div``
+export const TypographyContainer = styled.div`
+    margin-bottom: 2rem;
+`
 export const ReviewsContainer = styled.div`
     position: absolute;
     display: flex;
@@ -36,6 +38,8 @@ export const ImageContainer = styled.div`
 `
 export const ImageModal = styled.img`
     width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     object-fit: cover;
     background-size: cover;
     border-radius: 10px;

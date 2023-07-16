@@ -1,23 +1,39 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../src/app/lib/db'
+import { uploadImage } from '../../utils/cloudinary'
 const jwt = require('jsonwebtoken')
+
+interface CloudinaryResponse {
+    secure_url: string
+    // Otras propiedades que devuelva Cloudinary
+}
 
 const postMarkersUser = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.split(' ')[1]
-    const { direction, markerType, description, picture } = req.body
+    const { direction, markerType, description } = req.body
     const { lat, lng } = req.body.location
     const decodedToken = jwt.verify(token, 'token')
+
+    const { picture } = req.body
+    console.log('picture', picture)
 
     const userId = decodedToken.userId
 
     try {
+        // Subir la imagen a Cloudinary
+        const pictureUrl = picture
+        const cloudinaryResponse = (await uploadImage(
+            pictureUrl
+        )) as CloudinaryResponse
+        console.log('cloudFotos', cloudinaryResponse)
+
         // Crear una nueva instancia del modelo Marker
         const marker = await prisma.marker.create({
             data: {
                 direction,
                 markerType,
                 description,
-                picture,
+                picture: cloudinaryResponse.secure_url, // Utilizar la propiedad secure_url
                 userId,
             },
         })

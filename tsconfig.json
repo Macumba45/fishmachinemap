@@ -30,7 +30,10 @@
         ".next/types/**/*.ts",
         "src/app/api/signup.ts",
         "src/app/api/auth/NextAuth.js",
-        "pages/api/markers/marker.ts"
+        "pages/api/markers/marker.ts",
+        "pages/utils/cloudinary.ts",
+        "pages/utils/formidable.js",
+        "pages/api/upload.js"
     ],
     "exclude": ["node_modules"]
 }

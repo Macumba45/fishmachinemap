@@ -92,7 +92,7 @@ export const useLogicMaps = () => {
     const [direccion, setDireccion] = useState('')
     const [tipoLugar, setTipoLugar] = useState('')
     const [descripcion, setDescripcion] = useState('')
-    const [fotos, setFotos] = useState('')
+    const [fotos, setFotos] = useState<string>('')
     const [confirmedMarkers, setConfirmedMarkers] = useState(false)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
     const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
@@ -150,7 +150,7 @@ export const useLogicMaps = () => {
         direction: string,
         markerType: string,
         description: string,
-        picture: string
+        picture: string | null
     ) => {
         const latLng: google.maps.LatLngLiteral = {
             lat: location?.lat || 0,

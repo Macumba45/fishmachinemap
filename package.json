@@ -11,6 +11,8 @@
         "prettier": "prettier --write ."
     },
     "dependencies": {
+        "@cloudinary/react": "^1.11.2",
+        "@cloudinary/url-gen": "^1.10.2",
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@googlemaps/markerclusterer": "^2.3.1",
@@ -28,6 +30,7 @@
         "@types/styled-components": "^5.1.26",
         "@typescript-eslint/eslint-plugin": "^5.60.1",
         "bcrypt": "^5.1.0",
+        "cloudinary": "^1.37.3",
         "dotenv": "^16.3.1",
         "eslint": "^8.43.0",
         "eslint-config-next": "^13.4.7",

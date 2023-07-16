@@ -13,7 +13,7 @@ export type UserMarker = {
     direction: string
     markerType: string
     description: string
-    picture: string
+    picture: string | null
     location: {
         lat: number
         lng: number
