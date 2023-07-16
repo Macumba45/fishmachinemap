@@ -114,7 +114,6 @@ const ModalCrearMarcador: FC<Props> = ({
                                 onChange={handleDireccionChange}
                                 required
                             />
-
                         </div>
                         <Typography variant="body2" component="label">
                             Tipo de lugar:
@@ -128,9 +127,7 @@ const ModalCrearMarcador: FC<Props> = ({
                             <MenuItem value="pesquero">Pesquero</MenuItem>
                             <MenuItem value="tienda">Tienda de Pesca</MenuItem>
                             <MenuItem value="cebos">Cebos 24H</MenuItem>
-                            <MenuItem value="fotos">
-                                Fotos de Capturas
-                            </MenuItem>
+                            <MenuItem value="fotos">Fotos de Capturas</MenuItem>
                         </Select>
                     </Box>
 

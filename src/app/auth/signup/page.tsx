@@ -25,7 +25,6 @@ const SignUp: FC = () => {
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState(false)
 
-
     const notifySucces = () => {
         toast.success('Registro correctamente', {
             position: toast.POSITION.TOP_LEFT,
@@ -60,7 +59,6 @@ const SignUp: FC = () => {
                     const errorData = await response.json()
                     setError(errorData.message)
                     setLoading(false)
-
                 }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error)
@@ -69,7 +67,6 @@ const SignUp: FC = () => {
             }
         } else {
             console.log('Los valores de email y/o password son nulos')
-
         }
     }
 
