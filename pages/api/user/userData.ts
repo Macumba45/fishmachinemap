@@ -1,4 +1,3 @@
-import { prisma } from '@/app/lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { userInfo } from '../controllers/user'

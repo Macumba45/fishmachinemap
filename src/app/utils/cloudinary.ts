@@ -10,7 +10,7 @@ export function uploadImage(base64Image: string) {
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload(
             base64Image,
-            { width: 300, height: 300, crop: 'fill' },
+            { width: 600, height: 600, crop: 'fit' },
             (err: any, res: any) => {
                 if (err) reject(err)
                 console.log('upload Imagen', err)

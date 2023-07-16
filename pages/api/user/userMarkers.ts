@@ -1,8 +1,6 @@
-import { prisma } from '@/app/lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { findUserMarkers } from '../controllers/user'
-import { use } from 'react'
 
 export default async function handler(
     req: NextApiRequest,

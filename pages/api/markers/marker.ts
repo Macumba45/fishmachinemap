@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../src/app/lib/db'
-import { uploadImage } from '../../utils/cloudinary'
+import { uploadImage } from '../../../src/app/utils/cloudinary'
 const jwt = require('jsonwebtoken')
 
 interface CloudinaryResponse {

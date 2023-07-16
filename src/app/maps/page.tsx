@@ -534,7 +534,7 @@ const GoogleMapComp: FC = () => {
                     </span>
                     <ButtonComp
                         key="confirmButton"
-                        title="Confirmar lugar"
+                        title="Añadir Marcador"
                         style={{
                             position: 'fixed',
                             ...ButtonStyleConfirmarLugar,
@@ -544,7 +544,7 @@ const GoogleMapComp: FC = () => {
                     />
                     <ButtonComp
                         key="cancelarButton"
-                        title="Cancelar lugar"
+                        title="Cancelar Marcador"
                         style={{
                             position: 'fixed',
                             ...ButtonStyleCancelarLugar,
