@@ -7,7 +7,7 @@ import {
     Button,
     Rating,
 } from '@mui/material'
-import { TypographyContainer, ContenidoGoogle } from './style'
+import { TypographyContainer, ContenidoGoogle, ImageModal } from './style'
 import ButtonComp from '../Button'
 import { useLogicMaps } from '@/app/maps/logic'
 
@@ -57,21 +57,22 @@ const ModalUserMarkers: FC<Props> = ({
         // Puedes acceder a los datos de dataMarkerUser y los nuevos comentarios y valoración
     }
 
+    const style = {
+        position: 'absolute' as const,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        bgcolor: 'background.paper',
+        boxShadow: '0 10px 100px #000', // Corrección aquí
+        p: 3,
+        borderRadius: '10px',
+        maxHeight: '500px',
+        overflowY: 'scroll',
+    }
+
     return (
         <Modal open={isOpen} onClose={onClose}>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 300,
-                    bgcolor: 'background.paper',
-                    boxShadow: 24,
-                    borderRadius: '30px',
-                    p: 4,
-                }}
-            >
+            <Box sx={style}>
                 <TypographyContainer>
                     <ContenidoGoogle
                         id="modal-modal-title"
@@ -94,13 +95,15 @@ const ModalUserMarkers: FC<Props> = ({
                     </ContenidoGoogle>
                 </TypographyContainer>
                 <TypographyContainer>
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
+                    <TypographyContainer
+                        id="modal-modal-description"
+                        style={{ marginTop: 2, fontFamily: 'Roboto' }}
                     >
-                        Direccion: {direction}
-                    </Typography>
+                        <Typography sx={{ mb: 1, fontWeight: '800' }}>
+                            Direccion:
+                        </Typography>
+                        {direction}
+                    </TypographyContainer>
                 </TypographyContainer>
                 <TypographyContainer>
                     <TypographyContainer
@@ -113,10 +116,13 @@ const ModalUserMarkers: FC<Props> = ({
                         {description}
                     </TypographyContainer>
                 </TypographyContainer>
-                <TypographyContainer>
+                {/* <TypographyContainer>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Marcador: {markerType}
                     </Typography>
+                </TypographyContainer> */}
+                <TypographyContainer>
+                    <ImageModal src={pictures} />
                 </TypographyContainer>
                 <Box sx={{ mt: 2 }}>
                     <Typography variant="body2" component="label">
