@@ -191,15 +191,16 @@ const ModalCrearMarcador: FC<Props> = ({
                             type="submit"
                             variant="contained"
                             style={{
-                                backgroundColor: isLoading ? 'white' : '#49007a',
+                                backgroundColor: isLoading
+                                    ? 'white'
+                                    : '#49007a',
                                 marginRight: isLoading ? '0' : '0.5rem',
                             }}
                             title="Confirmar"
                             loading={isLoading}
-                            loadingPosition='center'
+                            loadingPosition="center"
                         >
                             Confirmar
-
                         </LoadingButton>
                         <ButtonComp
                             type="button"
