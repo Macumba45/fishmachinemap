@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useEffect } from 'react'
-import { MainContainer, UserContainerData } from './style'
+import { MainContainer, UserContainerData, emailStyles, nameStyles } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
 import Avatar from '@mui/material/Avatar'
@@ -15,6 +15,7 @@ import { UserMarker } from '../maps/type'
 import { Delete } from '@mui/icons-material'
 import React from 'react'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
+import ButtonComp from '@/components/Button'
 
 const Profile: FC = () => {
     const {
@@ -27,6 +28,8 @@ const Profile: FC = () => {
         toBeDeletedMarker,
     } = useLogicUser()
 
+    const noMarkers = userMarkers.length === 0
+
     useEffect(() => {
         getUser()
         getUserMarkers()
@@ -38,6 +41,11 @@ const Profile: FC = () => {
         }
     }, [toBeDeletedMarker])
 
+    const goToMaps = () => {
+        window.location.href = '/maps'
+    }
+
+
     return (
         <>
             <AccountMenu />
@@ -47,27 +55,21 @@ const Profile: FC = () => {
                         sx={{ width: 100, height: 100, marginTop: '2rem' }}
                     />
                     <Typography
-                        sx={{
-                            color: 'white',
-                            marginTop: '1rem',
-                            fontFamily: 'Roboto',
+                        style={{
                             textAlign: 'center',
-                            fontSize: '1.5rem',
-                            fontWeight: '400',
+                            ...nameStyles
                         }}
+
                         variant="h6"
                         gutterBottom
                     >
                         {user?.name}
                     </Typography>
                     <Typography
-                        sx={{
-                            color: 'white',
-                            marginTop: '0.5rem',
-                            fontFamily: 'Roboto',
+                        style={{
                             textAlign: 'center',
-                            fontSize: '1rem',
-                            fontWeight: '200',
+                            ...emailStyles
+
                         }}
                         variant="h6"
                         gutterBottom
@@ -77,7 +79,7 @@ const Profile: FC = () => {
                 </UserContainerData>
                 <Typography
                     sx={{
-                        display: 'flex',
+                        display: noMarkers ? 'none' : 'flex',
                         justifyContent: 'center',
                         marginTop: '2rem',
                         color: '#49007a',
@@ -98,6 +100,32 @@ const Profile: FC = () => {
                     />
                 </Typography>
 
+                {noMarkers && (
+                    <>
+                        <Typography
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '2rem',
+                                color: '#49007a',
+                                flexDirection: 'column',
+                                textAlign: 'center',
+                            }}
+                            variant="h6"
+                            gutterBottom
+                        >
+                            No tienes marcadores
+                        </Typography>
+                        <ButtonComp
+                            title='Añade tu primer marcador'
+                            variant='contained'
+                            color='#49007a'
+                            style={{ marginTop: '2rem', backgroundColor: '#49007a' }}
+                            onClick={goToMaps}
+                        />
+                    </>
+                )
+                }
                 {userMarkers.map((marker: UserMarker) => (
                     <React.Fragment key={marker.id}>
                         <ListItem sx={{ width: '80%' }} alignItems="flex-start">
@@ -160,7 +188,7 @@ const Profile: FC = () => {
                         )}
                     </React.Fragment>
                 ))}
-            </MainContainer>
+            </MainContainer >
             <SimpleBottomNavigation />
         </>
     )

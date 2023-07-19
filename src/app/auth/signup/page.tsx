@@ -86,7 +86,7 @@ const SignUp: FC = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Registrate
+                        Regístrate
                     </Typography>
                     <Box
                         component="form"
@@ -152,7 +152,7 @@ const SignUp: FC = () => {
                         </Stack>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/auth/login" variant="body2">
                                     ¿Tienes una cuenta ya? Inicia sesión
                                 </Link>
                             </Grid>
