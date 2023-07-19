@@ -30,3 +30,20 @@ export const ContainerData = styled.div`
     align-items: center;
     margin: 1rem;
 `
+
+
+export const nameStyles = {
+    color: 'white',
+    marginTop: '1rem',
+    fontFamily: 'Roboto',
+    fontSize: '1.5rem',
+    fontWeight: '400',
+}
+
+export const emailStyles = {
+    color: 'white',
+    marginTop: '0.5rem',
+    fontFamily: 'Roboto',
+    fontSize: '1rem',
+    fontWeight: '200',
+}
