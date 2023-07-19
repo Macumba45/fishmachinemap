@@ -2245,6 +2245,11 @@
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.7.0.tgz"
   integrity sha512-Eu1V3kz3mV0wUpVTiFHuaT8UD1gj/0VnoFHQYX35xlslQUpe8CuYoKFn9d4WZFHm3yDywz6ALZuGdnUPKrNeAw==
 
+"@remix-run/router@1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.7.2.tgz#cba1cf0a04bc04cb66027c51fa600e9cbc388bc8"
+  integrity sha512-7Lcn7IqGMV+vizMPoEl5F0XDshcdDYtMI6uJLQdQz5CfZAwy3vvGKYSUk789qndt5dEC4HfSjviSYlSoHGL2+A==
+
 "@remix-run/server-runtime@1.18.0":
   version "1.18.0"
   resolved "https://registry.npmjs.org/@remix-run/server-runtime/-/server-runtime-1.18.0.tgz"
@@ -2324,7 +2329,7 @@
   resolved "https://registry.npmjs.org/@tsconfig/node14/-/node14-1.0.3.tgz"
   integrity sha512-ysT8mhdixWK6Hw3i1V2AeRqZ5WfXg1G43mqoYlM2nc6388Fq5jcXyr5mRsqViLx/GJYdoL0bfXD8nmF+Zn/Iow==
 
-"@tsconfig/node16@^1.0.2":
+"@tsconfig/node16@^1.0.2", "@tsconfig/node16@^1.0.3":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
@@ -6654,6 +6659,14 @@ next-auth@^4.22.1:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
+next-connect@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/next-connect/-/next-connect-1.0.0.tgz#49361a92b2d22db1cce73f94dfe793cd4b9e0106"
+  integrity sha512-FeLURm9MdvzY1SDUGE74tk66mukSqL6MAzxajW7Gqh6DZKBZLrXmXnGWtHJZXkfvoi+V/DUe9Hhtfkl4+nTlYA==
+  dependencies:
+    "@tsconfig/node16" "^1.0.3"
+    regexparam "^2.0.1"
+
 next@13.4.7:
   version "13.4.7"
   resolved "https://registry.npmjs.org/next/-/next-13.4.7.tgz"
@@ -7411,6 +7424,21 @@ react-refresh@^0.14.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
+react-router-dom@^6.14.2:
+  version "6.14.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.14.2.tgz#88f520118b91aa60233bd08dbd3fdcaea3a68488"
+  integrity sha512-5pWX0jdKR48XFZBuJqHosX3AAHjRAzygouMTyimnBPOLdY3WjzUSKhus2FVMihUFWzeLebDgr4r8UeQFAct7Bg==
+  dependencies:
+    "@remix-run/router" "1.7.2"
+    react-router "6.14.2"
+
+react-router@6.14.2:
+  version "6.14.2"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.14.2.tgz#1f60994d8c369de7b8ba7a78d8f7ec23df76b300"
+  integrity sha512-09Zss2dE2z+T1D03IheqAFtK4UzQyX8nFPWx6jkwdYzGLXd5ie06A6ezS2fO6zJfEb/SpG6UocN2O1hfD+2urQ==
+  dependencies:
+    "@remix-run/router" "1.7.2"
+
 react-slick@^0.29.0:
   version "0.29.0"
   resolved "https://registry.npmjs.org/react-slick/-/react-slick-0.29.0.tgz"
@@ -7527,6 +7555,11 @@ regexp.prototype.flags@^1.4.3:
     call-bind "^1.0.2"
     define-properties "^1.2.0"
     functions-have-names "^1.2.3"
+
+regexparam@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/regexparam/-/regexparam-2.0.1.tgz#c912f5dae371e3798100b3c9ce22b7414d0889fa"
+  integrity sha512-zRgSaYemnNYxUv+/5SeoHI0eJIgTL/A2pUtXUPLHQxUldagouJ9p+K6IbIZ/JiQuCEv2E2B1O11SjVQy3aMCkw==
 
 regexpu-core@^5.3.1:
   version "5.3.2"

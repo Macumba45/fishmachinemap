@@ -10,6 +10,7 @@ export type PositionMarker = {
 }
 
 export type UserMarker = {
+    id?: string | ''
     direction: string
     markerType: string
     description: string

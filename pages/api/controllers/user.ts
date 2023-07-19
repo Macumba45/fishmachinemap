@@ -1,6 +1,6 @@
 import { prisma } from '@/app/lib/db'
 
-export const userInfo = async (userId: any) => {
+export const getUserInfo = async (userId: any) => {
     const data = await prisma.user.findUnique({
         where: {
             id: userId,
@@ -10,7 +10,7 @@ export const userInfo = async (userId: any) => {
     return data
 }
 
-export const findUserMarkers = async (userId: any) => {
+export const getUserMarkers = async (userId: any) => {
     const data = await prisma.user.findUnique({
         where: {
             id: userId,
@@ -20,9 +20,23 @@ export const findUserMarkers = async (userId: any) => {
                 include: {
                     location: true, // Incluir la ubicación de cada marcador
                 },
+                orderBy: {
+                    createdAt: 'desc', // Ordenar los marcadores por fecha de creación de forma descendente
+                },
             },
         },
     })
 
     return data
+}
+
+export const deleteUserMarker = async (id: string) => {
+    const deletedMarker = await prisma.marker.delete({
+        where: {
+            id,
+        },
+    })
+    console.log(deletedMarker)
+
+    return deletedMarker
 }
