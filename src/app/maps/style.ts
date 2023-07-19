@@ -69,9 +69,10 @@ export const ButtonStyleBuscarLugares = {
     top: '6%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '200px',
+    width: '240px',
     backgroundColor: '#ffffff',
     color: '#000000',
+    height: '2rem',
 }
 
 export const CustomizedSwitchesLocationStyles = {

@@ -562,16 +562,10 @@ const GoogleMapComp: FC = () => {
                 title="Buscar por esta zona"
                 id="updateResultsButton"
                 style={{
-                    position: 'fixed',
                     display: isButtonDisabled ? 'none' : 'flex',
-                    top: '6%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '240px',
-                    backgroundColor: '#ffffff',
-                    color: '#000000',
-                    height: '2rem',
                     opacity: isButtonDisabledPlaces ? 0 : 1,
+                    position: 'fixed',
+                    ...ButtonStyleBuscarLugares,
                 }}
                 icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
                 variant="contained"

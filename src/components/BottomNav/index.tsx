@@ -15,7 +15,7 @@ export default function SimpleBottomNavigation() {
             return 0
         } else if (pathname === '/list') {
             return 1
-        } else if (pathname === '/perfil') {
+        } else if (pathname === '/experiencas') {
             return 2
         } else {
             return 0 // Valor predeterminado en caso de que la ruta no coincida con ninguna de las opciones anteriores
@@ -37,13 +37,21 @@ export default function SimpleBottomNavigation() {
     useEffect(() => {
         if (locationNav === '/maps') {
             setValue(0)
-        } else if (locationNav === '/list') {
+        } else if (locationNav === '/feed') {
             setValue(1)
-        } else if (locationNav === '/perfil') {
+        } else if (locationNav === '/experiencias') {
             setValue(2)
         }
     }, [locationNav])
     // Añadir el componente BottomNavigation
+
+    const buttonStyles = {
+        color: '#49007a',
+        '&.MuiSelected': {
+            color: '#49007a', // Color cuando está activo
+            fontSize: '0.9rem',
+        },
+    }
 
     return (
         <Box sx={{ width: '100%', position: 'fixed', bottom: '0' }}>
@@ -59,36 +67,21 @@ export default function SimpleBottomNavigation() {
                     icon={<LocationOnIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/maps"
-                    sx={{
-                        color: '#49007a',
-                        '&.Mui-selected': {
-                            color: '#49007a', // Color cuando está activo
-                        },
-                    }}
+                    style={buttonStyles}
                 />
                 <BottomNavigationAction
                     label="Fotos"
                     icon={<ViewCarouselIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/feed"
-                    sx={{
-                        color: '#49007a',
-                        '&.Mui-selected': {
-                            color: '#49007a', // Color cuando está activo
-                        },
-                    }}
+                    style={buttonStyles}
                 />
                 <BottomNavigationAction
-                    label="Perfil"
+                    label="Experiencias"
                     icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
                     component={Link}
-                    href="/perfil"
-                    sx={{
-                        color: '#49007a',
-                        '&.Mui-selected': {
-                            color: '#49007a', // Color cuando está activo
-                        },
-                    }}
+                    href="/experiencias"
+                    style={buttonStyles}
                 />
             </BottomNavigation>
         </Box>
