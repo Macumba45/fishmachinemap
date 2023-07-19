@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { userInfo } from '../controllers/user'
+import { getUserInfo } from '../controllers/user'
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -13,12 +13,11 @@ export default async function handler(
             }
             const decodedToken = jwt.verify(token, 'token') as JwtPayload // Decodificar el token y especificar el tipo como JwtPayload
             const userId = decodedToken.userId // Obtener el ID del usuario desde el token decodificado
-            const user = await userInfo(userId)
+            const user = await getUserInfo(userId)
             if (!user) {
                 throw new Error('No se encontró el usuario')
             }
             res.status(200).json({ user })
-            console.log(user)
         } catch (error: any) {
             res.status(500).json({ message: error.message })
         }

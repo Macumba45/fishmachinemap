@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { findUserMarkers } from '../controllers/user'
+import { getUserMarkers } from '../controllers/user'
 
 export default async function handler(
     req: NextApiRequest,
@@ -14,7 +14,7 @@ export default async function handler(
             }
             const decodedToken = jwt.verify(token, 'token') as JwtPayload // Decodificar el token y especificar el tipo como JwtPayload
             const userId = decodedToken.userId // Obtener el ID del usuario desde el token decodificado
-            const user = await findUserMarkers(userId)
+            const user = await getUserMarkers(userId)
             if (!user) {
                 throw new Error('No se encontró el usuario')
             }

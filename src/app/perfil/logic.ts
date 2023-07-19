@@ -1,10 +1,11 @@
 import { User } from 'next-auth'
 import { useState } from 'react'
-import { getAuthenticatedToken } from '../lib/storage/storage'
+import { UserMarker } from '../maps/type'
 
 export const useLogicUser = () => {
     const [user, setUser] = useState<User | null>(null)
-    const [userMarkers, setUserMarkers] = useState<any[]>([])
+    const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
+    const [toBeDeletedMarker, setToBeDeletedMarker] = useState(false)
 
     const getUser = async () => {
         if (typeof window !== 'undefined') {
@@ -36,10 +37,34 @@ export const useLogicUser = () => {
         return response
     }
 
+    const deleteUserMarkers = async (markerId: string) => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch(
+                `/api/user/deleteMarkers?id=${markerId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            setToBeDeletedMarker(false)
+            await response.json()
+            return response
+        } catch (error: any) {
+            console.error('Error al eliminar el marcador:', error.message)
+        }
+    }
+
     return {
         user,
         userMarkers,
         getUser,
         getUserMarkers,
+        deleteUserMarkers,
+        setToBeDeletedMarker,
+        toBeDeletedMarker,
     }
 }
