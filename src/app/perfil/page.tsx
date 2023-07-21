@@ -39,7 +39,6 @@ const Profile: FC = () => {
 
     console.log(userMarkers)
 
-    const [width, setWidth] = useState<number>(window.innerWidth)
 
     const noMarkers = userMarkers.length === 0
 
@@ -58,17 +57,13 @@ const Profile: FC = () => {
     const goToMaps = () => {
         window.location.href = '/maps'
     }
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth)
-        }
 
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
+    let width: any
+    if (window.innerWidth < 600) {
+        width = '320px'
+    } else {
+        width = '600px'
+    }
 
     return (
         <>
