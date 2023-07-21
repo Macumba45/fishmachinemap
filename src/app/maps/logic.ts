@@ -113,7 +113,6 @@ export const useLogicMaps = () => {
     const [loadingLocation, setLoadingLocation] = useState(false)
     const [markerCreator, setMarkerCreator] = useState<User | null>(null)
 
-
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
             mapRef.current.setOptions({
@@ -257,7 +256,6 @@ export const useLogicMaps = () => {
         setModalIsOpen(false)
     }
 
-
     const fetchMarkerUser = async () => {
         try {
             const userId = dataMarkerUser.id
@@ -332,6 +330,6 @@ export const useLogicMaps = () => {
         loadingLocation,
         setLoadingLocation,
         fetchMarkerUser,
-        markerCreator
+        markerCreator,
     }
 }

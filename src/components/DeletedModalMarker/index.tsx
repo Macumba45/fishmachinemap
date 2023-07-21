@@ -16,7 +16,8 @@ const DeleteMarkerModal: FC<DeleteMarkerModalProps> = ({
         <Modal
             style={{ backgroundColor: 'transparent' }} // Fondo transparente
             open={isOpen}
-            onClose={onCancel}>
+            onClose={onCancel}
+        >
             <div
                 style={{
                     position: 'absolute',

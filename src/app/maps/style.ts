@@ -66,10 +66,10 @@ export const ButtonStyleCancelarLugar = {
 }
 
 export const ButtonStyleBuscarLugares = {
-    top: '6%',
+    top: '6.4%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '240px',
+    width: '235px',
     backgroundColor: '#ffffff',
     color: '#000000',
     height: '2rem',

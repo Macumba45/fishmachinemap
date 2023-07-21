@@ -1,7 +1,12 @@
 'use client'
 
 import { FC, useEffect } from 'react'
-import { MainContainer, UserContainerData, emailStyles, nameStyles } from './style'
+import {
+    MainContainer,
+    UserContainerData,
+    emailStyles,
+    nameStyles,
+} from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
 import Avatar from '@mui/material/Avatar'
@@ -54,7 +59,6 @@ const Profile: FC = () => {
         }
     }, [])
 
-
     return (
         <>
             <AccountMenu />
@@ -66,9 +70,8 @@ const Profile: FC = () => {
                     <Typography
                         style={{
                             textAlign: 'center',
-                            ...nameStyles
+                            ...nameStyles,
                         }}
-
                         variant="h6"
                         gutterBottom
                     >
@@ -77,8 +80,7 @@ const Profile: FC = () => {
                     <Typography
                         style={{
                             textAlign: 'center',
-                            ...emailStyles
-
+                            ...emailStyles,
                         }}
                         variant="h6"
                         gutterBottom
@@ -126,26 +128,31 @@ const Profile: FC = () => {
                             No tienes marcadores
                         </Typography>
                         <ButtonComp
-                            title='Añade tu primer marcador'
-                            variant='contained'
-                            color='#49007a'
-                            style={{ marginTop: '2rem', backgroundColor: '#49007a' }}
+                            title="Añade tu primer marcador"
+                            variant="contained"
+                            color="#49007a"
+                            style={{
+                                marginTop: '2rem',
+                                backgroundColor: '#49007a',
+                            }}
                             onClick={goToMaps}
                         />
                     </>
-                )
-                }
+                )}
                 {userMarkers.map((marker: UserMarker) => (
                     <React.Fragment key={marker.id}>
-                        <ListItem sx={{ width: width, display: 'flex', alignItems: 'center' }} alignItems="flex-start">
-                            <ListItemAvatar
-
-                                sx={{ margin: '0' }}
-
-                            >
+                        <ListItem
+                            sx={{
+                                width: width,
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                            alignItems="flex-start"
+                        >
+                            <ListItemAvatar sx={{ margin: '0' }}>
                                 <Avatar
                                     alt="Remy Sharp"
-                                // src="/static/images/avatar/1.jpg"
+                                    // src="/static/images/avatar/1.jpg"
                                 />
                             </ListItemAvatar>
                             <ListItemText
@@ -158,7 +165,6 @@ const Profile: FC = () => {
                                                 flexDirection: 'column',
                                                 fontWeight: 400,
                                                 wordWrap: 'break-word',
-
                                             }}
                                             component="span"
                                             variant="body2"
@@ -170,15 +176,13 @@ const Profile: FC = () => {
                                             component="p"
                                             sx={{
                                                 width: '100%',
-                                                fontWeight: 100
-
+                                                fontWeight: 100,
                                             }}
                                         >
                                             {marker.markerType
                                                 .charAt(0)
                                                 .toUpperCase() +
                                                 marker.markerType.slice(1)}
-
                                         </Typography>
                                     </>
                                 }
@@ -213,7 +217,7 @@ const Profile: FC = () => {
                         )}
                     </React.Fragment>
                 ))}
-            </MainContainer >
+            </MainContainer>
             <SimpleBottomNavigation />
         </>
     )

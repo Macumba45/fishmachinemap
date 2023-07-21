@@ -1,12 +1,14 @@
 import { FC } from 'react'
+import { Modal, Box, Typography } from '@mui/material'
 import {
-    Modal,
-    Box,
-    Typography,
-} from '@mui/material'
-import { TypographyContainer, ContenidoGoogle, ImageModal, PictureContainer } from './style'
+    TypographyContainer,
+    ContenidoGoogle,
+    ImageModal,
+    PictureContainer,
+    CreatorLink,
+} from './style'
 import ButtonComp from '../Button'
-
+import { FontWeight } from '@cloudinary/url-gen/qualifiers'
 
 interface Props {
     isOpen: boolean
@@ -35,9 +37,8 @@ const ModalUserMarkers: FC<Props> = ({
     markerType,
     pictures,
     location,
-    creator
+    creator,
 }) => {
-
     const openMap = (location: { lat: number; lng: number } | undefined) => {
         console.log(location)
         if (location) {
@@ -58,7 +59,8 @@ const ModalUserMarkers: FC<Props> = ({
         boxShadow: '0 10px 100px #000', // Corrección aquí
         p: 0,
         borderRadius: '10px',
-        maxHeight: '500px',
+        maxHeight: '600px',
+        minWidth: '300px',
         overflowY: 'scroll',
     }
 
@@ -68,57 +70,73 @@ const ModalUserMarkers: FC<Props> = ({
                 <PictureContainer>
                     <ImageModal src={pictures} />
                 </PictureContainer>
-                <TypographyContainer>
-                    <ContenidoGoogle
-                        id="modal-modal-title"
-                        style={{
-                            marginBottom: '1rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            marginLeft: '0.2rem',
 
-                        }}
-                    >
-                        Creado por: <a href='/'>{creator}</a>
-
-                    </ContenidoGoogle>
-
-                </TypographyContainer>
-                <TypographyContainer>
-                    <TypographyContainer
-                        id="modal-modal-description"
-                        style={{ marginTop: 2, fontFamily: 'Roboto' }}
-                    >
-                        <Typography sx={{ mb: 1, fontWeight: '800' }}>
-                            Lugar/Dirección:
-                        </Typography>
-                        {direction}
+                <Box sx={{ p: 1 }}>
+                    <TypographyContainer>
+                        <ContenidoGoogle
+                            id="modal-modal-title"
+                            style={{
+                                marginBottom: '1rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                marginLeft: '0.2rem',
+                                fontFamily: 'Roboto',
+                                fontWeight: 300,
+                                fontSize: '1rem',
+                            }}
+                        >
+                            Creado por:{' '}
+                            <CreatorLink href="/">{creator}</CreatorLink>
+                        </ContenidoGoogle>
                     </TypographyContainer>
-                </TypographyContainer>
-                <TypographyContainer>
-                    <TypographyContainer
-                        id="modal-modal-description"
-                        style={{ marginTop: 2, fontFamily: 'Roboto', lineHeight: '2rem' }}
-                    >
-                        <Typography sx={{ mb: 1, fontWeight: '800' }}>
-                            Descripción:
-                        </Typography>
-                        {description}
+                    <TypographyContainer>
+                        <TypographyContainer
+                            id="modal-modal-description"
+                            style={{ marginTop: 2, fontFamily: 'Roboto' }}
+                        >
+                            <Typography sx={{ mb: 1, fontWeight: '800' }}>
+                                Lugar/Dirección:
+                            </Typography>
+                            {direction}
+                        </TypographyContainer>
                     </TypographyContainer>
-                </TypographyContainer>
+                    <TypographyContainer>
+                        <TypographyContainer
+                            id="modal-modal-description"
+                            style={{
+                                marginTop: 1,
+                                fontFamily: 'Roboto',
+                                lineHeight: '2rem',
+                            }}
+                        >
+                            <Typography sx={{ mb: 0, fontWeight: '800' }}>
+                                Descripción:
+                            </Typography>
+                            {description}
+                        </TypographyContainer>
+                    </TypographyContainer>
+                </Box>
+
                 {/* <TypographyContainer>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Marcador: {markerType}
                     </Typography>
                 </TypographyContainer> */}
 
-                <Box sx={{ mt: 2, mb: 2, display: 'flex', justifyContent: 'center' }}>
+                <Box
+                    sx={{
+                        mt: 2,
+                        mb: 2,
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
                     <ButtonComp
                         title="Ir a Google Maps"
                         variant="contained"
                         onClick={() => openMap(location)}
-                        bgColor='#49007a'
-                        color='white'
+                        bgColor="#49007a"
+                        color="white"
                     />
                 </Box>
             </Box>

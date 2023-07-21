@@ -88,7 +88,7 @@ const GoogleMapComp: FC = () => {
         loadingLocation,
         setLoadingLocation,
         fetchMarkerUser,
-        markerCreator
+        markerCreator,
     } = useLogicMaps()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
@@ -336,17 +336,12 @@ const GoogleMapComp: FC = () => {
         }
     }, [isLoaded, confirmedMarkers])
 
-
     useEffect(() => {
-
         if (modalUserMarker) {
             console.log('modalUserMarker', modalUserMarker)
             fetchMarkerUser()
-
         }
-
     }, [modalUserMarker])
-
 
     // // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
     // useEffect(() => {
@@ -392,7 +387,6 @@ const GoogleMapComp: FC = () => {
         )
     }
 
-
     // cambia la posición del switch dependiendo del tamaño de la pantalla
     let bottomPosition
     if (window.innerWidth < 600) {
@@ -403,8 +397,8 @@ const GoogleMapComp: FC = () => {
 
     return (
         <MainContainer>
-            <AccountMenu />
             <>
+                <AccountMenu />
                 <MapContainer id="map" />
 
                 <ModalCrearMarcador
@@ -582,7 +576,7 @@ const GoogleMapComp: FC = () => {
                     position: 'fixed',
                     ...ButtonStyleBuscarLugares,
                 }}
-                icon={<SearchIcon sx={{ color: 'black', mr: 1 }} />}
+                icon={<SearchIcon style={{ color: 'black', marginRight: 1 }} />}
                 variant="contained"
                 disabled={isButtonDisabledPlaces}
             />
