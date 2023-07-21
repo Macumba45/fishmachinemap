@@ -1,22 +1,16 @@
-import * as React from 'react'
 import Box from '@mui/material/Box'
-import Avatar from '@mui/material/Avatar'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import Tooltip from '@mui/material/Tooltip'
-import PersonAdd from '@mui/icons-material/PersonAdd'
-import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
-import CustomizedSwitches from '../MuiSwitch'
-import { useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { useLogicMaps } from '@/app/maps/logic'
 
-export default function AccountMenu() {
+const AccountMenu: FC = () => {
     const { selectMapStyle } = useLogicMaps()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [avatar, setAvatar] = useState<string>('')
@@ -38,15 +32,15 @@ export default function AccountMenu() {
     }
 
     return (
-        <React.Fragment>
+        <>
             <Box
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
                     textAlign: 'center',
                     position: 'absolute',
-                    top: '3%',
-                    zIndex: 999,
+                    top: '4%',
+                    zIndex: 99999999999,
                 }}
             >
                 <Tooltip title="Menú">
@@ -99,6 +93,8 @@ export default function AccountMenu() {
                     Cerrar sesión
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </>
     )
 }
+
+export default AccountMenu

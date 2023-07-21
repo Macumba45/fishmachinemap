@@ -20,3 +20,10 @@ export type UserMarker = {
         lng: number
     }
 }
+export type User = {
+    // Define la interfaz del usuario según los datos que esperas recibir
+    id: string;
+    name: string;
+    email: string;
+    // Otros campos del usuario que necesites
+}

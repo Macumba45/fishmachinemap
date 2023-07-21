@@ -35,7 +35,6 @@ export const ContainerData = styled.div`
 export const nameStyles = {
     color: 'white',
     marginTop: '1rem',
-    fontFamily: 'Roboto',
     fontSize: '1.5rem',
     fontWeight: '400',
 }
@@ -43,7 +42,6 @@ export const nameStyles = {
 export const emailStyles = {
     color: 'white',
     marginTop: '0.5rem',
-    fontFamily: 'Roboto',
     fontSize: '1rem',
     fontWeight: '200',
 }

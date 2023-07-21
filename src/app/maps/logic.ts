@@ -7,7 +7,7 @@ import { defaultStylesMaps, stylesMaps } from './style'
 import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { toast } from 'react-toastify'
-import { Style, UserMarker } from './type'
+import { Style, User, UserMarker } from './type'
 
 export const useLogicMaps = () => {
     const addUserMarker = async (userMark: UserMarker) => {
@@ -102,6 +102,7 @@ export const useLogicMaps = () => {
     const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false)
 
     const [dataMarkerUser, setDataMarkerUser] = useState({
+        id: '',
         positionMarkerUser: positionMarkerUser,
         direction: direccion,
         markerType: tipoLugar,
@@ -110,6 +111,8 @@ export const useLogicMaps = () => {
     })
     const [modalUserMarker, setModalUserMarker] = useState(false)
     const [loadingLocation, setLoadingLocation] = useState(false)
+    const [markerCreator, setMarkerCreator] = useState<User | null>(null)
+
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -254,6 +257,26 @@ export const useLogicMaps = () => {
         setModalIsOpen(false)
     }
 
+
+    const fetchMarkerUser = async () => {
+        try {
+            const userId = dataMarkerUser.id
+            const token = localStorage.getItem('token')
+            const response = await fetch(`/api/markers/user?userId=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+                },
+            })
+            const data = await response.json()
+            console.log(data)
+            setMarkerCreator(data.user)
+        } catch (error) {
+            console.error('Error al obtener el usuario del marcador:', error)
+        }
+    }
+
     return {
         notifySucces,
         styledMap,
@@ -308,5 +331,7 @@ export const useLogicMaps = () => {
         dataMarkerUser,
         loadingLocation,
         setLoadingLocation,
+        fetchMarkerUser,
+        markerCreator
     }
 }
