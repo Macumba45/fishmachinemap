@@ -31,7 +31,6 @@ export const ContainerData = styled.div`
     margin: 1rem;
 `
 
-
 export const nameStyles = {
     color: 'white',
     marginTop: '1rem',

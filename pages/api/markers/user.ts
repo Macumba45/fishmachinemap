@@ -6,13 +6,14 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-
     if (req.method === 'GET') {
         try {
             const query = req.query as { userId: string }
             const { userId } = query
             if (!userId) {
-                res.status(400).json({ message: 'ID de usuario no proporcionado' })
+                res.status(400).json({
+                    message: 'ID de usuario no proporcionado',
+                })
                 return
             }
             const user = await getUserByMarkerId(userId as string)
@@ -27,5 +28,4 @@ export default async function handler(
     } else {
         res.status(405).json({ message: 'Método no permitido' })
     }
-
 }

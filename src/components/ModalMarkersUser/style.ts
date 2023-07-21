@@ -18,10 +18,7 @@ export const TypographyContainer = styled.div`
     margin-right: 0.3rem;
 `
 
-export const PictureContainer = styled.div`
-
-
-`
+export const PictureContainer = styled.div``
 export const ReviewsContainer = styled.div`
     position: absolute;
     display: flex;
@@ -94,4 +91,12 @@ export const TotalRating = styled.div`
     font-weight: 100;
     font-size: 0.8rem;
     margin-left: 0.5rem;
+`
+export const CreatorLink = styled.a`
+    font-family: ${({ theme }) => theme.fonts.roboto};
+    font-weight: 500;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    text-decoration: none;
+    color: #49007a;
 `

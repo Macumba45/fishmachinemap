@@ -78,13 +78,18 @@ const ModalCrearMarcador: FC<Props> = ({
         })
     }
 
-    const handleFotosChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFotosChange = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const files = event.target.files
         if (files && files.length > 0) {
             const file = files[0]
 
             // Reducir el tamaño de la imagen antes de convertirla a Base64
-            const resizedFile = await resizeImage(file, { maxWidth: 800, maxHeight: 800 })
+            const resizedFile = await resizeImage(file, {
+                maxWidth: 800,
+                maxHeight: 800,
+            })
 
             const fileUrl = URL.createObjectURL(resizedFile)
             const base64Data = await getBase64FromUrl(fileUrl)
@@ -92,8 +97,11 @@ const ModalCrearMarcador: FC<Props> = ({
         }
     }
 
-    const resizeImage = (file: File, options: { maxWidth: number; maxHeight: number }) => {
-        return new Promise<File>((resolve) => {
+    const resizeImage = (
+        file: File,
+        options: { maxWidth: number; maxHeight: number }
+    ) => {
+        return new Promise<File>(resolve => {
             const img = new Image()
             img.src = URL.createObjectURL(file)
 
@@ -104,14 +112,19 @@ const ModalCrearMarcador: FC<Props> = ({
                 canvas.width = options.maxWidth
                 canvas.height = options.maxHeight
 
-                const scaleFactor = Math.min(options.maxWidth / width, options.maxHeight / height)
+                const scaleFactor = Math.min(
+                    options.maxWidth / width,
+                    options.maxHeight / height
+                )
                 canvas.width = width * scaleFactor
                 canvas.height = height * scaleFactor
 
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-                canvas.toBlob((resizedBlob) => {
+                canvas.toBlob(resizedBlob => {
                     if (resizedBlob) {
-                        const resizedFile = new File([resizedBlob], file.name, { type: file.type })
+                        const resizedFile = new File([resizedBlob], file.name, {
+                            type: file.type,
+                        })
                         resolve(resizedFile)
                     } else {
                         resolve(file)

@@ -11,9 +11,7 @@ import { FC, useState } from 'react'
 import { useLogicMaps } from '@/app/maps/logic'
 
 const AccountMenu: FC = () => {
-    const { selectMapStyle } = useLogicMaps()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const [avatar, setAvatar] = useState<string>('')
     const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
