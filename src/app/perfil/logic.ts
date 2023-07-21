@@ -9,6 +9,10 @@ export const useLogicUser = () => {
         [key: string]: boolean
     }>({})
 
+    const noMarkers = userMarkers.length === 0
+
+    const [width, setWidth] = useState<number>(0)
+
     const getUser = async () => {
         try {
             if (typeof window !== 'undefined') {
@@ -75,5 +79,8 @@ export const useLogicUser = () => {
         deleteUserMarkers,
         setToBeDeletedMarkers,
         toBeDeletedMarkers,
+        noMarkers,
+        width,
+        setWidth,
     }
 }
