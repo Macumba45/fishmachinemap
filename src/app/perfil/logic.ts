@@ -5,7 +5,9 @@ import { UserMarker } from '../maps/type'
 export const useLogicUser = () => {
     const [user, setUser] = useState<User | null>(null)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
-    const [toBeDeletedMarker, setToBeDeletedMarker] = useState(false)
+    const [toBeDeletedMarkers, setToBeDeletedMarkers] = useState<{
+        [key: string]: boolean
+    }>({})
 
     const getUser = async () => {
         if (typeof window !== 'undefined') {
@@ -50,7 +52,10 @@ export const useLogicUser = () => {
                     },
                 }
             )
-            setToBeDeletedMarker(false)
+            setToBeDeletedMarkers(prevState => ({
+                ...prevState,
+                [markerId]: false,
+            }))
             await response.json()
             return response
         } catch (error: any) {
@@ -64,7 +69,7 @@ export const useLogicUser = () => {
         getUser,
         getUserMarkers,
         deleteUserMarkers,
-        setToBeDeletedMarker,
-        toBeDeletedMarker,
+        setToBeDeletedMarkers,
+        toBeDeletedMarkers,
     }
 }
