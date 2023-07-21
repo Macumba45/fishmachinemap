@@ -10,6 +10,15 @@ export const MainContainer = styled.div`
     background-size: cover;
     margin-bottom: 5rem;
 `
+
+export const MainContainerNoUser = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+`
 export const Container = styled.div`
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;

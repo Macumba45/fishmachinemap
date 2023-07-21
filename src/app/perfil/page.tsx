@@ -3,6 +3,7 @@
 import { FC, useEffect } from 'react'
 import {
     MainContainer,
+    MainContainerNoUser,
     UserContainerData,
     emailStyles,
     nameStyles,
@@ -17,10 +18,12 @@ import Typography from '@mui/material/Typography'
 import AccountMenu from '@/components/Menu'
 import { IconButton, ListItemAvatar, Modal } from '@mui/material'
 import { UserMarker } from '../maps/type'
-import { Delete, Edit } from '@mui/icons-material'
+import { AccountCircle, Delete, Edit } from '@mui/icons-material'
 import React from 'react'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
 import ButtonComp from '@/components/Button'
+import Button from '@/components/Button'
+import { FontWeight } from '@cloudinary/url-gen/qualifiers'
 
 const Profile: FC = () => {
     const {
@@ -59,6 +62,47 @@ const Profile: FC = () => {
             width = 600
         }
     }, [])
+
+    if (!user) {
+        return (
+            <>
+                <MainContainerNoUser>
+                    <AccountCircle sx={{ fontSize: 100, color: '#49007a' }} />
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '2rem',
+                            color: '#49007a',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                            width: '350px',
+                            fontWeight: 400,
+                        }}
+                        variant="h6"
+                        gutterBottom
+                    >
+                        Para ver tu perfil es necesario estar logeado o
+                        registrado.
+                    </Typography>
+                    <Button
+                        style={{
+                            color: 'white',
+                            backgroundColor: '#49007a',
+                            marginTop: '2rem',
+                        }}
+                        title="Ir a Inicio de Sesión"
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => {
+                            // Redirigir a la página de inicio de sesión cuando se haga clic en el botón
+                            window.location.href = '/'
+                        }}
+                    ></Button>
+                </MainContainerNoUser>
+            </>
+        )
+    }
 
     return (
         <>
