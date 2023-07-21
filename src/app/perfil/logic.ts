@@ -10,18 +10,22 @@ export const useLogicUser = () => {
     }>({})
 
     const getUser = async () => {
-        if (typeof window !== 'undefined') {
-            const token = localStorage.getItem('token')
-            const response = await fetch('/api/user/userData', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
-                    'Content-Type': 'application/json',
-                },
-            })
-            const data = await response.json()
-            setUser(data.user)
-            return response
+        try {
+            if (typeof window !== 'undefined') {
+                const token = localStorage.getItem('token')
+                const response = await fetch('/api/user/userData', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+                        'Content-Type': 'application/json',
+                    },
+                })
+                const data = await response.json()
+                setUser(data.user)
+                return response
+            }
+        } catch (error: any) {
+            console.error('Error al obtener el usuario:', error.message)
         }
     }
 
