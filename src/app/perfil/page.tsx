@@ -1,9 +1,8 @@
 'use client'
 
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
     MainContainer,
-    MainContainerNoUser,
     UserContainerData,
     emailStyles,
     nameStyles,
@@ -16,15 +15,17 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import AccountMenu from '@/components/Menu'
-import { IconButton, ListItemAvatar, Modal } from '@mui/material'
+import { IconButton, ListItemAvatar } from '@mui/material'
 import { UserMarker } from '../maps/type'
-import { AccountCircle, Delete, Edit } from '@mui/icons-material'
+import { Delete, Edit } from '@mui/icons-material'
 import React from 'react'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
 import ButtonComp from '@/components/Button'
-import Button from '@/components/Button'
-import { FontWeight } from '@cloudinary/url-gen/qualifiers'
-
+import customMarkerIcon from '../../assets/anzuelo.png'
+import customMarkerIconShop from '../../assets/tienda.png'
+import customMarkerIconPlace from '../../assets/destino.png'
+import customMarkerIconPicture from '../../assets/back-camera.png'
+import { StaticImageData } from 'next/image'
 const Profile: FC = () => {
     const {
         user,
@@ -35,6 +36,10 @@ const Profile: FC = () => {
         setToBeDeletedMarkers,
         toBeDeletedMarkers,
     } = useLogicUser()
+
+    console.log(userMarkers)
+
+    const [width, setWidth] = useState<number>(window.innerWidth)
 
     const noMarkers = userMarkers.length === 0
 
@@ -53,56 +58,17 @@ const Profile: FC = () => {
     const goToMaps = () => {
         window.location.href = '/maps'
     }
-    let width: any
     useEffect(() => {
-        width = window.innerWidth
-        if (width < 600) {
-            width = 300
-        } else {
-            width = 600
+        const handleResize = () => {
+            setWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
         }
     }, [])
-
-    if (!user) {
-        return (
-            <>
-                <MainContainerNoUser>
-                    <AccountCircle sx={{ fontSize: 100, color: '#49007a' }} />
-                    <Typography
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            marginTop: '2rem',
-                            color: '#49007a',
-                            flexDirection: 'column',
-                            textAlign: 'center',
-                            width: '350px',
-                            fontWeight: 400,
-                        }}
-                        variant="h6"
-                        gutterBottom
-                    >
-                        Para ver tu perfil es necesario estar logeado o
-                        registrado.
-                    </Typography>
-                    <Button
-                        style={{
-                            color: 'white',
-                            backgroundColor: '#49007a',
-                            marginTop: '2rem',
-                        }}
-                        title="Ir a Inicio de Sesión"
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                            // Redirigir a la página de inicio de sesión cuando se haga clic en el botón
-                            window.location.href = '/'
-                        }}
-                    ></Button>
-                </MainContainerNoUser>
-            </>
-        )
-    }
 
     return (
         <>
@@ -194,15 +160,77 @@ const Profile: FC = () => {
                             }}
                             alignItems="flex-start"
                         >
-                            <ListItemAvatar sx={{ margin: '0' }}>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    // src="/static/images/avatar/1.jpg"
-                                />
+                            <ListItemAvatar
+                                key={marker.id}
+                                sx={{ margin: '0' }}
+                            >
+                                <Avatar alt="Marker Icon">
+                                    {(() => {
+                                        switch (marker.markerType) {
+                                            case 'pesquero':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIconPlace.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+
+                                            case 'tienda':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIconShop.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+
+                                            case 'cebos':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIcon.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+
+                                            case 'fotos':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIconPicture.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+                                            default:
+                                                return null
+                                        }
+                                    })()}
+                                </Avatar>
                             </ListItemAvatar>
+
                             <ListItemText
                                 primaryTypographyProps={{ width: '200px' }}
-                                primary={marker.direction}
+                                primary={
+                                    marker.direction.charAt(0).toUpperCase() +
+                                    marker.direction.slice(1)
+                                }
                                 secondary={
                                     <>
                                         <Typography
@@ -216,13 +244,17 @@ const Profile: FC = () => {
                                             variant="body2"
                                             color="text.primary"
                                         >
-                                            {marker.description}
+                                            {marker.description
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                                marker.description.slice(1)}
                                         </Typography>
                                         <Typography
                                             component="p"
                                             sx={{
                                                 width: '100%',
-                                                fontWeight: 100,
+                                                fontWeight: 200,
+                                                fontSize: '0.8rem',
                                             }}
                                         >
                                             {marker.markerType
