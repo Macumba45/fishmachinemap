@@ -55,7 +55,7 @@ export const TitleContainer = styled.div`
     }
 `
 export const TitleHeader = styled.h1`
-    font-family: ${({ theme }) => theme.fonts.roboto};
+    font-family: Roboto, sans-serif;
     color: white;
     font-size: 5rem;
     text-align: center;
@@ -76,7 +76,7 @@ export const SubtitleContainer = styled.div`
     }
 `
 export const SubtitleHeader = styled.h2`
-    font-family: ${({ theme }) => theme.fonts.roboto};
+    font-family: Roboto, sans-serif;
     color: white;
     font-size: 2rem;
     text-align: center;
@@ -88,8 +88,8 @@ export const SubtitleHeader = styled.h2`
 `
 
 export const SpanBold = styled.span`
-    font-family: ${({ theme }) => theme.fonts.roboto};
-    color: ${({ theme }) => theme.colors.primary};
+    font-family: Roboto, sans-serif;
+    color: #42c3ff;
     font-weight: 400;
     line-height: 5rem;
     font-size: 2.5rem;
