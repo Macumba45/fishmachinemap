@@ -2,16 +2,18 @@ import styled from 'styled-components'
 
 export const CardContainer = styled.div`
     display: flex;
+    width: 320px;
     flex-direction: column;
     margin-bottom: 1.5rem;
-    height: 400px;
+    max-height: 400px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agrega el sombreado aquí */
 `
 
 export const ImagenContainer = styled.div``
 export const Imagen = styled.img`
     width: 100%;
-    height: 250px;
+    object-fit: cover;
+    background-size: cover;
 `
 
 export const IconsContainer = styled.div``
@@ -34,6 +36,7 @@ export const DescriptionContainer = styled.div`
     margin-left: 0.6rem;
     align-items: flex-start;
     margin-top: 0.5rem;
+    word-wrap: break-word;
 `
 
 export const Description = styled.p`
@@ -43,4 +46,6 @@ export const Description = styled.p`
     font-size: 0.8rem;
     font-family: 'Roboto', sans-serif;
     margin-left: 0.5rem;
+    word-wrap: break-word;
+    line-height: 1rem;
 `

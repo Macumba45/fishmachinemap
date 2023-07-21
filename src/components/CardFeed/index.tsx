@@ -18,14 +18,16 @@ import { Button } from '@mui/material'
 const CardFeed: FC<FeedPros> = ({
     id,
     userName,
-    imagen,
+    picture,
+    direction,
+    description,
     date,
     comentarios,
 }) => {
     return (
-        <CardContainer>
+        <CardContainer key={id}>
             <ImagenContainer>
-                <Imagen src="https://www.club-caza.com/img/article/pescadegrandespargos.jpg" />
+                <Imagen src={picture} />
             </ImagenContainer>
             <IconsContainer>
                 <Icons>
@@ -34,9 +36,7 @@ const CardFeed: FC<FeedPros> = ({
                 </Icons>
                 <Icons>
                     <CommentIcon sx={{ color: '#49007a' }} />
-                    <Description>
-                        He pescado esto en un spot muy bueno
-                    </Description>
+                    <Description>{description}</Description>
                 </Icons>
                 <Icons>
                     <LocationOnIcon sx={{ color: '#49007a' }} />

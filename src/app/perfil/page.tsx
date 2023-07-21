@@ -35,32 +35,31 @@ const Profile: FC = () => {
         deleteUserMarkers,
         setToBeDeletedMarkers,
         toBeDeletedMarkers,
+        noMarkers,
+        width,
+        setWidth,
     } = useLogicUser()
-
-    const [width, setWidth] = useState<number>(0);
 
     useEffect(() => {
         // Check if window is available before setting the initial width
         if (typeof window !== 'undefined') {
-            setWidth(window.innerWidth);
+            setWidth(window.innerWidth)
         }
 
         // Handle the resize event
         const handleResize = () => {
-            setWidth(window.innerWidth);
-        };
+            setWidth(window.innerWidth)
+        }
 
         // Add the event listener only if window is available
         if (typeof window !== 'undefined') {
-            window.addEventListener('resize', handleResize);
+            window.addEventListener('resize', handleResize)
 
             return () => {
-                window.removeEventListener('resize', handleResize);
-            };
+                window.removeEventListener('resize', handleResize)
+            }
         }
-    }, []);
-
-    const noMarkers = userMarkers.length === 0
+    }, [])
 
     useEffect(() => {
         getUser()

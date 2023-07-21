@@ -55,6 +55,25 @@ export const useLogicMaps = () => {
         }
     }
 
+    const fetchMarkerUser = async () => {
+        try {
+            const userId = dataMarkerUser.id
+            const token = localStorage.getItem('token')
+            const response = await fetch(`/api/markers/user?userId=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+                },
+            })
+            const data = await response.json()
+            console.log(data)
+            setMarkerCreator(data.user)
+        } catch (error) {
+            console.error('Error al obtener el usuario del marcador:', error)
+        }
+    }
+
     enum MarkerType {
         SHOP = 'tienda',
         WORM = 'cebos',
@@ -254,25 +273,6 @@ export const useLogicMaps = () => {
 
     const closeModal = () => {
         setModalIsOpen(false)
-    }
-
-    const fetchMarkerUser = async () => {
-        try {
-            const userId = dataMarkerUser.id
-            const token = localStorage.getItem('token')
-            const response = await fetch(`/api/markers/user?userId=${userId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
-                },
-            })
-            const data = await response.json()
-            console.log(data)
-            setMarkerCreator(data.user)
-        } catch (error) {
-            console.error('Error al obtener el usuario del marcador:', error)
-        }
     }
 
     return {
