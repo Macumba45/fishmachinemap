@@ -29,8 +29,8 @@ const Profile: FC = () => {
         getUser,
         getUserMarkers,
         deleteUserMarkers,
-        setToBeDeletedMarker,
-        toBeDeletedMarker,
+        setToBeDeletedMarkers,
+        toBeDeletedMarkers,
     } = useLogicUser()
 
     const noMarkers = userMarkers.length === 0
@@ -41,10 +41,11 @@ const Profile: FC = () => {
     }, [])
 
     useEffect(() => {
-        if (toBeDeletedMarker === false) {
+        if (toBeDeletedMarkers) {
+            // Comparamos con true para saber si algún modal está abierto
             getUserMarkers()
         }
-    }, [toBeDeletedMarker])
+    }, [toBeDeletedMarkers])
 
     const goToMaps = () => {
         window.location.href = '/maps'
@@ -156,6 +157,7 @@ const Profile: FC = () => {
                                 />
                             </ListItemAvatar>
                             <ListItemText
+                                primaryTypographyProps={{ width: '200px' }}
                                 primary={marker.direction}
                                 secondary={
                                     <>
@@ -188,7 +190,12 @@ const Profile: FC = () => {
                                 }
                             />
                             <IconButton
-                                onClick={() => setToBeDeletedMarker(true)}
+                                onClick={() =>
+                                    setToBeDeletedMarkers(prevState => ({
+                                        ...prevState,
+                                        [marker.id as string]: true,
+                                    }))
+                                }
                                 edge="end"
                                 aria-label="delete"
                             >
@@ -203,15 +210,25 @@ const Profile: FC = () => {
                             </IconButton>
                         </ListItem>
                         <Divider variant="inset" component="hr" />
-                        {toBeDeletedMarker && (
+                        {marker.id && toBeDeletedMarkers[marker.id] && (
                             <>
                                 <DeleteMarkerModal
-                                    isOpen={!!toBeDeletedMarker}
-                                    onCancel={() => setToBeDeletedMarker(false)}
-                                    onClick={() =>
-                                        marker.id &&
-                                        deleteUserMarkers(marker.id)
+                                    key={marker.id}
+                                    isOpen={toBeDeletedMarkers[marker.id]}
+                                    onCancel={() =>
+                                        setToBeDeletedMarkers(prevState => ({
+                                            ...prevState,
+                                            [marker.id as string]: false,
+                                        }))
                                     }
+                                    onClick={() => {
+                                        marker.id &&
+                                            deleteUserMarkers(marker.id)
+                                        setToBeDeletedMarkers(prevState => ({
+                                            ...prevState,
+                                            [marker.id as string]: false,
+                                        }))
+                                    }}
                                 />
                             </>
                         )}
