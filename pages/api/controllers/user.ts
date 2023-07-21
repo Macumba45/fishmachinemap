@@ -40,3 +40,19 @@ export const deleteUserMarker = async (id: string) => {
 
     return deletedMarker
 }
+
+
+export const getUserByMarkerId = async (markerId: string) => {
+    const data = await prisma.marker.findUnique({
+        where: {
+            id: markerId,
+        },
+        include: {
+            user: true,
+        },
+    })
+
+    console.log(data)
+
+    return data?.user || null
+}

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import AccountMenu from '@/components/Menu'
 import { IconButton, ListItemAvatar, Modal } from '@mui/material'
 import { UserMarker } from '../maps/type'
-import { Delete } from '@mui/icons-material'
+import { Delete, Edit } from '@mui/icons-material'
 import React from 'react'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
 import ButtonComp from '@/components/Button'
@@ -44,6 +44,15 @@ const Profile: FC = () => {
     const goToMaps = () => {
         window.location.href = '/maps'
     }
+    let width: any
+    useEffect(() => {
+        width = window.innerWidth
+        if (width < 600) {
+            width = 300
+        } else {
+            width = 600
+        }
+    }, [])
 
 
     return (
@@ -128,8 +137,12 @@ const Profile: FC = () => {
                 }
                 {userMarkers.map((marker: UserMarker) => (
                     <React.Fragment key={marker.id}>
-                        <ListItem sx={{ width: '80%' }} alignItems="flex-start">
-                            <ListItemAvatar>
+                        <ListItem sx={{ width: width, display: 'flex', alignItems: 'center' }} alignItems="flex-start">
+                            <ListItemAvatar
+
+                                sx={{ margin: '0' }}
+
+                            >
                                 <Avatar
                                     alt="Remy Sharp"
                                 // src="/static/images/avatar/1.jpg"
@@ -143,24 +156,29 @@ const Profile: FC = () => {
                                             sx={{
                                                 display: 'flex',
                                                 flexDirection: 'column',
+                                                fontWeight: 400,
+                                                wordWrap: 'break-word',
+
                                             }}
                                             component="span"
                                             variant="body2"
                                             color="text.primary"
                                         >
-                                            {marker.markerType
-                                                .charAt(0)
-                                                .toUpperCase() +
-                                                marker.markerType.slice(1)}
+                                            {marker.description}
                                         </Typography>
                                         <Typography
                                             component="p"
                                             sx={{
                                                 width: '100%',
-                                                wordWrap: 'break-word',
+                                                fontWeight: 100
+
                                             }}
                                         >
-                                            {marker.description}
+                                            {marker.markerType
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                                marker.markerType.slice(1)}
+
                                         </Typography>
                                     </>
                                 }
@@ -171,6 +189,13 @@ const Profile: FC = () => {
                                 aria-label="delete"
                             >
                                 <Delete />
+                            </IconButton>
+                            <IconButton
+                                // onClick={() => setToBeDeletedMarker(true)}
+                                edge="end"
+                                aria-label="edit"
+                            >
+                                <Edit />
                             </IconButton>
                         </ListItem>
                         <Divider variant="inset" component="hr" />

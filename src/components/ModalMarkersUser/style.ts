@@ -14,6 +14,13 @@ export const MainContainer = styled.div`
 
 export const TypographyContainer = styled.div`
     margin-bottom: 2rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+`
+
+export const PictureContainer = styled.div`
+
+
 `
 export const ReviewsContainer = styled.div`
     position: absolute;
@@ -38,17 +45,16 @@ export const ImageContainer = styled.div`
 `
 export const ImageModal = styled.img`
     width: 100%;
-    margin-top: 1rem;
     margin-bottom: 1rem;
     object-fit: cover;
     background-size: cover;
-    border-radius: 10px;
 `
 
 export const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
 `
 
 export const RatingContainer = styled.div`

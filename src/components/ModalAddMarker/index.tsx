@@ -78,16 +78,47 @@ const ModalCrearMarcador: FC<Props> = ({
         })
     }
 
-    const handleFotosChange = async (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleFotosChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files
         if (files && files.length > 0) {
             const file = files[0]
-            const fileUrl = URL.createObjectURL(file)
+
+            // Reducir el tamaño de la imagen antes de convertirla a Base64
+            const resizedFile = await resizeImage(file, { maxWidth: 800, maxHeight: 800 })
+
+            const fileUrl = URL.createObjectURL(resizedFile)
             const base64Data = await getBase64FromUrl(fileUrl)
             setFotos(base64Data) // Guarda la imagen en formato Base64 en el estado
         }
+    }
+
+    const resizeImage = (file: File, options: { maxWidth: number; maxHeight: number }) => {
+        return new Promise<File>((resolve) => {
+            const img = new Image()
+            img.src = URL.createObjectURL(file)
+
+            img.onload = () => {
+                const { width, height } = img
+                const canvas = document.createElement('canvas')
+                const ctx = canvas.getContext('2d')!
+                canvas.width = options.maxWidth
+                canvas.height = options.maxHeight
+
+                const scaleFactor = Math.min(options.maxWidth / width, options.maxHeight / height)
+                canvas.width = width * scaleFactor
+                canvas.height = height * scaleFactor
+
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                canvas.toBlob((resizedBlob) => {
+                    if (resizedBlob) {
+                        const resizedFile = new File([resizedBlob], file.name, { type: file.type })
+                        resolve(resizedFile)
+                    } else {
+                        resolve(file)
+                    }
+                }, file.type)
+            }
+        })
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
