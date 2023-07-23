@@ -87,8 +87,8 @@ const ModalCrearMarcador: FC<Props> = ({
 
             // Reducir el tamaño de la imagen antes de convertirla a Base64
             const resizedFile = await resizeImage(file, {
-                maxWidth: 800,
-                maxHeight: 800,
+                maxWidth: 1024,
+                maxHeight: 1024,
             })
 
             const fileUrl = URL.createObjectURL(resizedFile)

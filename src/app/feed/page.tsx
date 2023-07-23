@@ -1,10 +1,11 @@
 'use client'
 
 import { FC, useEffect, useState } from 'react'
-import { MainContainer } from './style'
+import { ContainerMenu, MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
 import { feedUseLogic } from './logic'
+import AccountMenu from '@/components/Menu'
 
 const Feed: FC = () => {
     const { getMarkersUser, fotosMarkers } = feedUseLogic()
@@ -43,6 +44,9 @@ const Feed: FC = () => {
 
     return (
         <>
+            <ContainerMenu>
+                <AccountMenu />
+            </ContainerMenu>
             <MainContainer>
                 {fotosMarkers.map(item => (
                     <CardFeed
