@@ -97,7 +97,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const getMyPosition = async () => {
@@ -137,7 +137,6 @@ const GoogleMapComp: FC = () => {
                     // Centra el mapa en la ubicación actual
                     mapRef.current?.setCenter(currentLatLng)
                     console.log('currentLatLng', currentLatLng)
-                    notifySucces()
                     setLoadingLocation(false)
                 },
                 error => {
@@ -173,6 +172,19 @@ const GoogleMapComp: FC = () => {
             )
             mapRef.current = map
             service = new google.maps.places.PlacesService(map)
+            // Crear una instancia de MarkerClusterer
+            const clusterOptions = {
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+                gridSize: 30,
+                zoomOnClick: false,
+                maxZoom: 8,
+                minimumClusterSize: 2,
+            };
+            markerClusterer = new MarkerClusterer({
+                map,
+                algorithmOptions: clusterOptions
+
+            });
 
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
@@ -191,6 +203,7 @@ const GoogleMapComp: FC = () => {
             }
             if (userMarkers.length > 0) {
                 userMarkers.map((marker: any) => {
+
                     const location = {
                         lat: marker.location.lat,
                         lng: marker.location.lng,
@@ -207,6 +220,7 @@ const GoogleMapComp: FC = () => {
                         },
                     })
                     markers.setMap(map)
+                    markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
 
                     markers.addListener('click', () => {
                         console.log(marker)

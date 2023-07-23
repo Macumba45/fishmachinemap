@@ -5,8 +5,7 @@ export const CardContainer = styled.div`
     max-width: 500px;
     min-width: 300px;
     flex-direction: column;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
     max-height: 800px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agrega el sombreado aquí */
     border-top-right-radius: 5px;
