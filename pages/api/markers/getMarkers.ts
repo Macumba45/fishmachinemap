@@ -14,6 +14,9 @@ const getMarkersUser = async (
             include: {
                 location: true,
             },
+            orderBy: {
+                createdAt: 'desc',
+            },
         })
         res.status(200).json({ markers })
     } catch (error: any) {
