@@ -9,8 +9,6 @@ export const MainContainer = styled.div`
     object-fit: cover;
     margin-bottom: 4rem;
     /* margin-top: 2rem; */
-   
-    
 `
 export const CardContainer = styled.div`
     display: flex;
@@ -19,10 +17,6 @@ export const CardContainer = styled.div`
 `
 
 export const ContainerMenu = styled.div`
-
-position: fixed;
-top:30px
-
-
-
+    position: fixed;
+    top: 30px;
 `
