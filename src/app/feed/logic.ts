@@ -21,7 +21,6 @@ export const feedUseLogic = () => {
                     (marker: any) => marker.markerType === 'fotos'
                 )
                 setFotosMarkers(capturasMarkers)
-                console.log('Marcadores de capturas:', capturasMarkers)
             } else {
                 throw new Error('Error en la respuesta del servidor')
             }
