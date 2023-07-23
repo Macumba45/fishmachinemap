@@ -2,11 +2,15 @@ import styled from 'styled-components'
 
 export const CardContainer = styled.div`
     display: flex;
-    width: 320px;
+    max-width: 500px;
+    min-width: 300px;
     flex-direction: column;
-    margin-bottom: 1.5rem;
-    max-height: 400px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    max-height: 800px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agrega el sombreado aquí */
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 `
 
 export const ImagenContainer = styled.div``
@@ -22,6 +26,7 @@ export const Icons = styled.div`
     align-items: center;
     margin-top: 0.8rem;
     margin-left: 0.5rem;
+    padding-left: 0.5rem;
 `
 
 export const LikesLabel = styled.p`
