@@ -36,7 +36,7 @@ const AccountMenu: FC = () => {
                     alignItems: 'center',
                     textAlign: 'center',
                     position: 'absolute',
-                    top: '4%',
+                    top: '20px',
                     zIndex: 99999999999,
                 }}
             >

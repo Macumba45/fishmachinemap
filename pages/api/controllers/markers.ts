@@ -12,6 +12,8 @@ export const getAllMarkers = async (userId: string) => {
         orderBy: {
             createdAt: 'desc',
         },
+        // take: 10, // Limitar a 10 marcadores
+        // skip: 0, // Opcionalmente, agregar paginación
     })
     return markers
 }

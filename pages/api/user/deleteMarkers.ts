@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import jwt, { JwtPayload } from 'jsonwebtoken'
 import { deleteUserMarker } from '../controllers/user'
-
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -14,7 +12,9 @@ export default async function handler(
             }
             const query = req.query as { id: string }
             const { id } = query
-            console.log(id)
+            if (typeof id !== 'string') {
+                throw new Error('ID no válido')
+            }
             const deletedMarker = await deleteUserMarker(id)
             console.log(deletedMarker)
             res.status(200).json({ deletedMarker })

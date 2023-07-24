@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import jwt, { JwtPayload } from 'jsonwebtoken'
 import { getUserByMarkerId } from '../controllers/user'
 
 export default async function handler(
