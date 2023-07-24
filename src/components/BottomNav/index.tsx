@@ -3,9 +3,10 @@
 import Box from '@mui/material/Box'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import SailingOutlinedIcon from '@mui/icons-material/SailingOutlined'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
+import PhishingIcon from '@mui/icons-material/Phishing'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -41,6 +42,8 @@ export default function SimpleBottomNavigation() {
             setValue(1)
         } else if (locationNav === '/experiencias') {
             setValue(2)
+        } else if (locationNav === '/pesquemos') {
+            setValue(3)
         }
     }, [locationNav])
     // Añadir el componente BottomNavigation
@@ -78,9 +81,16 @@ export default function SimpleBottomNavigation() {
                 />
                 <BottomNavigationAction
                     label="Experiencias"
-                    icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
+                    icon={<SailingOutlinedIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/experiencias"
+                    style={buttonStyles}
+                />
+                <BottomNavigationAction
+                    label="BlaBlaFish"
+                    icon={<PhishingIcon sx={{ color: '#49007a' }} />}
+                    component={Link}
+                    href="/pesquemos"
                     style={buttonStyles}
                 />
             </BottomNavigation>

@@ -8,7 +8,6 @@ import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import { FC, useState } from 'react'
-import { useLogicMaps } from '@/app/maps/logic'
 
 const AccountMenu: FC = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -45,7 +44,7 @@ const AccountMenu: FC = () => {
                     <IconButton
                         onClick={handleClick}
                         size="small"
-                        sx={{ ml: 3 }}
+                        sx={{ ml: 3, backgroundColor: '#49007a' }}
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}

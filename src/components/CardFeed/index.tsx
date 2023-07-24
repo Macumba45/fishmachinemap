@@ -48,7 +48,7 @@ const CardFeed: FC<FeedPros> = ({
                             paddingLeft: 2,
                             backgroundColor: '#49007a',
                             width: '6rem',
-                            marginLeft: '0.7rem',
+                            marginLeft: '0.5rem',
                         }}
                     >
                         <LocationOnIcon

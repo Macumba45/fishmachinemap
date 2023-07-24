@@ -1,5 +1,6 @@
 export type FeedPros = {
     id?: string
+    creator?: string
     userId?: string
     userName?: string
     picture?: string

@@ -23,6 +23,7 @@ const Feed: FC = () => {
             <MainContainer>
                 {fotosMarkers.map(item => (
                     <CardFeed
+                        creator="Creado por"
                         key={item.id}
                         id={item.id}
                         description={item.description}
