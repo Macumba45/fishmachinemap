@@ -11,12 +11,9 @@ interface CloudinaryResponse {
 const postMarkersUser = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.split(' ')[1]
     const { direction, markerType, description } = req.body
+    const { picture } = req.body
     const { lat, lng } = req.body.location
     const decodedToken = jwt.verify(token, 'token')
-
-    const { picture } = req.body
-    console.log('picture', picture)
-
     const userId = decodedToken.userId
 
     try {
@@ -25,7 +22,6 @@ const postMarkersUser = async (req: NextApiRequest, res: NextApiResponse) => {
         const cloudinaryResponse = (await uploadImage(
             pictureUrl
         )) as CloudinaryResponse
-        console.log('cloudFotos', cloudinaryResponse)
 
         // Crear una nueva instancia del modelo Marker
         const marker = await prisma.marker.create({
@@ -39,7 +35,7 @@ const postMarkersUser = async (req: NextApiRequest, res: NextApiResponse) => {
         })
 
         // Crear una nueva instancia del modelo Location
-        const location = await prisma.location.create({
+        await prisma.location.create({
             data: {
                 lat,
                 lng,
@@ -47,7 +43,6 @@ const postMarkersUser = async (req: NextApiRequest, res: NextApiResponse) => {
             },
         })
 
-        console.log(location)
         res.status(200).json({ message: 'Marcador creado correctamente' })
     } catch (error: any) {
         res.status(500).json({ message: error.message })

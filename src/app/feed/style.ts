@@ -8,6 +8,7 @@ export const MainContainer = styled.div`
     height: 100%;
     object-fit: cover;
     margin-bottom: 4rem;
+    flex-direction: column;
     /* margin-top: 2rem; */
 `
 export const CardContainer = styled.div`
@@ -19,4 +20,5 @@ export const CardContainer = styled.div`
 export const ContainerMenu = styled.div`
     position: fixed;
     top: 30px;
+    z-index: 999;
 `

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../src/app/lib/db'
+import { getAllMarkers } from '../controllers/markers'
 
 const getMarkersUser = async (
     req: NextApiRequest,
@@ -7,18 +8,8 @@ const getMarkersUser = async (
     userId: string
 ) => {
     try {
-        const markers = await prisma.marker.findMany({
-            where: {
-                userId,
-            },
-            include: {
-                location: true,
-                likes: true,
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        })
+        const markers = await getAllMarkers(userId)
+        console.log(markers)
         res.status(200).json({ markers })
     } catch (error: any) {
         res.status(500).json({ message: error.message })

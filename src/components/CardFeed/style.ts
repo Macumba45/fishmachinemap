@@ -55,7 +55,7 @@ export const DescriptionContainer = styled.div`
 
 export const Description = styled.p`
     display: flex;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-family: 'Roboto', sans-serif;
     margin-left: 0.5rem;
     word-wrap: break-word;
