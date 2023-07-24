@@ -6,6 +6,8 @@ export type FeedPros = {
     direction?: string
     description?: string
     date?: string
+    likes?: number
     comentarios?: string[]
     onClick?: () => void
+    isLiked?: boolean
 }

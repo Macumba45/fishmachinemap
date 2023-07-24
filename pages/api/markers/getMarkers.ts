@@ -13,6 +13,7 @@ const getMarkersUser = async (
             },
             include: {
                 location: true,
+                likes: true,
             },
             orderBy: {
                 createdAt: 'desc',
