@@ -11,6 +11,8 @@ export type PositionMarker = {
 
 export type UserMarker = {
     id?: string | ''
+    userId?: string
+    likes?: { userId: string }[] // Cambio en la definición de likes
     direction: string
     markerType: string
     description: string

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { FeedPros } from './type'
 import {
     Imagen,
@@ -9,11 +9,13 @@ import {
     LikesLabel,
     Description,
     DescriptionContainer,
+    HearthContainer,
 } from './style'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import CommentIcon from '@mui/icons-material/Comment'
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -23,35 +25,62 @@ const CardFeed: FC<FeedPros> = ({
     description,
     date,
     comentarios,
+    onClick,
+    userId,
 }) => {
+    const [likes, setLikes] = useState(0)
+    const [isLiked, setIsLiked] = useState(false)
+
+    const handleLike = () => {
+        if (isLiked) {
+            setLikes(likes - 1)
+            setIsLiked(false)
+        } else {
+            setLikes(likes + 1)
+            setIsLiked(true)
+        }
+    }
+
     return (
         <CardContainer key={id}>
             <ImagenContainer>
                 <Imagen src={picture} />
             </ImagenContainer>
             <IconsContainer>
-                <Icons>
-                    <FavoriteBorderIcon sx={{ color: '#49007a' }} />
-                    <LikesLabel>120 likes</LikesLabel>
-                </Icons>
+                <HearthContainer>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            color: 'white',
+                            fontSize: '0.8rem',
+                            cursor: 'pointer',
+                            paddingTop: 0.5,
+                            paddingBottom: 0.5,
+                            paddingLeft: 2,
+                            backgroundColor: '#49007a',
+                            width: '6rem',
+                            marginLeft: '0.7rem',
+                        }}
+                    >
+                        <LocationOnIcon
+                            sx={{ color: 'white', paddingRight: 1 }}
+                        />
+                        Mapa
+                    </Button>
+                    <IconButton onClick={onClick} sx={{ marginLeft: '10rem' }}>
+                        {isLiked ? (
+                            <FavoriteIcon sx={{ color: '#49007a' }} />
+                        ) : (
+                            <FavoriteBorderIcon sx={{ color: '#49007a' }} />
+                        )}
+                        <LikesLabel>{likes}</LikesLabel>
+                    </IconButton>
+                </HearthContainer>
                 <Icons>
                     <CommentIcon sx={{ color: '#49007a' }} />
                     <Description>{description}</Description>
                 </Icons>
-                <Icons>
-                    <LocationOnIcon sx={{ color: '#49007a' }} />
-                    <Button
-                        sx={{
-                            color: '#49007a',
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        Ver mapa
-                    </Button>
-                </Icons>
             </IconsContainer>
-            <DescriptionContainer></DescriptionContainer>
         </CardContainer>
     )
 }

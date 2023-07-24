@@ -29,8 +29,31 @@ export const feedUseLogic = () => {
         }
     }
 
+    const fetchLikesMarkers = async (markerId: string) => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch('/api/feed/toogleLike', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    markerId: markerId,
+                }),
+            })
+            const data = await response.json()
+            console.log(response)
+            console.log(data)
+            return data.marker
+        } catch (error: any) {
+            console.error('Error al obtener los marcadores:', error.message)
+        }
+    }
+
     return {
         getMarkersUser,
         fotosMarkers,
+        fetchLikesMarkers,
     }
 }
