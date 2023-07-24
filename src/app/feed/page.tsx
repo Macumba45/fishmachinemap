@@ -8,7 +8,7 @@ import { feedUseLogic } from './logic'
 import AccountMenu from '@/components/Menu'
 
 const Feed: FC = () => {
-    const { getMarkersUser, fotosMarkers } = feedUseLogic()
+    const { getMarkersUser, fotosMarkers, fetchLikesMarkers } = feedUseLogic()
     const [scrollPosition, setScrollPosition] = useState(0)
 
     const handleScroll = () => {
@@ -19,7 +19,7 @@ const Feed: FC = () => {
     // Esta función se llamará cuando el usuario llegue al final de la página.
     const loadMoreData = () => {
         // Aquí puedes cargar más datos desde tu API o realizar alguna acción adicional.
-        console.log('Cargando más datos...')
+        // console.log('Cargando más datos...')
     }
 
     useEffect(() => {
@@ -54,6 +54,7 @@ const Feed: FC = () => {
                         id={item.id}
                         description={item.description}
                         picture={item.picture}
+                        onClick={() => fetchLikesMarkers(item.id)}
                     />
                 ))}
             </MainContainer>
