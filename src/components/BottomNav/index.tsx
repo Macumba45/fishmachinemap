@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import SailingOutlinedIcon from '@mui/icons-material/SailingOutlined'
+import SailingIcon from '@mui/icons-material/Sailing';
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import PhishingIcon from '@mui/icons-material/Phishing'
@@ -81,7 +81,7 @@ export default function SimpleBottomNavigation() {
                 />
                 <BottomNavigationAction
                     label="Experiencias"
-                    icon={<SailingOutlinedIcon sx={{ color: '#49007a' }} />}
+                    icon={<SailingIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/experiencias"
                     style={buttonStyles}
