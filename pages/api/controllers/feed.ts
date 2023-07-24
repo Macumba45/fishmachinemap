@@ -40,3 +40,33 @@ export const toogleLikeMarker = async (markerId: string, userId: string) => {
         console.log(error.message)
     }
 }
+
+// Función para obtener el número de likes de un marcador
+export const numberOfLikes = async (markerId: string) => {
+    const likes = await prisma.likes.findMany({
+        where: {
+            markerId,
+        },
+    })
+
+    return likes.length
+}
+
+// Función para obtener y mostrar el número de likes para cada marcador
+export const getMarkersWithLikes = async () => {
+    try {
+        // Obtener todos los marcadores
+        const markers = await prisma.marker.findMany()
+
+        // Para cada marcador, obtener el número de likes y mostrarlo
+        for (const marker of markers) {
+            const numberOfLikesForMarker = await numberOfLikes(marker.id)
+            console.log(
+                `El marcador con ID ${marker.id} tiene ${numberOfLikesForMarker} likes.`
+            )
+        }
+        return markers
+    } catch (error: any) {
+        console.log(error.message)
+    }
+}
