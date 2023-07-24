@@ -2,6 +2,7 @@
 
 import { FC, use, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
+import { useMediaQuery } from 'react-responsive'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CircularIndeterminate from '@/components/Loader'
@@ -89,6 +90,7 @@ const GoogleMapComp: FC = () => {
         setLoadingLocation,
         fetchMarkerUser,
         markerCreator,
+        isSmallScreen,
     } = useLogicMaps()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
@@ -186,6 +188,32 @@ const GoogleMapComp: FC = () => {
                 algorithmOptions: clusterOptions,
             })
 
+            userMarkers.map((marker: any) => {
+                const location = {
+                    lat: marker.location.lat,
+                    lng: marker.location.lng,
+                }
+                const iconUrl = getIcon(marker.markerType)
+
+                const markers = new google.maps.Marker({
+                    position: location,
+                    map: mapRef.current,
+                    animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+                    icon: {
+                        url: iconUrl?.url,
+                        scaledSize: new google.maps.Size(40, 40),
+                    },
+                })
+                markers.setMap(map)
+                markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
+
+                markers.addListener('click', () => {
+                    console.log(marker)
+                    setModalUserMarker(true)
+                    setDataMarkerUser(marker)
+                })
+            })
+
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
             )
@@ -193,6 +221,7 @@ const GoogleMapComp: FC = () => {
                 const handleClick = () => {
                     setIsButtonDisabledPlaces(true) // Deshabilita el botón
                     performSearch() // Llama a la función performSearch
+                    getMarkersUser()
 
                     setTimeout(() => {
                         setIsButtonDisabledPlaces(false) // Habilita el botón después de 5 segundos
@@ -200,33 +229,6 @@ const GoogleMapComp: FC = () => {
                 }
 
                 updateResultsButton.addEventListener('click', handleClick)
-            }
-            if (userMarkers.length > 0) {
-                userMarkers.map((marker: any) => {
-                    const location = {
-                        lat: marker.location.lat,
-                        lng: marker.location.lng,
-                    }
-                    const iconUrl = getIcon(marker.markerType)
-
-                    const markers = new google.maps.Marker({
-                        position: location,
-                        map: mapRef.current,
-                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
-                        icon: {
-                            url: iconUrl?.url,
-                            scaledSize: new google.maps.Size(40, 40),
-                        },
-                    })
-                    markers.setMap(map)
-                    markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
-
-                    markers.addListener('click', () => {
-                        console.log(marker)
-                        setModalUserMarker(true)
-                        setDataMarkerUser(marker)
-                    })
-                })
             }
 
             await getMyPosition()
@@ -238,7 +240,7 @@ const GoogleMapComp: FC = () => {
     function performSearch() {
         const center = map.getCenter()
         // Eliminar los marcadores anteriores
-        if (markerClusterer) markerClusterer.clearMarkers()
+        // if (markerClusterer) markerClusterer.clearMarkers()
 
         // Options to pass along to the marker clusterer
         const clusterOptions = {
@@ -581,12 +583,13 @@ const GoogleMapComp: FC = () => {
                 onClick={openAddMarkerMode}
             />
             <ButtonComp
-                title="Buscar por esta zona"
+                title={isSmallScreen ? 'Buscar' : 'Buscar por esta zona'} // Cambia el título si la pantalla es pequeña
                 id="updateResultsButton"
                 style={{
                     display: isButtonDisabled ? 'none' : 'flex',
                     opacity: isButtonDisabledPlaces ? 0 : 1,
                     position: 'fixed',
+                    width: isSmallScreen ? '100px' : '235px', // Cambia el título si la pantalla es pequeña
                     ...ButtonStyleBuscarLugares,
                 }}
                 icon={<SearchIcon style={{ color: 'black', marginRight: 1 }} />}

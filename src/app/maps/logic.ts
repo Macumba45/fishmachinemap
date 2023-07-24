@@ -8,6 +8,7 @@ import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { toast } from 'react-toastify'
 import { Style, User, UserMarker } from './type'
+import { useMediaQuery } from 'react-responsive'
 
 export const useLogicMaps = () => {
     const addUserMarker = async (userMark: UserMarker) => {
@@ -131,6 +132,7 @@ export const useLogicMaps = () => {
     const [modalUserMarker, setModalUserMarker] = useState(false)
     const [loadingLocation, setLoadingLocation] = useState(false)
     const [markerCreator, setMarkerCreator] = useState<User | null>(null)
+    const isSmallScreen = useMediaQuery({ maxWidth: 360 })
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -331,5 +333,6 @@ export const useLogicMaps = () => {
         setLoadingLocation,
         fetchMarkerUser,
         markerCreator,
+        isSmallScreen,
     }
 }
