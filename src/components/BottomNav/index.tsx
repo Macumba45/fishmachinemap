@@ -18,8 +18,8 @@ export default function SimpleBottomNavigation() {
             return 1
         } else if (pathname === '/experiencas') {
             return 2
-        } else {
-            return 0 // Valor predeterminado en caso de que la ruta no coincida con ninguna de las opciones anteriores
+        } else if (pathname === '/pesquemos') {
+            return 3
         }
     }
 
