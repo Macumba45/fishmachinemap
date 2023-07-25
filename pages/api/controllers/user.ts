@@ -5,6 +5,11 @@ export const getUserInfo = async (userId: any) => {
         where: {
             id: userId,
         },
+        include: {
+            markers: true,
+            Likes: true,
+            blaBlaFish: true,
+        },
     })
 
     return data

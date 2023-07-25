@@ -138,7 +138,6 @@ const GoogleMapComp: FC = () => {
                     setCurrentLocationMarker(marker)
                     // Centra el mapa en la ubicación actual
                     mapRef.current?.setCenter(currentLatLng)
-                    console.log('currentLatLng', currentLatLng)
                     setLoadingLocation(false)
                 },
                 error => {
@@ -208,7 +207,6 @@ const GoogleMapComp: FC = () => {
                 markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
 
                 markers.addListener('click', () => {
-                    console.log(marker)
                     setModalUserMarker(true)
                     setDataMarkerUser(marker)
                 })
@@ -353,7 +351,6 @@ const GoogleMapComp: FC = () => {
 
     useEffect(() => {
         if (modalUserMarker) {
-            console.log('modalUserMarker', modalUserMarker)
             fetchMarkerUser()
         }
     }, [modalUserMarker])

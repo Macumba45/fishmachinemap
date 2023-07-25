@@ -77,40 +77,48 @@ const CardBlaBlaFish: FC<Props> = ({
                     {arrivalCity}
                 </Typography>
                 <Typography
-                    fontSize="0.8rem"
-                    marginBottom="0.5rem"
                     gutterBottom
-                    variant="h6"
                     component="div"
+                    sx={{
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        fontWeight: 800,
+                    }}
                 >
                     Fecha: {date}
                 </Typography>
                 <Typography
-                    fontSize="0.8rem"
-                    marginBottom="0.5rem"
                     gutterBottom
-                    variant="h6"
                     component="div"
+                    sx={{
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        fontWeight: 400,
+                    }}
                 >
                     Salida: {departureTime}
                 </Typography>
                 <Typography
-                    fontSize="0.8rem"
-                    marginBottom="0.5rem"
                     gutterBottom
-                    variant="h6"
                     component="div"
+                    sx={{
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        fontWeight: 400,
+                    }}
                 >
                     Vuelta: {returnTime}
                 </Typography>
                 <Typography
-                    fontSize="0.8rem"
-                    marginBottom="0.5rem"
                     gutterBottom
-                    variant="h6"
                     component="div"
+                    sx={{
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        fontWeight: 500,
+                    }}
                 >
-                    Precio: {price}€
+                    Precio: <span style={{ color: 'green' }}>{price}€</span>
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {description}

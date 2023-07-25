@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, use, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
     CardContainer,
     Container,
@@ -17,7 +17,6 @@ import PhishingIcon from '@mui/icons-material/Phishing'
 import CreateTripModal from '@/components/ModalBlaBlaFish'
 import { useLogicBlaBla } from './logic'
 import { BlaBlaFish } from './type'
-import { it } from 'node:test'
 
 const BlaBlaFish: FC = () => {
     const { fetchBlaBlaFish, blaBlaFish } = useLogicBlaBla()

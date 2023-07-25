@@ -5,6 +5,9 @@ const getAllBlablaFish = async () => {
         include: {
             user: true,
         },
+        orderBy: {
+            createdAt: 'desc',
+        },
     })
 
     console.log(data)
