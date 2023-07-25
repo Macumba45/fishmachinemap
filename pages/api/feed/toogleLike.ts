@@ -6,11 +6,9 @@ const markerIsLiked = async (req: NextApiRequest, res: NextApiResponse) => {
         if (req.method === 'POST') {
             const token = req.headers.authorization?.split(' ')[1] // Obtener el token del encabezado de autorización
             if (!token) {
-                return res
-                    .status(401)
-                    .json({
-                        message: 'Token de autenticación no proporcionado',
-                    })
+                return res.status(401).json({
+                    message: 'Token de autenticación no proporcionado',
+                })
             }
             const decodedToken = jwt.verify(token, 'token') as JwtPayload // Decodificar el token y especificar el tipo como JwtPayload
             const userId = decodedToken.userId // Obtener el ID del usuario desde el token decodificado

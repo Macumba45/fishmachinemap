@@ -44,7 +44,13 @@ const AccountMenu: FC = () => {
                     <IconButton
                         onClick={handleClick}
                         size="small"
-                        sx={{ ml: 3, backgroundColor: '#49007a' }}
+                        sx={{
+                            ml: 3,
+                            backgroundColor: '#49007a',
+                            '&:hover': {
+                                backgroundColor: '#7b00cd', // Cambiar color del hover
+                            },
+                        }}
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
