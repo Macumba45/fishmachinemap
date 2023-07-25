@@ -39,11 +39,15 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
         setPhone,
         price,
         setPrice,
+        selectedDate,
+        setSelectedDate,
     } = useLogicBlaBla()
 
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const currentDate = new Date().toISOString().split('T')[0]
 
     const handleSnackbarClose = (event?: any, reason?: string) => {
         if (reason === 'clickaway') {
@@ -80,6 +84,7 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
             description,
             phone,
             price: price === null ? '' : price.toString(),
+            date: selectedDate,
         }
 
         try {
@@ -100,6 +105,17 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                     <DialogContentText>
                         Rellena los siguientes campos para crear un nuevo viaje:
                     </DialogContentText>
+                    <TextField
+                        autoFocus
+                        label="Fecha"
+                        inputProps={{ min: currentDate }}
+                        fullWidth
+                        type="date"
+                        margin="dense"
+                        value={selectedDate}
+                        onChange={e => setSelectedDate(e.target.value)}
+                        sx={{ marginRight: '0.5rem' }}
+                    />
                     <InputsContainer>
                         <TextField
                             autoFocus

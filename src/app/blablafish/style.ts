@@ -30,3 +30,18 @@ export const NavBlabla = styled.nav`
     justify-content: center;
     align-items: center;
 `
+
+export const NoDataContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+`
+
+export const NoDataText = styled.h1`
+    font-family: Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 200;
+    color: #49007a;
+`

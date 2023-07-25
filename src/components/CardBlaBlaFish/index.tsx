@@ -7,9 +7,12 @@ import Button from '@mui/material/Button'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
+import { IconButton } from '@mui/material'
 
 interface Props {
     id?: string
+    date?: string
     departureCity: string
     arrivalCity: string
     departureTime: string
@@ -17,7 +20,6 @@ interface Props {
     description: string
     price: string
     phone: string
-    createdAt?: string
 }
 
 const CardBlaBlaFish: FC<Props> = ({
@@ -29,15 +31,18 @@ const CardBlaBlaFish: FC<Props> = ({
     description,
     price,
     phone,
-    createdAt,
+    date,
 }) => {
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
         const phoneNumber = phone.replace(/\D/g, '') // Eliminar todos los caracteres que no sean dígitos del número de teléfono
         const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`
+        const message = `Hola, me gustaría reservar una plaza para el viaje de ${departureCity} a ${arrivalCity} el día ${date}.`
+        const encodedMessage = encodeURIComponent(message)
+        const finalWhatsAppLink = `${whatsAppLink}&text=${encodedMessage}`
 
         // Abrir el enlace de WhatsApp en una nueva ventana o pestaña
-        window.open(whatsAppLink, '_blank')
+        window.open(finalWhatsAppLink)
     }
 
     return (
@@ -46,9 +51,10 @@ const CardBlaBlaFish: FC<Props> = ({
             sx={{
                 maxWidth: 500,
                 minWidth: 300,
-                maxHeight: 500,
+                maxHeight: 600,
                 borderRadius: 0,
                 marginBottom: '2rem',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
             }}
         >
             <CardMedia
@@ -58,8 +64,26 @@ const CardBlaBlaFish: FC<Props> = ({
                 image="https://www.a-alvarez.com/img/ybc_blog/post/surfcasting-lanzar-mas.jpg"
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Desde {departureCity} a {arrivalCity}
+                <Typography
+                    sx={{ display: 'flex', alignItems: 'center' }}
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                >
+                    {departureCity}{' '}
+                    <ArrowRightAltIcon
+                        sx={{ marginLeft: '0.5rem', marginRight: '0.5rem' }}
+                    />{' '}
+                    {arrivalCity}
+                </Typography>
+                <Typography
+                    fontSize="0.8rem"
+                    marginBottom="0.5rem"
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                >
+                    Fecha: {date}
                 </Typography>
                 <Typography
                     fontSize="0.8rem"
@@ -92,24 +116,19 @@ const CardBlaBlaFish: FC<Props> = ({
                     {description}
                 </Typography>
             </CardContent>
-            <CardActions
+            <IconButton
                 sx={{
                     backgroundColor: '#25D366',
-                    width: '100px',
                     marginLeft: '1rem',
                     borderRadius: '30px',
                     marginBottom: '2rem',
                 }}
             >
-                <WhatsAppIcon sx={{ color: 'white' }} />
-                <Button
+                <WhatsAppIcon
                     onClick={handleWhatsAppClick}
                     sx={{ color: 'white' }}
-                    size="small"
-                >
-                    WhatsApp
-                </Button>
-            </CardActions>
+                />
+            </IconButton>
         </Card>
     )
 }
