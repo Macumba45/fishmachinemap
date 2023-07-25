@@ -68,7 +68,6 @@ export const useLogicMaps = () => {
                 },
             })
             const data = await response.json()
-            console.log(data)
             setMarkerCreator(data.user)
         } catch (error) {
             console.error('Error al obtener el usuario del marcador:', error)

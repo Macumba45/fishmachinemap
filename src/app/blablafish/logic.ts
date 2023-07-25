@@ -23,7 +23,6 @@ export const useLogicBlaBla = () => {
                 },
                 body: JSON.stringify(blaBlaFish),
             })
-            console.log(response)
             const data = await response.json()
             return data
         } catch (error: any) {
@@ -42,7 +41,6 @@ export const useLogicBlaBla = () => {
                 },
             })
             const data = await response.json()
-            console.log(data)
             setBlaBlaFish(data)
             return data
         } catch (error: any) {

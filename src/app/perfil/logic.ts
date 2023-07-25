@@ -25,6 +25,7 @@ export const useLogicUser = () => {
                     },
                 })
                 const data = await response.json()
+                console.log(data)
                 setUser(data.user)
                 return response
             }
