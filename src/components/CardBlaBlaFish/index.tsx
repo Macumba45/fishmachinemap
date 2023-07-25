@@ -6,10 +6,51 @@ import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import Typography from '@mui/material/Typography'
+import { FC } from 'react'
 
-export default function CardBlaBlaFish() {
+interface Props {
+    id?: string
+    departureCity: string
+    arrivalCity: string
+    departureTime: string
+    returnTime: string
+    description: string
+    price: string
+    phone: string
+    createdAt?: string
+}
+
+const CardBlaBlaFish: FC<Props> = ({
+    id,
+    departureCity,
+    arrivalCity,
+    departureTime,
+    returnTime,
+    description,
+    price,
+    phone,
+    createdAt,
+}) => {
+    const handleWhatsAppClick = () => {
+        // Construir el enlace de WhatsApp con el número de teléfono
+        const phoneNumber = phone.replace(/\D/g, '') // Eliminar todos los caracteres que no sean dígitos del número de teléfono
+        const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`
+
+        // Abrir el enlace de WhatsApp en una nueva ventana o pestaña
+        window.open(whatsAppLink, '_blank')
+    }
+
     return (
-        <Card sx={{ maxWidth: 500, maxHeight: 500, borderRadius: 0 }}>
+        <Card
+            key={id}
+            sx={{
+                maxWidth: 500,
+                minWidth: 300,
+                maxHeight: 500,
+                borderRadius: 0,
+                marginBottom: '2rem',
+            }}
+        >
             <CardMedia
                 component="img"
                 alt="green iguana"
@@ -18,7 +59,7 @@ export default function CardBlaBlaFish() {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Desde Sevilla a Huelva
+                    Desde {departureCity} a {arrivalCity}
                 </Typography>
                 <Typography
                     fontSize="0.8rem"
@@ -27,7 +68,7 @@ export default function CardBlaBlaFish() {
                     variant="h6"
                     component="div"
                 >
-                    Salida: 10:00am
+                    Salida: {departureTime}
                 </Typography>
                 <Typography
                     fontSize="0.8rem"
@@ -36,12 +77,19 @@ export default function CardBlaBlaFish() {
                     variant="h6"
                     component="div"
                 >
-                    Vuelta: 20:00pm
+                    Vuelta: {returnTime}
+                </Typography>
+                <Typography
+                    fontSize="0.8rem"
+                    marginBottom="0.5rem"
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                >
+                    Precio: {price}€
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Este sabado me voy a ir al espigón de Huelva a pescar. Tengo
-                    hueco para dos personas más. Si alguien se quiere apuntar
-                    que me escriba.
+                    {description}
                 </Typography>
             </CardContent>
             <CardActions
@@ -54,10 +102,16 @@ export default function CardBlaBlaFish() {
                 }}
             >
                 <WhatsAppIcon sx={{ color: 'white' }} />
-                <Button sx={{ color: 'white' }} size="small">
+                <Button
+                    onClick={handleWhatsAppClick}
+                    sx={{ color: 'white' }}
+                    size="small"
+                >
                     WhatsApp
                 </Button>
             </CardActions>
         </Card>
     )
 }
+
+export default CardBlaBlaFish
