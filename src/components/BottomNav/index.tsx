@@ -18,7 +18,7 @@ export default function SimpleBottomNavigation() {
             return 1
         } else if (pathname === '/experiencas') {
             return 2
-        } else if (pathname === '/pesquemos') {
+        } else if (pathname === '/blablafish') {
             return 3
         }
     }
@@ -42,7 +42,7 @@ export default function SimpleBottomNavigation() {
             setValue(1)
         } else if (locationNav === '/experiencias') {
             setValue(2)
-        } else if (locationNav === '/pesquemos') {
+        } else if (locationNav === '/blablafish') {
             setValue(3)
         }
     }, [locationNav])
@@ -90,7 +90,7 @@ export default function SimpleBottomNavigation() {
                     label="BlaBlaFish"
                     icon={<PhishingIcon sx={{ color: '#49007a' }} />}
                     component={Link}
-                    href="/pesquemos"
+                    href="/blablafish"
                     style={buttonStyles}
                 />
             </BottomNavigation>
