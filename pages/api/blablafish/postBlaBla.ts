@@ -4,6 +4,7 @@ import { prisma } from '@/app/lib/db'
 
 const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.split(' ')[1]
+    console.log(token)
 
     if (!token) {
         // Si el token no está presente en el encabezado de autorización
@@ -22,6 +23,7 @@ const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
             description,
             price,
             phone,
+            date,
         } = req.body
 
         const data = await prisma.blaBlaFish.create({
@@ -33,6 +35,7 @@ const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
                 description,
                 price,
                 phone,
+                date,
                 userId: userId,
             },
         })

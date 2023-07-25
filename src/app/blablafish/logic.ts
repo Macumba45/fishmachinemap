@@ -10,6 +10,7 @@ export const useLogicBlaBla = () => {
     const [phone, setPhone] = useState('')
     const [price, setPrice] = useState('')
     const [blaBlaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
+    const [selectedDate, setSelectedDate] = useState('')
 
     const postBlaBlaFish = async (blaBlaFish: BlaBlaFish) => {
         try {
@@ -67,5 +68,7 @@ export const useLogicBlaBla = () => {
         setPrice,
         fetchBlaBlaFish,
         blaBlaFish,
+        selectedDate,
+        setSelectedDate,
     }
 }

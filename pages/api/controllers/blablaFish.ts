@@ -7,8 +7,8 @@ const getAllBlablaFish = async () => {
         },
     })
 
+    console.log(data)
     return data
 }
 
 export default getAllBlablaFish
-

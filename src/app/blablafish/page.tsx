@@ -1,18 +1,23 @@
 'use client'
 
 import { FC, use, useEffect, useState } from 'react'
-import { CardContainer, Container, MainContainer, NavBlabla } from './style'
+import {
+    CardContainer,
+    Container,
+    MainContainer,
+    NavBlabla,
+    NoDataContainer,
+    NoDataText,
+} from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
 import CardBlaBlaFish from '@/components/CardBlaBlaFish'
+import PhishingIcon from '@mui/icons-material/Phishing'
 import CreateTripModal from '@/components/ModalBlaBlaFish'
 import { useLogicBlaBla } from './logic'
 import { BlaBlaFish } from './type'
-
-interface Props {
-    blaBlaFish?: BlaBlaFish[] // Define blaBlaFish como una matriz de BlaBlaFish o como undefined (opcional)
-}
+import { it } from 'node:test'
 
 const BlaBlaFish: FC = () => {
     const { fetchBlaBlaFish, blaBlaFish } = useLogicBlaBla()
@@ -29,17 +34,24 @@ const BlaBlaFish: FC = () => {
                     <AccountMenu />
                     <NavBlabla />
                 </Container>
-                <MainContainer>
+                <NoDataContainer>
                     <CreateTripModal
                         open={openModal}
                         onClose={() => {
                             setOpenModal(false)
                         }}
                     />
-                    <p>No hay datos</p>
+                    <PhishingIcon
+                        sx={{
+                            fontSize: '3rem',
+                            color: '#49007a',
+                            marginBottom: '2rem',
+                        }}
+                    />
+                    <NoDataText>No hay viajes disponibles</NoDataText>
                     <FloatAddBlaBlaFish onClick={() => setOpenModal(true)} />
                     <SimpleBottomNavigation />
-                </MainContainer>
+                </NoDataContainer>
             </>
         )
     }
@@ -58,18 +70,29 @@ const BlaBlaFish: FC = () => {
                     }}
                 />
                 <CardContainer>
-                    {blaBlaFish.map((item: BlaBlaFish) => (
-                        <CardBlaBlaFish
-                            key={item.id}
-                            departureCity={item.departureCity}
-                            arrivalCity={item.arrivalCity}
-                            departureTime={item.departureTime}
-                            returnTime={item.returnTime}
-                            description={item.description}
-                            price={item.price}
-                            phone={item.phone}
-                        />
-                    ))}
+                    {blaBlaFish.map((item: BlaBlaFish) => {
+                        // Obtener la fecha en formato día-mes
+                        const date = new Date(item.date)
+                        const formattedDate = date.toLocaleDateString('es-ES', {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                        })
+
+                        return (
+                            <CardBlaBlaFish
+                                key={item.id}
+                                date={formattedDate}
+                                departureCity={item.departureCity}
+                                arrivalCity={item.arrivalCity}
+                                departureTime={item.departureTime}
+                                returnTime={item.returnTime}
+                                description={item.description}
+                                price={item.price}
+                                phone={item.phone}
+                            />
+                        )
+                    })}
                 </CardContainer>
                 <FloatAddBlaBlaFish onClick={() => setOpenModal(true)} />
                 <SimpleBottomNavigation />

@@ -59,6 +59,7 @@ model Likes {
 
 model BlaBlaFish {
   id            String   @id @default(cuid())
+  date          String?
   departureCity String?
   arrivalCity   String?
   departureTime String?
@@ -68,5 +69,5 @@ model BlaBlaFish {
   phone         String?
   user          User?    @relation(fields: [userId], references: [id])
   userId        String?
-  createdAt     DateTime @default(now()) @map(name: "created_at")
+  createdAt     DateTime @default(now())
 }
