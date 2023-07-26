@@ -6,21 +6,6 @@ export const getUserInfo = async (userId: any) => {
             id: userId,
         },
         include: {
-            markers: true,
-            Likes: true,
-            blaBlaFish: true,
-        },
-    })
-
-    return data
-}
-
-export const getUserMarkers = async (userId: any) => {
-    const data = await prisma.user.findUnique({
-        where: {
-            id: userId,
-        },
-        include: {
             markers: {
                 include: {
                     location: true, // Incluir la ubicación de cada marcador
@@ -29,12 +14,14 @@ export const getUserMarkers = async (userId: any) => {
                     createdAt: 'desc', // Ordenar los marcadores por fecha de creación de forma descendente
                 },
             },
+            Likes: true,
             blaBlaFish: true,
         },
     })
 
     return data
 }
+
 
 export const deleteUserMarker = async (id: string) => {
     const deletedMarker = await prisma.marker.delete({

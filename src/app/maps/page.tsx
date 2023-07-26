@@ -389,6 +389,33 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
+    const [zoomLevel, setZoomLevel] = useState(0);
+    const [showButton, setShowButton] = useState(false);
+
+    // Función para obtener el nivel de zoom actual del mapa
+    const getZoomLevel = () => {
+        // Lógica para obtener el nivel de zoom del mapa
+        // Puedes utilizar la librería o API que estés utilizando para el mapa
+        // y obtener el nivel de zoom actual
+        const currentZoomLevel = 10; // Ejemplo: nivel de zoom actual es 10
+        setZoomLevel(currentZoomLevel);
+    };
+
+    // Verificar el nivel de zoom cada vez que cambia
+    useEffect(() => {
+        getZoomLevel();
+    }, []);
+
+    // Verificar si el nivel de zoom está cerca del nivel deseado
+    useEffect(() => {
+        if (zoomLevel >= 8 && zoomLevel <= 12) {
+            setShowButton(true);
+        } else {
+            setShowButton(false);
+        }
+    }, [zoomLevel]);
+
+
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
         return (
