@@ -8,6 +8,7 @@ export const useLogicUser = () => {
     const [toBeDeletedMarkers, setToBeDeletedMarkers] = useState<{
         [key: string]: boolean
     }>({})
+    const [blablaFish, setBlaBlaFish] = useState<UserMarker[]>([])
 
     const noMarkers = userMarkers.length === 0
 
@@ -26,7 +27,10 @@ export const useLogicUser = () => {
                 })
                 const data = await response.json()
                 console.log(data)
+                setBlaBlaFish(data.user.blaBlaFish)
                 setUser(data.user)
+                setUserMarkers(data.user.markers)
+
                 return response
             }
         } catch (error: any) {
@@ -34,20 +38,6 @@ export const useLogicUser = () => {
         }
     }
 
-    const getUserMarkers = async () => {
-        const token = localStorage.getItem('token')
-        const response = await fetch('/api/user/userMarkers', {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
-                'Content-Type': 'application/json',
-            },
-        })
-        const data = await response.json()
-        console.log(data)
-        setUserMarkers(data.user.markers)
-        return response
-    }
 
     const deleteUserMarkers = async (markerId: string) => {
         try {
@@ -77,12 +67,12 @@ export const useLogicUser = () => {
         user,
         userMarkers,
         getUser,
-        getUserMarkers,
         deleteUserMarkers,
         setToBeDeletedMarkers,
         toBeDeletedMarkers,
         noMarkers,
         width,
         setWidth,
+        blablaFish
     }
 }

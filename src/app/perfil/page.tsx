@@ -25,20 +25,21 @@ import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
-import { StaticImageData } from 'next/image'
 const Profile: FC = () => {
     const {
         user,
         userMarkers,
         getUser,
-        getUserMarkers,
         deleteUserMarkers,
         setToBeDeletedMarkers,
         toBeDeletedMarkers,
         noMarkers,
         width,
         setWidth,
+        blablaFish
     } = useLogicUser()
+
+    console.log(blablaFish)
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -63,15 +64,8 @@ const Profile: FC = () => {
 
     useEffect(() => {
         getUser()
-        getUserMarkers()
     }, [])
 
-    useEffect(() => {
-        if (toBeDeletedMarkers) {
-            // Comparamos con true para saber si algún modal está abierto
-            getUserMarkers()
-        }
-    }, [toBeDeletedMarkers])
 
     const goToMaps = () => {
         window.location.href = '/maps'
@@ -286,7 +280,7 @@ const Profile: FC = () => {
                                                 marker.description.slice(1)}
                                         </Typography>
                                         <Typography
-                                            component="p"
+                                            component="span"
                                             sx={{
                                                 width: '100%',
                                                 fontWeight: 200,
@@ -347,11 +341,168 @@ const Profile: FC = () => {
                     </React.Fragment>
                 ))}
 
-                {activeView === 'blablafish' && (
+                {activeView === 'blablafish' && userMarkers.map((marker: UserMarker) => ((
                     // Aquí colocas el contenido para la vista de "blablafish"
                     // Por ejemplo: <BlaBlaFishView />
-                    <div>BlaBlaFish</div>
-                )}
+                    <React.Fragment key={marker.id}>
+                        <ListItem
+                            sx={{
+                                width: width,
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                            alignItems="flex-start"
+                        >
+                            <ListItemAvatar
+                                key={marker.id}
+                                sx={{ margin: '0' }}
+                            >
+                                <Avatar alt="Marker Icon">
+                                    {(() => {
+                                        switch (marker.markerType) {
+                                            case 'pesquero':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIconPlace.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+
+                                            case 'tienda':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIconShop.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+
+                                            case 'cebos':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIcon.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+
+                                            case 'fotos':
+                                                return (
+                                                    <img
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                        src={
+                                                            customMarkerIconPicture.src
+                                                        }
+                                                        alt="Marker Icon"
+                                                    />
+                                                )
+                                            default:
+                                                return null
+                                        }
+                                    })()}
+                                </Avatar>
+                            </ListItemAvatar>
+
+                            <ListItemText
+                                primaryTypographyProps={{ width: '200px' }}
+                                primary={
+                                    marker.direction.charAt(0).toUpperCase() +
+                                    marker.direction.slice(1)
+                                }
+                                secondary={
+                                    <>
+                                        <Typography
+                                            sx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                fontWeight: 400,
+                                                wordWrap: 'break-word',
+                                            }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            {marker.description
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                                marker.description.slice(1)}
+                                        </Typography>
+                                        <Typography
+                                            component="span"
+                                            sx={{
+                                                width: '100%',
+                                                fontWeight: 200,
+                                                fontSize: '0.8rem',
+                                            }}
+                                        >
+                                            {marker.markerType
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                                marker.markerType.slice(1)}
+                                        </Typography>
+                                    </>
+                                }
+                            />
+                            <IconButton
+                                onClick={() =>
+                                    setToBeDeletedMarkers(prevState => ({
+                                        ...prevState,
+                                        [marker.id as string]: true,
+                                    }))
+                                }
+                                edge="end"
+                                aria-label="delete"
+                            >
+                                <Delete />
+                            </IconButton>
+                            <IconButton
+                                // onClick={() => setToBeDeletedMarker(true)}
+                                edge="end"
+                                aria-label="edit"
+                            >
+                                <Edit />
+                            </IconButton>
+                        </ListItem>
+                        <Divider variant="inset" component="hr" />
+                        {marker.id && toBeDeletedMarkers[marker.id] && (
+                            <>
+                                <DeleteMarkerModal
+                                    key={marker.id}
+                                    isOpen={toBeDeletedMarkers[marker.id]}
+                                    onCancel={() =>
+                                        setToBeDeletedMarkers(prevState => ({
+                                            ...prevState,
+                                            [marker.id as string]: false,
+                                        }))
+                                    }
+                                    onClick={() => {
+                                        marker.id &&
+                                            deleteUserMarkers(marker.id)
+                                        setToBeDeletedMarkers(prevState => ({
+                                            ...prevState,
+                                            [marker.id as string]: false,
+                                        }))
+                                    }}
+                                />
+                            </>
+                        )}
+                    </React.Fragment>
+                )))}
             </MainContainer>
             <SimpleBottomNavigation />
         </>
