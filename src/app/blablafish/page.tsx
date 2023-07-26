@@ -23,6 +23,19 @@ const BlaBlaFish: FC = () => {
     const { fetchBlaBlaFish, blaBlaFish } = useLogicBlaBla()
     const [openModal, setOpenModal] = useState(false)
 
+    // Función de utilidad para formatear la fecha
+    function formatDate(date: Date) {
+        return date.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+        });
+    }
+    // Función de utilidad para capitalizar una cadena
+    function capitalizeString(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     useEffect(() => {
         fetchBlaBlaFish()
     }, [])
@@ -78,42 +91,25 @@ const BlaBlaFish: FC = () => {
                 />
                 <CardContainer>
                     {blaBlaFish.map((item: BlaBlaFish) => {
-                        // Obtener la fecha en formato día-mes
-                        const date = new Date(item.date)
-                        const formattedDate = date.toLocaleDateString('es-ES', {
-                            weekday: 'long',
-                            day: 'numeric',
-                            month: 'long',
-                        })
-
+                        const date = new Date(item.date);
+                        const formattedDate = formatDate(date);
+                        const departureCity = capitalizeString(item.departureCity);
+                        const arrivalCity = capitalizeString(item.arrivalCity);
+                        const departureTime = capitalizeString(item.departureTime);
+                        const description = capitalizeString(item.description);
                         return (
                             <CardBlaBlaFish
                                 key={item.id}
-                                date={
-                                    formattedDate.charAt(0).toUpperCase() +
-                                    formattedDate.slice(1)
-                                }
-                                departureCity={
-                                    item.departureCity.charAt(0).toUpperCase() +
-                                    item.departureCity.slice(1)
-                                }
-                                arrivalCity={
-                                    item.arrivalCity.charAt(0).toUpperCase() +
-                                    item.arrivalCity.slice(1)
-                                }
-                                departureTime={
-                                    item.departureTime.charAt(0).toUpperCase() +
-                                    item.departureTime.slice(1)
-                                }
-                                description={
-                                    item.description.charAt(0).toUpperCase() +
-                                    item.description.slice(1)
-                                }
+                                date={formattedDate}
+                                departureCity={departureCity}
+                                arrivalCity={arrivalCity}
+                                departureTime={departureTime}
+                                description={description}
                                 price={item.price}
                                 phone={item.phone}
                                 user={item.user?.name}
                             />
-                        )
+                        );
                     })}
                 </CardContainer>
                 <FloatAddBlaBlaFish onClick={() => setOpenModal(true)} />
