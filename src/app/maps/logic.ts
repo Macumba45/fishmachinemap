@@ -34,7 +34,7 @@ export const useLogicMaps = () => {
         }
     }
 
-    const getMarkersUser = async () => {
+    const getAllMarkersUser = async () => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch('/api/markers/getMarkers', {
@@ -309,7 +309,7 @@ export const useLogicMaps = () => {
         fotos,
         setFotos,
         setAddingMarker,
-        getMarkersUser,
+        getAllMarkersUser,
         userMarkers,
         confirmedMarkers,
         setConfirmedMarkers,

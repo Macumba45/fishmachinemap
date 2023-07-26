@@ -8,6 +8,9 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import Typography from '@mui/material/Typography'
 import { FC } from 'react'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
+import PaidIcon from '@mui/icons-material/Paid'
+import WatchLaterIcon from '@mui/icons-material/WatchLater'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { IconButton } from '@mui/material'
 
 interface Props {
@@ -16,10 +19,10 @@ interface Props {
     departureCity: string
     arrivalCity: string
     departureTime: string
-    returnTime: string
     description: string
     price: string
     phone: string
+    user?: string
 }
 
 const CardBlaBlaFish: FC<Props> = ({
@@ -27,11 +30,11 @@ const CardBlaBlaFish: FC<Props> = ({
     departureCity,
     arrivalCity,
     departureTime,
-    returnTime,
     description,
     price,
     phone,
     date,
+    user,
 }) => {
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
@@ -80,7 +83,7 @@ const CardBlaBlaFish: FC<Props> = ({
                     gutterBottom
                     component="div"
                     sx={{
-                        fontSize: '0.8rem',
+                        fontSize: '1rem',
                         marginBottom: '0.5rem',
                         fontWeight: 800,
                     }}
@@ -93,12 +96,49 @@ const CardBlaBlaFish: FC<Props> = ({
                     sx={{
                         fontSize: '0.8rem',
                         marginBottom: '0.5rem',
-                        fontWeight: 400,
+                        fontWeight: 500,
+                        alignItems: 'center',
+                        display: 'flex',
                     }}
                 >
-                    Salida: {departureTime}
+                    <AccountCircleIcon
+                        sx={{ marginRight: '0.3rem', fontSize: '1.2rem' }}
+                    />{' '}
+                    {user}
                 </Typography>
                 <Typography
+                    gutterBottom
+                    component="div"
+                    sx={{
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        fontWeight: 500,
+                        alignItems: 'center',
+                        display: 'flex',
+                    }}
+                >
+                    <PaidIcon
+                        sx={{ marginRight: '0.3rem', fontSize: '1.2rem' }}
+                    />{' '}
+                    <span style={{ color: 'green' }}>{price}€</span>
+                </Typography>
+                <Typography
+                    gutterBottom
+                    component="div"
+                    sx={{
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        fontWeight: 400,
+                        alignItems: 'center',
+                        display: 'flex',
+                    }}
+                >
+                    <WatchLaterIcon
+                        sx={{ marginRight: '0.3rem', fontSize: '1.2rem' }}
+                    />{' '}
+                    {departureTime}
+                </Typography>
+                {/* <Typography
                     gutterBottom
                     component="div"
                     sx={{
@@ -108,23 +148,13 @@ const CardBlaBlaFish: FC<Props> = ({
                     }}
                 >
                     Vuelta: {returnTime}
-                </Typography>
-                <Typography
-                    gutterBottom
-                    component="div"
-                    sx={{
-                        fontSize: '0.8rem',
-                        marginBottom: '0.5rem',
-                        fontWeight: 500,
-                    }}
-                >
-                    Precio: <span style={{ color: 'green' }}>{price}€</span>
-                </Typography>
+                </Typography> */}
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
             </CardContent>
             <IconButton
+                onClick={handleWhatsAppClick}
                 sx={{
                     backgroundColor: '#25D366',
                     marginLeft: '1rem',
@@ -132,10 +162,7 @@ const CardBlaBlaFish: FC<Props> = ({
                     marginBottom: '2rem',
                 }}
             >
-                <WhatsAppIcon
-                    onClick={handleWhatsAppClick}
-                    sx={{ color: 'white' }}
-                />
+                <WhatsAppIcon sx={{ color: 'white' }} />
             </IconButton>
         </Card>
     )

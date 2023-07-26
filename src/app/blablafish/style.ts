@@ -17,12 +17,23 @@ export const CardContainer = styled.div`
 
 export const Container = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0;
     width: 100%;
     height: 80px;
     background-color: #49007a;
     z-index: 999;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+`
+
+export const ContainerMenu = styled.div`
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999999;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 `
 export const NavBlabla = styled.nav`
@@ -44,4 +55,14 @@ export const NoDataText = styled.h1`
     font-size: 1rem;
     font-weight: 200;
     color: #49007a;
+`
+
+export const TextNav = styled.h1`
+    font-family: Roboto, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
 `

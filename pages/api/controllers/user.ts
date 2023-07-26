@@ -56,7 +56,5 @@ export const getUserByMarkerId = async (markerId: string) => {
         },
     })
 
-    console.log(data)
-
     return data?.user || null
 }

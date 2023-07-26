@@ -13,10 +13,7 @@ import MuiAlert from '@mui/material/Alert'
 import { useLogicBlaBla } from '@/app/blablafish/logic'
 import { BlaBlaFish } from '@/app/blablafish/type'
 import { LoadingButton } from '@mui/lab'
-import IconButton from '@mui/material/IconButton'
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
-import InputAdornment from '@mui/material/InputAdornment'
+
 interface Props {
     open: boolean
     onClose: () => void
@@ -80,7 +77,6 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
             departureCity,
             arrivalCity,
             departureTime,
-            returnTime,
             description,
             phone,
             price: price === null ? '' : price.toString(),
@@ -137,6 +133,7 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                         <TextField
                             margin="dense"
                             fullWidth
+                            placeholder='Ej: "10:00am"'
                             label={
                                 <div
                                     style={{
@@ -152,31 +149,11 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                             }
                             value={departureTime}
                             onChange={e => setDepartureTime(e.target.value)}
-                            sx={{ marginRight: '0.5rem' }}
-                        />
-                        <TextField
-                            margin="dense"
-                            label={
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <AccessTimeIcon
-                                        sx={{ marginRight: '0.3rem' }}
-                                    />{' '}
-                                    Vuelta
-                                </div>
-                            }
-                            fullWidth
-                            value={returnTime}
-                            onChange={e => setReturnTime(e.target.value)}
-                            sx={{ marginLeft: '0.5rem' }}
                         />
                     </InputsContainer>
                     <TextField
                         margin="dense"
+                        placeholder="10€"
                         label="Precio €"
                         fullWidth
                         value={price}
@@ -194,10 +171,17 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                     />
                     <TextField
                         margin="dense"
+                        placeholder="+34 123 456 789"
                         label="Teléfono de contacto"
                         fullWidth
                         value={phone}
-                        onChange={e => setPhone(e.target.value)}
+                        onChange={e => {
+                            const onlyNumbers = e.target.value.replace(
+                                /[^0-9]/g,
+                                ''
+                            )
+                            setPhone(onlyNumbers)
+                        }}
                     />
                 </DialogContent>
                 <DialogActions>
