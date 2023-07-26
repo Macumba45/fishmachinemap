@@ -29,6 +29,7 @@ export const getUserMarkers = async (userId: any) => {
                     createdAt: 'desc', // Ordenar los marcadores por fecha de creación de forma descendente
                 },
             },
+            blaBlaFish: true,
         },
     })
 

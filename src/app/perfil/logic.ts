@@ -44,6 +44,7 @@ export const useLogicUser = () => {
             },
         })
         const data = await response.json()
+        console.log(data)
         setUserMarkers(data.user.markers)
         return response
     }

@@ -15,7 +15,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import AccountMenu from '@/components/Menu'
-import { IconButton, ListItemAvatar } from '@mui/material'
+import { Button, ButtonGroup, IconButton, ListItemAvatar } from '@mui/material'
 import { UserMarker } from '../maps/type'
 import { Delete, Edit } from '@mui/icons-material'
 import React from 'react'
@@ -39,6 +39,7 @@ const Profile: FC = () => {
         width,
         setWidth,
     } = useLogicUser()
+
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -106,28 +107,7 @@ const Profile: FC = () => {
                         {user?.email}
                     </Typography>
                 </UserContainerData>
-                <Typography
-                    sx={{
-                        display: noMarkers ? 'none' : 'flex',
-                        justifyContent: 'center',
-                        marginTop: '2rem',
-                        color: '#49007a',
-                        flexDirection: 'column',
-                        textAlign: 'center',
-                    }}
-                    variant="h6"
-                    gutterBottom
-                >
-                    Tus marcadores
-                    <Divider
-                        sx={{
-                            my: 2,
-                            backgroundColor: '#49007a',
-                            width: '200px',
-                            margin: '1rem auto',
-                        }}
-                    />
-                </Typography>
+
 
                 {noMarkers && (
                     <>
@@ -154,6 +134,31 @@ const Profile: FC = () => {
                                 backgroundColor: '#49007a',
                             }}
                             onClick={goToMaps}
+                        />
+                    </>
+                )}
+                {userMarkers.length > 0 && (
+                    <>
+                        <ButtonGroup sx={{
+                            marginTop: '2rem',
+                            backgroundColor: 'none',
+                            marginBottom: '1rem',
+                            '.MuiButtonGroup-grouped:not(:last-of-type)': {
+                                borderColor: 'white',
+                                borderRight: '2px solid white',
+                            },
+                        }}
+                        variant="contained" aria-label="outlined primary button group">
+                            <Button sx={{ backgroundColor: '#49007a', '&:hover': { backgroundColor: '#7900ca' }, borderColor: 'white' }}>Marcadores</Button>
+                            <Button sx={{ backgroundColor: '#49007a', '&:hover': { backgroundColor: '#7900ca' } }}>BlaBlaFish</Button>
+                        </ButtonGroup>
+                        <Divider
+                            sx={{
+                                my: 2,
+                                backgroundColor: '#49007a',
+                                width: '200px',
+                                marginBottom: '2rem',
+                            }}
                         />
                     </>
                 )}
@@ -317,7 +322,7 @@ const Profile: FC = () => {
                         )}
                     </React.Fragment>
                 ))}
-            </MainContainer>
+            </MainContainer >
             <SimpleBottomNavigation />
         </>
     )

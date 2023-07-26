@@ -52,10 +52,15 @@ export const NoDataText = styled.h1`
 
 export const TextNav = styled.h1`
     font-family: Roboto, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #fff;
     margin-left: 1rem;
     margin-right: 1rem;
-    cursor: pointer;
+    @media screen and (max-width: 360px) {
+
+        font-size: 0.6rem;  
+        
+    }
+    
 `
