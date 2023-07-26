@@ -138,17 +138,6 @@ const CardBlaBlaFish: FC<Props> = ({
                     />{' '}
                     {departureTime}
                 </Typography>
-                {/* <Typography
-                    gutterBottom
-                    component="div"
-                    sx={{
-                        fontSize: '0.8rem',
-                        marginBottom: '0.5rem',
-                        fontWeight: 400,
-                    }}
-                >
-                    Vuelta: {returnTime}
-                </Typography> */}
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
