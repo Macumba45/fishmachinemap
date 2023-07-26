@@ -158,6 +158,10 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                         value={price}
                         type="number"
                         onChange={e => setPrice(e.target.value)}
+                        inputProps={{
+                            inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                            pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
+                        }}
                     />
                     <TextField
                         margin="dense"
@@ -180,6 +184,10 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                                 ''
                             )
                             setPhone(onlyNumbers)
+                        }}
+                        inputProps={{
+                            inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                            pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
                         }}
                     />
                 </DialogContent>
