@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import getAllBlablaFish from '../controllers/blablaFish'
+import { getAllBlablaFish } from '../controllers/blablaFish'
 
 const getAllPostBlablaFish = async (
     req: NextApiRequest,

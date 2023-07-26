@@ -1,6 +1,6 @@
 import { prisma } from '@/app/lib/db'
 
-const getAllBlablaFish = async () => {
+export const getAllBlablaFish = async () => {
     const data = await prisma.blaBlaFish.findMany({
         include: {
             user: true,
@@ -13,5 +13,3 @@ const getAllBlablaFish = async () => {
     console.log(data)
     return data
 }
-
-export default getAllBlablaFish

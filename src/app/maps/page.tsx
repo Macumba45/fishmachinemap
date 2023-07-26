@@ -78,7 +78,7 @@ const GoogleMapComp: FC = () => {
         setPlace,
         openModal,
         closeModal,
-        getMarkersUser,
+        getAllMarkersUser,
         isButtonDisabledPlaces,
         setIsButtonDisabledPlaces,
         getIcon,
@@ -219,8 +219,7 @@ const GoogleMapComp: FC = () => {
                 const handleClick = () => {
                     setIsButtonDisabledPlaces(true) // Deshabilita el botón
                     performSearch() // Llama a la función performSearch
-                    getMarkersUser()
-
+                    getAllMarkersUser()
                     setTimeout(() => {
                         setIsButtonDisabledPlaces(false) // Habilita el botón después de 5 segundos
                     }, 2000) // 5000 milisegundos = 5 segundos
@@ -345,7 +344,7 @@ const GoogleMapComp: FC = () => {
     useEffect(() => {
         initMap()
         if (!confirmedMarkers) {
-            getMarkersUser()
+            getAllMarkersUser()
         }
     }, [isLoaded, confirmedMarkers])
 

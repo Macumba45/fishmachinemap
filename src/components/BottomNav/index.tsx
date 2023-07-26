@@ -14,7 +14,7 @@ export default function SimpleBottomNavigation() {
     function getInitialValue(pathname: string) {
         if (pathname === '/maps') {
             return 0
-        } else if (pathname === '/list') {
+        } else if (pathname === '/feed') {
             return 1
         } else if (pathname === '/experiencas') {
             return 2
@@ -73,7 +73,7 @@ export default function SimpleBottomNavigation() {
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
-                    label="Fotos"
+                    label="Capturas"
                     icon={<ViewCarouselIcon sx={{ color: '#49007a' }} />}
                     component={Link}
                     href="/feed"

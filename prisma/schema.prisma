@@ -63,7 +63,6 @@ model BlaBlaFish {
   departureCity String?
   arrivalCity   String?
   departureTime String?
-  returnTime    String?
   description   String?
   price         String?
   phone         String?

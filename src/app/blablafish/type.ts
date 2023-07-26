@@ -4,10 +4,15 @@ export type BlaBlaFish = {
     departureCity: string
     arrivalCity: string
     departureTime: string
-    returnTime: string
     description: string
     price: string
     phone: string
     userId?: string
     createdAt?: string
+    user?: {
+        id: string
+        name: string
+        email: string
+        userId?: string
+    }
 }

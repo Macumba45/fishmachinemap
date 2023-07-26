@@ -8,6 +8,8 @@ import {
     NavBlabla,
     NoDataContainer,
     NoDataText,
+    TextNav,
+    ContainerMenu,
 } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
@@ -57,11 +59,14 @@ const BlaBlaFish: FC = () => {
 
     return (
         <>
-            <Container>
+            <ContainerMenu>
                 <AccountMenu />
-                <NavBlabla />
-            </Container>
+            </ContainerMenu>
             <MainContainer>
+                <Container>
+                    <TextNav>Conoce gente. Comparte Gastos</TextNav>
+                </Container>
+
                 <CreateTripModal
                     open={openModal}
                     onClose={() => {
@@ -81,14 +86,29 @@ const BlaBlaFish: FC = () => {
                         return (
                             <CardBlaBlaFish
                                 key={item.id}
-                                date={formattedDate}
-                                departureCity={item.departureCity}
-                                arrivalCity={item.arrivalCity}
-                                departureTime={item.departureTime}
-                                returnTime={item.returnTime}
-                                description={item.description}
+                                date={
+                                    formattedDate.charAt(0).toUpperCase() +
+                                    formattedDate.slice(1)
+                                }
+                                departureCity={
+                                    item.departureCity.charAt(0).toUpperCase() +
+                                    item.departureCity.slice(1)
+                                }
+                                arrivalCity={
+                                    item.arrivalCity.charAt(0).toUpperCase() +
+                                    item.arrivalCity.slice(1)
+                                }
+                                departureTime={
+                                    item.departureTime.charAt(0).toUpperCase() +
+                                    item.departureTime.slice(1)
+                                }
+                                description={
+                                    item.description.charAt(0).toUpperCase() +
+                                    item.description.slice(1)
+                                }
                                 price={item.price}
                                 phone={item.phone}
+                                user={item.user?.name}
                             />
                         )
                     })}
