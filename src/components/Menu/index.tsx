@@ -37,7 +37,6 @@ const AccountMenu: FC = () => {
                     textAlign: 'center',
                     position: 'absolute',
                     top: '20px',
-                    zIndex: 99999999999,
                 }}
             >
                 <Tooltip title="Menú">

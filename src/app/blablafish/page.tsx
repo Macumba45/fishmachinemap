@@ -5,7 +5,6 @@ import {
     CardContainer,
     Container,
     MainContainer,
-    NavBlabla,
     NoDataContainer,
     NoDataText,
     TextNav,
@@ -31,11 +30,14 @@ const BlaBlaFish: FC = () => {
     if (!blaBlaFish || blaBlaFish.length === 0) {
         return (
             <>
-                <Container>
-                    <AccountMenu />
-                    <NavBlabla />
-                </Container>
+
                 <NoDataContainer>
+                    <ContainerMenu>
+                        <AccountMenu />
+                    </ContainerMenu>
+                    <Container>
+                        <TextNav>Conoce gente. Comparte Gastos</TextNav>
+                    </Container>
                     <CreateTripModal
                         open={openModal}
                         onClose={() => {
@@ -59,14 +61,14 @@ const BlaBlaFish: FC = () => {
 
     return (
         <>
-            <ContainerMenu>
-                <AccountMenu />
-            </ContainerMenu>
+
             <MainContainer>
+                <ContainerMenu>
+                    <AccountMenu />
+                </ContainerMenu>
                 <Container>
                     <TextNav>Conoce gente. Comparte Gastos</TextNav>
                 </Container>
-
                 <CreateTripModal
                     open={openModal}
                     onClose={() => {
