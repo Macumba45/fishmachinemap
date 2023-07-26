@@ -40,7 +40,6 @@ const Profile: FC = () => {
         setWidth,
     } = useLogicUser()
 
-
     useEffect(() => {
         // Check if window is available before setting the initial width
         if (typeof window !== 'undefined') {
@@ -78,6 +77,11 @@ const Profile: FC = () => {
         window.location.href = '/maps'
     }
 
+    const [activeView, setActiveView] = useState('userMarkers')
+    const handleViewChange = (view: any) => {
+        setActiveView(view)
+    }
+
     return (
         <>
             <AccountMenu />
@@ -107,7 +111,6 @@ const Profile: FC = () => {
                         {user?.email}
                     </Typography>
                 </UserContainerData>
-
 
                 {noMarkers && (
                     <>
@@ -139,18 +142,39 @@ const Profile: FC = () => {
                 )}
                 {userMarkers.length > 0 && (
                     <>
-                        <ButtonGroup sx={{
-                            marginTop: '2rem',
-                            backgroundColor: 'none',
-                            marginBottom: '1rem',
-                            '.MuiButtonGroup-grouped:not(:last-of-type)': {
-                                borderColor: 'white',
-                                borderRight: '2px solid white',
-                            },
-                        }}
-                        variant="contained" aria-label="outlined primary button group">
-                            <Button sx={{ backgroundColor: '#49007a', '&:hover': { backgroundColor: '#7900ca' }, borderColor: 'white' }}>Marcadores</Button>
-                            <Button sx={{ backgroundColor: '#49007a', '&:hover': { backgroundColor: '#7900ca' } }}>BlaBlaFish</Button>
+                        <ButtonGroup
+                            sx={{
+                                marginTop: '2rem',
+                                backgroundColor: 'none',
+                                marginBottom: '1rem',
+                                '.MuiButtonGroup-grouped:not(:last-of-type)': {
+                                    borderColor: 'white',
+                                    borderRight: '2px solid white',
+                                },
+                            }}
+                            variant="contained"
+                            aria-label="outlined primary button group"
+                        >
+                            <Button
+                                onClick={() => handleViewChange('userMarkers')}
+                                sx={{
+                                    backgroundColor: '#49007a',
+                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    borderColor: 'white',
+                                }}
+                            >
+                                Marcadores
+                            </Button>
+                            <Button
+                                sx={{
+                                    backgroundColor: '#49007a',
+                                    '&:hover': { backgroundColor: '#7900ca' },
+                                }}
+                                onClick={() => handleViewChange('blablafish')}
+
+                            >
+                                BlaBlaFish
+                            </Button>
                         </ButtonGroup>
                         <Divider
                             sx={{
@@ -162,7 +186,7 @@ const Profile: FC = () => {
                         />
                     </>
                 )}
-                {userMarkers.map((marker: UserMarker) => (
+                {activeView === 'userMarkers' && userMarkers.map((marker: UserMarker) => (
                     <React.Fragment key={marker.id}>
                         <ListItem
                             sx={{
@@ -322,7 +346,13 @@ const Profile: FC = () => {
                         )}
                     </React.Fragment>
                 ))}
-            </MainContainer >
+
+                {activeView === 'blablafish' && (
+                    // Aquí colocas el contenido para la vista de "blablafish"
+                    // Por ejemplo: <BlaBlaFishView />
+                    <div>BlaBlaFish</div>
+                )}
+            </MainContainer>
             <SimpleBottomNavigation />
         </>
     )

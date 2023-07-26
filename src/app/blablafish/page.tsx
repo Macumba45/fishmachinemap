@@ -29,11 +29,11 @@ const BlaBlaFish: FC = () => {
             weekday: 'long',
             day: 'numeric',
             month: 'long',
-        });
+        })
     }
     // Función de utilidad para capitalizar una cadena
     function capitalizeString(str: string) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
     useEffect(() => {
@@ -43,7 +43,6 @@ const BlaBlaFish: FC = () => {
     if (!blaBlaFish || blaBlaFish.length === 0) {
         return (
             <>
-
                 <NoDataContainer>
                     <ContainerMenu>
                         <AccountMenu />
@@ -74,7 +73,6 @@ const BlaBlaFish: FC = () => {
 
     return (
         <>
-
             <MainContainer>
                 <ContainerMenu>
                     <AccountMenu />
@@ -91,12 +89,16 @@ const BlaBlaFish: FC = () => {
                 />
                 <CardContainer>
                     {blaBlaFish.map((item: BlaBlaFish) => {
-                        const date = new Date(item.date);
-                        const formattedDate = formatDate(date);
-                        const departureCity = capitalizeString(item.departureCity);
-                        const arrivalCity = capitalizeString(item.arrivalCity);
-                        const departureTime = capitalizeString(item.departureTime);
-                        const description = capitalizeString(item.description);
+                        const date = new Date(item.date)
+                        const formattedDate = formatDate(date)
+                        const departureCity = capitalizeString(
+                            item.departureCity
+                        )
+                        const arrivalCity = capitalizeString(item.arrivalCity)
+                        const departureTime = capitalizeString(
+                            item.departureTime
+                        )
+                        const description = capitalizeString(item.description)
                         return (
                             <CardBlaBlaFish
                                 key={item.id}
@@ -109,7 +111,7 @@ const BlaBlaFish: FC = () => {
                                 phone={item.phone}
                                 user={item.user?.name}
                             />
-                        );
+                        )
                     })}
                 </CardContainer>
                 <FloatAddBlaBlaFish onClick={() => setOpenModal(true)} />
