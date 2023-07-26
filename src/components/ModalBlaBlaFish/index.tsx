@@ -28,8 +28,6 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
         setArrivalCity,
         departureTime,
         setDepartureTime,
-        returnTime,
-        setReturnTime,
         description,
         setDescription,
         phone,
@@ -39,6 +37,7 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
         selectedDate,
         setSelectedDate,
     } = useLogicBlaBla()
+
 
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
@@ -65,7 +64,6 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
             !departureCity ||
             !arrivalCity ||
             !departureTime ||
-            !returnTime ||
             !description ||
             !phone ||
             !price
@@ -132,6 +130,7 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                     <InputsContainer>
                         <TextField
                             margin="dense"
+                            type='time'
                             fullWidth
                             placeholder='Ej: "10:00am"'
                             label={
