@@ -38,7 +38,6 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
         setSelectedDate,
     } = useLogicBlaBla()
 
-
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -130,7 +129,7 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                     <InputsContainer>
                         <TextField
                             margin="dense"
-                            type='time'
+                            type="time"
                             fullWidth
                             placeholder='Ej: "10:00am"'
                             label={

@@ -32,7 +32,7 @@ export const ContainerMenu = styled.div`
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1; 
+    z-index: 1;
 `
 
 export const NoDataContainer = styled.div`
@@ -58,9 +58,6 @@ export const TextNav = styled.h1`
     margin-left: 1rem;
     margin-right: 1rem;
     @media screen and (max-width: 360px) {
-
-        font-size: 0.6rem;  
-        
+        font-size: 0.6rem;
     }
-    
 `
