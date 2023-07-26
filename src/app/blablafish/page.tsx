@@ -65,10 +65,11 @@ const BlaBlaFish: FC = () => {
             <MainContainer>
                 <ContainerMenu>
                     <AccountMenu />
+                    <Container>
+                        <TextNav>Conoce gente. Comparte Gastos</TextNav>
+                    </Container>
                 </ContainerMenu>
-                <Container>
-                    <TextNav>Conoce gente. Comparte Gastos</TextNav>
-                </Container>
+
                 <CreateTripModal
                     open={openModal}
                     onClose={() => {
