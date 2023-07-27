@@ -10,12 +10,14 @@ import {
     Description,
     DescriptionContainer,
     HearthContainer,
+    ContainerUser,
 } from './style'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import CommentIcon from '@mui/icons-material/Comment'
-import { Button, IconButton } from '@mui/material'
+import { Button, IconButton, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -29,6 +31,7 @@ const CardFeed: FC<FeedPros> = ({
     userId,
     isLiked,
     likes,
+    user,
 }) => {
     return (
         <CardContainer key={id}>
@@ -37,25 +40,20 @@ const CardFeed: FC<FeedPros> = ({
             </ImagenContainer>
             <IconsContainer>
                 <HearthContainer>
-                    <Button
-                        variant="contained"
+                    <Typography
                         sx={{
-                            color: 'white',
                             fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            paddingTop: 0.5,
-                            paddingBottom: 0.5,
-                            paddingLeft: 2,
-                            backgroundColor: '#49007a',
-                            width: '6rem',
+                            fontWeight: 500,
+                            alignItems: 'center',
+                            display: 'flex',
                             marginLeft: '0.5rem',
                         }}
                     >
-                        <LocationOnIcon
-                            sx={{ color: 'white', paddingRight: 1 }}
+                        <AccountCircleIcon
+                            sx={{ color: '#49007a', marginRight: '0.3rem' }}
                         />
-                        Mapa
-                    </Button>
+                        {user?.name}
+                    </Typography>
                     <IconButton onClick={onClick} sx={{ marginLeft: '10rem' }}>
                         {isLiked ? (
                             <FavoriteIcon sx={{ color: '#49007a' }} />
@@ -69,6 +67,26 @@ const CardFeed: FC<FeedPros> = ({
                     <CommentIcon sx={{ color: '#49007a' }} />
                     <Description>{description}</Description>
                 </Icons>
+                {/* <Button
+                    variant="contained"
+                    sx={{
+                        color: 'white',
+                        fontSize: '0.8rem',
+                        cursor: 'pointer',
+                        paddingTop: 0.5,
+                        paddingBottom: 0.5,
+                        paddingLeft: 2,
+                        backgroundColor: '#49007a',
+                        width: '6rem',
+                        marginLeft: '0.5rem',
+                        marginBottom: '1rem',
+                    }}
+                >
+                    <LocationOnIcon
+                        sx={{ color: 'white', paddingRight: 1 }}
+                    />
+                    Mapa
+                </Button> */}
             </IconsContainer>
         </CardContainer>
     )

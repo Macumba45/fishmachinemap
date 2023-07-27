@@ -8,6 +8,7 @@ export const getAllMarkers = async (userId: string) => {
         include: {
             location: true,
             likes: true,
+            user: true,
         },
         orderBy: {
             createdAt: 'desc',
