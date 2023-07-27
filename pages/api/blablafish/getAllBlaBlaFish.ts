@@ -8,6 +8,7 @@ const getAllPostBlablaFish = async (
     if (req.method === 'GET') {
         try {
             const data = await getAllBlablaFish()
+            res.setHeader('Cache-Control', 'no-store') // Establecer el encabezado Cache-Control para evitar el almacenamiento en caché
             res.status(200).json(data)
         } catch (error: any) {
             res.status(500).json({ message: error.message })
