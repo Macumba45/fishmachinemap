@@ -13,7 +13,7 @@ export const MainContainer = styled.div`
 `
 
 export const TypographyContainer = styled.div`
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     margin-left: 0.3rem;
     margin-right: 0.3rem;
 `
