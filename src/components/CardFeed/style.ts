@@ -60,6 +60,14 @@ export const Description = styled.p`
     margin-left: 0.5rem;
     word-wrap: break-word;
     line-height: 1.5rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     width: 90%;
+`
+export const ContainerUser = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
 `

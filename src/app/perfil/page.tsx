@@ -129,20 +129,6 @@ const Profile: FC = () => {
 
                 {noMarkers && (
                     <>
-                        <Typography
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                marginTop: '2rem',
-                                color: '#49007a',
-                                flexDirection: 'column',
-                                textAlign: 'center',
-                            }}
-                            variant="h6"
-                            gutterBottom
-                        >
-                            No tienes marcadores
-                        </Typography>
                         <ButtonComp
                             title="Añade tu primer marcador"
                             variant="contained"
@@ -155,7 +141,7 @@ const Profile: FC = () => {
                         />
                     </>
                 )}
-                {userMarkers.length > 0 && (
+                {userMarkers.length >= 0 && (
                     <>
                         <ButtonGroup
                             sx={{
@@ -209,6 +195,24 @@ const Profile: FC = () => {
                         />
                     </>
                 )}
+
+                {activeView === 'userMarkers' && userMarkers.length === 0 && (
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '2rem',
+                            color: '#49007a',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                        }}
+                        variant="h6"
+                        gutterBottom
+                    >
+                        No tienes marcadores
+                    </Typography>
+                )}
+
                 {activeView === 'userMarkers' &&
                     userMarkers.map((marker: UserMarker) => (
                         <React.Fragment key={marker.id}>
@@ -379,10 +383,25 @@ const Profile: FC = () => {
                         </React.Fragment>
                     ))}
 
+                {activeView === 'blablafish' && userMarkers.length === 0 && (
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '2rem',
+                            color: '#49007a',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                        }}
+                        variant="h6"
+                        gutterBottom
+                    >
+                        No tienes BlaBlaFish
+                    </Typography>
+                )}
+
                 {activeView === 'blablafish' &&
                     userMarkers.map((marker: UserMarker) => (
-                        // Aquí colocas el contenido para la vista de "blablafish"
-                        // Por ejemplo: <BlaBlaFishView />
                         <React.Fragment key={marker.id}>
                             <ListItem
                                 sx={{
@@ -551,20 +570,36 @@ const Profile: FC = () => {
                         </React.Fragment>
                     ))}
                 {activeView === 'capturas' && (
-                    // Aquí colocas el contenido para la vista de "blablafish"
-                    // Por ejemplo: <BlaBlaFishView />
                     <React.Fragment>
                         <ImageList
                             sx={{
-                                width: '100%',
+                                maxWidth: '600px',
+                                minWidth: '300px',
                                 height: '100%',
                                 display: 'flex',
                                 flexWrap: 'wrap',
                                 justifyContent: 'center',
+                                marginBottom: '2rem',
                             }}
-                            cols={3}
-                            rowHeight={100}
+                            cols={2}
+                            rowHeight={150}
                         >
+                            {userMarkers.length === 0 && (
+                                <Typography
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        marginTop: '2rem',
+                                        color: '#49007a',
+                                        flexDirection: 'column',
+                                        textAlign: 'center',
+                                    }}
+                                    variant="h6"
+                                    gutterBottom
+                                >
+                                    No tienes capturas
+                                </Typography>
+                            )}
                             {userMarkers.map(item => (
                                 <ImageListItem key={item.id}>
                                     <img

@@ -5,7 +5,6 @@ export const feedUseLogic = () => {
     const [likedMarkers, setLikedMarkers] = useState<Record<string, boolean>>(
         {}
     )
-
     const getMarkersUser = async () => {
         const token = localStorage.getItem('token')
         const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''

@@ -31,6 +31,7 @@ const Feed: FC = () => {
                         onClick={() => fetchLikesMarkers(item.id, item.userId)}
                         likes={item.likes.length}
                         isLiked={likedMarkers[item.id] || false} // Utiliza el estado isLiked correspondiente al ID del marcador
+                        user={item.user}
                     />
                 ))}
             </MainContainer>

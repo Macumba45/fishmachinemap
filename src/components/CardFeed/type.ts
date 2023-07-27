@@ -11,4 +11,9 @@ export type FeedPros = {
     comentarios?: string[]
     onClick?: () => void
     isLiked?: boolean
+    user?: {
+        id: string
+        name: string
+        email: string
+    }
 }
