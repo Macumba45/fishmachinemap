@@ -19,6 +19,5 @@ export const CardContainer = styled.div`
 
 export const ContainerMenu = styled.div`
     position: fixed;
-    top: 30px;
     z-index: 999;
 `

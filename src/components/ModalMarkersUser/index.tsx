@@ -40,7 +40,6 @@ const ModalUserMarkers: FC<Props> = ({
     creator,
     onClick,
 }) => {
-
     const style = {
         position: 'absolute' as const,
         top: '50%',
@@ -125,7 +124,12 @@ const ModalUserMarkers: FC<Props> = ({
                     }}
                 >
                     <ButtonComp
-                        icon={<NavigationIcon sx={{ marginRight: '0.5rem' }} fontSize="medium" />}
+                        icon={
+                            <NavigationIcon
+                                sx={{ marginRight: '0.5rem' }}
+                                fontSize="medium"
+                            />
+                        }
                         color="white"
                         title="Abrir en Google Maps"
                         variant="contained"

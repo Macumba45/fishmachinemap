@@ -22,6 +22,7 @@ import { BlaBlaFish } from './type'
 const BlaBlaFish: FC = () => {
     const { fetchBlaBlaFish, blaBlaFish } = useLogicBlaBla()
     const [openModal, setOpenModal] = useState(false)
+    const currentDate = new Date()
 
     // Función de utilidad para formatear la fecha
     function formatDate(date: Date) {
@@ -48,7 +49,7 @@ const BlaBlaFish: FC = () => {
                         <AccountMenu />
                     </ContainerMenu>
                     <Container>
-                        <TextNav>Conoce gente. Comparte Gastos</TextNav>
+                        <TextNav>Conoce, pesca. Comparte Gastos</TextNav>
                     </Container>
                     <CreateTripModal
                         open={openModal}
@@ -77,7 +78,7 @@ const BlaBlaFish: FC = () => {
                 <ContainerMenu>
                     <AccountMenu />
                     <Container>
-                        <TextNav>Conoce gente. Comparte Gastos</TextNav>
+                        <TextNav>Conoce, pesca. Comparte Gastos</TextNav>
                     </Container>
                 </ContainerMenu>
 
@@ -90,6 +91,10 @@ const BlaBlaFish: FC = () => {
                 <CardContainer>
                     {blaBlaFish.map((item: BlaBlaFish) => {
                         const date = new Date(item.date)
+                        // Si la fecha del item es anterior a la fecha actual, no renderizamos el componente
+                        if (date < currentDate) {
+                            return null
+                        }
                         const formattedDate = formatDate(date)
                         const departureCity = capitalizeString(
                             item.departureCity
