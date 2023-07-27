@@ -102,6 +102,9 @@ const GoogleMapComp: FC = () => {
     google.maps.Marker[]
     >([])
 
+    const [locationUser, setLocationUser] =
+        useState<google.maps.LatLngLiteral>()
+
     const getMyPosition = async () => {
         setLoadingLocation(true)
         if (navigator.geolocation) {
@@ -209,6 +212,7 @@ const GoogleMapComp: FC = () => {
                 markers.addListener('click', () => {
                     setModalUserMarker(true)
                     setDataMarkerUser(marker)
+                    setLocationUser(location)
                 })
             })
 
@@ -389,31 +393,17 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-    const [zoomLevel, setZoomLevel] = useState(0)
-    const [showButton, setShowButton] = useState(false)
-
-    // Función para obtener el nivel de zoom actual del mapa
-    const getZoomLevel = () => {
-        // Lógica para obtener el nivel de zoom del mapa
-        // Puedes utilizar la librería o API que estés utilizando para el mapa
-        // y obtener el nivel de zoom actual
-        const currentZoomLevel = 10 // Ejemplo: nivel de zoom actual es 10
-        setZoomLevel(currentZoomLevel)
-    }
-
-    // Verificar el nivel de zoom cada vez que cambia
-    useEffect(() => {
-        getZoomLevel()
-    }, [])
-
-    // Verificar si el nivel de zoom está cerca del nivel deseado
-    useEffect(() => {
-        if (zoomLevel >= 8 && zoomLevel <= 12) {
-            setShowButton(true)
-        } else {
-            setShowButton(false)
+    const goToMarkerUserLocation = (
+        location: { lat: number; lng: number } | undefined
+    ) => {
+        if (location) {
+            const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
+            const encodedCoordinates = encodeURIComponent(
+                `${location.lat},${location.lng}`
+            )
+            window.open(baseUrl + encodedCoordinates)
         }
-    }, [zoomLevel])
+    }
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
@@ -465,6 +455,24 @@ const GoogleMapComp: FC = () => {
                     }
                     pictures={dataMarkerUser.picture}
                     onClose={() => setModalUserMarker(false)}
+                    onClick={() => {
+                        if (
+                            locationUser &&
+                            locationUser?.lat !== undefined &&
+                            locationUser?.lng !== undefined
+                        ) {
+                            const location: google.maps.LatLngLiteral = {
+                                lat: locationUser?.lat,
+                                lng: locationUser?.lng,
+                            }
+                            goToMarkerUserLocation(location)
+                        } else {
+                            // Aquí puedes manejar el caso donde `selectedMarker` no tiene valores válidos
+                            console.error(
+                                'No se encontró una ubicación válida en el marcador seleccionado.'
+                            )
+                        }
+                    }}
                 />
 
                 {/* <FilterContainer>

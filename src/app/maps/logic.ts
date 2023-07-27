@@ -22,10 +22,8 @@ export const useLogicMaps = () => {
                 },
                 body: JSON.stringify(userMark),
             })
-            console.log('Respuesta:', response)
             if (response.ok) {
-                const data = await response.json()
-                console.log('Objeto enviado correctamente:', data)
+                await response.json()
             } else {
                 throw new Error('Error en la respuesta del servidor')
             }
@@ -132,6 +130,9 @@ export const useLogicMaps = () => {
     const [loadingLocation, setLoadingLocation] = useState(false)
     const [markerCreator, setMarkerCreator] = useState<User | null>(null)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
+    const [locationModal, setLocationModal] = useState<
+    google.maps.LatLngLiteral | undefined
+    >(undefined)
 
     const selectMapStyle = () => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -333,5 +334,6 @@ export const useLogicMaps = () => {
         fetchMarkerUser,
         markerCreator,
         isSmallScreen,
+        locationModal,
     }
 }
