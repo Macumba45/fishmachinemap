@@ -9,6 +9,7 @@ export const useLogicUser = () => {
         [key: string]: boolean
     }>({})
     const [blablaFish, setBlaBlaFish] = useState<UserMarker[]>([])
+    const [picturesProfile, setPicturesProfile] = useState<string[]>([])
 
     const noMarkers = userMarkers.length === 0
 
@@ -26,7 +27,6 @@ export const useLogicUser = () => {
                     },
                 })
                 const data = await response.json()
-                console.log(data)
                 setBlaBlaFish(data.user.blaBlaFish)
                 setUser(data.user)
                 setUserMarkers(data.user.markers)
@@ -37,7 +37,6 @@ export const useLogicUser = () => {
             console.error('Error al obtener el usuario:', error.message)
         }
     }
-
 
     const deleteUserMarkers = async (markerId: string) => {
         try {
@@ -73,6 +72,6 @@ export const useLogicUser = () => {
         noMarkers,
         width,
         setWidth,
-        blablaFish
+        blablaFish,
     }
 }
