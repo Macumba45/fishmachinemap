@@ -57,7 +57,7 @@ export const TextNav = styled.h1`
     color: #fff;
     margin-left: 1rem;
     margin-right: 1rem;
-    @media screen and (max-width: 360px) {
-        font-size: 0.6rem;
+    @media screen and (max-width: 370px) {
+        font-size: 0.75rem;
     }
 `
