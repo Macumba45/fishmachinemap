@@ -11,6 +11,8 @@ export const useLogicBlaBla = () => {
     const [price, setPrice] = useState('')
     const [blaBlaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
     const [selectedDate, setSelectedDate] = useState('')
+    const [loading, setLoading] = useState<boolean>(false)
+
 
     const postBlaBlaFish = async (blaBlaFish: BlaBlaFish) => {
         try {
@@ -32,6 +34,7 @@ export const useLogicBlaBla = () => {
 
     const fetchBlaBlaFish = async () => {
         try {
+            setLoading(true)
             const token = localStorage.getItem('token')
             const response = await fetch('/api/blablafish/getAllBlaBlaFish', {
                 method: 'GET',
@@ -42,6 +45,7 @@ export const useLogicBlaBla = () => {
             })
             const data = await response.json()
             setBlaBlaFish(data)
+            setLoading(false)
             return data
         } catch (error: any) {
             console.error('Error al obtener viajes', error.message)
@@ -68,5 +72,6 @@ export const useLogicBlaBla = () => {
         blaBlaFish,
         selectedDate,
         setSelectedDate,
+        loading
     }
 }
