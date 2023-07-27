@@ -57,7 +57,7 @@ export const Description = styled.p`
     display: flex;
     font-size: 0.9rem;
     font-family: 'Roboto', sans-serif;
-    margin-left: 0.5rem;
+    margin-left: 0.3rem;
     word-wrap: break-word;
     line-height: 1.5rem;
     padding-bottom: 1rem;
