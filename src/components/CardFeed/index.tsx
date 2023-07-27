@@ -41,7 +41,7 @@ const CardFeed: FC<FeedPros> = ({
             <IconsContainer>
                 <HearthContainer>
                     <Typography
-                        sx={{
+                        style={{
                             fontSize: '0.8rem',
                             fontWeight: 500,
                             alignItems: 'center',
@@ -50,26 +50,26 @@ const CardFeed: FC<FeedPros> = ({
                         }}
                     >
                         <AccountCircleIcon
-                            sx={{ color: '#49007a', marginRight: '0.3rem' }}
+                            style={{ color: '#49007a', marginRight: '0.3rem' }}
                         />
                         {user?.name}
                     </Typography>
-                    <IconButton onClick={onClick} sx={{ marginLeft: '10rem' }}>
+                    <IconButton onClick={onClick} style={{ marginLeft: '10rem' }}>
                         {isLiked ? (
-                            <FavoriteIcon sx={{ color: '#49007a' }} />
+                            <FavoriteIcon style={{ color: '#49007a' }} />
                         ) : (
-                            <FavoriteBorderIcon sx={{ color: '#49007a' }} />
+                            <FavoriteBorderIcon style={{ color: '#49007a' }} />
                         )}
                         <LikesLabel>{likes}</LikesLabel>
                     </IconButton>
                 </HearthContainer>
                 <Icons>
-                    <CommentIcon sx={{ color: '#49007a' }} />
+                    <CommentIcon style={{ color: '#49007a' }} />
                     <Description>{description}</Description>
                 </Icons>
                 {/* <Button
                     variant="contained"
-                    sx={{
+                    style={{
                         color: 'white',
                         fontSize: '0.8rem',
                         cursor: 'pointer',
@@ -83,7 +83,7 @@ const CardFeed: FC<FeedPros> = ({
                     }}
                 >
                     <LocationOnIcon
-                        sx={{ color: 'white', paddingRight: 1 }}
+                        style={{ color: 'white', paddingRight: 1 }}
                     />
                     Mapa
                 </Button> */}

@@ -222,6 +222,8 @@ const Profile: FC = () => {
                                     width: width,
                                     display: 'flex',
                                     alignItems: 'center',
+                                    minWidth: 300,
+                                    maxWidth: 600
                                 }}
                                 alignItems="flex-start"
                             >
