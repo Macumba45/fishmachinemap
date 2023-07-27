@@ -36,6 +36,7 @@ import customMarkerIconPicture from '../../assets/back-camera.png'
 import RoomIcon from '@mui/icons-material/Room'
 import PhishingIcon from '@mui/icons-material/Phishing'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 const Profile: FC = () => {
     const {
@@ -349,6 +350,13 @@ const Profile: FC = () => {
                                     aria-label="edit"
                                 >
                                     <Edit />
+                                </IconButton>
+                                <IconButton
+                                    // onClick={() => setToBeDeletedMarker(true)}
+                                    edge="end"
+                                    aria-label="hide"
+                                >
+                                    <VisibilityOffIcon />
                                 </IconButton>
                             </ListItem>
                             <Divider variant="inset" component="hr" />
