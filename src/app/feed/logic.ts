@@ -5,7 +5,10 @@ export const feedUseLogic = () => {
     const [likedMarkers, setLikedMarkers] = useState<Record<string, boolean>>(
         {}
     )
+    const [loading, setLoading] = useState<boolean>(false)
+
     const getMarkersUser = async () => {
+        setLoading(true)
         const token = localStorage.getItem('token')
         const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
 
@@ -35,6 +38,7 @@ export const feedUseLogic = () => {
                     likedMarkerStates[marker.id] = isLiked
                 })
                 setLikedMarkers(likedMarkerStates)
+                setLoading(false)
             } else {
                 throw new Error('Error en la respuesta del servidor')
             }
@@ -79,5 +83,6 @@ export const feedUseLogic = () => {
         fotosMarkers,
         fetchLikesMarkers,
         likedMarkers,
+        loading
     }
 }

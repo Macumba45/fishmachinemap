@@ -6,14 +6,20 @@ import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
 import { feedUseLogic } from './logic'
 import AccountMenu from '@/components/Menu'
+import CircularIndeterminate from '@/components/Loader'
+
 
 const Feed: FC = () => {
-    const { getMarkersUser, fotosMarkers, fetchLikesMarkers, likedMarkers } =
+    const { getMarkersUser, fotosMarkers, fetchLikesMarkers, likedMarkers, loading } =
         feedUseLogic()
 
     useEffect(() => {
         getMarkersUser()
     }, [])
+
+    if (loading) {
+        return <CircularIndeterminate />
+    }
 
     return (
         <>
