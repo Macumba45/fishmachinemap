@@ -1,6 +1,15 @@
 'use client'
 
 import { FC, useEffect, useState } from 'react'
+import SimpleBottomNavigation from '@/components/BottomNav'
+import AccountMenu from '@/components/Menu'
+import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
+import CardBlaBlaFish from '@/components/CardBlaBlaFish'
+import PhishingIcon from '@mui/icons-material/Phishing'
+import CreateTripModal from '@/components/ModalBlaBlaFish'
+import { useLogicBlaBla } from './logic'
+import { BlaBlaFish } from './type'
+import CircularIndeterminate from '@/components/Loader'
 import {
     CardContainer,
     Container,
@@ -10,17 +19,10 @@ import {
     TextNav,
     ContainerMenu,
 } from './style'
-import SimpleBottomNavigation from '@/components/BottomNav'
-import AccountMenu from '@/components/Menu'
-import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
-import CardBlaBlaFish from '@/components/CardBlaBlaFish'
-import PhishingIcon from '@mui/icons-material/Phishing'
-import CreateTripModal from '@/components/ModalBlaBlaFish'
-import { useLogicBlaBla } from './logic'
-import { BlaBlaFish } from './type'
+
 
 const BlaBlaFish: FC = () => {
-    const { fetchBlaBlaFish, blaBlaFish } = useLogicBlaBla()
+    const { fetchBlaBlaFish, blaBlaFish,loading } = useLogicBlaBla()
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
 
@@ -40,6 +42,10 @@ const BlaBlaFish: FC = () => {
     useEffect(() => {
         fetchBlaBlaFish()
     }, [])
+
+    if(loading){
+        return <CircularIndeterminate />
+    }
 
     if (!blaBlaFish || blaBlaFish.length === 0) {
         return (
