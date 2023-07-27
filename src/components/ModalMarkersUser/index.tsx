@@ -127,10 +127,10 @@ const ModalUserMarkers: FC<Props> = ({
 
                 <Box
                     sx={{
-                        mt: 2,
-                        mb: 2,
+                        mb: 3,
                         display: 'flex',
                         justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
                     <ButtonComp
