@@ -3,13 +3,18 @@ import { prisma } from '@/app/lib/db'
 export const getAllBlablaFish = async () => {
     const data = await prisma.blaBlaFish.findMany({
         include: {
-            user: true,
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                },
+            },
         },
         orderBy: {
-            createdAt: 'desc',
+            date: 'asc',
         },
     })
 
-    console.log(data)
     return data
 }

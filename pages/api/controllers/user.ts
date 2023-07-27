@@ -39,7 +39,13 @@ export const getUserByMarkerId = async (markerId: string) => {
             id: markerId,
         },
         include: {
-            user: true,
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                },
+            },
         },
     })
 
