@@ -38,7 +38,7 @@ const SignUp: FC = () => {
         const form = event.currentTarget as HTMLFormElement
         const formData = new FormData(form)
         const name = formData.get('firstName') as string
-        const email = formData.get('email') as string
+        const email = (formData.get('email') as string).toLowerCase()
         const password = formData.get('password') as string
         setLoading(true)
 

@@ -40,7 +40,7 @@ const Login: FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const email = event.currentTarget.email.value
+        const email = event.currentTarget.email.value.toLowerCase()
         const password = event.currentTarget.password.value
 
         if (email && password) {
