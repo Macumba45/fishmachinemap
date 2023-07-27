@@ -6,7 +6,6 @@ import React, { FC, useEffect, useState } from 'react'
 import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
 import NavigationIcon from '@mui/icons-material/Navigation'
-import GoogleIcon from '@mui/icons-material/Google'
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
 import {
     ButtonContainer,

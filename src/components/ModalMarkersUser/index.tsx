@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Modal, Box, Typography } from '@mui/material'
 import ButtonComp from '../Button'
+import NavigationIcon from '@mui/icons-material/Navigation'
 import {
     TypographyContainer,
     ContenidoGoogle,
@@ -39,18 +40,6 @@ const ModalUserMarkers: FC<Props> = ({
     creator,
     onClick,
 }) => {
-    const goToMarkerUserLocation = (
-        location: { lat: number; lng: number } | undefined
-    ) => {
-        console.log(location)
-        if (location) {
-            const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
-            const encodedCoordinates = encodeURIComponent(
-                `${location.lat},${location.lng}`
-            )
-            window.open(baseUrl + encodedCoordinates)
-        }
-    }
 
     const style = {
         position: 'absolute' as const,
@@ -64,6 +53,8 @@ const ModalUserMarkers: FC<Props> = ({
         maxHeight: '600px',
         minWidth: '300px',
         overflowY: 'scroll',
+        borderColor: 'transparent',
+        border: 'none',
     }
 
     return (
@@ -134,11 +125,12 @@ const ModalUserMarkers: FC<Props> = ({
                     }}
                 >
                     <ButtonComp
-                        title="Ir a Google Maps"
+                        icon={<NavigationIcon sx={{ marginRight: '0.5rem' }} fontSize="medium" />}
+                        color="white"
+                        title="Abrir en Google Maps"
                         variant="contained"
                         onClick={onClick}
                         bgColor="#49007a"
-                        color="white"
                     />
                 </Box>
             </Box>
