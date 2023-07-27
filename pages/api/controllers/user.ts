@@ -22,7 +22,6 @@ export const getUserInfo = async (userId: any) => {
     return data
 }
 
-
 export const deleteUserMarker = async (id: string) => {
     const deletedMarker = await prisma.marker.delete({
         where: {
