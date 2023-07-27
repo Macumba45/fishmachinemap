@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { Modal, Box, Typography } from '@mui/material'
+import ButtonComp from '../Button'
 import {
     TypographyContainer,
     ContenidoGoogle,
@@ -7,8 +8,6 @@ import {
     PictureContainer,
     CreatorLink,
 } from './style'
-import ButtonComp from '../Button'
-import { FontWeight } from '@cloudinary/url-gen/qualifiers'
 
 interface Props {
     isOpen: boolean
@@ -38,8 +37,11 @@ const ModalUserMarkers: FC<Props> = ({
     pictures,
     location,
     creator,
+    onClick,
 }) => {
-    const openMap = (location: { lat: number; lng: number } | undefined) => {
+    const goToMarkerUserLocation = (
+        location: { lat: number; lng: number } | undefined
+    ) => {
         console.log(location)
         if (location) {
             const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
@@ -134,7 +136,7 @@ const ModalUserMarkers: FC<Props> = ({
                     <ButtonComp
                         title="Ir a Google Maps"
                         variant="contained"
-                        onClick={() => openMap(location)}
+                        onClick={onClick}
                         bgColor="#49007a"
                         color="white"
                     />
