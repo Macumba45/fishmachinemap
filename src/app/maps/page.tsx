@@ -12,6 +12,7 @@ import CustomizedSwitches from '@/components/MuiSwitch'
 import customAnzueloMarkerIcon from '../../assets/anzuelo.png'
 import MarkerUserIcon from '../../assets/location.png'
 import customMarkerIcon from '../../assets/anzuelo.png'
+import hiddenMarker from '../../assets/hostage.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
@@ -39,6 +40,7 @@ import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
+import { info } from 'console'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -154,6 +156,7 @@ const GoogleMapComp: FC = () => {
         }
     }
 
+
     async function initMap() {
         if (typeof window !== 'undefined' && isLoaded && confirmedMarkers) {
             map = new window.google.maps.Map(
@@ -194,7 +197,7 @@ const GoogleMapComp: FC = () => {
                     lng: marker.location.lng,
                 }
                 const iconUrl = getIcon(marker.markerType)
-                const iconUrlHidden = getIcon(marker.markerType) // Obtén el ícono para los marcadores ocultos
+                const iconUrlHidden = hiddenMarker.src // Obtén el ícono para los marcadores ocultos
 
                 // Si el marcador pertenece al usuario actual y está oculto
                 if (marker.userId === marker.userId && !marker.visible) {
@@ -209,8 +212,8 @@ const GoogleMapComp: FC = () => {
                         map: mapRef.current,
                         animation: window.google.maps.Animation.DROP,
                         icon: {
-                            url: iconUrlHidden?.url, // Usa el ícono para los marcadores ocultos
-                            scaledSize: new google.maps.Size(20, 20),
+                            url: iconUrlHidden, // Usa el ícono para los marcadores ocultos
+                            scaledSize: new google.maps.Size(22, 22),
                         },
                     })
                     markers.setMap(map)
@@ -222,6 +225,12 @@ const GoogleMapComp: FC = () => {
                         setLocationUser(location)
                     })
                     infoWindow.open(mapRef.current, markers);
+                    infoWindow.setPosition(location); // Asegurarse de que el InfoWindow esté posicionado correctamente
+
+                    // Cerrar el InfoWindow automáticamente después de 5 segundos
+                    setTimeout(() => {
+                        infoWindow.close();
+                    }, 10000);
 
                 }
                 // Si el marcador es visible
@@ -246,7 +255,6 @@ const GoogleMapComp: FC = () => {
                 }
             })
 
-            console.log(userMarkers)
 
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
@@ -376,6 +384,18 @@ const GoogleMapComp: FC = () => {
         }
     }
 
+    const goToMarkerUserLocation = (
+        location: { lat: number; lng: number } | undefined
+    ) => {
+        if (location) {
+            const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
+            const encodedCoordinates = encodeURIComponent(
+                `${location.lat},${location.lng}`
+            )
+            window.open(baseUrl + encodedCoordinates)
+        }
+    }
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -425,17 +445,16 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-    const goToMarkerUserLocation = (
-        location: { lat: number; lng: number } | undefined
-    ) => {
-        if (location) {
-            const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
-            const encodedCoordinates = encodeURIComponent(
-                `${location.lat},${location.lng}`
-            )
-            window.open(baseUrl + encodedCoordinates)
-        }
-    }
+
+    useEffect(() => {
+        // Agrega la regla de estilo para el InfoWindow
+        const styleElement = document.createElement('style');
+        styleElement.textContent = '.gm-style iframe + div { border:none!important; }';
+        document.head.appendChild(styleElement);
+
+        // ... tu lógica para inicializar el mapa aquí ...
+    }, []);
+
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
