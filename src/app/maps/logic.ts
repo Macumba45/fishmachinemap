@@ -75,7 +75,7 @@ export const useLogicMaps = () => {
         }
     }, [])
 
-    const fetchMarkerUser = useCallback(async () => {
+    const fetchMarkerUser = async () => {
         try {
             const userId = dataMarkerUser.id
             const token = localStorage.getItem('token')
@@ -86,12 +86,13 @@ export const useLogicMaps = () => {
                     Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
                 },
             })
+
             const data = await response.json()
             setMarkerCreator(data.user)
         } catch (error) {
             console.error('Error al obtener el usuario del marcador:', error)
         }
-    }, [])
+    }
 
     enum MarkerType {
         SHOP = 'tienda',
@@ -152,6 +153,9 @@ export const useLogicMaps = () => {
     const [markerCreator, setMarkerCreator] = useState<User | null>(null)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
     const [currentUser, setCurrentUser] = useState<User | null>(null)
+
+    console.log(dataMarkerUser)
+
 
     const selectMapStyle = useCallback(() => {
         if (typeof window !== 'undefined' && mapRef.current) {
