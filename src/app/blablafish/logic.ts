@@ -13,7 +13,6 @@ export const useLogicBlaBla = () => {
     const [selectedDate, setSelectedDate] = useState('')
     const [loading, setLoading] = useState<boolean>(false)
 
-
     const postBlaBlaFish = async (blaBlaFish: BlaBlaFish) => {
         try {
             const token = localStorage.getItem('token')
@@ -72,6 +71,6 @@ export const useLogicBlaBla = () => {
         blaBlaFish,
         selectedDate,
         setSelectedDate,
-        loading
+        loading,
     }
 }

@@ -83,6 +83,6 @@ export const feedUseLogic = () => {
         fotosMarkers,
         fetchLikesMarkers,
         likedMarkers,
-        loading
+        loading,
     }
 }

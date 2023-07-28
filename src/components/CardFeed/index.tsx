@@ -54,7 +54,10 @@ const CardFeed: FC<FeedPros> = ({
                         />
                         {user?.name}
                     </Typography>
-                    <IconButton onClick={onClick} style={{ marginLeft: '10rem' }}>
+                    <IconButton
+                        onClick={onClick}
+                        style={{ marginLeft: '10rem' }}
+                    >
                         {isLiked ? (
                             <FavoriteIcon style={{ color: '#49007a' }} />
                         ) : (

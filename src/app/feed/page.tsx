@@ -8,10 +8,14 @@ import { feedUseLogic } from './logic'
 import AccountMenu from '@/components/Menu'
 import CircularIndeterminate from '@/components/Loader'
 
-
 const Feed: FC = () => {
-    const { getMarkersUser, fotosMarkers, fetchLikesMarkers, likedMarkers, loading } =
-        feedUseLogic()
+    const {
+        getMarkersUser,
+        fotosMarkers,
+        fetchLikesMarkers,
+        likedMarkers,
+        loading,
+    } = feedUseLogic()
 
     useEffect(() => {
         getMarkersUser()
