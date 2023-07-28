@@ -94,15 +94,13 @@ const GoogleMapComp: FC = () => {
         currentUser,
     } = useLogicMaps()
 
-    console.log(currentUser)
-
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -195,7 +193,6 @@ const GoogleMapComp: FC = () => {
             })
 
             userMarkers.map((marker: any) => {
-                console.log(userMarkers)
                 const location = {
                     lat: marker.location.lat,
                     lng: marker.location.lng,
@@ -203,10 +200,8 @@ const GoogleMapComp: FC = () => {
                 const iconUrl = getIcon(marker.markerType)
                 const iconUrlHidden = hiddenMarker.src // Obtén el ícono para los marcadores ocultos
 
-                console.log(marker.userId)
                 // Si el marcador pertenece al usuario actual y está oculto
                 if (marker.userId === currentUser?.id && !marker.visible) {
-                    console.log('entro')
                     const infoWindow = new google.maps.InfoWindow({
                         content: 'Oculto',
                         ariaLabel: 'Oculto',
@@ -257,7 +252,6 @@ const GoogleMapComp: FC = () => {
                         setLocationUser(location)
                     })
                 }
-                console.log(marker.userId)
 
             })
 
