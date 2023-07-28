@@ -194,19 +194,49 @@ const GoogleMapComp: FC = () => {
                     lng: marker.location.lng,
                 }
                 const iconUrl = getIcon(marker.markerType)
+                const iconUrlHidden = getIcon(marker.markerType) // Obtén el ícono para los marcadores ocultos
 
-                if (marker.visible) { // Verifica si marker.visible es true
+                // Si el marcador pertenece al usuario actual y está oculto
+                if (marker.userId === marker.userId && !marker.visible) {
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: 'Oculto',
+                        ariaLabel: 'Oculto',
+
+                    })
+
                     const markers = new google.maps.Marker({
                         position: location,
                         map: mapRef.current,
-                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+                        animation: window.google.maps.Animation.DROP,
+                        icon: {
+                            url: iconUrlHidden?.url, // Usa el ícono para los marcadores ocultos
+                            scaledSize: new google.maps.Size(20, 20),
+                        },
+                    })
+                    markers.setMap(map)
+                    markerClusterer?.addMarker(markers)
+
+                    markers.addListener('click', () => {
+                        setModalUserMarker(true)
+                        setDataMarkerUser(marker)
+                        setLocationUser(location)
+                    })
+                    infoWindow.open(mapRef.current, markers);
+
+                }
+                // Si el marcador es visible
+                else if (marker.visible) {
+                    const markers = new google.maps.Marker({
+                        position: location,
+                        map: mapRef.current,
+                        animation: window.google.maps.Animation.DROP,
                         icon: {
                             url: iconUrl?.url,
                             scaledSize: new google.maps.Size(40, 40),
                         },
                     })
                     markers.setMap(map)
-                    markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
+                    markerClusterer?.addMarker(markers)
 
                     markers.addListener('click', () => {
                         setModalUserMarker(true)
@@ -215,6 +245,8 @@ const GoogleMapComp: FC = () => {
                     })
                 }
             })
+
+            console.log(userMarkers)
 
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
