@@ -40,7 +40,6 @@ import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
-import { info } from 'console'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -91,7 +90,11 @@ const GoogleMapComp: FC = () => {
         fetchMarkerUser,
         markerCreator,
         isSmallScreen,
+        getUserInfo,
+        currentUser,
     } = useLogicMaps()
+
+    console.log(currentUser)
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -192,6 +195,7 @@ const GoogleMapComp: FC = () => {
             })
 
             userMarkers.map((marker: any) => {
+                console.log(userMarkers)
                 const location = {
                     lat: marker.location.lat,
                     lng: marker.location.lng,
@@ -199,8 +203,10 @@ const GoogleMapComp: FC = () => {
                 const iconUrl = getIcon(marker.markerType)
                 const iconUrlHidden = hiddenMarker.src // Obtén el ícono para los marcadores ocultos
 
+                console.log(marker.userId)
                 // Si el marcador pertenece al usuario actual y está oculto
-                if (marker.userId === marker.userId && !marker.visible) {
+                if (marker.userId === currentUser?.id && !marker.visible) {
+                    console.log('entro')
                     const infoWindow = new google.maps.InfoWindow({
                         content: 'Oculto',
                         ariaLabel: 'Oculto',
@@ -251,8 +257,9 @@ const GoogleMapComp: FC = () => {
                         setLocationUser(location)
                     })
                 }
-            })
+                console.log(marker.userId)
 
+            })
 
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
@@ -393,6 +400,10 @@ const GoogleMapComp: FC = () => {
             window.open(baseUrl + encodedCoordinates)
         }
     }
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {

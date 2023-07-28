@@ -32,6 +32,29 @@ export const useLogicMaps = () => {
         }
     }
 
+    const [currentUser, setCurrentUser] = useState<User | null>(null)
+
+    const getUserInfo = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch('/api/user/userData', {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: 'Bearer ' + token,
+                },
+            })
+            if (response.ok) {
+                const data = await response.json()
+                setCurrentUser(data.user)
+            } else {
+                throw new Error('Error en la respuesta del servidor')
+            }
+        } catch (error) {
+            console.error('Error al enviar el objeto:', error)
+        }
+    }
+
     const getAllMarkersUser = async () => {
         try {
             const token = localStorage.getItem('token')
@@ -335,5 +358,7 @@ export const useLogicMaps = () => {
         markerCreator,
         isSmallScreen,
         locationModal,
+        currentUser,
+        getUserInfo
     }
 }
