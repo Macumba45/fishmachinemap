@@ -155,7 +155,6 @@ export const useLogicMaps = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
 
 
-
     const selectMapStyle = useCallback(() => {
         if (typeof window !== 'undefined' && mapRef.current) {
             mapRef.current.setOptions({
