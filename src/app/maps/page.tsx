@@ -225,8 +225,6 @@ const GoogleMapComp: FC = () => {
                         setLocationUser(location)
                     })
                     infoWindow.open(mapRef.current, markers);
-                    infoWindow.setPosition(location); // Asegurarse de que el InfoWindow esté posicionado correctamente
-
                     // Cerrar el InfoWindow automáticamente después de 5 segundos
                     setTimeout(() => {
                         infoWindow.close();
