@@ -19,6 +19,7 @@ const Feed: FC = () => {
 
     useEffect(() => {
         getMarkersUser()
+
     }, [])
 
     if (loading) {
