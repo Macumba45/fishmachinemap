@@ -1,8 +1,7 @@
 'use client'
 
-import { FC, use, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
-import { useMediaQuery } from 'react-responsive'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CircularIndeterminate from '@/components/Loader'
@@ -19,7 +18,6 @@ import customMarkerIconPicture from '../../assets/back-camera.png'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
 import BasicModal, { PlaceReview } from '@/components/ModalPlaces'
 import SimpleSlider from '@/components/Carousel/page'
-import CustomizedSwitchesLocation from '@/components/MuiSwitchLocation'
 import CircularColor from '@/components/CircularColor'
 import SearchIcon from '@mui/icons-material/Search'
 import {
@@ -197,23 +195,25 @@ const GoogleMapComp: FC = () => {
                 }
                 const iconUrl = getIcon(marker.markerType)
 
-                const markers = new google.maps.Marker({
-                    position: location,
-                    map: mapRef.current,
-                    animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
-                    icon: {
-                        url: iconUrl?.url,
-                        scaledSize: new google.maps.Size(40, 40),
-                    },
-                })
-                markers.setMap(map)
-                markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
+                if (marker.visible) { // Verifica si marker.visible es true
+                    const markers = new google.maps.Marker({
+                        position: location,
+                        map: mapRef.current,
+                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+                        icon: {
+                            url: iconUrl?.url,
+                            scaledSize: new google.maps.Size(40, 40),
+                        },
+                    })
+                    markers.setMap(map)
+                    markerClusterer?.addMarker(markers) // Agregar el marcador al clúster
 
-                markers.addListener('click', () => {
-                    setModalUserMarker(true)
-                    setDataMarkerUser(marker)
-                    setLocationUser(location)
-                })
+                    markers.addListener('click', () => {
+                        setModalUserMarker(true)
+                        setDataMarkerUser(marker)
+                        setLocationUser(location)
+                    })
+                }
             })
 
             const updateResultsButton = document.getElementById(
