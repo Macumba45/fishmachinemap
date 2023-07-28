@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
     min-width: 300px;
     flex-direction: column;
     margin-bottom: 2rem;
-    min-height: 400px;
+    min-height: 330px;
     max-height: 800px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agrega el sombreado aquí */
     border-top-right-radius: 5px;
