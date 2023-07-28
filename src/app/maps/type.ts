@@ -21,7 +21,6 @@ export type UserMarker = {
         lat: number
         lng: number
     }
-    visible: boolean
 }
 export type User = {
     // Define la interfaz del usuario según los datos que esperas recibir

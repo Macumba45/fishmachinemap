@@ -174,7 +174,6 @@ export const useLogicMaps = () => {
         markerType: string,
         description: string,
         picture: string | null,
-        visible: boolean
     ) => {
         const latLng: google.maps.LatLngLiteral = {
             lat: location?.lat || 0,
@@ -190,7 +189,6 @@ export const useLogicMaps = () => {
                 lat: latLng.lat,
                 lng: latLng.lng,
             },
-            visible,
         }
 
         await addUserMarker(nuevoMarcador)
