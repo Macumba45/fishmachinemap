@@ -108,7 +108,7 @@ const ModalCrearMarcador: FC<Props> = ({
             img.onload = () => {
                 const { width, height } = img
                 const canvas = document.createElement('canvas')
-                const ctx = canvas.getContext('2d')!
+                const ctx = canvas.getContext('2d')
                 canvas.width = options.maxWidth
                 canvas.height = options.maxHeight
 
@@ -119,7 +119,7 @@ const ModalCrearMarcador: FC<Props> = ({
                 canvas.width = width * scaleFactor
                 canvas.height = height * scaleFactor
 
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                ctx?.drawImage(img, 0, 0, canvas.width, canvas.height)
                 canvas.toBlob(resizedBlob => {
                     if (resizedBlob) {
                         const resizedFile = new File([resizedBlob], file.name, {

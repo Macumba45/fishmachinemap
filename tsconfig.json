@@ -34,6 +34,6 @@
         "src/app/utils/cloudinary.ts",
         "src/app/utils/formidable.js",
         "pages/api/upload.js"
-    ],
+, "webpack.config.js"    ],
     "exclude": ["node_modules"]
 }
