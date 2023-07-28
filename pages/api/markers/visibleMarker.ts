@@ -15,7 +15,6 @@ export default async function handler(
             if (typeof id !== 'string') {
                 throw new Error('ID no válido')
             }
-            console.log(id)
             const updateMarker = await toogleVisibleMarker(id)
             await isVisibileMarker(id) // Utilizar la función isVisibileMarker
             res.status(200).json({ updateMarker })

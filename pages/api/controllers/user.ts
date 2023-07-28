@@ -28,7 +28,6 @@ export const deleteUserMarker = async (id: string) => {
             id,
         },
     })
-    console.log(deletedMarker)
 
     return deletedMarker
 }
