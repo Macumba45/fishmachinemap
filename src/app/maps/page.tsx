@@ -102,7 +102,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -234,7 +234,7 @@ const GoogleMapComp: FC = () => {
                     // Cerrar el InfoWindow automáticamente después de 5 segundos
                     setTimeout(() => {
                         infoWindow.close();
-                    }, 10000);
+                    }, 5000);
 
                 }
                 // Si el marcador es visible
