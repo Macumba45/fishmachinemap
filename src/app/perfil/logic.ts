@@ -1,5 +1,5 @@
 import { User } from 'next-auth'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
 
 export const useLogicUser = () => {
@@ -17,7 +17,7 @@ export const useLogicUser = () => {
 
     const [width, setWidth] = useState<number>(0)
 
-    const getUser = async () => {
+    const getUser = useCallback(async () => {
         try {
             if (typeof window !== 'undefined') {
                 const token = localStorage.getItem('token')
@@ -45,9 +45,9 @@ export const useLogicUser = () => {
         } catch (error: any) {
             console.error('Error al obtener el usuario:', error.message)
         }
-    }
+    }, [])
 
-    const deleteUserMarkers = async (markerId: string) => {
+    const deleteUserMarkers = useCallback(async (markerId: string) => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch(
@@ -69,9 +69,9 @@ export const useLogicUser = () => {
         } catch (error: any) {
             console.error('Error al eliminar el marcador:', error.message)
         }
-    }
+    }, [])
 
-    const updateMarker = async (markerId: string) => {
+    const updateMarker = useCallback(async (markerId: string) => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch(
@@ -89,7 +89,7 @@ export const useLogicUser = () => {
         } catch (error: any) {
             console.error('Error al actualizar el marcador:', error.message)
         }
-    }
+    }, [])
 
     return {
         user,

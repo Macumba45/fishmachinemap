@@ -19,8 +19,7 @@ const Feed: FC = () => {
 
     useEffect(() => {
         getMarkersUser()
-
-    }, [])
+    }, [getMarkersUser])
 
     if (loading) {
         return <CircularIndeterminate />

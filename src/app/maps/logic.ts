@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
@@ -11,7 +11,7 @@ import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
 
 export const useLogicMaps = () => {
-    const addUserMarker = async (userMark: UserMarker) => {
+    const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch('/api/markers/marker', {
@@ -30,11 +30,9 @@ export const useLogicMaps = () => {
         } catch (error) {
             console.error('Error al enviar el objeto:', error)
         }
-    }
+    }, [])
 
-    const [currentUser, setCurrentUser] = useState<User | null>(null)
-
-    const getUserInfo = async () => {
+    const getUserInfo = useCallback(async () => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch('/api/user/userData', {
@@ -53,9 +51,9 @@ export const useLogicMaps = () => {
         } catch (error) {
             console.error('Error al enviar el objeto:', error)
         }
-    }
+    }, [])
 
-    const getAllMarkersUser = async () => {
+    const getAllMarkersUser = useCallback(async () => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch('/api/markers/getMarkers', {
@@ -76,9 +74,9 @@ export const useLogicMaps = () => {
         } catch (error) {
             console.error('Error al enviar el objeto:', error)
         }
-    }
+    }, [])
 
-    const fetchMarkerUser = async () => {
+    const fetchMarkerUser = useCallback(async () => {
         try {
             const userId = dataMarkerUser.id
             const token = localStorage.getItem('token')
@@ -94,7 +92,7 @@ export const useLogicMaps = () => {
         } catch (error) {
             console.error('Error al obtener el usuario del marcador:', error)
         }
-    }
+    }, [])
 
     enum MarkerType {
         SHOP = 'tienda',
@@ -154,29 +152,27 @@ export const useLogicMaps = () => {
     const [loadingLocation, setLoadingLocation] = useState(false)
     const [markerCreator, setMarkerCreator] = useState<User | null>(null)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
-    const [locationModal, setLocationModal] = useState<
-    google.maps.LatLngLiteral | undefined
-    >(undefined)
+    const [currentUser, setCurrentUser] = useState<User | null>(null)
 
-    const selectMapStyle = () => {
+    const selectMapStyle = useCallback(() => {
         if (typeof window !== 'undefined' && mapRef.current) {
             mapRef.current.setOptions({
                 styles: styledMap ? defaultStylesMaps : stylesMaps,
             })
             setStyledMap(!styledMap)
         }
-    }
+    }, [styledMap])
 
     // Función para abrir el modo de "Añadir a marcadores"
 
-    const openAddMarkerMode = () => {
+    const openAddMarkerMode = useCallback(() => {
         if (mapRef.current) {
             setIsButtonDisabled(true) // Deshabilita el botón
             setFloatMarker(true)
         }
-    }
+    }, [])
 
-    const addMarkerDraggable = async (map: google.maps.Map) => {
+    const addMarkerDraggable = useCallback(async (map: google.maps.Map) => {
         const centerLatLng = map.getCenter()
         const position = {
             lat: centerLatLng?.lat(),
@@ -186,40 +182,43 @@ export const useLogicMaps = () => {
         if (position.lat !== undefined && position.lng !== undefined) {
             setpositionMarkerUser(position)
         }
-    }
+    }, [])
 
     // Función para confirmar el marcador
-    const confirmMarker = async (
-        location:
-        | google.maps.LatLngLiteral
-        | { lat: number | undefined; lng: number | undefined }
-        | undefined,
-        direction: string,
-        markerType: string,
-        description: string,
-        picture: string | null,
-    ) => {
-        const latLng: google.maps.LatLngLiteral = {
-            lat: location?.lat || 0,
-            lng: location?.lng || 0,
-        }
+    const confirmMarker = useCallback(
+        async (
+            location:
+            | google.maps.LatLngLiteral
+            | { lat: number | undefined; lng: number | undefined }
+            | undefined,
+            direction: string,
+            markerType: string,
+            description: string,
+            picture: string | null
+        ) => {
+            const latLng: google.maps.LatLngLiteral = {
+                lat: location?.lat || 0,
+                lng: location?.lng || 0,
+            }
 
-        const nuevoMarcador = {
-            direction,
-            markerType,
-            description,
-            picture,
-            location: {
-                lat: latLng.lat,
-                lng: latLng.lng,
-            },
-        }
+            const nuevoMarcador = {
+                direction,
+                markerType,
+                description,
+                picture,
+                location: {
+                    lat: latLng.lat,
+                    lng: latLng.lng,
+                },
+            }
 
-        await addUserMarker(nuevoMarcador)
-        setAddingMarker(false)
-        setIsButtonDisabled(false)
-        notifyMarker()
-    }
+            await addUserMarker(nuevoMarcador)
+            setAddingMarker(false)
+            setIsButtonDisabled(false)
+            notifyMarker()
+        },
+        []
+    )
 
     const handlerConfirmation = () => {
         setFloatMarker(false)
@@ -281,25 +280,25 @@ export const useLogicMaps = () => {
         })
     }
 
-    const handleCloseModal = () => {
+    const handleCloseModal = useCallback(() => {
         setAddingMarker(false)
         setIsButtonDisabled(false)
-    }
+    }, [])
 
-    const handleCloseLugar = () => {
+    const handleCloseLugar = useCallback(() => {
         setFloatMarker(false)
         setIsButtonDisabled(false)
-    }
+    }, [])
 
-    const openModal = (place: any) => {
+    const openModal = useCallback((place: any) => {
         console.log(place)
         setPlace(place)
         setModalIsOpen(true)
-    }
+    }, [])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setModalIsOpen(false)
-    }
+    }, [])
 
     return {
         notifySucces,
@@ -358,8 +357,7 @@ export const useLogicMaps = () => {
         fetchMarkerUser,
         markerCreator,
         isSmallScreen,
-        locationModal,
         currentUser,
-        getUserInfo
+        getUserInfo,
     }
 }
