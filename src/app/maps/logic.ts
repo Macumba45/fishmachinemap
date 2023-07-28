@@ -67,6 +67,7 @@ export const useLogicMaps = () => {
             })
             if (response.ok) {
                 const data = await response.json()
+                await getUserInfo()
                 setUserMarkers(data.markers)
                 setConfirmedMarkers(true)
             } else {
