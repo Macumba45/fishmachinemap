@@ -154,7 +154,6 @@ export const useLogicMaps = () => {
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
     const [currentUser, setCurrentUser] = useState<User | null>(null)
 
-    console.log(dataMarkerUser)
 
 
     const selectMapStyle = useCallback(() => {
@@ -294,7 +293,6 @@ export const useLogicMaps = () => {
     }, [])
 
     const openModal = useCallback((place: any) => {
-        console.log(place)
         setPlace(place)
         setModalIsOpen(true)
     }, [])

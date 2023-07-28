@@ -4,7 +4,6 @@ import { prisma } from '@/app/lib/db'
 
 const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.split(' ')[1]
-    console.log(token)
 
     if (!token) {
         // Si el token no está presente en el encabezado de autorización
@@ -38,7 +37,6 @@ const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
             },
         })
 
-        console.log(data)
         return res.status(200).json(data)
     } catch (error) {
         // Si ocurre un error al verificar el token (por ejemplo, el token es inválido o ha expirado),
