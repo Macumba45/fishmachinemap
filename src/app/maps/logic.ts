@@ -4,7 +4,6 @@ import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import { defaultStylesMaps, stylesMaps } from './style'
-import { shopsListID } from '../feed/data'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { toast } from 'react-toastify'
 import { Style, User, UserMarker } from './type'
@@ -305,7 +304,6 @@ export const useLogicMaps = () => {
         styledMap,
         selectMapStyle,
         mapRef,
-        shopsListID,
         notifyMarker,
         confirmMarker,
         openAddMarkerMode,
