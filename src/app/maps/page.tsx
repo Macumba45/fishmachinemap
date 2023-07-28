@@ -320,10 +320,10 @@ const GoogleMapComp: FC = () => {
             'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
         // Icono predeterminado
         // Verificar el tipo de lugar y asignar un icono específico
-        if (place.types!.includes('store' || 'establishment')) {
+        if (place.types?.includes('store' || 'establishment')) {
             iconUrl = customMarkerIconShop.src
         } else if (
-            place.types!.includes('natural_feature' || 'point_of_interest')
+            place.types?.includes('natural_feature' || 'point_of_interest')
         ) {
             iconUrl = customMarkerIconPlace.src
         }
@@ -335,7 +335,7 @@ const GoogleMapComp: FC = () => {
         const marker = new google.maps.Marker({
             map: map,
             title: place.name,
-            position: place.geometry!.location,
+            position: place.geometry?.location,
             icon: icon,
         })
 

@@ -26,14 +26,14 @@ const handledSubmitLogin = async (
             res.status(401).json({ message: 'Email o Password inválido 2' })
             return
         }
-        const match = await bcrypt.compareSync(password, user!.password)
+        const match = await bcrypt.compareSync(password, user.password)
 
         if (!match) {
             res.status(401).json({ message: 'Email o Password inválido 3' })
             return
         }
         // Autenticación exitosa
-        const token = jwt.sign({ userId: user!.id }, 'token')
+        const token = jwt.sign({ userId: user.id }, 'token')
         res.status(200).json({
             message: 'Inicio de sesión exitoso',
             user,
