@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import {
     MainContainer,
     UserContainerData,
@@ -56,7 +56,27 @@ const Profile: FC = () => {
         setMarkerVisibility,
     } = useLogicUser()
 
-    const handleVisibilityToggle = async (markerId: string) => {
+    const [openModal, setOpenModal] = useState(false)
+    const [selectedImage, setSelectedImage] = useState('')
+    const [activeView, setActiveView] = useState('capturas')
+
+    const goToMaps = useCallback(() => {
+        window.location.href = '/maps'
+    }, [])
+    const handleViewChange = useCallback((view: any) => {
+        setActiveView(view)
+    }, [])
+
+    const handleOpenModal = useCallback((item: any) => {
+        setSelectedImage(item.picture)
+        setOpenModal(true)
+    }, [])
+
+    const handleCloseModal = useCallback(() => {
+        setOpenModal(false)
+    }, [])
+
+    const handleVisibilityToggle = useCallback(async (markerId: string) => {
         try {
             // Lógica para actualizar la visibilidad del marcador en el servidor
             await updateMarker(markerId) // Actualiza el estado en el servidor, no necesitas pasar `{ visible: !visible }` aquí
@@ -72,7 +92,7 @@ const Profile: FC = () => {
                 error.message
             )
         }
-    }
+    }, [])
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -98,27 +118,6 @@ const Profile: FC = () => {
     useEffect(() => {
         getUser()
     }, [])
-
-    const goToMaps = () => {
-        window.location.href = '/maps'
-    }
-
-    const [activeView, setActiveView] = useState('capturas')
-    const handleViewChange = (view: any) => {
-        setActiveView(view)
-    }
-
-    const [openModal, setOpenModal] = useState(false)
-    const [selectedImage, setSelectedImage] = useState('')
-
-    const handleOpenModal = (item: any) => {
-        setSelectedImage(item.picture)
-        setOpenModal(true)
-    }
-
-    const handleCloseModal = () => {
-        setOpenModal(false)
-    }
 
     return (
         <>

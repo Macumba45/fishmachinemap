@@ -143,9 +143,8 @@ const ModalCrearMarcador: FC<Props> = ({
             direccion || '',
             tipoLugar || '',
             descripcion || '',
-            fotos || null,
-
-        )   
+            fotos || null
+        )
         setIsLoading(false)
         onClose!()
     }

@@ -13,7 +13,7 @@ export const MapContainer = styled.div`
     display: flex;
     width: 100%;
     height: 100vh;
-    border:none;
+    border: none;
 `
 
 export const ContainerFilter = styled.div`

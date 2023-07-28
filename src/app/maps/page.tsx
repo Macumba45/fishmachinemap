@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
@@ -90,7 +90,6 @@ const GoogleMapComp: FC = () => {
         fetchMarkerUser,
         markerCreator,
         isSmallScreen,
-        getUserInfo,
         currentUser,
     } = useLogicMaps()
 
@@ -157,7 +156,6 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-
     async function initMap() {
         if (typeof window !== 'undefined' && isLoaded && confirmedMarkers) {
             map = new window.google.maps.Map(
@@ -205,7 +203,6 @@ const GoogleMapComp: FC = () => {
                     const infoWindow = new google.maps.InfoWindow({
                         content: 'Oculto',
                         ariaLabel: 'Oculto',
-
                     })
 
                     const markers = new google.maps.Marker({
@@ -225,12 +222,11 @@ const GoogleMapComp: FC = () => {
                         setDataMarkerUser(marker)
                         setLocationUser(location)
                     })
-                    infoWindow.open(mapRef.current, markers);
+                    infoWindow.open(mapRef.current, markers)
                     // Cerrar el InfoWindow automáticamente después de 5 segundos
                     setTimeout(() => {
-                        infoWindow.close();
-                    }, 5000);
-
+                        infoWindow.close()
+                    }, 5000)
                 }
                 // Si el marcador es visible
                 else if (marker.visible) {
@@ -252,7 +248,6 @@ const GoogleMapComp: FC = () => {
                         setLocationUser(location)
                     })
                 }
-
             })
 
             const updateResultsButton = document.getElementById(
@@ -383,17 +378,19 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-    const goToMarkerUserLocation = (
-        location: { lat: number; lng: number } | undefined
-    ) => {
-        if (location) {
-            const baseUrl = 'https://www.google.com/maps/search/?api=1&query='
-            const encodedCoordinates = encodeURIComponent(
-                `${location.lat},${location.lng}`
-            )
-            window.open(baseUrl + encodedCoordinates)
-        }
-    }
+    const goToMarkerUserLocation = useCallback(
+        (location: { lat: number; lng: number } | undefined) => {
+            if (location) {
+                const baseUrl =
+                    'https://www.google.com/maps/search/?api=1&query='
+                const encodedCoordinates = encodeURIComponent(
+                    `${location.lat},${location.lng}`
+                )
+                window.open(baseUrl + encodedCoordinates)
+            }
+        },
+        []
+    )
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -444,16 +441,15 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-
     useEffect(() => {
         // Agrega la regla de estilo para el InfoWindow
-        const styleElement = document.createElement('style');
-        styleElement.textContent = '.gm-style iframe + div { border:none!important; }';
-        document.head.appendChild(styleElement);
+        const styleElement = document.createElement('style')
+        styleElement.textContent =
+            '.gm-style iframe + div { border:none!important; }'
+        document.head.appendChild(styleElement)
 
         // ... tu lógica para inicializar el mapa aquí ...
-    }, []);
-
+    }, [])
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {

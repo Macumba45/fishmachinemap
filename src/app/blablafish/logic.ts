@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { BlaBlaFish } from './type'
 
 export const useLogicBlaBla = () => {
@@ -13,7 +13,7 @@ export const useLogicBlaBla = () => {
     const [selectedDate, setSelectedDate] = useState('')
     const [loading, setLoading] = useState<boolean>(false)
 
-    const postBlaBlaFish = async (blaBlaFish: BlaBlaFish) => {
+    const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
             const token = localStorage.getItem('token')
             const response = await fetch('/api/blablafish/postBlaBla', {
@@ -29,9 +29,9 @@ export const useLogicBlaBla = () => {
         } catch (error: any) {
             console.error('Error al añadir viaje', error.message)
         }
-    }
+    }, [])
 
-    const fetchBlaBlaFish = async () => {
+    const fetchBlaBlaFish = useCallback(async () => {
         try {
             setLoading(true)
             const token = localStorage.getItem('token')
@@ -49,7 +49,7 @@ export const useLogicBlaBla = () => {
         } catch (error: any) {
             console.error('Error al obtener viajes', error.message)
         }
-    }
+    }, [])
 
     return {
         postBlaBlaFish,
