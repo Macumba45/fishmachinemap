@@ -401,10 +401,6 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-    useEffect(() => {
-        getUserInfo();
-    }, []);
-
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
