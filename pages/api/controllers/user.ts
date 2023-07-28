@@ -51,3 +51,40 @@ export const getUserByMarkerId = async (markerId: string) => {
 
     return data?.user || null
 }
+
+export const toogleVisibleMarker = async (markerId: string) => {
+    const marker = await prisma.marker.findUnique({
+        where: {
+            id: markerId,
+        },
+    })
+
+    if (!marker) {
+        throw new Error('Marcador no encontrado')
+    }
+
+    const updatedMarker = await prisma.marker.update({
+        where: {
+            id: markerId,
+        },
+        data: {
+            visible: !marker.visible,
+        },
+    })
+
+    return updatedMarker
+}
+
+export const isVisibileMarker = async (markerId: string) => {
+    const marker = await prisma.marker.findUnique({
+        where: {
+            id: markerId,
+        },
+    })
+
+    if (!marker) {
+        throw new Error('Marcador no encontrado')
+    }
+
+    return marker.visible
+}

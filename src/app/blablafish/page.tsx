@@ -20,9 +20,8 @@ import {
     ContainerMenu,
 } from './style'
 
-
 const BlaBlaFish: FC = () => {
-    const { fetchBlaBlaFish, blaBlaFish,loading } = useLogicBlaBla()
+    const { fetchBlaBlaFish, blaBlaFish, loading } = useLogicBlaBla()
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
 
@@ -43,7 +42,7 @@ const BlaBlaFish: FC = () => {
         fetchBlaBlaFish()
     }, [])
 
-    if(loading){
+    if (loading) {
         return <CircularIndeterminate />
     }
 

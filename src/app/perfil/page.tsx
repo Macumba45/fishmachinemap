@@ -37,6 +37,7 @@ import RoomIcon from '@mui/icons-material/Room'
 import PhishingIcon from '@mui/icons-material/Phishing'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 const Profile: FC = () => {
     const {
@@ -50,7 +51,28 @@ const Profile: FC = () => {
         width,
         setWidth,
         blablaFish,
+        updateMarker,
+        markerVisibility,
+        setMarkerVisibility,
     } = useLogicUser()
+
+    const handleVisibilityToggle = async (markerId: string) => {
+        try {
+            // Lógica para actualizar la visibilidad del marcador en el servidor
+            await updateMarker(markerId) // Actualiza el estado en el servidor, no necesitas pasar `{ visible: !visible }` aquí
+
+            // Actualiza el estado local para reflejar la nueva visibilidad
+            setMarkerVisibility(prevState => ({
+                ...prevState,
+                [markerId]: !prevState[markerId],
+            }))
+        } catch (error: any) {
+            console.error(
+                'Error al actualizar la visibilidad del marcador:',
+                error.message
+            )
+        }
+    }
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -223,7 +245,7 @@ const Profile: FC = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     minWidth: 300,
-                                    maxWidth: 600
+                                    maxWidth: 600,
                                 }}
                                 alignItems="flex-start"
                             >
@@ -353,12 +375,22 @@ const Profile: FC = () => {
                                 >
                                     <Edit />
                                 </IconButton>
+
                                 <IconButton
-                                    // onClick={() => setToBeDeletedMarker(true)}
+                                    key={`marker-${marker.id}`} // Add a unique identifier to the key prop
                                     edge="end"
-                                    aria-label="hide"
+                                    aria-label="toggle-visibility"
+                                    onClick={() =>
+                                        handleVisibilityToggle(
+                                            marker.id as string
+                                        )
+                                    }
                                 >
-                                    <VisibilityOffIcon />
+                                    {markerVisibility[marker.id as string] ? (
+                                        <VisibilityIcon />
+                                    ) : (
+                                        <VisibilityOffIcon />
+                                    )}
                                 </IconButton>
                             </ListItem>
                             <Divider variant="inset" component="hr" />

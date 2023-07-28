@@ -10,7 +10,9 @@ export const useLogicUser = () => {
     }>({})
     const [blablaFish, setBlaBlaFish] = useState<UserMarker[]>([])
     const [picturesProfile, setPicturesProfile] = useState<string[]>([])
-
+    const [markerVisibility, setMarkerVisibility] = useState<{
+        [key: string]: boolean
+    }>({})
     const noMarkers = userMarkers.length === 0
 
     const [width, setWidth] = useState<number>(0)
@@ -30,6 +32,13 @@ export const useLogicUser = () => {
                 setBlaBlaFish(data.user.blaBlaFish)
                 setUser(data.user)
                 setUserMarkers(data.user.markers)
+
+                // Set marker visibility state
+                const visibilityState: Record<string, any> = {}
+                data.user.markers.forEach((marker: any) => {
+                    visibilityState[marker.id as string] = marker.visible
+                })
+                setMarkerVisibility(visibilityState)
 
                 return response
             }
@@ -62,6 +71,26 @@ export const useLogicUser = () => {
         }
     }
 
+    const updateMarker = async (markerId: string) => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch(
+                `/api/markers/visibleMarker?id=${markerId}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            await response.json()
+            return response
+        } catch (error: any) {
+            console.error('Error al actualizar el marcador:', error.message)
+        }
+    }
+
     return {
         user,
         userMarkers,
@@ -73,5 +102,8 @@ export const useLogicUser = () => {
         width,
         setWidth,
         blablaFish,
+        updateMarker,
+        markerVisibility,
+        setMarkerVisibility,
     }
 }
