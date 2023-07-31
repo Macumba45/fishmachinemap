@@ -37,7 +37,6 @@ const Feed: FC = () => {
                     const fechaCreacion = new Date(item.createdAt);
                     return (
                         <CardFeed
-                            creator="Creado por"
                             key={item.id}
                             id={item.id}
                             description={item.description}
