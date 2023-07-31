@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, use, useCallback, useEffect, useState } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
@@ -40,6 +40,9 @@ import ModalCrearMarcador from '@/components/ModalAddMarker'
 import FloatLogOut from '@/components/FloatLogOut'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
+import FilterButton from '@/components/FilterButton'
+import { MarkerType, UserMarker } from './type'
+import { init } from 'next/dist/compiled/@vercel/og/satori'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -91,7 +94,29 @@ const GoogleMapComp: FC = () => {
         markerCreator,
         isSmallScreen,
         currentUser,
+        filteredMarkers,
+        setFilteredMarkers,
     } = useLogicMaps()
+
+    // Función para filtrar los marcadores según el tipo de filtro.
+    const filterMarkers = (filter: MarkerType) => {
+        let filteredMarkerInstances: UserMarker[] = []
+
+        if (filter === MarkerType.ALL) {
+            filteredMarkerInstances = [...userMarkers]
+        } else {
+            filteredMarkerInstances = userMarkers.filter(
+                (marker: any) => marker.markerType === filter
+            )
+        }
+
+        setFilteredMarkers(filteredMarkerInstances)
+    }
+
+    // Maneja el cambio de filtro.
+    const handleFilterChange = (newFilter: MarkerType) => {
+        filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
+    }
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -190,65 +215,7 @@ const GoogleMapComp: FC = () => {
                 algorithmOptions: clusterOptions,
             })
 
-            userMarkers.map((marker: any) => {
-                const location = {
-                    lat: marker.location.lat,
-                    lng: marker.location.lng,
-                }
-                const iconUrl = getIcon(marker.markerType)
-                const iconUrlHidden = hiddenMarker.src // Obtén el ícono para los marcadores ocultos
-
-                // Si el marcador pertenece al usuario actual y está oculto
-                if (marker.userId === currentUser?.id && !marker.visible) {
-                    const infoWindow = new google.maps.InfoWindow({
-                        content: 'Oculto',
-                        ariaLabel: 'Oculto',
-                    })
-
-                    const markers = new google.maps.Marker({
-                        position: location,
-                        map: mapRef.current,
-                        animation: window.google.maps.Animation.DROP,
-                        icon: {
-                            url: iconUrlHidden, // Usa el ícono para los marcadores ocultos
-                            scaledSize: new google.maps.Size(22, 22),
-                        },
-                    })
-                    markers.setMap(map)
-                    markerClusterer?.addMarker(markers)
-
-                    markers.addListener('click', () => {
-                        setModalUserMarker(true)
-                        setDataMarkerUser(marker)
-                        setLocationUser(location)
-                    })
-                    infoWindow.open(mapRef.current, markers)
-                    // Cerrar el InfoWindow automáticamente después de 5 segundos
-                    setTimeout(() => {
-                        infoWindow.close()
-                    }, 5000)
-                }
-                // Si el marcador es visible
-                else if (marker.visible) {
-                    const markers = new google.maps.Marker({
-                        position: location,
-                        map: mapRef.current,
-                        animation: window.google.maps.Animation.DROP,
-                        icon: {
-                            url: iconUrl?.url,
-                            scaledSize: new google.maps.Size(40, 40),
-                        },
-                    })
-                    markers.setMap(map)
-                    markerClusterer?.addMarker(markers)
-
-                    markers.addListener('click', () => {
-                        setModalUserMarker(true)
-                        setDataMarkerUser(marker)
-                        setLocationUser(location)
-                    })
-                }
-            })
+            renderMarkers(userMarkers) // Renderiza los marcadores en el mapa
 
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
@@ -392,6 +359,72 @@ const GoogleMapComp: FC = () => {
         []
     )
 
+    // Renderiza los marcadores en el mapa.
+    const renderMarkers = (markers: UserMarker[]) => {
+        // Elimina los marcadores actuales del clusterer
+        if (markerClusterer) markerClusterer.clearMarkers()
+
+        markers.forEach((marker: any) => {
+            const location = {
+                lat: marker.location.lat,
+                lng: marker.location.lng,
+            }
+            const iconUrl = getIcon(marker.markerType)
+            const iconUrlHidden = hiddenMarker.src
+
+            // Si el marcador pertenece al usuario actual y está oculto
+            if (marker.userId === currentUser?.id && !marker.visible) {
+                const infoWindow = new google.maps.InfoWindow({
+                    content: 'Oculto',
+                    ariaLabel: 'Oculto',
+                })
+
+                const markers = new google.maps.Marker({
+                    position: location,
+                    map: mapRef.current,
+                    animation: window.google.maps.Animation.DROP,
+                    icon: {
+                        url: iconUrlHidden, // Usa el ícono para los marcadores ocultos
+                        scaledSize: new google.maps.Size(22, 22),
+                    },
+                })
+                markers.setMap(map)
+                markerClusterer?.addMarker(markers)
+
+                markers.addListener('click', () => {
+                    setModalUserMarker(true)
+                    setDataMarkerUser(marker)
+                    setLocationUser(location)
+                })
+                infoWindow.open(mapRef.current, markers)
+                // Cerrar el InfoWindow automáticamente después de 5 segundos
+                setTimeout(() => {
+                    infoWindow.close()
+                }, 5000)
+            }
+            // Si el marcador es visible
+            else if (marker.visible) {
+                const markers = new google.maps.Marker({
+                    position: location,
+                    map: mapRef.current,
+                    animation: window.google.maps.Animation.DROP,
+                    icon: {
+                        url: iconUrl?.url,
+                        scaledSize: new google.maps.Size(40, 40),
+                    },
+                })
+                markers.setMap(map)
+                markerClusterer?.addMarker(markers)
+
+                markers.addListener('click', () => {
+                    setModalUserMarker(true)
+                    setDataMarkerUser(marker)
+                    setLocationUser(location)
+                })
+            }
+        })
+    }
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -401,15 +434,16 @@ const GoogleMapComp: FC = () => {
     }, [isLoaded, confirmedMarkers])
 
     useEffect(() => {
+        if (mapRef.current) {
+            renderMarkers(filteredMarkers)
+        }
+    }, [filteredMarkers])
+
+    useEffect(() => {
         if (modalUserMarker) {
             fetchMarkerUser()
         }
     }, [modalUserMarker])
-
-    // // Efecto que se ejecuta cuando cambia el filtro para filtrar los marcadores.
-    // useEffect(() => {
-    //     filterMarkers(currentFilter)
-    // }, [currentFilter])
 
     // Efecto que se ejecuta cuando cambian los marcadores para actualizar el cluster de marcadores.
     useEffect(() => {
@@ -483,6 +517,7 @@ const GoogleMapComp: FC = () => {
                     description={descripcion}
                     pictures={fotos}
                 />
+                <FilterButton onChange={handleFilterChange} />
 
                 <ModalUserMarkers
                     isOpen={modalUserMarker}

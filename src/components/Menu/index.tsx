@@ -27,7 +27,6 @@ const AccountMenu: FC = () => {
     const gotoProfile = () => {
         window.location.href = '/perfil'
     }
-
     return (
         <>
             <Box

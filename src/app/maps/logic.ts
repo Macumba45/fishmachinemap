@@ -8,6 +8,7 @@ import { useJsApiLoader } from '@react-google-maps/api'
 import { toast } from 'react-toastify'
 import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
+import { MarkerType } from './type'
 
 export const useLogicMaps = () => {
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
@@ -94,13 +95,6 @@ export const useLogicMaps = () => {
         }
     }
 
-    enum MarkerType {
-        SHOP = 'tienda',
-        WORM = 'cebos',
-        PESQUERO = 'pesquero',
-        PICTURES = 'fotos',
-    }
-
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.API_KEY || '',
@@ -153,7 +147,8 @@ export const useLogicMaps = () => {
     const [markerCreator, setMarkerCreator] = useState<User | null>(null)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
     const [currentUser, setCurrentUser] = useState<User | null>(null)
-
+    const [filteredMarkers, setFilteredMarkers] =
+        useState<UserMarker[]>(userMarkers)
 
     const selectMapStyle = useCallback(() => {
         if (typeof window !== 'undefined' && mapRef.current) {
@@ -358,5 +353,8 @@ export const useLogicMaps = () => {
         isSmallScreen,
         currentUser,
         getUserInfo,
+        MarkerType,
+        filteredMarkers,
+        setFilteredMarkers,
     }
 }

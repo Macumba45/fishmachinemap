@@ -1,34 +1,30 @@
-import { Button } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { FC, useState } from 'react'
 import { ButtonContainer } from './styles'
 import FilterComponent from '../FilterComponet'
+import FilterAltIcon from '@mui/icons-material/FilterAlt'
+import { MarkerType } from '@/app/maps/type'
 
-const FilterButton: FC = () => {
-    const buttonStyle = {
-        backgroundColor: '#F2F2F2',
-        color: '#000000',
-        marginBottom: '1rem',
-        marginLeft: '1rem',
-        marginRight: '1rem',
-        border: 'none',
-    }
+interface FilterButtonProps {
+    onChange: (newFilter: MarkerType) => void
+}
 
+const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleFilters = () => {
         setIsOpen(prevOpen => !prevOpen)
     }
 
-    const handleFilterChange = (newFilter: string) => {
-        // Aquí puedes realizar acciones adicionales cuando cambia el filtro
-        console.log('Nuevo filtro:', newFilter)
+    const handleFilterChange = (newFilter: MarkerType) => {
+        onChange(newFilter) // Llama a la función `onChange` pasando el nuevo filtro
     }
 
     return (
         <ButtonContainer>
-            <Button style={buttonStyle} onClick={toggleFilters}>
-                {isOpen ? 'Cerrar filtros' : 'Abrir filtros'}
-            </Button>
+            <IconButton onClick={toggleFilters}>
+                <FilterAltIcon sx={{ color: 'white', fontSize: '2rem' }} />
+            </IconButton>
             {isOpen && <FilterComponent onChange={handleFilterChange} />}
         </ButtonContainer>
     )
