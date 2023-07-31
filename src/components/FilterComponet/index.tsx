@@ -4,13 +4,13 @@
 import React, { FC, useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
-
-enum MarkerType {
-    SHOP = 'shop',
-    WORM = 'worm',
-    ALL = 'all',
-    PLACE = 'place',
-}
+import customMarkerIcon from '../../assets/anzuelo.png'
+import customMarkerIconShop from '../../assets/tienda.png'
+import customMarkerIconPlace from '../../assets/destino.png'
+import customMarkerIconPicture from '../../assets/back-camera.png'
+import { Icon } from '@mui/material'
+import { MainContainer } from './style'
+import { MarkerType } from '@/app/maps/type'
 
 type FilterComponentProps = {
     onChange: (newFilter: MarkerType) => void
@@ -18,7 +18,7 @@ type FilterComponentProps = {
 
 const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
     // Añadir el estado local para el filtro
-    const [filter, setFilter] = useState('all')
+    const [filter, setFilter] = useState<MarkerType>(MarkerType.ALL) // Valor inicial: 'all'
 
     // Añadir la función handleFilterChange
 
@@ -37,21 +37,14 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
     }
 
     return (
-        <div
-            style={{
-                borderRadius: '10px',
-                fontFamily: 'Roboto',
-            }}
-        >
+        <MainContainer>
             <ToggleButtonGroup
                 value={filter}
                 exclusive
                 onChange={handleFilterChange}
                 sx={{
-                    backgroundColor: 'grey',
                     borderRadius: '10px',
                     display: 'flex',
-                    flexWrap: 'wrap',
                 }}
             >
                 <ToggleButton
@@ -69,7 +62,15 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                     }}
                     value="all"
                 >
-                    Todo
+                    <Icon
+                        component="img"
+                        sx={{
+                            width: '1.5rem',
+                            height: '1.5rem',
+                            marginRight: '0.2rem',
+                        }}
+                        src={customMarkerIcon.src}
+                    ></Icon>
                 </ToggleButton>
                 <ToggleButton
                     sx={{
@@ -77,16 +78,24 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'place' ? 800 : 'inherit',
+                        fontWeight: filter === 'tienda' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',
                             backgroundColor: 'white',
                         },
                     }}
-                    value="place"
+                    value="pesquero"
                 >
-                    Pesqueros
+                    <Icon
+                        component="img"
+                        sx={{
+                            width: '1.5rem',
+                            height: '1.5rem',
+                            marginRight: '0.2rem',
+                        }}
+                        src={customMarkerIconPlace.src}
+                    ></Icon>
                 </ToggleButton>
                 <ToggleButton
                     sx={{
@@ -94,16 +103,24 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'shop' ? 800 : 'inherit',
+                        fontWeight: filter === 'pesquero' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',
                             backgroundColor: 'white',
                         },
                     }}
-                    value="shop"
+                    value="tienda"
                 >
-                    Tiendas
+                    <Icon
+                        component="img"
+                        sx={{
+                            width: '1.5rem',
+                            height: '1.5rem',
+                            marginRight: '0.2rem',
+                        }}
+                        src={customMarkerIconShop.src}
+                    ></Icon>
                 </ToggleButton>
                 <ToggleButton
                     sx={{
@@ -111,16 +128,24 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'worm' ? 800 : 'inherit',
+                        fontWeight: filter === 'cebos' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',
                             backgroundColor: 'white',
                         },
                     }}
-                    value="worm"
+                    value="cebos"
                 >
-                    Cebos24h
+                    <Icon
+                        component="img"
+                        sx={{
+                            width: '1.5rem',
+                            height: '1.5rem',
+                            marginRight: '0.2rem',
+                        }}
+                        src={customMarkerIcon.src}
+                    ></Icon>
                 </ToggleButton>
                 <ToggleButton
                     sx={{
@@ -128,19 +153,27 @@ const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'pictures' ? 800 : 'inherit',
+                        fontWeight: filter === 'fotos' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',
                             backgroundColor: 'white',
                         },
                     }}
-                    value="pictures"
+                    value="fotos"
                 >
-                    Fotos
+                    <Icon
+                        component="img"
+                        sx={{
+                            width: '1.5rem',
+                            height: '1.5rem',
+                            marginRight: '0.2rem',
+                        }}
+                        src={customMarkerIconPicture.src}
+                    ></Icon>
                 </ToggleButton>
             </ToggleButtonGroup>
-        </div>
+        </MainContainer>
     )
 }
 

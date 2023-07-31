@@ -29,3 +29,11 @@ export type User = {
     email: string
     // Otros campos del usuario que necesites
 }
+
+export enum MarkerType {
+    ALL = 'all',
+    SHOP = 'tienda',
+    WORM = 'cebos',
+    PESQUERO = 'pesquero',
+    PICTURES = 'fotos',
+}
