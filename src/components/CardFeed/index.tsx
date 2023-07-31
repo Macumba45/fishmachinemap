@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { FeedPros } from './type'
 import {
     Imagen,
@@ -8,16 +8,15 @@ import {
     IconsContainer,
     LikesLabel,
     Description,
-    DescriptionContainer,
     HearthContainer,
-    ContainerUser,
+    DateContainer,
 } from './style'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
 import CommentIcon from '@mui/icons-material/Comment'
-import { Button, IconButton, Typography } from '@mui/material'
+import { IconButton, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import TodayIcon from '@mui/icons-material/Today';
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -66,30 +65,15 @@ const CardFeed: FC<FeedPros> = ({
                         <LikesLabel>{likes}</LikesLabel>
                     </IconButton>
                 </HearthContainer>
-                <Icons>
-                    <CommentIcon style={{ color: '#49007a' }} />
-                    <Description>{description}</Description>
-                </Icons>
-                {/* <Button
-                    variant="contained"
-                    style={{
-                        color: 'white',
-                        fontSize: '0.8rem',
-                        cursor: 'pointer',
-                        paddingTop: 0.5,
-                        paddingBottom: 0.5,
-                        paddingLeft: 2,
-                        backgroundColor: '#49007a',
-                        width: '6rem',
-                        marginLeft: '0.5rem',
-                        marginBottom: '1rem',
-                    }}
-                >
-                    <LocationOnIcon
-                        style={{ color: 'white', paddingRight: 1 }}
-                    />
-                    Mapa
-                </Button> */}
+                <HearthContainer>
+                    <Icons>
+                        <CommentIcon style={{ color: '#49007a' }} />
+                        <Description>{description}</Description>
+                    </Icons>
+                    <DateContainer>
+                        <TodayIcon style={{ color: '#49007a', marginLeft: '1rem' }} /> {date}
+                    </DateContainer>
+                </HearthContainer>
             </IconsContainer>
         </CardContainer>
     )
