@@ -28,7 +28,7 @@ export const Icons = styled.div`
 `
 export const HearthContainer = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 6fr 1fr;
     align-items: center;
     margin-right: 0.5rem;
     padding-bottom: 1rem;
@@ -47,6 +47,7 @@ export const LikesLabel = styled.div`
 
 export const DescriptionContainer = styled.div`
     display: flex;
+    width: 100%;
     margin-left: 0.6rem;
     align-items: flex-start;
     margin-top: 0.5rem;
@@ -70,4 +71,11 @@ export const ContainerUser = styled.div`
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     width: 100%;
+`
+export const DateContainer = styled.div`
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8rem;
+    
 `

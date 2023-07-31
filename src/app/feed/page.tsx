@@ -25,25 +25,34 @@ const Feed: FC = () => {
         return <CircularIndeterminate />
     }
 
+    console.log(fotosMarkers)
+
     return (
         <>
             <ContainerMenu>
                 <AccountMenu />
             </ContainerMenu>
             <MainContainer>
-                {fotosMarkers.map(item => (
-                    <CardFeed
-                        creator="Creado por"
-                        key={item.id}
-                        id={item.id}
-                        description={item.description}
-                        picture={item.picture}
-                        onClick={() => fetchLikesMarkers(item.id, item.userId)}
-                        likes={item.likes.length}
-                        isLiked={likedMarkers[item.id] || false} // Utiliza el estado isLiked correspondiente al ID del marcador
-                        user={item.user}
-                    />
-                ))}
+                {fotosMarkers.map(item => {
+                    const fechaCreacion = new Date(item.createdAt);
+                    return (
+                        <CardFeed
+                            creator="Creado por"
+                            key={item.id}
+                            id={item.id}
+                            description={item.description}
+                            picture={item.picture}
+                            onClick={() => fetchLikesMarkers(item.id, item.userId)}
+                            likes={item.likes.length}
+                            isLiked={likedMarkers[item.id] || false}
+                            user={item.user}
+                            date={fechaCreacion.toLocaleString('es-ES', {
+                                month: 'numeric',
+                                day: 'numeric',
+                            })}
+                        />
+                    );
+                })}
             </MainContainer>
             <SimpleBottomNavigation />
         </>
