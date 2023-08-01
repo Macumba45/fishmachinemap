@@ -15,12 +15,13 @@ export const feedUseLogic = () => {
 
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch('/api/markers/getMarkers', {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + token,
-                },
+                headers,
             })
             if (response.ok) {
                 const data = await response.json()
@@ -52,12 +53,13 @@ export const feedUseLogic = () => {
         async (markerId: string, userId: string) => {
             try {
                 const token = getAuthenticatedToken()
+                const headers = {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+                }
                 const response = await fetch('/api/feed/toogleLike', {
                     method: 'POST',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
+                    headers,
                     body: JSON.stringify({
                         markerId: markerId,
                     }),
@@ -82,14 +84,15 @@ export const feedUseLogic = () => {
     const userInfoFeed = async (userId: string) => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch(
                 `/api/feed/userFeed?userId=${userId}`,
                 {
                     method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + token,
-                    },
+                    headers,
                 }
             )
             if (response.ok) {

@@ -17,12 +17,13 @@ export const useLogicBlaBla = () => {
     const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch('/api/blablafish/postBlaBla', {
                 method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
+                headers,
                 body: JSON.stringify(blaBlaFish),
             })
             const data = await response.json()
@@ -36,12 +37,13 @@ export const useLogicBlaBla = () => {
         try {
             setLoading(true)
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch('/api/blablafish/getAllBlaBlaFish', {
                 method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
+                headers,
             })
             const data = await response.json()
             setBlaBlaFish(data)
