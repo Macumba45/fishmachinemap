@@ -6,6 +6,7 @@ export const feedUseLogic = () => {
         {}
     )
     const [loading, setLoading] = useState<boolean>(true)
+    const [dataFeedUser, setDataFeedUser] = useState<any>({})
 
     const getMarkersUser = useCallback(async () => {
         const token = localStorage.getItem('token')
@@ -77,11 +78,38 @@ export const feedUseLogic = () => {
         [getMarkersUser, setLikedMarkers]
     )
 
+    const userInfoFeed = async (userId: string) => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch(
+                `/api/feed/userFeed?userId=${userId}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token,
+                    },
+                }
+            )
+            if (response.ok) {
+                const data = await response.json()
+                setDataFeedUser(data.user)
+                return data.user
+            } else {
+                throw new Error('Error en la respuesta del servidor')
+            }
+        } catch (error) {
+            console.error('Error al enviar el objeto:', error)
+        }
+    }
+
     return {
         getMarkersUser,
         fotosMarkers,
         fetchLikesMarkers,
         likedMarkers,
         loading,
+        userInfoFeed,
+        dataFeedUser,
     }
 }

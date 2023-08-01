@@ -1,4 +1,4 @@
-import { prisma } from '@/app/lib/db'
+import { prisma } from '@/lib/db'
 
 export const getAllBlablaFish = async () => {
     const data = await prisma.blaBlaFish.findMany({

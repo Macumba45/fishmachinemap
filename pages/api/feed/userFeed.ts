@@ -1,0 +1,30 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+import jwt, { JwtPayload } from 'jsonwebtoken'
+import { userFeedInfo } from '../controllers/feed'
+
+const userInfoFeed = async (req: NextApiRequest, res: NextApiResponse) => {
+    if (req.method === 'GET') {
+        try {
+            const query = req.query as { userId: string }
+            const { userId } = query
+            const token = req.headers.authorization?.split(' ')[1] // Obtener el token del encabezado de autorización
+            if (!token) {
+                return res.status(401).json({
+                    message: 'Token de autenticación no proporcionado',
+                })
+            }
+            const user = await userFeedInfo(userId)
+            // Eliminar el campo 'password' del objeto del usuario antes de enviarlo en la respuesta
+            if (!user) {
+                return res
+                    .status(404)
+                    .json({ message: 'No se encontró el usuario' })
+            }
+            return res.status(200).json({ user })
+        } catch (error: any) {
+            return res.status(500).json({ message: error.message })
+        }
+    }
+}
+
+export default userInfoFeed
