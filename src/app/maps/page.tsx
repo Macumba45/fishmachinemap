@@ -500,6 +500,7 @@ const GoogleMapComp: FC = () => {
         <MainContainer>
             <>
                 <AccountMenu />
+                <FilterButton onChange={handleFilterChange} />
                 <MapContainer id="map" />
 
                 <ModalCrearMarcador
@@ -511,7 +512,6 @@ const GoogleMapComp: FC = () => {
                     description={descripcion}
                     pictures={fotos}
                 />
-                <FilterButton onChange={handleFilterChange} />
 
                 <ModalUserMarkers
                     isOpen={modalUserMarker}

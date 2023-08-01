@@ -7,6 +7,12 @@ import SailingIcon from '@mui/icons-material/Sailing'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import PhishingIcon from '@mui/icons-material/Phishing'
+import SailingOutlinedIcon from '@mui/icons-material/SailingOutlined'
+import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
+import PhishingOutlinedIcon from '@mui/icons-material/PhishingOutlined'
+import NoCrashIcon from '@mui/icons-material/NoCrash'
+import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined'
 import Link from 'next/link'
 import { FC, memo, useEffect, useState } from 'react'
 
@@ -67,28 +73,54 @@ const SimpleBottomNavigation: FC = () => {
             >
                 <BottomNavigationAction
                     label="Mapa"
-                    icon={<LocationOnIcon sx={{ color: '#49007a' }} />}
+                    icon={
+                        value === 0 ? (
+                            <LocationOnIcon sx={{ color: '#49007a' }} />
+                        ) : (
+                            <LocationOnOutlinedIcon sx={{ color: '#49007a' }} />
+                        )
+                    }
                     component={Link}
                     href="/maps"
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
                     label="Capturas"
-                    icon={<ViewCarouselIcon sx={{ color: '#49007a' }} />}
+                    icon={
+                        value === 1 ? (
+                            <ViewCarouselIcon sx={{ color: '#49007a' }} />
+                        ) : (
+                            <ViewCarouselOutlinedIcon
+                                sx={{ color: '#49007a' }}
+                            />
+                        )
+                    }
                     component={Link}
                     href="/feed"
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
                     label="Experiencias"
-                    icon={<SailingIcon sx={{ color: '#49007a' }} />}
+                    icon={
+                        value === 2 ? (
+                            <SailingIcon sx={{ color: '#49007a' }} />
+                        ) : (
+                            <SailingOutlinedIcon sx={{ color: '#49007a' }} />
+                        )
+                    }
                     component={Link}
                     href="/experiencias"
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
                     label="BlaBlaFish"
-                    icon={<PhishingIcon sx={{ color: '#49007a' }} />}
+                    icon={
+                        value === 3 ? (
+                            <NoCrashIcon sx={{ color: '#49007a' }} />
+                        ) : (
+                            <NoCrashOutlinedIcon sx={{ color: '#49007a' }} />
+                        )
+                    }
                     component={Link}
                     href="/blablafish"
                     style={buttonStyles}
