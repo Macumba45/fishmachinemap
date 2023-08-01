@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { BlaBlaFish } from './type'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 export const useLogicBlaBla = () => {
     const [departureCity, setDepartureCity] = useState('')
@@ -15,7 +16,7 @@ export const useLogicBlaBla = () => {
 
     const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch('/api/blablafish/postBlaBla', {
                 method: 'POST',
                 headers: {
@@ -34,7 +35,7 @@ export const useLogicBlaBla = () => {
     const fetchBlaBlaFish = useCallback(async () => {
         try {
             setLoading(true)
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch('/api/blablafish/getAllBlaBlaFish', {
                 method: 'GET',
                 headers: {

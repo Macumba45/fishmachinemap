@@ -8,9 +8,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import PhishingIcon from '@mui/icons-material/Phishing'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
-export default function SimpleBottomNavigation() {
+const SimpleBottomNavigation: FC = () => {
     function getInitialValue(pathname: string) {
         if (pathname === '/maps') {
             return 0
@@ -97,3 +97,5 @@ export default function SimpleBottomNavigation() {
         </Box>
     )
 }
+
+export default memo(SimpleBottomNavigation)
