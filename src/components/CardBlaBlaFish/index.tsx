@@ -49,9 +49,9 @@ const CardBlaBlaFish: FC<Props> = ({
         <Card
             key={id}
             sx={{
-                maxWidth: 500,
-                minWidth: 300,
-                maxHeight: 600,
+                maxWidth: 800,
+                minWidth: 320,
+                maxHeight: 900,
                 borderRadius: 0,
                 marginBottom: '2rem',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
