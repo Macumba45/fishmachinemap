@@ -15,12 +15,13 @@ export const useLogicMaps = () => {
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch('/api/markers/marker', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + token,
-                },
+                headers,
                 body: JSON.stringify(userMark),
             })
             if (response.ok) {
@@ -36,12 +37,13 @@ export const useLogicMaps = () => {
     const getUserInfo = useCallback(async () => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch('/api/user/userData', {
                 method: 'GET',
-                headers: {
-                    'content-type': 'application/json',
-                    Authorization: 'Bearer ' + token,
-                },
+                headers,
             })
             if (response.ok) {
                 const data = await response.json()
@@ -57,12 +59,13 @@ export const useLogicMaps = () => {
     const getAllMarkersUser = useCallback(async () => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch('/api/markers/getMarkers', {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + token,
-                },
+                headers,
             })
             if (response.ok) {
                 const data = await response.json()
@@ -81,16 +84,18 @@ export const useLogicMaps = () => {
         try {
             const userId = dataMarkerUser.id
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch(`/api/markers/user?userId=${userId}`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
-                },
+                headers,
             })
-
             const data = await response.json()
-            setMarkerCreator(data.user)
+            if (data.user !== markerCreator) {
+                setMarkerCreator(data.user)
+            }
         } catch (error) {
             console.error('Error al obtener el usuario del marcador:', error)
         }

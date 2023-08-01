@@ -22,12 +22,13 @@ export const useLogicUser = () => {
         try {
             if (typeof window !== 'undefined') {
                 const token = getAuthenticatedToken()
+                const headers = {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+                }
                 const response = await fetch('/api/user/userData', {
                     method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
-                        'Content-Type': 'application/json',
-                    },
+                    headers,
                 })
                 const data = await response.json()
                 setBlaBlaFish(data.user.blaBlaFish)
@@ -51,14 +52,15 @@ export const useLogicUser = () => {
     const deleteUserMarkers = useCallback(async (markerId: string) => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch(
                 `/api/user/deleteMarkers?id=${markerId}`,
                 {
                     method: 'DELETE',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
+                    headers,
                 }
             )
             setToBeDeletedMarkers(prevState => ({
@@ -75,14 +77,15 @@ export const useLogicUser = () => {
     const updateMarker = useCallback(async (markerId: string) => {
         try {
             const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
             const response = await fetch(
                 `/api/markers/visibleMarker?id=${markerId}`,
                 {
                     method: 'PUT',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
+                    headers,
                 }
             )
             await response.json()
