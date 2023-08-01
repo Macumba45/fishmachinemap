@@ -1,8 +1,7 @@
 'use client'
 
-import { FC, use, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState, memo } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
-import FilterComponent from '@/components/FilterComponet'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CircularIndeterminate from '@/components/Loader'
 import { ToastContainer } from 'react-toastify'
@@ -25,9 +24,7 @@ import {
     ButtonStyleBuscarLugares,
     ButtonStyleCancelarLugar,
     ButtonStyleConfirmarLugar,
-    CustomizedSwitchesLocationStyles,
     CustomizedSwitchesStyles,
-    FilterContainer,
     IconMarker,
     MainContainer,
     MapContainer,
@@ -37,12 +34,10 @@ import {
 import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
-import FloatLogOut from '@/components/FloatLogOut'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
 import { MarkerType, UserMarker } from './type'
-import { init } from 'next/dist/compiled/@vercel/og/satori'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -50,7 +45,6 @@ let markerClusterer: MarkerClusterer | null = null
 // Declara un componente de React llamado GoogleMapComp.
 const GoogleMapComp: FC = () => {
     const {
-        notifySucces,
         styledMap,
         selectMapStyle,
         mapRef,
@@ -556,10 +550,6 @@ const GoogleMapComp: FC = () => {
                     }}
                 />
 
-                {/* <FilterContainer>
-                    <FilterComponent onChange={handleFilterChange} />
-                </FilterContainer> */}
-
                 {modalIsOpen && (
                     <BasicModal
                         onClose={closeModal}
@@ -711,4 +701,4 @@ const GoogleMapComp: FC = () => {
     )
 }
 
-export default GoogleMapComp
+export default memo(GoogleMapComp)

@@ -1,3 +1,4 @@
+import { FC, useState, memo } from 'react'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -7,7 +8,6 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
-import { FC, useState } from 'react'
 
 const AccountMenu: FC = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -99,4 +99,4 @@ const AccountMenu: FC = () => {
     )
 }
 
-export default AccountMenu
+export default memo(AccountMenu)

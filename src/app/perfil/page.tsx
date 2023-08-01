@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState, memo } from 'react'
 import {
     MainContainer,
     UserContainerData,
@@ -675,4 +675,4 @@ const Profile: FC = () => {
     )
 }
 
-export default Profile
+export default memo(Profile)
