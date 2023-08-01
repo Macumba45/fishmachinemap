@@ -1,6 +1,7 @@
 import { User } from 'next-auth'
 import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 export const useLogicUser = () => {
     const [user, setUser] = useState<User | null>(null)
@@ -20,7 +21,7 @@ export const useLogicUser = () => {
     const getUser = useCallback(async () => {
         try {
             if (typeof window !== 'undefined') {
-                const token = localStorage.getItem('token')
+                const token = getAuthenticatedToken()
                 const response = await fetch('/api/user/userData', {
                     method: 'GET',
                     headers: {
@@ -49,7 +50,7 @@ export const useLogicUser = () => {
 
     const deleteUserMarkers = useCallback(async (markerId: string) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch(
                 `/api/user/deleteMarkers?id=${markerId}`,
                 {
@@ -73,7 +74,7 @@ export const useLogicUser = () => {
 
     const updateMarker = useCallback(async (markerId: string) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch(
                 `/api/markers/visibleMarker?id=${markerId}`,
                 {

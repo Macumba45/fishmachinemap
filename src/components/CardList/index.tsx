@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { MainContainer } from './style'
 
 interface Props {
@@ -84,4 +84,4 @@ const MediaCard: FC<Props> = ({
     )
 }
 
-export default MediaCard
+export default memo(MediaCard)

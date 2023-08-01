@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, memo, useEffect } from 'react'
 import Slider, { CustomArrowProps } from 'react-slick'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
@@ -92,4 +92,4 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
     )
 }
 
-export default SimpleSlider
+export default memo(SimpleSlider)

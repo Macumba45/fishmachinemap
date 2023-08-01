@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { FeedPros } from './type'
 import {
     Imagen,
@@ -83,4 +83,4 @@ const CardFeed: FC<FeedPros> = ({
     )
 }
 
-export default CardFeed
+export default memo(CardFeed)

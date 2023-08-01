@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import jwt, { JwtPayload } from 'jsonwebtoken'
 import { userFeedInfo } from '../controllers/feed'
 
 const userInfoFeed = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -7,6 +6,11 @@ const userInfoFeed = async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             const query = req.query as { userId: string }
             const { userId } = query
+            if (!userId) {
+                return res.status(400).json({
+                    message: 'Se requiere el parámetro "userId"',
+                })
+            }
             const token = req.headers.authorization?.split(' ')[1] // Obtener el token del encabezado de autorización
             if (!token) {
                 return res.status(401).json({

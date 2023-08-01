@@ -1,3 +1,4 @@
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useCallback, useState } from 'react'
 
 export const feedUseLogic = () => {
@@ -9,11 +10,11 @@ export const feedUseLogic = () => {
     const [dataFeedUser, setDataFeedUser] = useState<any>({})
 
     const getMarkersUser = useCallback(async () => {
-        const token = localStorage.getItem('token')
+        const token = getAuthenticatedToken()
         const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
 
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch('/api/markers/getMarkers', {
                 method: 'GET',
                 headers: {
@@ -50,7 +51,7 @@ export const feedUseLogic = () => {
     const fetchLikesMarkers = useCallback(
         async (markerId: string, userId: string) => {
             try {
-                const token = localStorage.getItem('token')
+                const token = getAuthenticatedToken()
                 const response = await fetch('/api/feed/toogleLike', {
                     method: 'POST',
                     headers: {
@@ -80,7 +81,7 @@ export const feedUseLogic = () => {
 
     const userInfoFeed = async (userId: string) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch(
                 `/api/feed/userFeed?userId=${userId}`,
                 {

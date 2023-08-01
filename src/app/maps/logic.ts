@@ -9,11 +9,12 @@ import { toast } from 'react-toastify'
 import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
 import { MarkerType } from './type'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 export const useLogicMaps = () => {
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch('/api/markers/marker', {
                 method: 'POST',
                 headers: {
@@ -34,7 +35,7 @@ export const useLogicMaps = () => {
 
     const getUserInfo = useCallback(async () => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch('/api/user/userData', {
                 method: 'GET',
                 headers: {
@@ -55,7 +56,7 @@ export const useLogicMaps = () => {
 
     const getAllMarkersUser = useCallback(async () => {
         try {
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch('/api/markers/getMarkers', {
                 method: 'GET',
                 headers: {
@@ -79,7 +80,7 @@ export const useLogicMaps = () => {
     const fetchMarkerUser = async () => {
         try {
             const userId = dataMarkerUser.id
-            const token = localStorage.getItem('token')
+            const token = getAuthenticatedToken()
             const response = await fetch(`/api/markers/user?userId=${userId}`, {
                 method: 'GET',
                 headers: {

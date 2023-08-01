@@ -14,9 +14,8 @@ const Page: FC<Props> = ({ params }) => {
 
     useEffect(() => {
         userInfoFeed(params.user)
-    }, [])
+    }, [params.user])
 
-    console.log(params.user)
     console.log(dataFeedUser)
 
     return (

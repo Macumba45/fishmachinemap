@@ -1,12 +1,9 @@
-import * as React from 'react'
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Button from '@mui/material/Button'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import Typography from '@mui/material/Typography'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import PaidIcon from '@mui/icons-material/Paid'
 import WatchLaterIcon from '@mui/icons-material/WatchLater'
@@ -157,4 +154,4 @@ const CardBlaBlaFish: FC<Props> = ({
     )
 }
 
-export default CardBlaBlaFish
+export default memo(CardBlaBlaFish)

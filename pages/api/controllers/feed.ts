@@ -47,7 +47,7 @@ export const userFeedInfo = async (userId: string) => {
             email: true,
             markers: {
                 include: {
-                    likes: true,
+                    location: true,
                 },
             },
             blaBlaFish: true,

@@ -1,5 +1,5 @@
 'use client'
-import { FC, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
 import {
     ButtonContainer,
@@ -68,4 +68,4 @@ const HeaderComp: FC = () => {
     )
 }
 
-export default HeaderComp
+export default memo(HeaderComp)
