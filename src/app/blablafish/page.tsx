@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, memo } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
@@ -131,4 +131,4 @@ const BlaBlaFish: FC = () => {
     )
 }
 
-export default BlaBlaFish
+export default memo(BlaBlaFish)

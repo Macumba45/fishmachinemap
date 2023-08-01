@@ -77,5 +77,4 @@ export const DateContainer = styled.div`
     align-items: center;
     font-family: 'Roboto', sans-serif;
     font-size: 0.8rem;
-    
 `

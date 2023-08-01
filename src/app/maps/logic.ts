@@ -97,7 +97,7 @@ export const useLogicMaps = () => {
 
     // Carga el API de Google Maps utilizando el hook useJsApiLoader.
     const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: process.env.API_KEY || '',
+        googleMapsApiKey: process.env.API_KEY as string,
     })
 
     // Define los estados del componente.

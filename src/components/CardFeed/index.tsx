@@ -16,7 +16,7 @@ import CommentIcon from '@mui/icons-material/Comment'
 import { IconButton, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import TodayIcon from '@mui/icons-material/Today';
+import TodayIcon from '@mui/icons-material/Today'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -71,7 +71,10 @@ const CardFeed: FC<FeedPros> = ({
                         <Description>{description}</Description>
                     </Icons>
                     <DateContainer>
-                        <TodayIcon style={{ color: '#49007a', marginLeft: '1rem' }} /> {date}
+                        <TodayIcon
+                            style={{ color: '#49007a', marginLeft: '1rem' }}
+                        />{' '}
+                        {date}
                     </DateContainer>
                 </HearthContainer>
             </IconsContainer>

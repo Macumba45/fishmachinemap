@@ -7,6 +7,7 @@ import StyledTheme from './style/styledTheme'
 export const metadata = {
     title: 'Fish App',
     description: 'App hecha para y por pescadores',
+    keywords: 'pesca, pescadores, pesca deportiva, pesca submarina',
 }
 
 export default function RootLayout({

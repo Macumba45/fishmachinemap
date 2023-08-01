@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { ContainerMenu, MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
@@ -25,8 +25,6 @@ const Feed: FC = () => {
         return <CircularIndeterminate />
     }
 
-    console.log(fotosMarkers)
-
     return (
         <>
             <ContainerMenu>
@@ -34,14 +32,16 @@ const Feed: FC = () => {
             </ContainerMenu>
             <MainContainer>
                 {fotosMarkers.map(item => {
-                    const fechaCreacion = new Date(item.createdAt);
+                    const fechaCreacion = new Date(item.createdAt)
                     return (
                         <CardFeed
                             key={item.id}
                             id={item.id}
                             description={item.description}
                             picture={item.picture}
-                            onClick={() => fetchLikesMarkers(item.id, item.userId)}
+                            onClick={() =>
+                                fetchLikesMarkers(item.id, item.userId)
+                            }
                             likes={item.likes.length}
                             isLiked={likedMarkers[item.id] || false}
                             user={item.user}
@@ -50,7 +50,7 @@ const Feed: FC = () => {
                                 day: 'numeric',
                             })}
                         />
-                    );
+                    )
                 })}
             </MainContainer>
             <SimpleBottomNavigation />
@@ -58,4 +58,4 @@ const Feed: FC = () => {
     )
 }
 
-export default Feed
+export default memo(Feed)
