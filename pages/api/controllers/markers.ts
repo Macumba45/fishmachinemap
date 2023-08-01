@@ -1,4 +1,4 @@
-import { prisma } from '@/app/lib/db'
+import { prisma } from '@/lib/db'
 
 export const getAllMarkers = async (userId: string) => {
     const markers = await prisma.marker.findMany({

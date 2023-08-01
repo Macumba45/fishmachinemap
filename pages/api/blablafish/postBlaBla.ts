@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { prisma } from '@/app/lib/db'
+import { prisma } from '@/lib/db'
 
 const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.split(' ')[1]

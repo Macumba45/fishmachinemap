@@ -1,4 +1,4 @@
-import { prisma } from '@/app/lib/db'
+import { prisma } from '@/lib/db'
 // Función para agregar o quitar un like a un marcador
 export const toggleLikeMarker = async (markerId: string, userId: string) => {
     try {
@@ -36,4 +36,22 @@ export const numberOfLikes = async (markerId: string) => {
         },
     })
     return count
+}
+
+export const userFeedInfo = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            markers: {
+                include: {
+                    likes: true,
+                },
+            },
+            blaBlaFish: true,
+        },
+    })
+    return user
 }

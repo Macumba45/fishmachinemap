@@ -17,6 +17,7 @@ import { IconButton, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import TodayIcon from '@mui/icons-material/Today'
+import Link from 'next/link'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -51,7 +52,7 @@ const CardFeed: FC<FeedPros> = ({
                         <AccountCircleIcon
                             style={{ color: '#49007a', marginRight: '0.3rem' }}
                         />
-                        {user?.name}
+                        <Link href={`/feed/${user?.id}`}>{user?.name}</Link>
                     </Typography>
                     <IconButton
                         onClick={onClick}
