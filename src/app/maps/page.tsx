@@ -482,9 +482,10 @@ const GoogleMapComp: FC = () => {
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
         return (
-            <div>
+            <>
                 <CircularIndeterminate />
-            </div>
+                <SimpleBottomNavigation />
+            </>
         )
     }
 
