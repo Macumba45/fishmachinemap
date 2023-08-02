@@ -14,11 +14,15 @@ import { MarkerType } from '@/app/maps/type'
 
 type FilterComponentProps = {
     onChange: (newFilter: MarkerType) => void
+    selectedFilter: MarkerType // Nuevo prop para recibir el filtro seleccionado
 }
 
-const FilterComponent: FC<FilterComponentProps> = ({ onChange }) => {
+const FilterComponent: FC<FilterComponentProps> = ({
+    onChange,
+    selectedFilter,
+}) => {
     // Añadir el estado local para el filtro
-    const [filter, setFilter] = useState<MarkerType>(MarkerType.ALL) // Valor inicial: 'all'
+    const [filter, setFilter] = useState<MarkerType>(selectedFilter)
 
     // Añadir la función handleFilterChange
 

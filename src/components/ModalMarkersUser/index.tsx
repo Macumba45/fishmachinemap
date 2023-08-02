@@ -3,7 +3,6 @@ import { Modal, Box, Typography } from '@mui/material'
 import ButtonComp from '../Button'
 import NavigationIcon from '@mui/icons-material/Navigation'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-
 import {
     TypographyContainer,
     ContenidoGoogle,
@@ -24,11 +23,8 @@ interface Props {
     markerType?: string
     description?: string
     pictures?: string
-    location?: {
-        lat: number
-        lng: number
-    }
     creator?: string
+    link?: React.ReactElement // Cambiado a React.ReactElement
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -38,9 +34,9 @@ const ModalUserMarkers: FC<Props> = ({
     description,
     markerType,
     pictures,
-    location,
     creator,
     onClick,
+    link,
 }) => {
     const style = {
         position: 'absolute' as const,
@@ -80,7 +76,7 @@ const ModalUserMarkers: FC<Props> = ({
                             }}
                         >
                             <AccountCircleIcon sx={{ color: '#49007a' }} />
-                            <CreatorLink href="/">{creator}</CreatorLink>
+                            <CreatorLink>{link}</CreatorLink>
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>

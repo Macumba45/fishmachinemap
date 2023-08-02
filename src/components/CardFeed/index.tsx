@@ -52,7 +52,15 @@ const CardFeed: FC<FeedPros> = ({
                         <AccountCircleIcon
                             style={{ color: '#49007a', marginRight: '0.3rem' }}
                         />
-                        <Link href={`/feed/${user?.id}`}>{user?.name}</Link>
+                        <Link
+                            style={{
+                                textDecorationColor: '#49007a',
+                                color: '#49007a',
+                            }}
+                            href={`/feed/${user?.id}`}
+                        >
+                            {user?.name}
+                        </Link>
                     </Typography>
                     <IconButton
                         onClick={onClick}
