@@ -43,7 +43,12 @@ const BlaBlaFish: FC = () => {
     }, [])
 
     if (loading) {
-        return <CircularIndeterminate />
+        return (
+            <>
+                <CircularIndeterminate />
+                <SimpleBottomNavigation />
+            </>
+        )
     }
 
     if (!blaBlaFish || blaBlaFish.length === 0) {

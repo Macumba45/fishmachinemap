@@ -22,7 +22,12 @@ const Feed: FC = () => {
     }, [getMarkersUser])
 
     if (loading) {
-        return <CircularIndeterminate />
+        return (
+            <>
+                <CircularIndeterminate />
+                <SimpleBottomNavigation />
+            </>
+        )
     }
 
     return (

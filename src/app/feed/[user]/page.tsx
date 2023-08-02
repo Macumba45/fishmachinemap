@@ -59,8 +59,6 @@ const Page: FC<Props> = ({ params }) => {
         setOpenModal(false)
     }, [])
 
-    console.log(userMarkers)
-
     useEffect(() => {
         userInfoFeed(params.user)
     }, [params.user])
