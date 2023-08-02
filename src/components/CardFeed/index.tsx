@@ -11,10 +11,10 @@ import {
     HearthContainer,
     DateContainer,
 } from './style'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import CommentIcon from '@mui/icons-material/Comment'
 import { IconButton, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import TodayIcon from '@mui/icons-material/Today'
 import Link from 'next/link'
