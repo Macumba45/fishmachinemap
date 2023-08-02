@@ -1,12 +1,7 @@
 'use client'
 
 import { FC, useCallback, useEffect, useState, memo } from 'react'
-import {
-    MainContainer,
-    UserContainerData,
-    emailStyles,
-    nameStyles,
-} from './style'
+import React from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
 import Avatar from '@mui/material/Avatar'
@@ -15,18 +10,8 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import AccountMenu from '@/components/Menu'
-import {
-    Button,
-    ButtonGroup,
-    Dialog,
-    IconButton,
-    ImageList,
-    ImageListItem,
-    ListItemAvatar,
-} from '@mui/material'
 import { UserMarker } from '../maps/type'
 import { Delete, Edit } from '@mui/icons-material'
-import React from 'react'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
 import ButtonComp from '@/components/Button'
 import customMarkerIcon from '../../assets/anzuelo.png'
@@ -38,6 +23,21 @@ import PhishingIcon from '@mui/icons-material/Phishing'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import {
+    Button,
+    ButtonGroup,
+    Dialog,
+    IconButton,
+    ImageList,
+    ImageListItem,
+    ListItemAvatar,
+} from '@mui/material'
+import {
+    MainContainer,
+    UserContainerData,
+    emailStyles,
+    nameStyles,
+} from './style'
 
 const Profile: FC = () => {
     const {

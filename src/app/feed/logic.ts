@@ -1,5 +1,6 @@
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useCallback, useState } from 'react'
+import { UserMarker } from '../maps/type'
 
 export const feedUseLogic = () => {
     const [fotosMarkers, setFotosMarkers] = useState<any[]>([])
@@ -8,6 +9,8 @@ export const feedUseLogic = () => {
     )
     const [loading, setLoading] = useState<boolean>(true)
     const [dataFeedUser, setDataFeedUser] = useState<any>({})
+    const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
+    const [blablaFish, setBlaBlaFish] = useState<UserMarker[]>([])
 
     const getMarkersUser = useCallback(async () => {
         const token = getAuthenticatedToken()
@@ -97,8 +100,11 @@ export const feedUseLogic = () => {
             )
             if (response.ok) {
                 const data = await response.json()
+                console.log(data)
                 setDataFeedUser(data.user)
-                return data.user
+                setUserMarkers(data.user.markers)
+                setBlaBlaFish(data.user.blaBlaFish)
+                return data
             } else {
                 throw new Error('Error en la respuesta del servidor')
             }
@@ -115,5 +121,7 @@ export const feedUseLogic = () => {
         loading,
         userInfoFeed,
         dataFeedUser,
+        userMarkers,
+        blablaFish,
     }
 }
