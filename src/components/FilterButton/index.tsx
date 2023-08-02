@@ -11,12 +11,16 @@ interface FilterButtonProps {
 
 const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
     const [isOpen, setIsOpen] = useState(false)
+    const [selectedFilter, setSelectedFilter] = useState<MarkerType>(
+        MarkerType.ALL
+    )
 
     const toggleFilters = () => {
         setIsOpen(prevOpen => !prevOpen)
     }
 
     const handleFilterChange = (newFilter: MarkerType) => {
+        setSelectedFilter(newFilter) // Actualiza el estado con el nuevo filtro seleccionado
         onChange(newFilter) // Llama a la función `onChange` pasando el nuevo filtro
     }
 
@@ -25,7 +29,12 @@ const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
             <IconButton onClick={toggleFilters}>
                 <FilterAltIcon sx={{ color: 'white', fontSize: '2rem' }} />
             </IconButton>
-            {isOpen && <FilterComponent onChange={handleFilterChange} />}
+            {isOpen && (
+                <FilterComponent
+                    onChange={handleFilterChange}
+                    selectedFilter={selectedFilter}
+                />
+            )}
         </ButtonContainer>
     )
 }

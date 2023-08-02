@@ -1,7 +1,20 @@
 'use client'
 
 import { FC, memo, useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { feedUseLogic } from '../logic'
+import { MainContainer } from '../style'
+import AccountMenu from '@/components/Menu'
+import RoomIcon from '@mui/icons-material/Room'
+import PhishingIcon from '@mui/icons-material/Phishing'
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
+import customMarkerIcon from '../../../assets/anzuelo.png'
+import customMarkerIconShop from '../../../assets/tienda.png'
+import customMarkerIconPlace from '../../../assets/destino.png'
+import customMarkerIconPicture from '../../../assets/back-camera.png'
+import { UserMarker } from '@/app/maps/type'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import {
     Avatar,
     Button,
@@ -16,25 +29,7 @@ import {
     ListItemText,
     Typography,
 } from '@mui/material'
-import { MainContainer } from '../style'
-import { UserContainerData, nameStyles, emailStyles } from './style'
-import AccountMenu from '@/components/Menu'
-import RoomIcon from '@mui/icons-material/Room'
-import PhishingIcon from '@mui/icons-material/Phishing'
-import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import ButtonComp from '@/components/Button'
-import React from 'react'
-import customMarkerIcon from '../../../assets/anzuelo.png'
-import customMarkerIconShop from '../../../assets/tienda.png'
-import customMarkerIconPlace from '../../../assets/destino.png'
-import customMarkerIconPicture from '../../../assets/back-camera.png'
-import { UserMarker } from '@/app/maps/type'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import DeleteMarkerModal from '@/components/DeletedModalMarker'
-import { Delete, Edit } from '@mui/icons-material'
+import { UserContainerData, nameStyles } from './style'
 
 interface Props {
     params: {
@@ -50,6 +45,7 @@ const Page: FC<Props> = ({ params }) => {
     const [selectedImage, setSelectedImage] = useState('')
     const [openModal, setOpenModal] = useState(false)
 
+    console.log('userMarkers', userMarkers)
     const handleOpenModal = useCallback((item: any) => {
         setSelectedImage(item.picture)
         setOpenModal(true)
@@ -59,10 +55,6 @@ const Page: FC<Props> = ({ params }) => {
         setOpenModal(false)
     }, [])
 
-    useEffect(() => {
-        userInfoFeed(params.user)
-    }, [params.user])
-
     const handleViewChange = useCallback((view: any) => {
         setActiveView(view)
     }, [])
@@ -70,6 +62,10 @@ const Page: FC<Props> = ({ params }) => {
     const goToMaps = useCallback(() => {
         window.location.href = '/maps'
     }, [])
+
+    useEffect(() => {
+        userInfoFeed(params.user)
+    }, [params.user])
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -98,7 +94,12 @@ const Page: FC<Props> = ({ params }) => {
             <MainContainer>
                 <UserContainerData>
                     <Avatar
-                        sx={{ width: 100, height: 100, marginTop: '2rem' }}
+                        sx={{
+                            width: 100,
+                            height: 100,
+                            marginTop: '2rem',
+                            marginBottom: '1rem',
+                        }}
                     />
                     <Typography
                         style={{
@@ -110,31 +111,7 @@ const Page: FC<Props> = ({ params }) => {
                     >
                         {dataFeedUser?.name}
                     </Typography>
-                    <Typography
-                        style={{
-                            textAlign: 'center',
-                            ...emailStyles,
-                        }}
-                        variant="h6"
-                        gutterBottom
-                    >
-                        {dataFeedUser?.email}
-                    </Typography>
                 </UserContainerData>
-                {userMarkers.length === 0 && (
-                    <>
-                        <ButtonComp
-                            title="Añade tu primer marcador"
-                            variant="contained"
-                            color="#49007a"
-                            style={{
-                                marginTop: '2rem',
-                                backgroundColor: '#49007a',
-                            }}
-                            onClick={goToMaps}
-                        />
-                    </>
-                )}
                 {userMarkers.length >= 0 && (
                     <>
                         <ButtonGroup
@@ -202,134 +179,146 @@ const Page: FC<Props> = ({ params }) => {
                         variant="h6"
                         gutterBottom
                     >
-                        No tienes marcadores
+                        No tiene marcadores
                     </Typography>
                 )}
 
                 {activeView === 'userMarkers' &&
-                    userMarkers.map((marker: UserMarker) => (
-                        <React.Fragment key={marker.id}>
-                            <ListItem
-                                sx={{
-                                    width: width,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    minWidth: 300,
-                                    maxWidth: 600,
-                                }}
-                                alignItems="flex-start"
-                            >
-                                <ListItemAvatar
-                                    key={marker.id}
-                                    sx={{ margin: '0' }}
-                                >
-                                    <Avatar alt="Marker Icon">
-                                        {(() => {
-                                            switch (marker.markerType) {
-                                                case 'pesquero':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIconPlace.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
+                    userMarkers.map(
+                        (marker: UserMarker) =>
+                            // Agrega una condición para verificar si el marcador es visible
+                            marker.visible && (
+                                <React.Fragment key={marker.id}>
+                                    <ListItem
+                                        sx={{
+                                            width: width,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            minWidth: 300,
+                                            maxWidth: 600,
+                                        }}
+                                        alignItems="flex-start"
+                                    >
+                                        <ListItemAvatar
+                                            key={marker.id}
+                                            sx={{ margin: '0' }}
+                                        >
+                                            <Avatar alt="Marker Icon">
+                                                {(() => {
+                                                    switch (marker.markerType) {
+                                                        case 'pesquero':
+                                                            return (
+                                                                <img
+                                                                    style={{
+                                                                        width: '100%',
+                                                                    }}
+                                                                    src={
+                                                                        customMarkerIconPlace.src
+                                                                    }
+                                                                    alt="Marker Icon"
+                                                                />
+                                                            )
 
-                                                case 'tienda':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIconShop.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
+                                                        case 'tienda':
+                                                            return (
+                                                                <img
+                                                                    style={{
+                                                                        width: '100%',
+                                                                    }}
+                                                                    src={
+                                                                        customMarkerIconShop.src
+                                                                    }
+                                                                    alt="Marker Icon"
+                                                                />
+                                                            )
 
-                                                case 'cebos':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIcon.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
+                                                        case 'cebos':
+                                                            return (
+                                                                <img
+                                                                    style={{
+                                                                        width: '100%',
+                                                                    }}
+                                                                    src={
+                                                                        customMarkerIcon.src
+                                                                    }
+                                                                    alt="Marker Icon"
+                                                                />
+                                                            )
 
-                                                case 'fotos':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIconPicture.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
-                                                default:
-                                                    return null
+                                                        case 'fotos':
+                                                            return (
+                                                                <img
+                                                                    style={{
+                                                                        width: '100%',
+                                                                    }}
+                                                                    src={
+                                                                        customMarkerIconPicture.src
+                                                                    }
+                                                                    alt="Marker Icon"
+                                                                />
+                                                            )
+                                                        default:
+                                                            return null
+                                                    }
+                                                })()}
+                                            </Avatar>
+                                        </ListItemAvatar>
+
+                                        <ListItemText
+                                            primaryTypographyProps={{
+                                                width: '200px',
+                                            }}
+                                            primary={
+                                                marker.direction
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                marker.direction.slice(1)
                                             }
-                                        })()}
-                                    </Avatar>
-                                </ListItemAvatar>
-
-                                <ListItemText
-                                    primaryTypographyProps={{ width: '200px' }}
-                                    primary={
-                                        marker.direction
-                                            .charAt(0)
-                                            .toUpperCase() +
-                                        marker.direction.slice(1)
-                                    }
-                                    secondary={
-                                        <>
-                                            <Typography
-                                                sx={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    fontWeight: 400,
-                                                    wordWrap: 'break-word',
-                                                }}
-                                                component="span"
-                                                variant="body2"
-                                                color="text.primary"
-                                            >
-                                                {marker.description
-                                                    .charAt(0)
-                                                    .toUpperCase() +
-                                                    marker.description.slice(1)}
-                                            </Typography>
-                                            <Typography
-                                                component="span"
-                                                sx={{
-                                                    width: '100%',
-                                                    fontWeight: 200,
-                                                    fontSize: '0.8rem',
-                                                }}
-                                            >
-                                                {marker.markerType
-                                                    .charAt(0)
-                                                    .toUpperCase() +
-                                                    marker.markerType.slice(1)}
-                                            </Typography>
-                                        </>
-                                    }
-                                />
-                            </ListItem>
-                            <Divider variant="inset" component="hr" />
-                        </React.Fragment>
-                    ))}
+                                            secondary={
+                                                <>
+                                                    <Typography
+                                                        sx={{
+                                                            display: 'flex',
+                                                            flexDirection:
+                                                                'column',
+                                                            fontWeight: 400,
+                                                            wordWrap:
+                                                                'break-word',
+                                                        }}
+                                                        component="span"
+                                                        variant="body2"
+                                                        color="text.primary"
+                                                    >
+                                                        {marker.description
+                                                            .charAt(0)
+                                                            .toUpperCase() +
+                                                            marker.description.slice(
+                                                                1
+                                                            )}
+                                                    </Typography>
+                                                    <Typography
+                                                        component="span"
+                                                        sx={{
+                                                            width: '100%',
+                                                            fontWeight: 200,
+                                                            fontSize: '0.8rem',
+                                                        }}
+                                                    >
+                                                        {marker.markerType
+                                                            .charAt(0)
+                                                            .toUpperCase() +
+                                                            marker.markerType.slice(
+                                                                1
+                                                            )}
+                                                    </Typography>
+                                                </>
+                                            }
+                                        />
+                                    </ListItem>
+                                    <Divider variant="inset" component="hr" />
+                                </React.Fragment>
+                            )
+                    )}
                 {activeView === 'blablafish' && userMarkers.length === 0 && (
                     <Typography
                         sx={{
@@ -343,7 +332,7 @@ const Page: FC<Props> = ({ params }) => {
                         variant="h6"
                         gutterBottom
                     >
-                        No tienes BlaBlaFish
+                        No tiene BlaBlaFish
                     </Typography>
                 )}
 
@@ -496,12 +485,14 @@ const Page: FC<Props> = ({ params }) => {
                                     variant="h6"
                                     gutterBottom
                                 >
-                                    No tienes capturas
+                                    No tiene capturas
                                 </Typography>
                             )}
                             {userMarkers.map(item => (
-                                <>
-                                    <ImageListItem key={item.id}>
+                                <React.Fragment key={item.id}>
+                                    {' '}
+                                    {/* Agregar el atributo key aquí */}
+                                    <ImageListItem>
                                         <img
                                             style={{
                                                 width: '150px',
@@ -526,7 +517,7 @@ const Page: FC<Props> = ({ params }) => {
                                             />
                                         </IconButton>
                                     </ImageListItem>
-                                </>
+                                </React.Fragment>
                             ))}
                         </ImageList>
                     </React.Fragment>

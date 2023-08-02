@@ -38,6 +38,7 @@ import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
 import { MarkerType, UserMarker } from './type'
+import Link from 'next/link'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -236,7 +237,7 @@ const GoogleMapComp: FC = () => {
     function performSearch() {
         const center = map.getCenter()
         // Eliminar los marcadores anteriores
-        // if (markerClusterer) markerClusterer.clearMarkers()
+        if (markerClusterer) markerClusterer.clearMarkers()
 
         // Options to pass along to the marker clusterer
         const clusterOptions = {
@@ -517,6 +518,17 @@ const GoogleMapComp: FC = () => {
                 <ModalUserMarkers
                     isOpen={modalUserMarker}
                     creator={markerCreator?.name}
+                    link={
+                        <Link
+                            style={{
+                                textDecorationColor: '#49007a',
+                                color: '#49007a',
+                            }}
+                            href={`/feed/${markerCreator?.id}`}
+                        >
+                            {markerCreator?.name}
+                        </Link>
+                    }
                     direction={
                         dataMarkerUser.direction.charAt(0).toUpperCase() +
                         dataMarkerUser.direction.slice(1)
