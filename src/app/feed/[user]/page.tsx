@@ -45,7 +45,6 @@ const Page: FC<Props> = ({ params }) => {
     const [selectedImage, setSelectedImage] = useState('')
     const [openModal, setOpenModal] = useState(false)
 
-    console.log('userMarkers', userMarkers)
     const handleOpenModal = useCallback((item: any) => {
         setSelectedImage(item.picture)
         setOpenModal(true)

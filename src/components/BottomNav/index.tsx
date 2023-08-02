@@ -6,13 +6,13 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import SailingIcon from '@mui/icons-material/Sailing'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
-import PhishingIcon from '@mui/icons-material/Phishing'
 import SailingOutlinedIcon from '@mui/icons-material/SailingOutlined'
 import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
-import PhishingOutlinedIcon from '@mui/icons-material/PhishingOutlined'
-import NoCrashIcon from '@mui/icons-material/NoCrash'
-import NoCrashOutlinedIcon from '@mui/icons-material/NoCrashOutlined'
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle'
+import AirportShuttleOutlinedIcon from '@mui/icons-material/AirportShuttleOutlined'
 import Link from 'next/link'
 import { FC, memo, useEffect, useState } from 'react'
 
@@ -26,6 +26,8 @@ const SimpleBottomNavigation: FC = () => {
             return 2
         } else if (pathname === '/blablafish') {
             return 3
+        } else if (pathname === '/store') {
+            return 4
         }
     }
 
@@ -50,12 +52,15 @@ const SimpleBottomNavigation: FC = () => {
             setValue(2)
         } else if (locationNav === '/blablafish') {
             setValue(3)
+        } else if (locationNav === '/store') {
+            setValue(4)
         }
     }, [locationNav])
     // Añadir el componente BottomNavigation
 
     const buttonStyles = {
         color: '#49007a',
+        minWidth: '50px',
         '&.MuiSelected': {
             color: '#49007a', // Color cuando está activo
             fontSize: '0.9rem',
@@ -72,7 +77,7 @@ const SimpleBottomNavigation: FC = () => {
                 }}
             >
                 <BottomNavigationAction
-                    label="Mapa"
+                    // label="Mapa"
                     icon={
                         value === 0 ? (
                             <LocationOnIcon sx={{ color: '#49007a' }} />
@@ -85,7 +90,7 @@ const SimpleBottomNavigation: FC = () => {
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
-                    label="Capturas"
+                    // label="Capturas"
                     icon={
                         value === 1 ? (
                             <ViewCarouselIcon sx={{ color: '#49007a' }} />
@@ -100,7 +105,7 @@ const SimpleBottomNavigation: FC = () => {
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
-                    label="Experiencias"
+                    // label="Experiencias"
                     icon={
                         value === 2 ? (
                             <SailingIcon sx={{ color: '#49007a' }} />
@@ -113,16 +118,33 @@ const SimpleBottomNavigation: FC = () => {
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
-                    label="BlaBlaFish"
+                    // label="BlaBlaFish"
                     icon={
                         value === 3 ? (
-                            <NoCrashIcon sx={{ color: '#49007a' }} />
+                            <AirportShuttleIcon sx={{ color: '#49007a' }} />
                         ) : (
-                            <NoCrashOutlinedIcon sx={{ color: '#49007a' }} />
+                            <AirportShuttleOutlinedIcon
+                                sx={{ color: '#49007a' }}
+                            />
                         )
                     }
                     component={Link}
                     href="/blablafish"
+                    style={buttonStyles}
+                />
+                <BottomNavigationAction
+                    // label="BlaBlaFish"
+                    icon={
+                        value === 4 ? (
+                            <ShoppingBagIcon sx={{ color: '#49007a' }} />
+                        ) : (
+                            <ShoppingBagOutlinedIcon
+                                sx={{ color: '#49007a' }}
+                            />
+                        )
+                    }
+                    component={Link}
+                    href="/store"
                     style={buttonStyles}
                 />
             </BottomNavigation>
