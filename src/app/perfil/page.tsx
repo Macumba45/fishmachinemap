@@ -10,7 +10,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import AccountMenu from '@/components/Menu'
-import { UserMarker } from '../maps/type'
+import { MarkerType, UserMarker } from '../maps/type'
 import { Delete, Edit } from '@mui/icons-material'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
 import ButtonComp from '@/components/Button'
@@ -641,20 +641,25 @@ const Profile: FC = () => {
                                     No tienes capturas
                                 </Typography>
                             )}
-                            {userMarkers.map(item => (
-                                <ImageListItem key={item.id}>
-                                    <img
-                                        style={{
-                                            width: '150px',
-                                            height: '150px',
-                                        }}
-                                        src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
-                                        srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                        loading="lazy"
-                                        onClick={() => handleOpenModal(item)}
-                                    />
-                                </ImageListItem>
-                            ))}
+                            {userMarkers.map(
+                                item =>
+                                    item.markerType === 'fotos' && (
+                                        <ImageListItem key={item.id}>
+                                            <img
+                                                style={{
+                                                    width: '150px',
+                                                    height: '150px',
+                                                }}
+                                                src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
+                                                srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                loading="lazy"
+                                                onClick={() =>
+                                                    handleOpenModal(item)
+                                                }
+                                            />
+                                        </ImageListItem>
+                                    )
+                            )}
                         </ImageList>
                     </React.Fragment>
                 )}

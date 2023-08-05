@@ -24,7 +24,11 @@ const BlaBlaFish: FC = () => {
     const { fetchBlaBlaFish, blaBlaFish, loading } = useLogicBlaBla()
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
-
+    const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
+        const viajeDate = new Date(viaje.date) // Asegúrate de usar el nombre de la propiedad correcta para la fecha del viaje
+        // Verifica si la fecha del viaje es menor o igual a la fecha actual
+        return viajeDate <= currentDate
+    })
     // Función de utilidad para formatear la fecha
     function formatDate(date: Date) {
         return date.toLocaleDateString('es-ES', {
@@ -51,7 +55,7 @@ const BlaBlaFish: FC = () => {
         )
     }
 
-    if (!blaBlaFish || blaBlaFish.length === 0) {
+    if (todosHanPasadoDeFecha) {
         return (
             <>
                 <NoDataContainer>

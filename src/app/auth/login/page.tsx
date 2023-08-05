@@ -1,8 +1,7 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
@@ -11,22 +10,15 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { useScrollBlock } from '@/hooks'
 import { setAuthenticatedToken } from '../../../lib/storage/storage'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
-import SaveIcon from '@mui/icons-material/Save'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 import { SpanError } from './styles'
 
 const Login: FC = () => {
-    const [blockScroll] = useScrollBlock()
-
-    blockScroll()
-
-    // const urlApi = (window && window.location.href.search('localhost') === -1) ? 'https://fishmachinemap.vercel.app/api/auth/login' : '/api/auth/login'
     const router = useRouter()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -68,6 +60,23 @@ const Login: FC = () => {
             }
         }
     }
+
+    useEffect(() => {
+        const handleScroll = (event: Event) => {
+            event.preventDefault()
+        }
+
+        // Bloquear el desplazamiento cuando se monta el componente
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('scroll', handleScroll, { passive: false })
+
+        return () => {
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
+
     return (
         <>
             <CssBaseline />

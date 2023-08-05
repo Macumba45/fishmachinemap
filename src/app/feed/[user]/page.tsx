@@ -15,6 +15,7 @@ import customMarkerIconPicture from '../../../assets/back-camera.png'
 import { UserMarker } from '@/app/maps/type'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import SimpleBottomNavigation from '@/components/BottomNav'
 import {
     Avatar,
     Button,
@@ -487,37 +488,43 @@ const Page: FC<Props> = ({ params }) => {
                                     No tiene capturas
                                 </Typography>
                             )}
-                            {userMarkers.map(item => (
-                                <React.Fragment key={item.id}>
-                                    {' '}
-                                    {/* Agregar el atributo key aquí */}
-                                    <ImageListItem>
-                                        <img
-                                            style={{
-                                                width: '150px',
-                                                height: '150px',
-                                            }}
-                                            src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
-                                            srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                            loading="lazy"
-                                            onClick={() =>
-                                                handleOpenModal(item)
-                                            }
-                                        />
-                                        <IconButton style={{ padding: 0 }}>
-                                            <FavoriteBorderIcon
-                                                style={{
-                                                    color: 'white',
-                                                    position: 'absolute',
-                                                    display: 'flex',
-                                                    bottom: '10px',
-                                                    right: '10px',
-                                                }}
-                                            />
-                                        </IconButton>
-                                    </ImageListItem>
-                                </React.Fragment>
-                            ))}
+                            {userMarkers.map(
+                                item =>
+                                    item.markerType === 'fotos' && (
+                                        <React.Fragment key={item.id}>
+                                            {' '}
+                                            {/* Agregar el atributo key aquí */}
+                                            <ImageListItem>
+                                                <img
+                                                    style={{
+                                                        width: '150px',
+                                                        height: '150px',
+                                                    }}
+                                                    src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
+                                                    srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                    loading="lazy"
+                                                    onClick={() =>
+                                                        handleOpenModal(item)
+                                                    }
+                                                />
+                                                <IconButton
+                                                    style={{ padding: 0 }}
+                                                >
+                                                    <FavoriteBorderIcon
+                                                        style={{
+                                                            color: 'white',
+                                                            position:
+                                                                'absolute',
+                                                            display: 'flex',
+                                                            bottom: '10px',
+                                                            right: '10px',
+                                                        }}
+                                                    />
+                                                </IconButton>
+                                            </ImageListItem>
+                                        </React.Fragment>
+                                    )
+                            )}
                         </ImageList>
                     </React.Fragment>
                 )}
@@ -532,6 +539,7 @@ const Page: FC<Props> = ({ params }) => {
                         alt="Selected Image"
                     />
                 </Dialog>
+                <SimpleBottomNavigation />
             </MainContainer>
         </>
     )
