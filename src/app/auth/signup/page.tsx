@@ -1,8 +1,7 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
@@ -69,6 +68,22 @@ const SignUp: FC = () => {
             console.log('Los valores de email y/o password son nulos')
         }
     }
+
+    useEffect(() => {
+        const handleScroll = (event: Event) => {
+            event.preventDefault()
+        }
+
+        // Bloquear el desplazamiento cuando se monta el componente
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('scroll', handleScroll, { passive: false })
+
+        return () => {
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     return (
         <ThemeProvider theme={defaultTheme}>

@@ -46,6 +46,9 @@ export const userFeedInfo = async (userId: string) => {
             name: true,
             email: true,
             markers: {
+                orderBy: {
+                    createdAt: 'desc',
+                },
                 include: {
                     location: true,
                 },
