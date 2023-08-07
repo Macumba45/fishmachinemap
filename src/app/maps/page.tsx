@@ -454,21 +454,21 @@ const GoogleMapComp: FC = () => {
         setStyle(updatedStyle)
     }, [styledMap])
 
-    useEffect(() => {
-        const handleScroll = (event: Event) => {
-            event.preventDefault()
-        }
+    // useEffect(() => {
+    //     const handleScroll = (event: Event) => {
+    //         event.preventDefault()
+    //     }
 
-        // Bloquear el desplazamiento cuando se monta el componente
-        document.body.style.overflow = 'hidden'
-        document.addEventListener('scroll', handleScroll, { passive: false })
+    //     // Bloquear el desplazamiento cuando se monta el componente
+    //     document.body.style.overflow = 'hidden'
+    //     document.addEventListener('scroll', handleScroll, { passive: false })
 
-        return () => {
-            // Permitir el desplazamiento cuando se desmonta el componente
-            document.body.style.overflow = ''
-            document.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
+    //     return () => {
+    //         // Permitir el desplazamiento cuando se desmonta el componente
+    //         document.body.style.overflow = ''
+    //         document.removeEventListener('scroll', handleScroll)
+    //     }
+    // }, [])
 
     useEffect(() => {
         // Agrega la regla de estilo para el InfoWindow
