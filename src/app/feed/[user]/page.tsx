@@ -33,7 +33,6 @@ import {
     Typography,
 } from '@mui/material'
 import { UserContainerData, nameStyles } from './style'
-import { useScrollBlock } from '@/hooks'
 
 interface Props {
     params: {

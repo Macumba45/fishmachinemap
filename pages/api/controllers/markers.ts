@@ -24,3 +24,13 @@ export const getAllMarkers = async (userId: string) => {
     })
     return markers
 }
+
+export const deleteUserMarker = async (id: string) => {
+    const deletedMarker = await prisma.marker.delete({
+        where: {
+            id,
+        },
+    })
+
+    return deletedMarker
+}
