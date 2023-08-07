@@ -37,9 +37,9 @@ const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
                             bottom: '5rem',
                             right: 0,
                             marginRight: '1rem',
-                            backgroundColor: '#9900ff',
+                            backgroundColor: '#49007a',
                             '&:hover': {
-                                backgroundColor: '#49007a', // Cambiar color del hover
+                                backgroundColor: '#9900ff', // Cambiar color del hover
                             },
                         }}
                         disabled={disabled}
