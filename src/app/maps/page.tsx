@@ -458,7 +458,7 @@ const GoogleMapComp: FC = () => {
         const handleScroll = (event: Event) => {
             event.preventDefault()
         }
-        if (location.pathname === '/feed/[id]') {
+        if (location.pathname === '/feed') {
             document.body.style.overflow = ''
             document.removeEventListener('scroll', handleScroll)
         }
