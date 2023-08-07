@@ -92,7 +92,7 @@ export const TotalRating = styled.div`
     font-size: 0.8rem;
     margin-left: 0.5rem;
 `
-export const CreatorLink = styled.a`
+export const CreatorLink = styled.div`
     font-family: ${({ theme }) => theme.fonts.roboto};
     font-weight: 500;
     font-size: 1rem;

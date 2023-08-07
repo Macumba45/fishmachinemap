@@ -19,11 +19,11 @@ model User {
   markers    Marker[]
   Likes      Likes[]
   blaBlaFish BlaBlaFish[]
+  stores     Store[]
   createdAt  DateTime     @default(now()) @map(name: "created_at")
   updatedAt  DateTime     @updatedAt @map(name: "updated_at")
 
   @@map(name: "users")
-  
 }
 
 model Marker {
@@ -70,4 +70,17 @@ model BlaBlaFish {
   user          User?    @relation(fields: [userId], references: [id])
   userId        String?
   createdAt     DateTime @default(now())
+}
+
+model Store {
+  id          String   @id @default(cuid())
+  title       String?
+  description String?
+  picture     String?
+  price       String?
+  phone       String?
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  createdAt   DateTime @default(now())
+  
 }
