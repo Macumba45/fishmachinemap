@@ -39,8 +39,6 @@ import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
 import { MarkerType, UserMarker } from './type'
 import Link from 'next/link'
-import { useLocation } from 'react-router-dom';
-
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -458,18 +456,23 @@ const GoogleMapComp: FC = () => {
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
-            const { pathname } = useLocation();
-            if (pathname !== '/feed/userId') {
-                event.preventDefault();
-            }
-        };
-      
-        document.addEventListener('scroll', handleScroll, { passive: false });
-      
+            event.preventDefault()
+        }
+        if (location.pathname === '/feed/[id]') {
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+
+        // Bloquear el desplazamiento cuando se monta el componente
+        document.body.style.overflow = 'hidden'
+        document.addEventListener('scroll', handleScroll, { passive: false })
+
         return () => {
-            document.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     useEffect(() => {
         // Agrega la regla de estilo para el InfoWindow
