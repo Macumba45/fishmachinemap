@@ -461,6 +461,7 @@ const GoogleMapComp: FC = () => {
         if (location.pathname === '/feed') {
             document.body.style.overflow = ''
             document.removeEventListener('scroll', handleScroll)
+            console.log('entro')
         }
 
         // Bloquear el desplazamiento cuando se monta el componente
