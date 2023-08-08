@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useEffect, memo, useState } from 'react'
+import React, { FC, useEffect, memo, useState, use } from 'react'
 import { Container, ContainerMenu, MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
@@ -11,7 +11,7 @@ import StoreModal from '@/components/ModalStore'
 import { useLogicStore } from './logic'
 
 const Experiencias: FC = () => {
-    const { open, setOpen } = useLogicStore()
+    const { open, setOpen, fetchStore, store } = useLogicStore()
 
     const handleClose = () => {
         setOpen(false)
@@ -20,6 +20,12 @@ const Experiencias: FC = () => {
     const handleOpen = () => {
         setOpen(true)
     }
+
+    useEffect(() => {
+        fetchStore()
+    }, [])
+
+    console.log(store)
 
     return (
         <>
@@ -31,7 +37,14 @@ const Experiencias: FC = () => {
             </Container>
             <MainContainer>
                 <StoreModal open={open} onClose={() => handleClose()} />
-                <TitlebarImageList />
+                {store.map(item => (
+                    <TitlebarImageList
+                        key={item.id}
+                        title={item.title}
+                        description={item.description}
+                        picture={item.picture}
+                    />
+                ))}
                 <FloatAddBlaBlaFish onClick={() => handleOpen()} />
                 <SimpleBottomNavigation />
             </MainContainer>
