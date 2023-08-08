@@ -12,7 +12,7 @@ export const getAllStore = async () => {
             },
         },
         orderBy: {
-            createdAt: 'asc',
+            createdAt: 'desc',
         },
     })
 
