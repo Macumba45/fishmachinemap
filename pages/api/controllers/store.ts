@@ -43,3 +43,20 @@ export const updateStore = async (id: string, store: any) => {
 
     return data
 }
+
+export const getStoreById = async (id: string) => {
+    const data = await prisma.store.findUnique({
+        where: { id },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                },
+            },
+        },
+    })
+
+    return data
+}
