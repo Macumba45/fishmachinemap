@@ -30,11 +30,12 @@ const Page: FC<Props> = ({ params }) => {
 
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
-        const phoneNumber = phone.replace(/\D/g, '') // Eliminar todos los caracteres que no sean dígitos del número de teléfono
+        const phoneNumber = storeId?.phone.replace(/\D/g, '') // Eliminar todos los caracteres que no sean dígitos del número de teléfono
         const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`
         const message = 'Hola, me interesa tu prodcuto.'
         const encodedMessage = encodeURIComponent(message)
         const finalWhatsAppLink = `${whatsAppLink}&text=${encodedMessage}`
+        console.log(phoneNumber)
 
         // Abrir el enlace de WhatsApp en una nueva ventana o pestaña
         window.open(finalWhatsAppLink)
