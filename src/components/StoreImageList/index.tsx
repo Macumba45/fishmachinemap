@@ -12,6 +12,7 @@ interface Props {
     title: string
     description: string
     picture: string
+    price: string
 }
 
 let width: any;
@@ -26,7 +27,7 @@ if (typeof window !== 'undefined') {
     }
 }
 
-const TitlebarImageList: FC<Props> = ({ id, title, description, picture }) => {
+const TitlebarImageList: FC<Props> = ({ id, title, description, picture, price }) => {
     return (
         <ImageListItem
             component="div"
@@ -58,7 +59,7 @@ const TitlebarImageList: FC<Props> = ({ id, title, description, picture }) => {
                         }}
                         aria-label={`info about ${title}`}
                     >
-                        30
+                        {price}
                         <EuroIcon sx={{ fontSize: '1rem' }} />
                     </IconButton>
                 }
