@@ -14,13 +14,16 @@ interface Props {
     picture: string
 }
 
-let width: any
-if (window.innerWidth > 600) {
-    width = 330
-} else if (window.innerWidth > 400) {
-    width = 200
-} else if (window.innerWidth > 300) {
-    width = 150
+let width: any;
+
+if (typeof window !== 'undefined') {
+    if (window.innerWidth > 600) {
+        width = 330;
+    } else if (window.innerWidth > 400) {
+        width = 200;
+    } else if (window.innerWidth > 300) {
+        width = 150;
+    }
 }
 
 const TitlebarImageList: FC<Props> = ({ id, title, description, picture }) => {
