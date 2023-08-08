@@ -25,8 +25,7 @@ interface Props {
 }
 
 const Page: FC<Props> = ({ params }) => {
-    const { getProductId, storeId, phone } = useLogicStore()
-    const [loading, setLoading] = useState(false)
+    const { getProductId, storeId } = useLogicStore()
 
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
@@ -35,21 +34,14 @@ const Page: FC<Props> = ({ params }) => {
         const message = 'Hola, me interesa tu prodcuto.'
         const encodedMessage = encodeURIComponent(message)
         const finalWhatsAppLink = `${whatsAppLink}&text=${encodedMessage}`
-        console.log(phoneNumber)
 
         // Abrir el enlace de WhatsApp en una nueva ventana o pestaña
         window.open(finalWhatsAppLink)
     }
 
     useEffect(() => {
-        setLoading(true)
         getProductId(params.storeId)
-        setLoading(false)
     }, [])
-
-    if (loading) {
-        <CircularIndeterminate />
-    }
 
     return (
         <MainContainer>

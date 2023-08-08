@@ -25,6 +25,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 
 import {
     Button,
@@ -41,6 +42,7 @@ import {
     emailStyles,
     nameStyles,
 } from './style'
+import { BlaBlaFish } from '../blablafish/type'
 
 const Profile: FC = () => {
     const {
@@ -117,6 +119,20 @@ const Profile: FC = () => {
             }
         }
     }, [])
+
+    // Función de utilidad para formatear la fecha
+    function formatDate(date: Date) {
+        return date.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+        })
+    }
+
+    // Función para capitalizar la primera letra
+    function capitalizeFirstLetter(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+    }
 
     useEffect(() => {
         getUser()
@@ -385,7 +401,7 @@ const Profile: FC = () => {
                         </React.Fragment>
                     ))}
 
-                {activeView === 'blablafish' && userMarkers.length === 0 && (
+                {activeView === 'blablafish' && blablaFish.length === 0 && (
                     <Typography
                         sx={{
                             display: 'flex',
@@ -402,7 +418,133 @@ const Profile: FC = () => {
                     </Typography>
                 )}
 
-                {activeView === 'blablafish' && <div>BlablaFish</div>}
+                {activeView === 'blablafish' &&
+                    blablaFish.map((blabla: BlaBlaFish) => (
+                        <React.Fragment key={blabla.id}>
+                            <ListItem
+                                sx={{
+                                    width: width,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    minWidth: 200,
+                                    maxWidth: 600,
+                                }}
+                                alignItems="flex-start"
+                            >
+                                <div>
+                                    <img
+                                        key={blabla.id}
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                            borderRadius: '30px',
+                                            marginRight: '1.5rem',
+                                            objectFit: 'cover',
+                                        }}
+                                        src="https://www.a-alvarez.com/img/ybc_blog/post/surfcasting-lanzar-mas.jpg"
+                                    />
+                                </div>
+
+                                <ListItemText
+                                    primaryTypographyProps={{ width: '220px' }}
+                                    primary={capitalizeFirstLetter(
+                                        formatDate(new Date(blabla.date))
+                                    )}
+                                    secondary={
+                                        <>
+                                            <Typography
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    fontWeight: 400,
+                                                    wordWrap: 'break-word',
+                                                }}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                                {blabla.description
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    blabla.description.slice(1)}
+                                            </Typography>
+                                            <Typography
+                                                component="span"
+                                                sx={{
+                                                    width: '100%',
+                                                    fontWeight: 200,
+                                                    fontSize: '0.8rem',
+                                                    alignItems: 'center',
+                                                    display: 'flex',
+                                                    color: '#49007a',
+                                                }}
+                                            >
+                                                {blabla.departureCity
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    blabla.departureCity.slice(
+                                                        1
+                                                    )}
+                                                {<ArrowRightAltIcon />}
+                                                {blabla.arrivalCity
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    blabla.arrivalCity.slice(1)}
+                                            </Typography>
+                                        </>
+                                    }
+                                />
+                                <IconButton
+                                    onClick={() =>
+                                        setToBeDeletedMarkers(prevState => ({
+                                            ...prevState,
+                                            [blabla.id as string]: true,
+                                        }))
+                                    }
+                                    edge="end"
+                                    aria-label="delete"
+                                >
+                                    <Delete />
+                                </IconButton>
+                                {/* <IconButton
+                                    // onClick={() => setToBeDeletedMarker(true)}
+                                    edge="end"
+                                    aria-label="edit"
+                                >
+                                    <Edit />
+                                </IconButton> */}
+                            </ListItem>
+                            <Divider variant="inset" component="hr" />
+                            {blabla.id && toBeDeletedMarkers[blabla.id] && (
+                                <>
+                                    <DeleteMarkerModal
+                                        key={blabla.id}
+                                        isOpen={toBeDeletedMarkers[blabla.id]}
+                                        onCancel={() =>
+                                            setToBeDeletedMarkers(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    [blabla.id as string]:
+                                                        false,
+                                                })
+                                            )
+                                        }
+                                        onClick={() => {
+                                            blabla.id &&
+                                                deleteUserMarkers(blabla.id)
+                                            setToBeDeletedMarkers(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    [blabla.id as string]:
+                                                        false,
+                                                })
+                                            )
+                                        }}
+                                    />
+                                </>
+                            )}
+                        </React.Fragment>
+                    ))}
                 {activeView === 'capturas' && (
                     <React.Fragment>
                         <ImageList
