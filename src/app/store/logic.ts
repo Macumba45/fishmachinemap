@@ -9,6 +9,7 @@ export const useLogicStore = () => {
     const [phone, setPhone] = useState('')
     const [price, setPrice] = useState('')
     const [open, setOpen] = useState(false)
+    const [store, setStore] = useState<Store[]>([])
 
     const postStore = async (store: Store) => {
         try {
@@ -29,6 +30,25 @@ export const useLogicStore = () => {
         }
     }
 
+    const fetchStore = async () => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+            const response = await fetch('/api/store/getStore', {
+                method: 'GET',
+                headers,
+            })
+            const data = await response.json()
+            setStore(data.storeData)
+            return data
+        } catch (error: any) {
+            console.error('Error al obtener tiendas', error.message)
+        }
+    }
+
     return {
         title,
         setTitle,
@@ -43,5 +63,7 @@ export const useLogicStore = () => {
         open,
         setOpen,
         postStore,
+        store,
+        fetchStore,
     }
 }

@@ -2,11 +2,12 @@ import styled from 'styled-components'
 
 export const MainContainer = styled.div`
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    flex-wrap: wrap;
     height: 100%;
     object-fit: cover;
     background-size: cover;
+    margin-top: 5rem;
+    justify-content: center;
 `
 
 export const Container = styled.div`
