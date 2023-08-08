@@ -11,6 +11,15 @@ export const MainContainer = styled.div`
     justify-content: center;
 `
 
+export const MainContainerNoData = styled.div`
+    display: flex;
+    height: 100vh;
+   align-items: center;
+   flex-direction: column;
+    justify-content: center;
+    font-family: Roboto, sans-serif;
+`
+
 export const Container = styled.div`
     display: flex;
     align-items: center;
@@ -30,4 +39,16 @@ export const ContainerMenu = styled.div`
     top: 0;
     width: 100%;
     z-index: 2;
+`
+
+export const TextNav = styled.h1`
+    font-family: Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    @media screen and (max-width: 370px) {
+        font-size: 0.75rem;
+    }
 `

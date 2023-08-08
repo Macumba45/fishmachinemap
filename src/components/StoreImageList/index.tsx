@@ -29,42 +29,44 @@ if (typeof window !== 'undefined') {
 
 const TitlebarImageList: FC<Props> = ({ id, title, description, picture, price }) => {
     return (
-        <ImageListItem
-            component="div"
-            style={{ display: 'flex', width: width, margin: '0.2rem' }}
-            key={id}
-        >
-            <img
-                src={`${picture}`}
-                srcSet={`${picture}`}
-                style={{
-                    width: '100%',
-                    height: '200px',
-                    objectFit: 'cover',
-                    borderRadius: '10px',
-                }}
-            />
-            <ImageListItemBar
-                title={title}
-                subtitle={description}
-                style={{
-                    borderBottomRightRadius: '10px',
-                    borderBottomLeftRadius: '10px',
-                }}
-                actionIcon={
-                    <IconButton
-                        sx={{
-                            color: 'rgba(0, 255, 76, 0.641)',
-                            fontSize: '1rem',
-                        }}
-                        aria-label={`info about ${title}`}
-                    >
-                        {price}
-                        <EuroIcon sx={{ fontSize: '1rem' }} />
-                    </IconButton>
-                }
-            />
-        </ImageListItem>
+        <IconButton style={{ borderRadius: 0, padding: 0 }}>
+            <ImageListItem
+                component="div"
+                style={{ display: 'flex', width: width, margin: '0.2rem' }}
+                key={id}
+            >
+                <img
+                    src={`${picture}`}
+                    srcSet={`${picture}`}
+                    style={{
+                        width: '100%',
+                        height: '200px',
+                        objectFit: 'cover',
+                        borderRadius: '10px',
+                    }}
+                />
+                <ImageListItemBar
+                    title={title}
+                    subtitle={description}
+                    style={{
+                        borderBottomRightRadius: '10px',
+                        borderBottomLeftRadius: '10px',
+                    }}
+                    actionIcon={
+                        <IconButton
+                            sx={{
+                                color: 'rgba(0, 255, 76, 0.641)',
+                                fontSize: '1rem',
+                            }}
+                            aria-label={`info about ${title}`}
+                        >
+                            {price}
+                            <EuroIcon sx={{ fontSize: '1rem' }} />
+                        </IconButton>
+                    }
+                />
+            </ImageListItem>
+        </IconButton>
     )
 }
 
