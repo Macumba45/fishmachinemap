@@ -5,7 +5,7 @@ import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
 import CardBlaBlaFish from '@/components/CardBlaBlaFish'
-import PhishingIcon from '@mui/icons-material/Phishing'
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle'
 import CreateTripModal from '@/components/ModalBlaBlaFish'
 import { useLogicBlaBla } from './logic'
 import { BlaBlaFish } from './type'
@@ -71,7 +71,7 @@ const BlaBlaFish: FC = () => {
                             setOpenModal(false)
                         }}
                     />
-                    <PhishingIcon
+                    <AirportShuttleIcon
                         sx={{
                             fontSize: '3rem',
                             color: '#49007a',

@@ -25,7 +25,9 @@ const Experiencias: FC = () => {
         fetchStore()
     }, [])
 
-    console.log(store)
+    if (store.length === 0) {
+        return <div>No hay anuncios publicados</div>
+    }
 
     return (
         <>
@@ -43,6 +45,7 @@ const Experiencias: FC = () => {
                         title={item.title}
                         description={item.description}
                         picture={item.picture}
+                        price={item.price}
                     />
                 ))}
                 <FloatAddBlaBlaFish onClick={() => handleOpen()} />
