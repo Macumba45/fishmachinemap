@@ -38,7 +38,7 @@ const TitlebarImageList: FC<Props> = ({ id, title, description, picture }) => {
                 srcSet={`${picture}`}
                 style={{
                     width: '100%',
-                    height: '100%',
+                    height: '200px',
                     objectFit: 'cover',
                     borderRadius: '10px',
                 }}
