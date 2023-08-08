@@ -13,7 +13,6 @@ export const useLogicStore = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [storeId, setStoreId] = useState<Store>()
 
-
     const postStore = async (store: Store) => {
         try {
             const token = getAuthenticatedToken()
@@ -56,6 +55,7 @@ export const useLogicStore = () => {
 
     const getProductId = async (id: string) => {
         try {
+            setLoading(true)
             const token = getAuthenticatedToken()
             const headers = {
                 'Content-Type': 'application/json',
@@ -67,6 +67,7 @@ export const useLogicStore = () => {
             })
             const data = await response.json()
             setStoreId(data)
+            setLoading(false)
             return data
         } catch (error: any) {
             console.error('Error al obtener tiendas', error.message)
@@ -91,6 +92,6 @@ export const useLogicStore = () => {
         fetchStore,
         loading,
         getProductId,
-        storeId
+        storeId,
     }
 }

@@ -19,6 +19,7 @@ const ButtonComp: FC<Props> = ({
     disabled,
     type,
     id,
+    width,
 }) => {
     const ButtonStyles = {
         backgroundColor: bgColor || 'transparent',
@@ -28,7 +29,7 @@ const ButtonComp: FC<Props> = ({
         marginRight: '1rem',
         border: border || 'none',
         fontSize: '0.9rem',
-        width: '250px',
+        width: '250px' || width,
         cursor: 'pointer',
         opacity: 1,
         fontFamily: fontFamily,
