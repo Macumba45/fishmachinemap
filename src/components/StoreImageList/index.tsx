@@ -14,12 +14,12 @@ interface Props {
     picture: string
 }
 
-let width = window.innerWidth
-if (width > 600) {
+let width: any
+if (window.innerWidth > 600) {
     width = 330
-} else if (width > 400) {
+} else if (window.innerWidth > 400) {
     width = 200
-} else if (width > 300) {
+} else if (window.innerWidth > 300) {
     width = 150
 }
 
