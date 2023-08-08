@@ -91,6 +91,25 @@ const Page: FC<Props> = ({ params }) => {
         }
     }, [])
 
+
+    useEffect(() => {
+        const handleScroll = (event: Event) => {
+            event.preventDefault()
+        }
+
+        document.body.style.overflow = ''
+        document.removeEventListener('scroll', handleScroll)
+        console.log('entro')
+
+
+        return () => {
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
+
+
     return (
         <>
             <AccountMenu />
