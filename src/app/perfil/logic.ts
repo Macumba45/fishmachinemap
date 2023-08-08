@@ -2,6 +2,7 @@ import { User } from 'next-auth'
 import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
+import { BlaBlaFish } from '../blablafish/type'
 
 export const useLogicUser = () => {
     const [user, setUser] = useState<User | null>(null)
@@ -9,7 +10,7 @@ export const useLogicUser = () => {
     const [toBeDeletedMarkers, setToBeDeletedMarkers] = useState<{
         [key: string]: boolean
     }>({})
-    const [blablaFish, setBlaBlaFish] = useState<UserMarker[]>([])
+    const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
     const [picturesProfile, setPicturesProfile] = useState<string[]>([])
     const [markerVisibility, setMarkerVisibility] = useState<{
         [key: string]: boolean

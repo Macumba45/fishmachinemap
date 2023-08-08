@@ -51,7 +51,7 @@ const Store: FC = () => {
                     <AccountMenu />
                 </ContainerMenu>
                 <Container>
-                    <TextNav>Compra y vende</TextNav>
+                    <TextNav>Compra, vende. Reutiliza</TextNav>
                 </Container>
                 <MainContainerNoData>
                     <ShoppingBagIcon
@@ -74,7 +74,7 @@ const Store: FC = () => {
                 <AccountMenu />
             </ContainerMenu>
             <Container>
-                <TextNav>Compra y vende</TextNav>
+                <TextNav>Compra, vende. Reutiliza</TextNav>
             </Container>
             <MainContainer>
                 <StoreModal open={open} onClose={() => handleClose()} />

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { prisma } from '@/lib/db'
+import { postBlablaFish } from '../controllers/blablaFish'
 
 const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.split(' ')[1]
@@ -24,17 +25,15 @@ const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {
             date,
         } = req.body
 
-        const data = await prisma.blaBlaFish.create({
-            data: {
-                departureCity,
-                arrivalCity,
-                departureTime,
-                description,
-                price,
-                phone,
-                date,
-                userId: userId,
-            },
+        const data = await postBlablaFish({
+            departureCity,
+            arrivalCity,
+            departureTime,
+            description,
+            price,
+            phone,
+            date,
+            userId,
         })
 
         return res.status(200).json(data)
