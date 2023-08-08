@@ -18,7 +18,6 @@ const userInfoFeed = async (req: NextApiRequest, res: NextApiResponse) => {
                 })
             }
             const user = await userFeedInfo(userId)
-            // Eliminar el campo 'password' del objeto del usuario antes de enviarlo en la respuesta
             if (!user) {
                 return res
                     .status(404)
