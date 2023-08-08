@@ -4,7 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
-import EuroIcon from '@mui/icons-material/Euro';
+import EuroIcon from '@mui/icons-material/Euro'
 import { FC, memo } from 'react'
 
 const TitlebarImageList: FC = () => {
@@ -22,10 +22,14 @@ const TitlebarImageList: FC = () => {
                         subtitle={item.author}
                         actionIcon={
                             <IconButton
-                                sx={{ color: 'rgba(0, 255, 76, 0.641)', fontSize: '1rem' }}
+                                sx={{
+                                    color: 'rgba(0, 255, 76, 0.641)',
+                                    fontSize: '1rem',
+                                }}
                                 aria-label={`info about ${item.title}`}
                             >
-                                30<EuroIcon sx={{ fontSize: '1rem' }} />
+                                30
+                                <EuroIcon sx={{ fontSize: '1rem' }} />
                             </IconButton>
                         }
                     />
@@ -108,6 +112,5 @@ const itemData = [
         cols: 2,
     },
 ]
-
 
 export default memo(TitlebarImageList)
