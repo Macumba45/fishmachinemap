@@ -14,8 +14,8 @@ export const MainContainer = styled.div`
 export const MainContainerNoData = styled.div`
     display: flex;
     height: 100vh;
-   align-items: center;
-   flex-direction: column;
+    align-items: center;
+    flex-direction: column;
     justify-content: center;
     font-family: Roboto, sans-serif;
 `

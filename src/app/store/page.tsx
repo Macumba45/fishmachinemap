@@ -8,12 +8,18 @@ import TitlebarImageList from '@/components/StoreImageList'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
 import StoreModal from '@/components/ModalStore'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
-import { Container, ContainerMenu, MainContainer, MainContainerNoData, TextNav } from './style'
+import {
+    Container,
+    ContainerMenu,
+    MainContainer,
+    MainContainerNoData,
+    TextNav,
+} from './style'
 import CircularIndeterminate from '@/components/Loader'
 import { IconButton } from '@mui/material'
+import Link from 'next/link'
 
-
-const Experiencias: FC = () => {
+const Store: FC = () => {
     const { open, setOpen, fetchStore, store, loading } = useLogicStore()
     console.log(store)
 
@@ -38,7 +44,6 @@ const Experiencias: FC = () => {
         )
     }
 
-
     if (store.length === 0 && !loading) {
         return (
             <>
@@ -49,12 +54,17 @@ const Experiencias: FC = () => {
                     <TextNav>Compra y vende</TextNav>
                 </Container>
                 <MainContainerNoData>
-                    <ShoppingBagIcon style={{ fontSize: '5rem', color: '#49007a', marginBottom: '2rem' }} />
+                    <ShoppingBagIcon
+                        style={{
+                            fontSize: '5rem',
+                            color: '#49007a',
+                            marginBottom: '2rem',
+                        }}
+                    />
                     No hay productos a la venta
                 </MainContainerNoData>
                 <FloatAddBlaBlaFish onClick={() => handleOpen()} />
                 <SimpleBottomNavigation />
-
             </>
         )
     }
@@ -69,13 +79,15 @@ const Experiencias: FC = () => {
             <MainContainer>
                 <StoreModal open={open} onClose={() => handleClose()} />
                 {store.map(item => (
-                    <TitlebarImageList
-                        key={item.id}
-                        title={item.title}
-                        description={item.description}
-                        picture={item.picture}
-                        price={item.price}
-                    />
+                    <Link key={item.id} href={`/store/${item.id}`}>
+                        <TitlebarImageList
+                            key={item.id}
+                            title={item.title}
+                            description={item.description}
+                            picture={item.picture}
+                            price={item.price}
+                        />
+                    </Link>
                 ))}
 
                 <FloatAddBlaBlaFish onClick={() => handleOpen()} />
@@ -85,4 +97,4 @@ const Experiencias: FC = () => {
     )
 }
 
-export default memo(Experiencias)
+export default memo(Store)
