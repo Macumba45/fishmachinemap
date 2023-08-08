@@ -1,14 +1,26 @@
 'use client'
 
-import React, { FC, useEffect, memo } from 'react'
+import React, { FC, useEffect, memo, useState } from 'react'
 import { Container, ContainerMenu, MainContainer } from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import TitlebarImageList from '@/components/StoreImageList'
 import { TextNav } from '../blablafish/style'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
+import StoreModal from '@/components/ModalStore'
+import { useLogicStore } from './logic'
 
 const Experiencias: FC = () => {
+    const { open, setOpen } = useLogicStore()
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
     return (
         <>
             <ContainerMenu>
@@ -18,8 +30,9 @@ const Experiencias: FC = () => {
                 <TextNav>Compra y vende</TextNav>
             </Container>
             <MainContainer>
+                <StoreModal open={open} onClose={() => handleClose()} />
                 <TitlebarImageList />
-                <FloatAddBlaBlaFish />
+                <FloatAddBlaBlaFish onClick={() => handleOpen()} />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

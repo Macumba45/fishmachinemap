@@ -1,7 +1,7 @@
-export type User = {
-    id: number
-    name: string
-    email: string
-    password: string
+export type Store = {
+    title: string
+    description: string
+    phone: string
+    price: string
     picture: string
 }
