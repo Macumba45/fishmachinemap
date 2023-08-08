@@ -7,6 +7,7 @@ export const MainContainer = styled.div`
     object-fit: cover;
     background-size: cover;
     margin-top: 5rem;
+    margin-bottom: 5rem;
     justify-content: center;
 `
 
