@@ -8,10 +8,13 @@ import {
     MenuItem,
     TextField,
     Button,
+    Snackbar,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material'
 import ButtonComp from '@/components/Button'
 import { LoadingButton } from '@mui/lab'
+import MuiAlert from '@mui/material/Alert'
+
 
 interface Props {
     isOpen: boolean
@@ -48,7 +51,23 @@ const ModalCrearMarcador: FC<Props> = ({
         setAddingMarker,
     } = useLogicMaps()
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const handleSnackbarClose = (event?: any, reason?: string) => {
+        if (reason === 'clickaway') {
+            return
+        }
+        setSnackbarOpen(false)
+    }
+
+    const handleSuccessSnackbarClose = (event?: any, reason?: string) => {
+        if (reason === 'clickaway') {
+            return
+        }
+        setSuccessSnackbarOpen(false)
+    }
     const handleDireccionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -135,132 +154,172 @@ const ModalCrearMarcador: FC<Props> = ({
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        setIsLoading(true)
-
         event.preventDefault()
-        await confirmMarker(
-            positionMarkerUser,
-            direccion || '',
-            tipoLugar || '',
-            descripcion || '',
-            fotos || null
-        )
-        setIsLoading(false)
-        onClose!()
+
+        if (!positionMarkerUser || !direccion || !tipoLugar || !descripcion || !fotos) {
+            setSnackbarOpen(true)
+            return
+        }
+        try {
+            setLoading(true)
+            await confirmMarker(
+                positionMarkerUser,
+                direccion || '',
+                tipoLugar || '',
+                descripcion || '',
+                fotos || null
+            )
+            setSuccessSnackbarOpen(true)
+            onClose!()
+
+        } catch (error) {
+            console.log(error)
+
+        }
+
     }
 
     return (
-        <Modal open={isOpen}>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 300,
-                    bgcolor: 'background.paper',
-                    boxShadow: 24,
-                    borderRadius: '30px',
-                    p: 4,
-                }}
-            >
-                <Typography variant="h6" component="h2" align="center">
-                    Crear Marcador
-                </Typography>
+        <>
+            <Modal open={isOpen}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 300,
+                        bgcolor: 'background.paper',
+                        boxShadow: 24,
+                        borderRadius: '30px',
+                        p: 4,
+                    }}
+                >
+                    <Typography variant="h6" component="h2" align="center">
+                        Crear Marcador
+                    </Typography>
 
-                <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    <Box sx={{ mt: 2, borderRadius: '20px' }}>
-                        <div style={{ marginBottom: '1rem' }}>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
+                        <Box sx={{ mt: 2, borderRadius: '20px' }}>
+                            <div style={{ marginBottom: '1rem' }}>
+                                <Typography variant="body2" component="label">
+                                    Introduce la Dirección/Lugar
+                                </Typography>
+                                <TextField
+                                    value={direccion}
+                                    fullWidth
+                                    id="outlined-controlled"
+                                    onChange={handleDireccionChange}
+
+                                />
+                            </div>
                             <Typography variant="body2" component="label">
-                                Introduce la Dirección/Lugar
+                                Tipo de lugar:
+                            </Typography>
+                            <Select
+                                value={tipoLugar}
+                                onChange={handleTipoLugarChange}
+                                fullWidth
+
+                            >
+                                <MenuItem value="pesquero">Pesquero</MenuItem>
+                                <MenuItem value="tienda">Tienda de Pesca</MenuItem>
+                                <MenuItem value="cebos">Cebos 24H</MenuItem>
+                                <MenuItem value="fotos">Fotos de Capturas</MenuItem>
+                            </Select>
+                        </Box>
+
+                        <Box sx={{ mt: 2 }}>
+                            <Typography variant="body2" component="label">
+                                Descripción del lugar:
                             </Typography>
                             <TextField
-                                value={direccion}
+                                value={descripcion}
+                                onChange={handleDescripcionChange}
                                 fullWidth
-                                id="outlined-controlled"
-                                onChange={handleDireccionChange}
-                                required
+                                multiline
+                                rows={4}
+
                             />
-                        </div>
-                        <Typography variant="body2" component="label">
-                            Tipo de lugar:
-                        </Typography>
-                        <Select
-                            value={tipoLugar}
-                            onChange={handleTipoLugarChange}
-                            fullWidth
-                            required
-                        >
-                            <MenuItem value="pesquero">Pesquero</MenuItem>
-                            <MenuItem value="tienda">Tienda de Pesca</MenuItem>
-                            <MenuItem value="cebos">Cebos 24H</MenuItem>
-                            <MenuItem value="fotos">Fotos de Capturas</MenuItem>
-                        </Select>
-                    </Box>
+                        </Box>
 
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant="body2" component="label">
-                            Descripción del lugar:
-                        </Typography>
-                        <TextField
-                            value={descripcion}
-                            onChange={handleDescripcionChange}
-                            fullWidth
-                            multiline
-                            rows={4}
-                            required
-                        />
-                    </Box>
+                        <Box sx={{ mt: 2 }}>
+                            <Typography variant="body2" component="label">
+                                Subir fotos:
+                            </Typography>
+                            <input
 
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant="body2" component="label">
-                            Subir fotos:
-                        </Typography>
-                        <input
-                            required
-                            accept=".jpg, .png, .gif, .jpeg"
-                            type="file"
-                            onChange={handleFotosChange}
-                        />
-                    </Box>
+                                accept=".jpg, .png, .gif, .jpeg"
+                                type="file"
+                                onChange={handleFotosChange}
+                            />
+                        </Box>
 
-                    <Box
-                        sx={{
-                            mt: 2,
-                            display: 'flex',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <LoadingButton
-                            type="submit"
-                            variant="contained"
-                            style={{
-                                backgroundColor: isLoading
-                                    ? 'white'
-                                    : '#49007a',
-                                marginRight: isLoading ? '0' : '0.5rem',
+                        <Box
+                            sx={{
+                                mt: 2,
+                                display: 'flex',
+                                justifyContent: 'center',
                             }}
-                            title="Confirmar"
-                            loading={isLoading}
-                            loadingPosition="center"
                         >
-                            Confirmar
-                        </LoadingButton>
-                        <ButtonComp
-                            type="button"
-                            variant="contained"
-                            style={{
-                                backgroundColor: '#49007a',
-                                display: isLoading ? 'none' : 'block',
-                            }}
-                            title="Cancelar"
-                            onClick={onClose}
-                            disabled={isLoading}
-                        />
-                    </Box>
-                </form>
-            </Box>
-        </Modal>
+                            <LoadingButton
+                                type="submit"
+                                variant="contained"
+                                style={{
+                                    backgroundColor: loading
+                                        ? 'white'
+                                        : '#49007a',
+                                    marginRight: loading ? '0' : '0.5rem',
+                                }}
+                                title="Confirmar"
+                                loading={loading}
+                                loadingPosition="center"
+                            >
+                                Confirmar
+                            </LoadingButton>
+                            <ButtonComp
+                                type="button"
+                                variant="contained"
+                                style={{
+                                    backgroundColor: '#49007a',
+                                    display: loading ? 'none' : 'block',
+                                }}
+                                title="Cancelar"
+                                onClick={onClose}
+                                disabled={loading}
+                            />
+                        </Box>
+                    </form>
+                </Box>
+            </Modal>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={4000}
+                onClose={handleSnackbarClose}
+            >
+                <MuiAlert
+                    onClose={handleSnackbarClose}
+                    severity="error"
+                    sx={{ width: '100%' }}
+                >
+                    Por favor, completa todos los campos requeridos antes de
+                    crear el marcador.
+                </MuiAlert>
+            </Snackbar>
+            <Snackbar
+                open={successSnackbarOpen}
+                autoHideDuration={4000}
+                onClose={handleSuccessSnackbarClose}
+            >
+                <MuiAlert
+                    onClose={handleSuccessSnackbarClose}
+                    severity="success"
+                    sx={{ width: '100%' }}
+                >
+                    Marcador creado exitosamente!
+                </MuiAlert>
+            </Snackbar>
+        </>
     )
 }
 
