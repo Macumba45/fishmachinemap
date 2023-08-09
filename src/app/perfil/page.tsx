@@ -43,6 +43,7 @@ import {
     nameStyles,
 } from './style'
 import { BlaBlaFish } from '../blablafish/type'
+import { Store } from '../store/type'
 
 const Profile: FC = () => {
     const {
@@ -59,6 +60,13 @@ const Profile: FC = () => {
         updateMarker,
         markerVisibility,
         setMarkerVisibility,
+        deleteBlaBlaFish,
+        toBeDeletedBlaBlaFish,
+        setToBeDeletedBlaBlaFish,
+        stores,
+        toBeDeletedStores,
+        setToBeDeletedStores,
+        deleteStore,
     } = useLogicUser()
 
     const [openModal, setOpenModal] = useState(false)
@@ -136,7 +144,7 @@ const Profile: FC = () => {
 
     useEffect(() => {
         getUser()
-    }, [])
+    }, [setToBeDeletedStores, setToBeDeletedBlaBlaFish, setToBeDeletedMarkers])
 
     return (
         <>
@@ -230,7 +238,7 @@ const Profile: FC = () => {
                                     backgroundColor: '#49007a',
                                     '&:hover': { backgroundColor: '#7900ca' },
                                 }}
-                                onClick={() => handleViewChange('blablafish')}
+                                onClick={() => handleViewChange('stores')}
                             >
                                 <ShoppingBagIcon />
                             </Button>
@@ -496,7 +504,7 @@ const Profile: FC = () => {
                                 />
                                 <IconButton
                                     onClick={() =>
-                                        setToBeDeletedMarkers(prevState => ({
+                                        setToBeDeletedBlaBlaFish(prevState => ({
                                             ...prevState,
                                             [blabla.id as string]: true,
                                         }))
@@ -515,13 +523,15 @@ const Profile: FC = () => {
                                 </IconButton> */}
                             </ListItem>
                             <Divider variant="inset" component="hr" />
-                            {blabla.id && toBeDeletedMarkers[blabla.id] && (
+                            {blabla.id && toBeDeletedBlaBlaFish[blabla.id] && (
                                 <>
                                     <DeleteMarkerModal
                                         key={blabla.id}
-                                        isOpen={toBeDeletedMarkers[blabla.id]}
+                                        isOpen={
+                                            toBeDeletedBlaBlaFish[blabla.id]
+                                        }
                                         onCancel={() =>
-                                            setToBeDeletedMarkers(
+                                            setToBeDeletedBlaBlaFish(
                                                 prevState => ({
                                                     ...prevState,
                                                     [blabla.id as string]:
@@ -531,11 +541,146 @@ const Profile: FC = () => {
                                         }
                                         onClick={() => {
                                             blabla.id &&
-                                                deleteUserMarkers(blabla.id)
-                                            setToBeDeletedMarkers(
+                                                deleteBlaBlaFish(blabla.id)
+                                            setToBeDeletedBlaBlaFish(
                                                 prevState => ({
                                                     ...prevState,
                                                     [blabla.id as string]:
+                                                        false,
+                                                })
+                                            )
+                                        }}
+                                    />
+                                </>
+                            )}
+                        </React.Fragment>
+                    ))}
+
+                {activeView === 'stores' && stores.length === 0 && (
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '2rem',
+                            color: '#49007a',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                        }}
+                        variant="h6"
+                        gutterBottom
+                    >
+                        No tienes productos en Venta
+                    </Typography>
+                )}
+
+                {activeView === 'stores' &&
+                    stores.map((store: Store) => (
+                        <React.Fragment key={store.id}>
+                            <ListItem
+                                sx={{
+                                    width: width,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    minWidth: 200,
+                                    maxWidth: 600,
+                                }}
+                                alignItems="flex-start"
+                            >
+                                <div>
+                                    <img
+                                        key={store.id}
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                            borderRadius: '30px',
+                                            marginRight: '1.5rem',
+                                            objectFit: 'cover',
+                                        }}
+                                        src={store.picture as string}
+                                    />
+                                </div>
+
+                                <ListItemText
+                                    primaryTypographyProps={{ width: '220px' }}
+                                    primary={store.title}
+                                    secondary={
+                                        <>
+                                            <Typography
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    fontWeight: 400,
+                                                    wordWrap: 'break-word',
+                                                }}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                                {store.description
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    store.description.slice(1)}
+                                            </Typography>
+                                            <Typography
+                                                component="span"
+                                                sx={{
+                                                    width: '100%',
+                                                    fontWeight: 200,
+                                                    fontSize: '0.8rem',
+                                                    alignItems: 'center',
+                                                    display: 'flex',
+                                                    color: '#49007a',
+                                                }}
+                                            >
+                                                {store.price}€
+                                            </Typography>
+                                        </>
+                                    }
+                                />
+                                <IconButton
+                                    onClick={() =>
+                                        setToBeDeletedStores(prevState => ({
+                                            ...prevState,
+                                            [store.id as string]: true,
+                                        }))
+                                    }
+                                    edge="end"
+                                    aria-label="delete"
+                                >
+                                    <Delete />
+                                </IconButton>
+                                {/* <IconButton
+                                    // onClick={() => setToBeDeletedMarker(true)}
+                                    edge="end"
+                                    aria-label="edit"
+                                >
+                                    <Edit />
+                                </IconButton> */}
+                            </ListItem>
+                            <Divider variant="inset" component="hr" />
+                            {store.id && toBeDeletedStores[store.id] && (
+                                <>
+                                    <DeleteMarkerModal
+                                        key={store.id}
+                                        isOpen={
+                                            toBeDeletedStores[store.id]
+                                        }
+                                        onCancel={() =>
+                                            setToBeDeletedStores(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    [store.id as string]:
+                                                        false,
+                                                })
+                                            )
+                                        }
+                                        onClick={() => {
+                                            store.id &&
+                                                deleteStore(store.id)
+                                            setToBeDeletedStores(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    [store.id as string]:
                                                         false,
                                                 })
                                             )

@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { BlaBlaFish } from '../blablafish/type'
+import { Store } from '../store/type'
 
 export const useLogicUser = () => {
     const [user, setUser] = useState<User | null>(null)
@@ -10,7 +11,14 @@ export const useLogicUser = () => {
     const [toBeDeletedMarkers, setToBeDeletedMarkers] = useState<{
         [key: string]: boolean
     }>({})
+    const [toBeDeletedBlaBlaFish, setToBeDeletedBlaBlaFish] = useState<{
+        [key: string]: boolean
+    }>({})
+    const [toBeDeletedStores, setToBeDeletedStores] = useState<{
+        [key: string]: boolean
+    }>({})
     const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
+    const [stores, setStores] = useState<Store[]>([])
     const [picturesProfile, setPicturesProfile] = useState<string[]>([])
     const [markerVisibility, setMarkerVisibility] = useState<{
         [key: string]: boolean
@@ -35,6 +43,7 @@ export const useLogicUser = () => {
                 setBlaBlaFish(data.user.blaBlaFish)
                 setUser(data.user)
                 setUserMarkers(data.user.markers)
+                setStores(data.user.stores)
 
                 // Set marker visibility state
                 const visibilityState: Record<string, any> = {}
@@ -96,6 +105,57 @@ export const useLogicUser = () => {
         }
     }, [])
 
+    const deleteBlaBlaFish = useCallback(async (blaBlaFishId: string) => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+            const response = await fetch(
+                `/api/blablafish/deleteBlaBlaFish?id=${blaBlaFishId}`,
+                {
+                    method: 'DELETE',
+                    headers,
+                }
+            )
+            setToBeDeletedBlaBlaFish(prevState => ({
+                ...prevState,
+                [blaBlaFishId]: false,
+            }))
+            await response.json()
+            return response
+        } catch (error: any) {
+            console.error('Error al eliminar el viaje:', error.message)
+        }
+    }, [])
+
+    const deleteStore = useCallback(async (storeId: string) => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+            const response = await fetch(
+                `/api/store/deleteStore?id=${storeId}`,
+                {
+                    method: 'DELETE',
+                    headers,
+                }
+            )
+            setToBeDeletedStores(prevState => ({
+                ...prevState,
+                [storeId]: false,
+            }))
+            await response.json()
+            return response
+        } catch (error: any) {
+            console.error('Error al eliminar la tienda:', error.message)
+        }
+    }, [])
+
+
     return {
         user,
         userMarkers,
@@ -110,5 +170,12 @@ export const useLogicUser = () => {
         updateMarker,
         markerVisibility,
         setMarkerVisibility,
+        deleteBlaBlaFish,
+        toBeDeletedBlaBlaFish,
+        setToBeDeletedBlaBlaFish,
+        stores,
+        toBeDeletedStores,
+        setToBeDeletedStores,
+        deleteStore,
     }
 }
