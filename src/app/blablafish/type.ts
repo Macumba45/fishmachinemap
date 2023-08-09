@@ -1,6 +1,6 @@
 export type BlaBlaFish = {
     id?: string
-    date: string
+    date: string | number
     departureCity: string
     arrivalCity: string
     departureTime: string

@@ -1,13 +1,15 @@
 import React, { FC, useState } from 'react'
-import { Modal, Fade, Box, Typography } from '@mui/material'
+import { Modal, Fade, Box, Typography, Button, Snackbar } from '@mui/material'
+import { useLogicStore } from '@/app/store/logic'
+import { LoadingButton } from '@mui/lab'
+import MuiAlert from '@mui/material/Alert'
 import {
     ModalWrapper,
     ModalContent,
     ModalTitle,
     StyledTextField,
-    StyledButton,
 } from './styles'
-import { useLogicStore } from '@/app/store/logic'
+
 
 interface Props {
     open: boolean
@@ -28,6 +30,26 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         setPrice,
         postStore,
     } = useLogicStore()
+
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const handleSnackbarClose = (event?: any, reason?: string) => {
+        if (reason === 'clickaway') {
+            return
+        }
+        setSnackbarOpen(false)
+    }
+
+    const handleSuccessSnackbarClose = (event?: any, reason?: string) => {
+        if (reason === 'clickaway') {
+            return
+        }
+        setSuccessSnackbarOpen(false)
+    }
+
 
     const getBase64FromUrl = async (url: string) => {
         const data = await fetch(url)
@@ -99,6 +121,11 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
     }
 
     const handleSubmit = async () => {
+
+        if (!title || !picture || !description || !phone || !price) {
+            setSnackbarOpen(true)
+            return
+        }
         // Handle submission of store data, e.g., send to backend
         const storeData = {
             title,
@@ -109,105 +136,139 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         }
         console.log(storeData)
         try {
+            setLoading(true)
             await postStore(storeData)
+            setSuccessSnackbarOpen(true)
+            onClose()
         } catch (error) {
             console.log(error)
         }
         onClose()
     }
 
-    const handleCancel = () => {
-        onClose()
-    }
-
     return (
-        <Modal open={open} onClose={onClose}>
-            <Fade in={open}>
-                <ModalWrapper>
-                    <ModalContent>
-                        <ModalTitle variant="h6">Crear Anuncio</ModalTitle>
-                        <StyledTextField
-                            margin="dense"
-                            label="Producto"
-                            autoFocus
-                            variant="outlined"
-                            fullWidth
-                            value={title}
-                            onChange={(e: any) => setTitle(e.target.value)}
-                        />
-                        <StyledTextField
-                            margin="dense"
-                            label="Descripción"
-                            fullWidth
-                            multiline
-                            rows={4}
-                            value={description}
-                            onChange={(e: any) =>
-                                setDescription(e.target.value)
-                            }
-                        />
-
-                        <StyledTextField
-                            margin="dense"
-                            placeholder="10€"
-                            label="Precio €"
-                            fullWidth
-                            value={price}
-                            type="number"
-                            onChange={(e: any) => setPrice(e.target.value)}
-                            inputProps={{
-                                inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
-                                pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
-                            }}
-                        />
-                        <StyledTextField
-                            margin="dense"
-                            variant="outlined"
-                            fullWidth
-                            value={phone}
-                            onChange={(e: any) => {
-                                const onlyNumbers = e.target.value.replace(
-                                    /[^0-9]/g,
-                                    ''
-                                )
-                                setPhone(onlyNumbers)
-                            }}
-                            inputProps={{
-                                inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
-                                pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
-                            }}
-                            placeholder="+34 123 456 789"
-                            label="Teléfono de contacto"
-                        />
-                        <Box sx={{ mt: 2, mb: 2 }}>
-                            <Typography
-                                variant="body2"
-                                component="label"
-                            ></Typography>
-                            <input
-                                accept=".jpg, .png, .gif, .jpeg"
-                                type="file"
-                                onChange={handleFotosChange}
+        <>
+            <Modal open={open} onClose={onClose}>
+                <Fade in={open}>
+                    <ModalWrapper>
+                        <ModalContent>
+                            <ModalTitle variant="h6">Crear Anuncio</ModalTitle>
+                            <StyledTextField
+                                margin="dense"
+                                placeholder='Carrete de Pesca Shimano...'
+                                label="Producto"
+                                autoFocus
+                                variant="outlined"
+                                fullWidth
+                                value={title}
+                                onChange={(e: any) => setTitle(e.target.value)}
                             />
-                        </Box>
-                        <StyledButton
-                            variant="contained"
-                            style={{ backgroundColor: '#49007a' }}
-                            onClick={handleSubmit}
-                        >
-                            Crear Anuncio
-                        </StyledButton>
-                        <StyledButton
-                            variant="outlined"
-                            style={{ color: '#49007a', borderColor: '#49007a' }}
-                            onClick={handleCancel}
-                        >
-                            Cancelar
-                        </StyledButton>
-                    </ModalContent>
-                </ModalWrapper>
-            </Fade>
-        </Modal>
+                            <StyledTextField
+                                margin="dense"
+                                placeholder='Carrete de Pesca Shimano en buen estado, con poco uso...'
+                                label="Descripción"
+                                fullWidth
+                                multiline
+                                rows={4}
+                                value={description}
+                                onChange={(e: any) =>
+                                    setDescription(e.target.value)
+                                }
+                            />
+
+                            <StyledTextField
+                                margin="dense"
+                                placeholder="10€"
+                                label="Precio €"
+                                fullWidth
+                                value={price}
+                                type="number"
+                                onChange={(e: any) => setPrice(e.target.value)}
+                                inputProps={{
+                                    inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                                    pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
+                                }}
+                            />
+                            <StyledTextField
+                                margin="dense"
+                                variant="outlined"
+                                fullWidth
+                                value={phone}
+                                onChange={(e: any) => {
+                                    const onlyNumbers = e.target.value.replace(
+                                        /[^0-9]/g,
+                                        ''
+                                    )
+                                    setPhone(onlyNumbers)
+                                }}
+                                inputProps={{
+                                    inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                                    pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
+                                }}
+                                placeholder="+34 123 456 789"
+                                label="Teléfono de contacto"
+                            />
+                            <Box sx={{ mt: 2, mb: 2 }}>
+                                <Typography
+                                    variant="body2"
+                                    component="label"
+                                ></Typography>
+                                <input
+                                    accept=".jpg, .png, .gif, .jpeg"
+                                    type="file"
+                                    onChange={handleFotosChange}
+                                />
+                            </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 4 }}>
+                                <LoadingButton
+                                    loading={loading}
+                                    onClick={handleSubmit}
+                                    variant="contained"
+                                    sx={{ backgroundColor: '#49007a', color: 'white' }}
+                                >
+                                    Vender Producto
+                                </LoadingButton>
+                                <Button
+                                    hidden={loading}
+                                    sx={{ color: '#49007a' }}
+                                    onClick={onClose}
+                                >
+                                    Cancelar
+                                </Button>
+                            </Box>
+                            <Snackbar
+                                open={snackbarOpen}
+                                autoHideDuration={4000}
+                                onClose={handleSnackbarClose}
+                            >
+                                <MuiAlert
+                                    onClose={handleSnackbarClose}
+                                    severity="error"
+                                    sx={{ width: '100%' }}
+                                >
+                                    Por favor, completa todos los campos requeridos antes de vender el producto.
+                                </MuiAlert>
+                            </Snackbar>
+                            <Snackbar
+                                open={successSnackbarOpen}
+                                autoHideDuration={4000}
+                                onClose={handleSuccessSnackbarClose}
+                            >
+                                <MuiAlert
+                                    onClose={handleSuccessSnackbarClose}
+                                    severity="success"
+                                    sx={{ width: '100%' }}
+                                >
+                                    ¡Producto en venta exitosamente!
+                                </MuiAlert>
+                            </Snackbar>
+                        </ModalContent>
+                    </ModalWrapper>
+                </Fade>
+            </Modal>
+
+        </>
+
     )
 }
 
