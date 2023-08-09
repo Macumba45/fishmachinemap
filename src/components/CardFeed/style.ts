@@ -26,14 +26,26 @@ export const Icons = styled.div`
     margin-left: 0.5rem;
     margin-top: 0.5rem;
 `
-export const HearthContainer = styled.div`
+export const HearthContainerTop = styled.div`
     display: grid;
-    grid-template-columns: 6fr 1fr;
+    grid-template-columns: 7fr 1fr;
     align-items: center;
     margin-right: 0.5rem;
-    padding-bottom: 1rem;
     margin-top: 0.5rem;
     height: auto;
+`
+
+export const HearthContainer = styled.div`
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    align-items: center;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    height: auto;
+
+`
+export const LastColumn = styled.div`
+    justify-self: end; // Alinea la última columna a la derecha
 `
 
 export const LikesLabel = styled.div`
@@ -76,5 +88,7 @@ export const DateContainer = styled.div`
     display: flex;
     align-items: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
+    justify-self: end; // Alinea la última columna a la derecha
+
 `

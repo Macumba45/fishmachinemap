@@ -10,6 +10,7 @@ import {
     Description,
     HearthContainer,
     DateContainer,
+    HearthContainerTop,
 } from './style'
 import CommentIcon from '@mui/icons-material/Comment'
 import { IconButton, Typography } from '@mui/material'
@@ -39,7 +40,7 @@ const CardFeed: FC<FeedPros> = ({
                 <Imagen src={picture} />
             </ImagenContainer>
             <IconsContainer>
-                <HearthContainer>
+                <HearthContainerTop>
                     <Typography
                         style={{
                             fontSize: '0.8rem',
@@ -64,7 +65,7 @@ const CardFeed: FC<FeedPros> = ({
                     </Typography>
                     <IconButton
                         onClick={onClick}
-                        style={{ marginLeft: '10rem' }}
+                        style={{ justifySelf: 'end' }}
                     >
                         {isLiked ? (
                             <FavoriteIcon style={{ color: '#49007a' }} />
@@ -73,16 +74,14 @@ const CardFeed: FC<FeedPros> = ({
                         )}
                         <LikesLabel>{likes}</LikesLabel>
                     </IconButton>
-                </HearthContainer>
+                </HearthContainerTop>
                 <HearthContainer>
                     <Icons>
-                        <CommentIcon style={{ color: '#49007a' }} />
+                        {/* <CommentIcon style={{ color: '#49007a' }} /> */}
                         <Description>{description}</Description>
                     </Icons>
                     <DateContainer>
-                        <TodayIcon
-                            style={{ color: '#49007a', marginLeft: '1rem' }}
-                        />{' '}
+
                         {date}
                     </DateContainer>
                 </HearthContainer>
