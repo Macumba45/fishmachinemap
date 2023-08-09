@@ -55,7 +55,6 @@ const GoogleMapComp: FC = () => {
         isButtonDisabled,
         style,
         setStyle,
-        isLoaded,
         loading,
         setLoading,
         center,
@@ -119,7 +118,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -177,7 +176,7 @@ const GoogleMapComp: FC = () => {
     }
 
     async function initMap() {
-        if (typeof window !== 'undefined' && isLoaded && confirmedMarkers) {
+        if (typeof window !== 'undefined' && confirmedMarkers) {
             map = new window.google.maps.Map(
                 document.getElementById('map') as HTMLElement,
                 {
@@ -426,7 +425,7 @@ const GoogleMapComp: FC = () => {
         if (!confirmedMarkers) {
             getAllMarkersUser()
         }
-    }, [isLoaded, confirmedMarkers])
+    }, [confirmedMarkers])
 
     useEffect(() => {
         if (mapRef.current) {
@@ -458,12 +457,6 @@ const GoogleMapComp: FC = () => {
         const handleScroll = (event: Event) => {
             event.preventDefault()
         }
-        if (location.pathname === '/feed') {
-            document.body.style.overflow = ''
-            document.removeEventListener('scroll', handleScroll)
-            console.log('entro')
-        }
-
         // Bloquear el desplazamiento cuando se monta el componente
         document.body.style.overflow = 'hidden'
         document.addEventListener('scroll', handleScroll, { passive: false })

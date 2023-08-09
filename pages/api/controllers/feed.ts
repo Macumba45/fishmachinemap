@@ -54,6 +54,7 @@ export const userFeedInfo = async (userId: string) => {
                 },
             },
             blaBlaFish: true,
+            stores: true,
         },
     })
     return user

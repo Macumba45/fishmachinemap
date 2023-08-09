@@ -101,10 +101,10 @@ export const useLogicMaps = () => {
         }
     }
 
-    // Carga el API de Google Maps utilizando el hook useJsApiLoader.
-    const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: process.env.API_KEY as string,
-    })
+    // // Carga el API de Google Maps utilizando el hook useJsApiLoader.
+    // const { isLoaded } = useJsApiLoader({
+    //     googleMapsApiKey: process.env.API_KEY as string,
+    // })
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
@@ -225,7 +225,7 @@ export const useLogicMaps = () => {
     const handlerConfirmation = () => {
         setFloatMarker(false)
         setAddingMarker(true)
-        if (mapRef.current && isLoaded) {
+        if (mapRef.current) {
             addMarkerDraggable(mapRef.current)
         }
     }
@@ -316,7 +316,6 @@ export const useLogicMaps = () => {
         setIsButtonDisabled,
         style,
         setStyle,
-        isLoaded,
         loading,
         setLoading,
         center,

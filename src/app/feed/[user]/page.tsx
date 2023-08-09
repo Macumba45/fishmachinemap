@@ -18,6 +18,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {
     Avatar,
     Button,
@@ -33,6 +34,8 @@ import {
     Typography,
 } from '@mui/material'
 import { UserContainerData, nameStyles } from './style'
+import { Store } from '@/app/store/type'
+import { BlaBlaFish } from '@/app/blablafish/type'
 
 interface Props {
     params: {
@@ -41,7 +44,7 @@ interface Props {
 }
 
 const Page: FC<Props> = ({ params }) => {
-    const { userInfoFeed, dataFeedUser, userMarkers, blablaFish } =
+    const { userInfoFeed, dataFeedUser, userMarkers, blablaFish, userStores } =
         feedUseLogic()
 
     const [activeView, setActiveView] = useState('capturas')
@@ -62,9 +65,20 @@ const Page: FC<Props> = ({ params }) => {
         setActiveView(view)
     }, [])
 
-    const goToMaps = useCallback(() => {
-        window.location.href = '/maps'
-    }, [])
+    // Función de utilidad para formatear la fecha
+    function formatDate(date: Date) {
+        return date.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+        })
+    }
+
+    // Función para capitalizar la primera letra
+    function capitalizeFirstLetter(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+
 
     useEffect(() => {
         userInfoFeed(params.user)
@@ -98,7 +112,6 @@ const Page: FC<Props> = ({ params }) => {
 
         document.body.style.overflow = ''
         document.removeEventListener('scroll', handleScroll)
-        console.log('entro')
 
         return () => {
             // Permitir el desplazamiento cuando se desmonta el componente
@@ -179,7 +192,7 @@ const Page: FC<Props> = ({ params }) => {
                                     backgroundColor: '#49007a',
                                     '&:hover': { backgroundColor: '#7900ca' },
                                 }}
-                                onClick={() => handleViewChange('blablafish')}
+                                onClick={() => handleViewChange('stores')}
                             >
                                 <ShoppingBagIcon />
                             </Button>
@@ -303,7 +316,7 @@ const Page: FC<Props> = ({ params }) => {
                                 </React.Fragment>
                             )
                     )}
-                {activeView === 'blablafish' && userMarkers.length === 0 && (
+                {activeView === 'blablafish' && blablaFish.length === 0 && (
                     <Typography
                         sx={{
                             display: 'flex',
@@ -316,94 +329,42 @@ const Page: FC<Props> = ({ params }) => {
                         variant="h6"
                         gutterBottom
                     >
-                        No tiene BlaBlaFish
+                        No tienes BlaBlaFish
                     </Typography>
                 )}
 
                 {activeView === 'blablafish' &&
-                    userMarkers.map((marker: UserMarker) => (
-                        <React.Fragment key={marker.id}>
+                    blablaFish.map((blabla: BlaBlaFish) => (
+                        <React.Fragment key={blabla.id}>
                             <ListItem
                                 sx={{
                                     width: width,
                                     display: 'flex',
                                     alignItems: 'center',
+                                    minWidth: 200,
+                                    maxWidth: 600,
                                 }}
                                 alignItems="flex-start"
                             >
-                                <ListItemAvatar
-                                    key={marker.id}
-                                    sx={{ margin: '0' }}
-                                >
-                                    <Avatar alt="Marker Icon">
-                                        {(() => {
-                                            switch (marker.markerType) {
-                                                case 'pesquero':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIconPlace.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
-
-                                                case 'tienda':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIconShop.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
-
-                                                case 'cebos':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIcon.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
-
-                                                case 'fotos':
-                                                    return (
-                                                        <img
-                                                            style={{
-                                                                width: '100%',
-                                                            }}
-                                                            src={
-                                                                customMarkerIconPicture.src
-                                                            }
-                                                            alt="Marker Icon"
-                                                        />
-                                                    )
-                                                default:
-                                                    return null
-                                            }
-                                        })()}
-                                    </Avatar>
-                                </ListItemAvatar>
+                                <div>
+                                    <img
+                                        key={blabla.id}
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                            borderRadius: '30px',
+                                            marginRight: '1.5rem',
+                                            objectFit: 'cover',
+                                        }}
+                                        src="https://www.a-alvarez.com/img/ybc_blog/post/surfcasting-lanzar-mas.jpg"
+                                    />
+                                </div>
 
                                 <ListItemText
-                                    primaryTypographyProps={{ width: '200px' }}
-                                    primary={
-                                        marker.direction
-                                            .charAt(0)
-                                            .toUpperCase() +
-                                        marker.direction.slice(1)
-                                    }
+                                    primaryTypographyProps={{ width: '220px' }}
+                                    primary={capitalizeFirstLetter(
+                                        formatDate(new Date(blabla.date))
+                                    )}
                                     secondary={
                                         <>
                                             <Typography
@@ -417,10 +378,10 @@ const Page: FC<Props> = ({ params }) => {
                                                 variant="body2"
                                                 color="text.primary"
                                             >
-                                                {marker.description
+                                                {blabla.description
                                                     .charAt(0)
                                                     .toUpperCase() +
-                                                    marker.description.slice(1)}
+                                                    blabla.description.slice(1)}
                                             </Typography>
                                             <Typography
                                                 component="span"
@@ -428,19 +389,32 @@ const Page: FC<Props> = ({ params }) => {
                                                     width: '100%',
                                                     fontWeight: 200,
                                                     fontSize: '0.8rem',
+                                                    alignItems: 'center',
+                                                    display: 'flex',
+                                                    color: '#49007a',
                                                 }}
                                             >
-                                                {marker.markerType
+                                                {blabla.departureCity
                                                     .charAt(0)
                                                     .toUpperCase() +
-                                                    marker.markerType.slice(1)}
+                                                    blabla.departureCity.slice(
+                                                        1
+                                                    )}
+                                                {<ArrowRightAltIcon />}
+                                                {blabla.arrivalCity
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    blabla.arrivalCity.slice(1)}
                                             </Typography>
                                         </>
                                     }
                                 />
+
                             </ListItem>
+                            <Divider variant="inset" component="hr" />
                         </React.Fragment>
                     ))}
+
                 {activeView === 'capturas' && (
                     <React.Fragment>
                         <ImageList
@@ -512,6 +486,92 @@ const Page: FC<Props> = ({ params }) => {
                         </ImageList>
                     </React.Fragment>
                 )}
+
+                {activeView === 'stores' && userStores.length === 0 && (
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '2rem',
+                            color: '#49007a',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                        }}
+                        variant="h6"
+                        gutterBottom
+                    >
+                        No tienes productos en Venta
+                    </Typography>
+                )}
+
+                {activeView === 'stores' &&
+                    userStores.map((store: Store) => (
+                        <React.Fragment key={store.id}>
+                            <ListItem
+                                sx={{
+                                    width: width,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    minWidth: 200,
+                                    maxWidth: 600,
+                                }}
+                                alignItems="flex-start"
+                            >
+                                <div>
+                                    <img
+                                        key={store.id}
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                            borderRadius: '30px',
+                                            marginRight: '1.5rem',
+                                            objectFit: 'cover',
+                                        }}
+                                        src={store.picture as string}
+                                    />
+                                </div>
+
+                                <ListItemText
+                                    primaryTypographyProps={{ width: '220px' }}
+                                    primary={store.title}
+                                    secondary={
+                                        <>
+                                            <Typography
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    fontWeight: 400,
+                                                    wordWrap: 'break-word',
+                                                }}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                                {store.description
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    store.description.slice(1)}
+                                            </Typography>
+                                            <Typography
+                                                component="span"
+                                                sx={{
+                                                    width: '100%',
+                                                    fontWeight: 200,
+                                                    fontSize: '0.8rem',
+                                                    alignItems: 'center',
+                                                    display: 'flex',
+                                                    color: '#49007a',
+                                                }}
+                                            >
+                                                {store.price}€
+                                            </Typography>
+                                        </>
+                                    }
+                                />
+
+                            </ListItem>
+                        </React.Fragment>
+                    ))}
                 <Dialog open={openModal} onClose={handleCloseModal}>
                     <img
                         style={{

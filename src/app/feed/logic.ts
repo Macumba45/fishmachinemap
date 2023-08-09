@@ -1,6 +1,8 @@
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
+import { Store } from '../store/type'
+import { BlaBlaFish } from '../blablafish/type'
 
 export const feedUseLogic = () => {
     const [fotosMarkers, setFotosMarkers] = useState<any[]>([])
@@ -10,7 +12,8 @@ export const feedUseLogic = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [dataFeedUser, setDataFeedUser] = useState<any>({})
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
-    const [blablaFish, setBlaBlaFish] = useState<UserMarker[]>([])
+    const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
+    const [userStores, setUserStores] = useState<Store[]>([])
 
     const getMarkersUser = useCallback(async () => {
         const token = getAuthenticatedToken()
@@ -100,9 +103,11 @@ export const feedUseLogic = () => {
             )
             if (response.ok) {
                 const data = await response.json()
+                console.log(data)
                 setDataFeedUser(data.user)
                 setUserMarkers(data.user.markers)
                 setBlaBlaFish(data.user.blaBlaFish)
+                setUserStores(data.user.stores)
                 return data
             } else {
                 throw new Error('Error en la respuesta del servidor')
@@ -122,5 +127,6 @@ export const feedUseLogic = () => {
         dataFeedUser,
         userMarkers,
         blablaFish,
+        userStores,
     }
 }
