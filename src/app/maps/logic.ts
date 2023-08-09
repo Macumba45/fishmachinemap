@@ -217,7 +217,6 @@ export const useLogicMaps = () => {
             await addUserMarker(nuevoMarcador)
             setAddingMarker(false)
             setIsButtonDisabled(false)
-            notifyMarker()
         },
         []
     )
@@ -268,20 +267,6 @@ export const useLogicMaps = () => {
         return icon
     }
 
-    const notifySucces = () => {
-        toast.success('Ubicación cargada correctamente', {
-            position: toast.POSITION.TOP_LEFT,
-            toastId: 'success1',
-        })
-    }
-
-    const notifyMarker = () => {
-        toast.success('Marcador añadido correctamente', {
-            position: toast.POSITION.TOP_LEFT,
-            toastId: 'marker1',
-        })
-    }
-
     const handleCloseModal = useCallback(() => {
         setAddingMarker(false)
         setIsButtonDisabled(false)
@@ -302,11 +287,9 @@ export const useLogicMaps = () => {
     }, [])
 
     return {
-        notifySucces,
         styledMap,
         selectMapStyle,
         mapRef,
-        notifyMarker,
         confirmMarker,
         openAddMarkerMode,
         currentLocationMarker,
