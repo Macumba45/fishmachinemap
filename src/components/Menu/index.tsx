@@ -27,17 +27,19 @@ const AccountMenu: FC = () => {
     const gotoProfile = () => {
         window.location.href = '/perfil'
     }
+
+    const boxStyles = {
+        display: 'flex',
+        alignItems: 'center',
+        textAlign: 'center',
+        position: 'fixed',
+        top: '20px',
+        zIndex: 1,
+    }
     return (
         <>
             <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    position: 'absolute',
-                    top: '20px',
-                    zIndex: 1,
-                }}
+                sx={boxStyles}
             >
                 <Tooltip title="Menú">
                     <IconButton

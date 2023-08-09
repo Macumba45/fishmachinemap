@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ButtonContainer = styled.div`
     display: flex;
-    position: absolute;
+    position: fixed;
     bottom: 70px;
     align-items: center;
     border-radius: 100px;
