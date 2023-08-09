@@ -51,8 +51,8 @@ const Feed: FC = () => {
                             isLiked={likedMarkers[item.id] || false}
                             user={item.user}
                             date={fechaCreacion.toLocaleString('es-ES', {
-                                month: 'numeric',
                                 day: 'numeric',
+                                month: 'long',
                             })}
                         />
                     )
