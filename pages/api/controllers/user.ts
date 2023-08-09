@@ -16,7 +16,8 @@ export const getUserInfo = async (userId: any) => {
             },
             Likes: true,
             blaBlaFish: true,
-        },
+            stores: true,
+        },  
     })
 
     return data

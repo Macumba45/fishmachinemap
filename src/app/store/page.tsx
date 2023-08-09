@@ -21,7 +21,6 @@ import Link from 'next/link'
 
 const Store: FC = () => {
     const { open, setOpen, fetchStore, store, loading } = useLogicStore()
-    console.log(store)
 
     const handleClose = () => {
         setOpen(false)
