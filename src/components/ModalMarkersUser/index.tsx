@@ -2,7 +2,6 @@ import { FC } from 'react'
 import { Modal, Box, Typography } from '@mui/material'
 import ButtonComp from '../Button'
 import NavigationIcon from '@mui/icons-material/Navigation'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import {
     TypographyContainer,
     ContenidoGoogle,
