@@ -114,8 +114,6 @@ const CommentModal: FC<CommentModalProps> = ({
     const [comments, setComments] = useState<Comments[]>(allComents) // Cambiar aquí
     const [newComment, setNewComment] = useState<string>('')
 
-    console.log(allComents)
-
     const handleCommentSubmit = async () => {
         if (newComment.trim() !== '') {
             await addComment(newComment, id)
