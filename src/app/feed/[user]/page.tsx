@@ -79,7 +79,6 @@ const Page: FC<Props> = ({ params }) => {
         return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
-
     useEffect(() => {
         userInfoFeed(params.user)
     }, [params.user])
@@ -409,7 +408,6 @@ const Page: FC<Props> = ({ params }) => {
                                         </>
                                     }
                                 />
-
                             </ListItem>
                             <Divider variant="inset" component="hr" />
                         </React.Fragment>
@@ -568,7 +566,6 @@ const Page: FC<Props> = ({ params }) => {
                                         </>
                                     }
                                 />
-
                             </ListItem>
                         </React.Fragment>
                     ))}

@@ -38,3 +38,15 @@ export enum MarkerType {
     PESQUERO = 'pesquero',
     PICTURES = 'fotos',
 }
+
+export type Comments = {
+    id?: string
+    userId?: string
+    user?: {
+        id: string
+        name: string
+        email: string
+    }
+    text?: string
+    createdAt?: string
+}

@@ -8,7 +8,7 @@ export type FeedPros = {
     description?: string
     date?: string
     likes?: number
-    comentarios?: string[]
+    comments?: string[]
     onClick?: () => void
     isLiked?: boolean
     user?: {

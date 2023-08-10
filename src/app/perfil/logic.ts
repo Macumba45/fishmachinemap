@@ -155,7 +155,6 @@ export const useLogicUser = () => {
         }
     }, [])
 
-
     return {
         user,
         userMarkers,

@@ -15,7 +15,6 @@ import ButtonComp from '@/components/Button'
 import { LoadingButton } from '@mui/lab'
 import MuiAlert from '@mui/material/Alert'
 
-
 interface Props {
     isOpen: boolean
     onClose?: () => void
@@ -156,7 +155,13 @@ const ModalCrearMarcador: FC<Props> = ({
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        if (!positionMarkerUser || !direccion || !tipoLugar || !descripcion || !fotos) {
+        if (
+            !positionMarkerUser ||
+            !direccion ||
+            !tipoLugar ||
+            !descripcion ||
+            !fotos
+        ) {
             setSnackbarOpen(true)
             return
         }
@@ -171,12 +176,9 @@ const ModalCrearMarcador: FC<Props> = ({
             )
             setSuccessSnackbarOpen(true)
             onClose!()
-
         } catch (error) {
             console.log(error)
-
         }
-
     }
 
     return (
@@ -210,7 +212,6 @@ const ModalCrearMarcador: FC<Props> = ({
                                     fullWidth
                                     id="outlined-controlled"
                                     onChange={handleDireccionChange}
-
                                 />
                             </div>
                             <Typography variant="body2" component="label">
@@ -220,12 +221,15 @@ const ModalCrearMarcador: FC<Props> = ({
                                 value={tipoLugar}
                                 onChange={handleTipoLugarChange}
                                 fullWidth
-
                             >
                                 <MenuItem value="pesquero">Pesquero</MenuItem>
-                                <MenuItem value="tienda">Tienda de Pesca</MenuItem>
+                                <MenuItem value="tienda">
+                                    Tienda de Pesca
+                                </MenuItem>
                                 <MenuItem value="cebos">Cebos 24H</MenuItem>
-                                <MenuItem value="fotos">Fotos de Capturas</MenuItem>
+                                <MenuItem value="fotos">
+                                    Fotos de Capturas
+                                </MenuItem>
                             </Select>
                         </Box>
 
@@ -239,7 +243,6 @@ const ModalCrearMarcador: FC<Props> = ({
                                 fullWidth
                                 multiline
                                 rows={4}
-
                             />
                         </Box>
 
@@ -248,7 +251,6 @@ const ModalCrearMarcador: FC<Props> = ({
                                 Subir fotos:
                             </Typography>
                             <input
-
                                 accept=".jpg, .png, .gif, .jpeg"
                                 type="file"
                                 onChange={handleFotosChange}

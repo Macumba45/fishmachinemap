@@ -662,28 +662,19 @@ const Profile: FC = () => {
                                 <>
                                     <DeleteMarkerModal
                                         key={store.id}
-                                        isOpen={
-                                            toBeDeletedStores[store.id]
-                                        }
+                                        isOpen={toBeDeletedStores[store.id]}
                                         onCancel={() =>
-                                            setToBeDeletedStores(
-                                                prevState => ({
-                                                    ...prevState,
-                                                    [store.id as string]:
-                                                        false,
-                                                })
-                                            )
+                                            setToBeDeletedStores(prevState => ({
+                                                ...prevState,
+                                                [store.id as string]: false,
+                                            }))
                                         }
                                         onClick={() => {
-                                            store.id &&
-                                                deleteStore(store.id)
-                                            setToBeDeletedStores(
-                                                prevState => ({
-                                                    ...prevState,
-                                                    [store.id as string]:
-                                                        false,
-                                                })
-                                            )
+                                            store.id && deleteStore(store.id)
+                                            setToBeDeletedStores(prevState => ({
+                                                ...prevState,
+                                                [store.id as string]: false,
+                                            }))
                                         }}
                                     />
                                 </>

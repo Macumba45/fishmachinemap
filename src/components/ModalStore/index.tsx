@@ -10,7 +10,6 @@ import {
     StyledTextField,
 } from './styles'
 
-
 interface Props {
     open: boolean
     onClose: () => void
@@ -31,7 +30,6 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         postStore,
     } = useLogicStore()
 
-
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -49,7 +47,6 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         }
         setSuccessSnackbarOpen(false)
     }
-
 
     const getBase64FromUrl = async (url: string) => {
         const data = await fetch(url)
@@ -121,7 +118,6 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
     }
 
     const handleSubmit = async () => {
-
         if (!title || !picture || !description || !phone || !price) {
             setSnackbarOpen(true)
             return
@@ -155,7 +151,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                             <ModalTitle variant="h6">Crear Anuncio</ModalTitle>
                             <StyledTextField
                                 margin="dense"
-                                placeholder='Carrete de Pesca Shimano...'
+                                placeholder="Carrete de Pesca Shimano..."
                                 label="Producto"
                                 autoFocus
                                 variant="outlined"
@@ -165,7 +161,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                             />
                             <StyledTextField
                                 margin="dense"
-                                placeholder='Carrete de Pesca Shimano en buen estado, con poco uso...'
+                                placeholder="Carrete de Pesca Shimano en buen estado, con poco uso..."
                                 label="Descripción"
                                 fullWidth
                                 multiline
@@ -219,12 +215,22 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                     onChange={handleFotosChange}
                                 />
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 4 }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    mt: 4,
+                                }}
+                            >
                                 <LoadingButton
                                     loading={loading}
                                     onClick={handleSubmit}
                                     variant="contained"
-                                    sx={{ backgroundColor: '#49007a', color: 'white' }}
+                                    sx={{
+                                        backgroundColor: '#49007a',
+                                        color: 'white',
+                                    }}
                                 >
                                     Vender Producto
                                 </LoadingButton>
@@ -246,7 +252,8 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                     severity="error"
                                     sx={{ width: '100%' }}
                                 >
-                                    Por favor, completa todos los campos requeridos antes de vender el producto.
+                                    Por favor, completa todos los campos
+                                    requeridos antes de vender el producto.
                                 </MuiAlert>
                             </Snackbar>
                             <Snackbar
@@ -266,9 +273,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                     </ModalWrapper>
                 </Fade>
             </Modal>
-
         </>
-
     )
 }
 
