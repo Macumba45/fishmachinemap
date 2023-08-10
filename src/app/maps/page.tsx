@@ -21,6 +21,14 @@ import BasicModal, { PlaceReview } from '@/components/ModalPlaces'
 import SimpleSlider from '@/components/Carousel/page'
 import CircularColor from '@/components/CircularColor'
 import SearchIcon from '@mui/icons-material/Search'
+import 'react-toastify/dist/ReactToastify.css'
+import ReviewsComp from '@/components/Reviews'
+import ModalCrearMarcador from '@/components/ModalAddMarker'
+import ModalUserMarkers from '@/components/ModalMarkersUser'
+import AccountMenu from '@/components/Menu'
+import FilterButton from '@/components/FilterButton'
+import { MarkerType, UserMarker } from './type'
+import Link from 'next/link'
 import {
     ButtonStyleBuscarLugares,
     ButtonStyleCancelarLugar,
@@ -32,15 +40,6 @@ import {
     ReviewsContainer,
     stylesMaps,
 } from './style'
-import 'react-toastify/dist/ReactToastify.css'
-import ReviewsComp from '@/components/Reviews'
-import ModalCrearMarcador from '@/components/ModalAddMarker'
-import ModalUserMarkers from '@/components/ModalMarkersUser'
-import AccountMenu from '@/components/Menu'
-import FilterButton from '@/components/FilterButton'
-import { MarkerType, UserMarker } from './type'
-import Link from 'next/link'
-import { AccountCircle } from '@mui/icons-material'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -118,7 +117,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
