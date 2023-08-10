@@ -1,5 +1,14 @@
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
 import { FeedPros } from './type'
+import CommentIcon from '@mui/icons-material/Comment'
+import { IconButton, Typography } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import TodayIcon from '@mui/icons-material/Today'
+import Link from 'next/link'
+import CommentSection from '../ModalComments'
+import AddCommentIcon from '@mui/icons-material/AddComment'
 import {
     Imagen,
     ImagenContainer,
@@ -12,13 +21,7 @@ import {
     DateContainer,
     HearthContainerTop,
 } from './style'
-import CommentIcon from '@mui/icons-material/Comment'
-import { IconButton, Typography } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import TodayIcon from '@mui/icons-material/Today'
-import Link from 'next/link'
+import CommentModal from '../ModalComments'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -27,13 +30,23 @@ const CardFeed: FC<FeedPros> = ({
     direction,
     description,
     date,
-    comentarios,
     onClick,
     userId,
     isLiked,
     likes,
     user,
 }) => {
+    const [comments, setComments] = useState<string[]>([]) // Estado de los comentarios
+    const [isCommentModalOpen, setCommentModalOpen] = useState(false)
+
+    const handleCommentModalOpen = () => {
+        setCommentModalOpen(true)
+    }
+
+    const handleCommentModalClose = () => {
+        setCommentModalOpen(false)
+    }
+
     return (
         <CardContainer key={id}>
             <ImagenContainer>
@@ -64,6 +77,12 @@ const CardFeed: FC<FeedPros> = ({
                         </Link>
                     </Typography>
                     <IconButton
+                        onClick={handleCommentModalOpen}
+                        style={{ justifySelf: 'end' }}
+                    >
+                        <AddCommentIcon style={{ color: '#49007a' }} />
+                    </IconButton>
+                    <IconButton
                         onClick={onClick}
                         style={{ justifySelf: 'end' }}
                     >
@@ -80,11 +99,13 @@ const CardFeed: FC<FeedPros> = ({
                         {/* <CommentIcon style={{ color: '#49007a' }} /> */}
                         <Description>{description}</Description>
                     </Icons>
-                    <DateContainer>
-
-                        {date}
-                    </DateContainer>
+                    <DateContainer>{date}</DateContainer>
                 </HearthContainer>
+                <CommentModal
+                    open={isCommentModalOpen}
+                    onClose={handleCommentModalClose}
+                    id={id as string}
+                />
             </IconsContainer>
         </CardContainer>
     )

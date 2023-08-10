@@ -8,6 +8,7 @@ export const getAllMarkers = async (userId: string) => {
         include: {
             location: true,
             likes: true,
+            comments: true,
             user: {
                 select: {
                     id: true,
@@ -33,4 +34,39 @@ export const deleteUserMarker = async (id: string) => {
     })
 
     return deletedMarker
+}
+
+export const addComment = async (
+    userId: string,
+    markerId: string,
+    text: string
+) => {
+    const newComment = await prisma.comments.create({
+        data: {
+            userId,
+            markerId,
+            text,
+        },
+    })
+
+    return newComment
+}
+
+export const getComments = async (markerId: string) => {
+    const comments = await prisma.comments.findMany({
+        where: {
+            markerId,
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                },
+            },
+        },
+    })
+
+    return comments
 }

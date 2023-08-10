@@ -38,9 +38,7 @@ const AccountMenu: FC = () => {
     }
     return (
         <>
-            <Box
-                sx={boxStyles}
-            >
+            <Box sx={boxStyles}>
                 <Tooltip title="Menú">
                     <IconButton
                         onClick={handleClick}

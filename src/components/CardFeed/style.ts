@@ -28,7 +28,7 @@ export const Icons = styled.div`
 `
 export const HearthContainerTop = styled.div`
     display: grid;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 7fr 1fr 1fr;
     align-items: center;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
@@ -42,7 +42,6 @@ export const HearthContainer = styled.div`
     margin-right: 0.5rem;
     margin-top: 0.5rem;
     height: auto;
-
 `
 export const LastColumn = styled.div`
     justify-self: end; // Alinea la última columna a la derecha
@@ -73,7 +72,7 @@ export const Description = styled.p`
     margin-left: 0.3rem;
     word-wrap: break-word;
     line-height: 1.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     width: 90%;
 `
 export const ContainerUser = styled.div`
@@ -90,5 +89,4 @@ export const DateContainer = styled.div`
     font-family: 'Roboto', sans-serif;
     font-size: 0.6rem;
     justify-self: end; // Alinea la última columna a la derecha
-
 `
