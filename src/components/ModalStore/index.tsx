@@ -130,7 +130,6 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
             phone,
             price,
         }
-        console.log(storeData)
         try {
             setLoading(true)
             await postStore(storeData)

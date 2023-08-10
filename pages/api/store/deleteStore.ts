@@ -17,7 +17,6 @@ export default async function handler(
                 throw new Error('ID no válido')
             }
             const deletedStoreItem = await deleteStore(id)
-            console.log(deletedStoreItem)
             res.status(200).json({ deletedStoreItem })
         } catch (error: any) {
             res.status(500).json({ message: error.message })

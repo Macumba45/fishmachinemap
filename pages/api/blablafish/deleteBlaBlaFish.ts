@@ -17,7 +17,6 @@ export default async function handler(
                 throw new Error('ID no válido')
             }
             const deleteBlaBla = await deleteBlablaFish(id)
-            console.log(deleteBlaBla)
             res.status(200).json({ deleteBlaBla })
         } catch (error: any) {
             res.status(500).json({ message: error.message })

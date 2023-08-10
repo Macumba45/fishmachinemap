@@ -77,7 +77,6 @@ const Profile: FC = () => {
 
     const [activeView, setActiveView] = useState('capturas')
 
-    console.log(userMarkers)
     const goToMaps = useCallback(() => {
         window.location.href = '/maps'
     }, [])

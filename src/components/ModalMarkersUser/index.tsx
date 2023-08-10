@@ -94,7 +94,9 @@ const ModalUserMarkers: FC<Props> = ({
                             <Typography sx={{ mb: 1, fontWeight: '800' }}>
                                 Lugar/Dirección:
                             </Typography>
-                            {direction}
+                            <Typography sx={{ fontWeight: '400' }}>
+                                {direction}
+                            </Typography>
                         </TypographyContainer>
                     </TypographyContainer>
                     <TypographyContainer>
@@ -106,10 +108,12 @@ const ModalUserMarkers: FC<Props> = ({
                                 lineHeight: '2rem',
                             }}
                         >
-                            <Typography sx={{ mb: 0, fontWeight: '800' }}>
+                            <Typography sx={{ mb: 1, fontWeight: '800' }}>
                                 Descripción:
                             </Typography>
-                            {description}
+                            <Typography sx={{ fontWeight: '400' }}>
+                                {description}
+                            </Typography>
                         </TypographyContainer>
                     </TypographyContainer>
                 </Box>

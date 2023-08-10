@@ -16,7 +16,6 @@ export default async function handler(
                 throw new Error('ID no válido')
             }
             const deletedMarker = await deleteUserMarker(id)
-            console.log(deletedMarker)
             res.status(200).json({ deletedMarker })
         } catch (error: any) {
             res.status(500).json({ message: error.message })
