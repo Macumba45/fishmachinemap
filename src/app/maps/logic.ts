@@ -4,8 +4,6 @@ import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import { defaultStylesMaps, stylesMaps } from './style'
-import { useJsApiLoader } from '@react-google-maps/api'
-import { toast } from 'react-toastify'
 import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
 import { MarkerType } from './type'
@@ -80,32 +78,6 @@ export const useLogicMaps = () => {
         }
     }, [])
 
-    const fetchMarkerUser = async () => {
-        try {
-            const userId = dataMarkerUser.id
-            const token = getAuthenticatedToken()
-            const headers = {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
-            }
-            const response = await fetch(`/api/markers/user?userId=${userId}`, {
-                method: 'GET',
-                headers,
-            })
-            const data = await response.json()
-            if (data.user !== markerCreator) {
-                setMarkerCreator(data.user)
-            }
-        } catch (error) {
-            console.error('Error al obtener el usuario del marcador:', error)
-        }
-    }
-
-    // // Carga el API de Google Maps utilizando el hook useJsApiLoader.
-    // const { isLoaded } = useJsApiLoader({
-    //     googleMapsApiKey: process.env.API_KEY as string,
-    // })
-
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
     | google.maps.LatLngLiteral
@@ -140,17 +112,23 @@ export const useLogicMaps = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false)
 
-    const [dataMarkerUser, setDataMarkerUser] = useState({
+    const [dataMarkerUser, setDataMarkerUser] = useState<UserMarker>({
         id: '',
-        positionMarkerUser: positionMarkerUser,
+        location: positionMarkerUser as google.maps.LatLngLiteral,
         direction: direccion,
         markerType: tipoLugar,
         description: descripcion,
         picture: fotos,
+        user: {
+            id: '',
+            name: '',
+            email: '',
+        },
     })
+
+    console.log(dataMarkerUser)
     const [modalUserMarker, setModalUserMarker] = useState(false)
     const [loadingLocation, setLoadingLocation] = useState(false)
-    const [markerCreator, setMarkerCreator] = useState<User | null>(null)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const [filteredMarkers, setFilteredMarkers] =
@@ -336,8 +314,6 @@ export const useLogicMaps = () => {
         dataMarkerUser,
         loadingLocation,
         setLoadingLocation,
-        fetchMarkerUser,
-        markerCreator,
         isSmallScreen,
         currentUser,
         getUserInfo,

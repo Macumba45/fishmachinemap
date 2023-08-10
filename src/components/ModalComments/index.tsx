@@ -104,7 +104,12 @@ interface CommentModalProps {
     updateComments?: (comments: Comments[]) => void // Cambiar aquí
 }
 
-const CommentModal: FC<CommentModalProps> = ({ open, onClose, id, updateComments }) => {
+const CommentModal: FC<CommentModalProps> = ({
+    open,
+    onClose,
+    id,
+    updateComments,
+}) => {
     const { addComment, getAllComments, allComents } = feedUseLogic()
     const [comments, setComments] = useState<Comments[]>(allComents) // Cambiar aquí
     const [newComment, setNewComment] = useState<string>('')
@@ -113,12 +118,12 @@ const CommentModal: FC<CommentModalProps> = ({ open, onClose, id, updateComments
 
     const handleCommentSubmit = async () => {
         if (newComment.trim() !== '') {
-            await addComment(newComment, id);
-            const updatedComments = await getAllComments(id);
-            setComments(updatedComments);
-            setNewComment('');
+            await addComment(newComment, id)
+            const updatedComments = await getAllComments(id)
+            setComments(updatedComments)
+            setNewComment('')
         }
-    };
+    }
 
     useEffect(() => {
         getAllComments(id)

@@ -15,6 +15,7 @@ import hiddenMarker from '../../assets/hostage.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
 import BasicModal, { PlaceReview } from '@/components/ModalPlaces'
 import SimpleSlider from '@/components/Carousel/page'
@@ -39,6 +40,7 @@ import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
 import { MarkerType, UserMarker } from './type'
 import Link from 'next/link'
+import { AccountCircle } from '@mui/icons-material'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -84,8 +86,6 @@ const GoogleMapComp: FC = () => {
         dataMarkerUser,
         loadingLocation,
         setLoadingLocation,
-        fetchMarkerUser,
-        markerCreator,
         isSmallScreen,
         currentUser,
         filteredMarkers,
@@ -433,11 +433,11 @@ const GoogleMapComp: FC = () => {
         }
     }, [filteredMarkers])
 
-    useEffect(() => {
-        if (modalUserMarker) {
-            fetchMarkerUser()
-        }
-    }, [modalUserMarker])
+    // useEffect(() => {
+    //     if (modalUserMarker) {
+    //         fetchMarkerUser()
+    //     }
+    // }, [modalUserMarker])
 
     // Efecto que se ejecuta cuando cambian los marcadores para actualizar el cluster de marcadores.
     useEffect(() => {
@@ -515,16 +515,17 @@ const GoogleMapComp: FC = () => {
 
                 <ModalUserMarkers
                     isOpen={modalUserMarker}
-                    creator={markerCreator?.name}
+                    creator={dataMarkerUser?.user?.name}
+                    icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
                     link={
                         <Link
                             style={{
                                 textDecorationColor: '#49007a',
                                 color: '#49007a',
                             }}
-                            href={`/feed/${markerCreator?.id}`}
+                            href={`/feed/${dataMarkerUser?.user?.id}`}
                         >
-                            {markerCreator?.name}
+                            {dataMarkerUser?.user?.name}
                         </Link>
                     }
                     direction={
@@ -539,7 +540,7 @@ const GoogleMapComp: FC = () => {
                         dataMarkerUser.description.charAt(0).toUpperCase() +
                         dataMarkerUser.description.slice(1)
                     }
-                    pictures={dataMarkerUser.picture}
+                    pictures={dataMarkerUser.picture as string}
                     onClose={() => setModalUserMarker(false)}
                     onClick={() => {
                         if (

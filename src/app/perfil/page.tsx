@@ -44,6 +44,8 @@ import {
 } from './style'
 import { BlaBlaFish } from '../blablafish/type'
 import { Store } from '../store/type'
+import ModalUserMarkers from '@/components/ModalMarkersUser'
+import Link from 'next/link'
 
 const Profile: FC = () => {
     const {
@@ -71,8 +73,11 @@ const Profile: FC = () => {
 
     const [openModal, setOpenModal] = useState(false)
     const [selectedImage, setSelectedImage] = useState('')
+    const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
+
     const [activeView, setActiveView] = useState('capturas')
 
+    console.log(userMarkers)
     const goToMaps = useCallback(() => {
         window.location.href = '/maps'
     }, [])
@@ -82,6 +87,7 @@ const Profile: FC = () => {
 
     const handleOpenModal = useCallback((item: any) => {
         setSelectedImage(item.picture)
+        setSelectedMarkerId(item.id)
         setOpenModal(true)
     }, [])
 
@@ -145,6 +151,20 @@ const Profile: FC = () => {
     useEffect(() => {
         getUser()
     }, [setToBeDeletedStores, setToBeDeletedBlaBlaFish, setToBeDeletedMarkers])
+
+    const goToMarkerUserLocation = useCallback(
+        (location: { lat: number; lng: number } | undefined) => {
+            if (location) {
+                const baseUrl =
+                    'https://www.google.com/maps/search/?api=1&query='
+                const encodedCoordinates = encodeURIComponent(
+                    `${location.lat},${location.lng}`
+                )
+                window.open(baseUrl + encodedCoordinates)
+            }
+        },
+        []
+    )
 
     return (
         <>
@@ -734,17 +754,25 @@ const Profile: FC = () => {
                         </ImageList>
                     </React.Fragment>
                 )}
-                <Dialog open={openModal} onClose={handleCloseModal}>
-                    <img
-                        style={{
-                            width: '100%',
-                            height: 'auto',
-                            maxHeight: '80vh',
-                        }}
-                        src={selectedImage}
-                        alt="Selected Image"
-                    />
-                </Dialog>
+                {userMarkers
+                    .filter(marker => marker.id === selectedMarkerId) // Filtrar el marcador seleccionado
+                    .map(marker => (
+                        <ModalUserMarkers
+                            isOpen={openModal}
+                            key={marker.id}
+                            description={marker.description}
+                            pictures={marker.picture as string}
+                            direction={marker.direction}
+                            onClose={handleCloseModal}
+                            onClick={() => {
+                                const location: google.maps.LatLngLiteral = {
+                                    lat: marker.location?.lat,
+                                    lng: marker.location?.lng,
+                                }
+                                goToMarkerUserLocation(location)
+                            }}
+                        />
+                    ))}
             </MainContainer>
             <SimpleBottomNavigation />
         </>
