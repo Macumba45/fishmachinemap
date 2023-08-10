@@ -125,8 +125,6 @@ export const useLogicMaps = () => {
             email: '',
         },
     })
-
-    console.log(dataMarkerUser)
     const [modalUserMarker, setModalUserMarker] = useState(false)
     const [loadingLocation, setLoadingLocation] = useState(false)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
