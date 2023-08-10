@@ -22,6 +22,12 @@ export type UserMarker = {
         lng: number
     }
     visible?: boolean
+    comments?: Comments[]
+    user?: {
+        id: string
+        name: string
+        email: string
+    }
 }
 export type User = {
     // Define la interfaz del usuario según los datos que esperas recibir

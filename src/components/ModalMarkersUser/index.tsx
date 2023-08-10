@@ -25,6 +25,12 @@ interface Props {
     pictures?: string
     creator?: string
     link?: React.ReactElement // Cambiado a React.ReactElement
+    user?: {
+        id: string
+        name: string
+        email: string
+    }
+    icon?: React.ReactElement
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -37,6 +43,7 @@ const ModalUserMarkers: FC<Props> = ({
     creator,
     onClick,
     link,
+    icon,
 }) => {
     const style = {
         position: 'absolute' as const,
@@ -52,6 +59,7 @@ const ModalUserMarkers: FC<Props> = ({
         overflowY: 'scroll',
         borderColor: 'transparent',
         border: 'none',
+        outline: 'none',
     }
 
     return (
@@ -75,7 +83,7 @@ const ModalUserMarkers: FC<Props> = ({
                                 fontSize: '1rem',
                             }}
                         >
-                            <AccountCircleIcon sx={{ color: '#49007a' }} />
+                            {icon}
                             <CreatorLink>{link}</CreatorLink>
                         </ContenidoGoogle>
                     </TypographyContainer>

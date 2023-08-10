@@ -9,6 +9,15 @@ export const getUserInfo = async (userId: any) => {
             markers: {
                 include: {
                     location: true, // Incluir la ubicación de cada marcador
+                    comments: true, // Incluir los comentarios de cada marcador
+                    likes: true, // Incluir los likes de cada marcador
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                        },
+                    },
                 },
                 orderBy: {
                     createdAt: 'desc', // Ordenar los marcadores por fecha de creación de forma descendente
@@ -31,25 +40,6 @@ export const deleteUserMarker = async (id: string) => {
     })
 
     return deletedMarker
-}
-
-export const getUserByMarkerId = async (markerId: string) => {
-    const data = await prisma.marker.findUnique({
-        where: {
-            id: markerId,
-        },
-        include: {
-            user: {
-                select: {
-                    id: true,
-                    name: true,
-                    email: true,
-                },
-            },
-        },
-    })
-
-    return data?.user || null
 }
 
 export const toogleVisibleMarker = async (markerId: string) => {
