@@ -101,9 +101,10 @@ interface CommentModalProps {
     open: boolean
     onClose: () => void
     id: string
+    updateComments?: (comments: Comments[]) => void // Cambiar aquí
 }
 
-const CommentModal: FC<CommentModalProps> = ({ open, onClose, id }) => {
+const CommentModal: FC<CommentModalProps> = ({ open, onClose, id, updateComments }) => {
     const { addComment, getAllComments, allComents } = feedUseLogic()
     const [comments, setComments] = useState<Comments[]>(allComents) // Cambiar aquí
     const [newComment, setNewComment] = useState<string>('')
@@ -112,11 +113,12 @@ const CommentModal: FC<CommentModalProps> = ({ open, onClose, id }) => {
 
     const handleCommentSubmit = async () => {
         if (newComment.trim() !== '') {
-            setComments([...comments, { text: newComment }])
-            setNewComment(newComment)
-            await addComment(newComment, id)
+            await addComment(newComment, id);
+            const updatedComments = await getAllComments(id);
+            setComments(updatedComments);
+            setNewComment('');
         }
-    }
+    };
 
     useEffect(() => {
         getAllComments(id)
@@ -133,7 +135,8 @@ const CommentModal: FC<CommentModalProps> = ({ open, onClose, id }) => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: 300,
-                    height: 'auto',
+                    maxHeight: '500px', // Ajusta la altura del modal según tus necesidades
+                    overflow: 'auto', // Agrega el scroll al modal
                 }}
             >
                 <Typography
@@ -144,7 +147,7 @@ const CommentModal: FC<CommentModalProps> = ({ open, onClose, id }) => {
                 </Typography>
                 <CommentSection
                     comments={allComents}
-                    setComments={setComments}
+                    setComments={updateComments || setComments}
                     newComment={newComment}
                     setNewComment={setNewComment}
                     onCommentSubmit={handleCommentSubmit}
