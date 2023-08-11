@@ -25,9 +25,9 @@ const BlaBlaFish: FC = () => {
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
     const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
-        const viajeDate = new Date(viaje.date) // Asegúrate de usar el nombre de la propiedad correcta para la fecha del viaje
+        const viajeDate = new Date(viaje.date)
         // Verifica si la fecha del viaje es menor o igual a la fecha actual
-        return viajeDate <= currentDate
+        return viajeDate < currentDate
     })
     // Función de utilidad para formatear la fecha
     function formatDate(date: Date) {

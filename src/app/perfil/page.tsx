@@ -153,7 +153,7 @@ const Profile: FC = () => {
 
     useEffect(() => {
         getUser()
-    }, [setToBeDeletedStores, setToBeDeletedBlaBlaFish, setToBeDeletedMarkers])
+    }, [toBeDeletedMarkers, toBeDeletedBlaBlaFish, toBeDeletedStores])
 
     const goToMarkerUserLocation = useCallback(
         (location: { lat: number; lng: number } | undefined) => {
