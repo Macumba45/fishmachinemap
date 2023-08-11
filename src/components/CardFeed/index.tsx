@@ -35,6 +35,7 @@ const CardFeed: FC<FeedPros> = ({
     isLiked,
     likes,
     user,
+    numberOfComments,
 }) => {
     const [comments, setComments] = useState<string[]>([]) // Estado de los comentarios
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
@@ -81,6 +82,7 @@ const CardFeed: FC<FeedPros> = ({
                         style={{ justifySelf: 'end' }}
                     >
                         <AddCommentIcon style={{ color: '#49007a' }} />
+                        <LikesLabel>{numberOfComments}</LikesLabel>
                     </IconButton>
                     <IconButton
                         onClick={onClick}
@@ -101,6 +103,7 @@ const CardFeed: FC<FeedPros> = ({
                     </Icons>
                     <DateContainer>{date}</DateContainer>
                 </HearthContainer>
+
                 <CommentModal
                     open={isCommentModalOpen}
                     onClose={handleCommentModalClose}

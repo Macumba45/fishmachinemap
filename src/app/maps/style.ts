@@ -49,6 +49,14 @@ export const IconMarker = styled.img`
     height: 32px;
 `
 
+export const LikesLabel = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 0.5rem;
+`
+
 export const ButtonStyleConfirmarLugar = {
     top: '85%',
     left: '50%',
