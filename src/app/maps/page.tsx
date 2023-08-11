@@ -42,6 +42,7 @@ import {
 } from './style'
 import CommentModal from '@/components/ModalComments'
 import { feedUseLogic } from '../feed/logic'
+import { type } from 'os'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -479,11 +480,16 @@ const GoogleMapComp: FC = () => {
 
     // cambia la posición del switch dependiendo del tamaño de la pantalla
     let bottomPosition
-    if (window.innerWidth < 600) {
-        bottomPosition = '150px'
-    } else {
-        bottomPosition = '160px'
+    if (typeof window !== 'undefined') {
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 600) {
+                bottomPosition = '150px'
+            } else {
+                bottomPosition = '160px'
+            }
+        })
     }
+
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
