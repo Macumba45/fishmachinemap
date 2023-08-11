@@ -34,6 +34,7 @@ export type User = {
     id: string
     name: string
     email: string
+    likes?: { markerId: string }[]
     // Otros campos del usuario que necesites
 }
 

@@ -98,11 +98,10 @@ const GoogleMapComp: FC = () => {
         openModalComments,
         handleOpenModalComments,
         handleCloseModalComments,
+        likedMarkers,
+        fetchLikesMarkers,
+        setLikedMarkers,
     } = useLogicMaps()
-
-    console.log(dataMarkerUser)
-
-    const { fetchLikesMarkers, getMarkersUser } = feedUseLogic()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -431,42 +430,20 @@ const GoogleMapComp: FC = () => {
         },
         []
     )
-    const [isLiked, setIsLiked] = useState(
-        dataMarkerUser?.likes?.some(like => like.userId === currentUser?.id)
-    )
 
-    const handleToogleLikeModal = () => {
+    const handleToogleLikeModal = async () => {
         // Perform like/unlike action here
-        setIsLiked(!isLiked) // Toggle the like status
-
-        // Update the like count
-        setDataMarkerUser(prevDataMarkerUser => {
-            const updatedLikes = [...(prevDataMarkerUser.likes || [])]
-            if (isLiked) {
-                // If the user previously liked, remove their like
-                const index = updatedLikes.findIndex(
-                    like => like.userId === currentUser?.id
-                )
-                if (index !== -1) {
-                    updatedLikes.splice(index, 1)
-                }
-            } else {
-                // If the user previously didn't like, add their like
-                updatedLikes.push({ userId: currentUser?.id as string })
-            }
-            return {
-                ...prevDataMarkerUser,
-                likes: updatedLikes,
-            }
-        })
-
-        // Call fetchLikesMarkers with appropriate parameters
-        fetchLikesMarkers(
+        await fetchLikesMarkers(
             dataMarkerUser?.id as string,
             currentUser?.id as string
         )
+        // Actualizar el estado del corazón en tiempo real
+        setLikedMarkers(prevState => ({
+            ...prevState,
+            [dataMarkerUser.id as string]:
+                !prevState[dataMarkerUser.id as string],
+        }))
     }
-
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -606,31 +583,9 @@ const GoogleMapComp: FC = () => {
                                 )
                             }
                         }}
-                        icon3={
-                            <>
-                                <IconButton
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        padding: 0,
-                                    }}
-                                    onClick={handleToogleLikeModal}
-                                >
-                                    {isLiked ? (
-                                        <FavoriteIcon
-                                            style={{ color: '#49007a' }}
-                                        />
-                                    ) : (
-                                        <FavoriteBorderIcon
-                                            style={{ color: '#49007a' }}
-                                        />
-                                    )}
-                                </IconButton>
-                                <LikesLabel>
-                                    {dataMarkerUser?.likes?.length} Likes
-                                </LikesLabel>
-                            </>
-                        }
+                        isLiked={likedMarkers[dataMarkerUser.id as string]} // Accede al valor correspondiente al marcador actual
+                        onClickLike={handleToogleLikeModal}
+                        likes={dataMarkerUser?.likes?.length}
                         icon2={
                             <div
                                 style={{

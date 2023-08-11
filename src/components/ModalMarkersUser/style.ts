@@ -100,3 +100,11 @@ export const CreatorLink = styled.div`
     text-decoration: none;
     color: #49007a;
 `
+export const LikesLabel = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 0.2rem;
+    padding: 0.3rem;
+`
