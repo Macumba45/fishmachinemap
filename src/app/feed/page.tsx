@@ -15,7 +15,6 @@ const Feed: FC = () => {
         fetchLikesMarkers,
         likedMarkers,
         loading,
-        addComment,
     } = feedUseLogic()
 
     useEffect(() => {

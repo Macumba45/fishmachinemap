@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import { useLogicMaps } from './logic'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
-import customAnzueloMarkerIcon from '../../assets/anzuelo.png'
+import AddCommentIcon from '@mui/icons-material/AddComment'
 import MarkerUserIcon from '../../assets/location.png'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import hiddenMarker from '../../assets/hostage.png'
@@ -40,6 +40,8 @@ import {
     ReviewsContainer,
     stylesMaps,
 } from './style'
+import CommentModal from '@/components/ModalComments'
+import { feedUseLogic } from '../feed/logic'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -89,27 +91,10 @@ const GoogleMapComp: FC = () => {
         currentUser,
         filteredMarkers,
         setFilteredMarkers,
+        openModalComments,
+        handleOpenModalComments,
+        handleCloseModalComments,
     } = useLogicMaps()
-
-    // Función para filtrar los marcadores según el tipo de filtro.
-    const filterMarkers = (filter: MarkerType) => {
-        let filteredMarkerInstances: UserMarker[] = []
-
-        if (filter === MarkerType.ALL) {
-            filteredMarkerInstances = [...userMarkers]
-        } else {
-            filteredMarkerInstances = userMarkers.filter(
-                (marker: any) => marker.markerType === filter
-            )
-        }
-
-        setFilteredMarkers(filteredMarkerInstances)
-    }
-
-    // Maneja el cambio de filtro.
-    const handleFilterChange = (newFilter: MarkerType) => {
-        filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
-    }
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -117,7 +102,7 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
+    google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -338,20 +323,6 @@ const GoogleMapComp: FC = () => {
         }
     }
 
-    const goToMarkerUserLocation = useCallback(
-        (location: { lat: number; lng: number } | undefined) => {
-            if (location) {
-                const baseUrl =
-                    'https://www.google.com/maps/search/?api=1&query='
-                const encodedCoordinates = encodeURIComponent(
-                    `${location.lat},${location.lng}`
-                )
-                window.open(baseUrl + encodedCoordinates)
-            }
-        },
-        []
-    )
-
     // Renderiza los marcadores en el mapa.
     const renderMarkers = (markers: UserMarker[]) => {
         // Elimina los marcadores actuales del clusterer
@@ -418,6 +389,41 @@ const GoogleMapComp: FC = () => {
         })
     }
 
+    // Función para filtrar los marcadores según el tipo de filtro.
+    const filterMarkers = (filter: MarkerType) => {
+        let filteredMarkerInstances: UserMarker[] = []
+
+        if (filter === MarkerType.ALL) {
+            filteredMarkerInstances = [...userMarkers]
+        } else {
+            filteredMarkerInstances = userMarkers.filter(
+                (marker: any) => marker.markerType === filter
+            )
+        }
+
+        setFilteredMarkers(filteredMarkerInstances)
+    }
+
+    // Maneja el cambio de filtro.
+    const handleFilterChange = (newFilter: MarkerType) => {
+        filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
+    }
+
+    // Función para obtener el ícono del marcador según el tipo de marcador.
+    const goToMarkerUserLocation = useCallback(
+        (location: { lat: number; lng: number } | undefined) => {
+            if (location) {
+                const baseUrl =
+                    'https://www.google.com/maps/search/?api=1&query='
+                const encodedCoordinates = encodeURIComponent(
+                    `${location.lat},${location.lng}`
+                )
+                window.open(baseUrl + encodedCoordinates)
+            }
+        },
+        []
+    )
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -431,12 +437,6 @@ const GoogleMapComp: FC = () => {
             renderMarkers(filteredMarkers)
         }
     }, [filteredMarkers])
-
-    // useEffect(() => {
-    //     if (modalUserMarker) {
-    //         fetchMarkerUser()
-    //     }
-    // }, [modalUserMarker])
 
     // Efecto que se ejecuta cuando cambian los marcadores para actualizar el cluster de marcadores.
     useEffect(() => {
@@ -477,6 +477,14 @@ const GoogleMapComp: FC = () => {
         // ... tu lógica para inicializar el mapa aquí ...
     }, [])
 
+    // cambia la posición del switch dependiendo del tamaño de la pantalla
+    let bottomPosition
+    if (window.innerWidth < 600) {
+        bottomPosition = '150px'
+    } else {
+        bottomPosition = '160px'
+    }
+
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
         return (
@@ -485,14 +493,6 @@ const GoogleMapComp: FC = () => {
                 <SimpleBottomNavigation />
             </>
         )
-    }
-
-    // cambia la posición del switch dependiendo del tamaño de la pantalla
-    let bottomPosition
-    if (window.innerWidth < 600) {
-        bottomPosition = '150px'
-    } else {
-        bottomPosition = '160px'
     }
 
     return (
@@ -511,56 +511,82 @@ const GoogleMapComp: FC = () => {
                     description={descripcion}
                     pictures={fotos}
                 />
-
-                <ModalUserMarkers
-                    isOpen={modalUserMarker}
-                    creator={dataMarkerUser?.user?.name}
-                    icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
-                    link={
-                        <Link
-                            style={{
-                                textDecorationColor: '#49007a',
-                                color: '#49007a',
-                            }}
-                            href={`/feed/${dataMarkerUser?.user?.id}`}
-                        >
-                            {dataMarkerUser?.user?.name}
-                        </Link>
-                    }
-                    direction={
-                        dataMarkerUser.direction.charAt(0).toUpperCase() +
-                        dataMarkerUser.direction.slice(1)
-                    }
-                    markerType={
-                        dataMarkerUser.markerType.charAt(0).toUpperCase() +
-                        dataMarkerUser.markerType.slice(1)
-                    }
-                    description={
-                        dataMarkerUser.description.charAt(0).toUpperCase() +
-                        dataMarkerUser.description.slice(1)
-                    }
-                    pictures={dataMarkerUser.picture as string}
-                    onClose={() => setModalUserMarker(false)}
-                    onClick={() => {
-                        if (
-                            locationUser &&
-                            locationUser?.lat !== undefined &&
-                            locationUser?.lng !== undefined
-                        ) {
-                            const location: google.maps.LatLngLiteral = {
-                                lat: locationUser?.lat,
-                                lng: locationUser?.lng,
-                            }
-                            goToMarkerUserLocation(location)
-                        } else {
-                            // Aquí puedes manejar el caso donde `selectedMarker` no tiene valores válidos
-                            console.error(
-                                'No se encontró una ubicación válida en el marcador seleccionado.'
-                            )
+                <>
+                    <ModalUserMarkers
+                        isOpen={modalUserMarker}
+                        creator={dataMarkerUser?.user?.name}
+                        icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
+                        link={
+                            <Link
+                                style={{
+                                    textDecorationColor: '#49007a',
+                                    color: '#49007a',
+                                }}
+                                href={`/feed/${dataMarkerUser?.user?.id}`}
+                            >
+                                {dataMarkerUser?.user?.name}
+                            </Link>
                         }
-                    }}
-                />
-
+                        direction={
+                            dataMarkerUser.direction.charAt(0).toUpperCase() +
+                            dataMarkerUser.direction.slice(1)
+                        }
+                        markerType={
+                            dataMarkerUser.markerType.charAt(0).toUpperCase() +
+                            dataMarkerUser.markerType.slice(1)
+                        }
+                        description={
+                            dataMarkerUser.description.charAt(0).toUpperCase() +
+                            dataMarkerUser.description.slice(1)
+                        }
+                        pictures={dataMarkerUser.picture as string}
+                        onClose={() => setModalUserMarker(false)}
+                        onClick={() => {
+                            if (
+                                locationUser &&
+                                locationUser?.lat !== undefined &&
+                                locationUser?.lng !== undefined
+                            ) {
+                                const location: google.maps.LatLngLiteral = {
+                                    lat: locationUser?.lat,
+                                    lng: locationUser?.lng,
+                                }
+                                goToMarkerUserLocation(location)
+                            } else {
+                                // Aquí puedes manejar el caso donde `selectedMarker` no tiene valores válidos
+                                console.error(
+                                    'No se encontró una ubicación válida en el marcador seleccionado.'
+                                )
+                            }
+                        }}
+                        icon2={
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <AddCommentIcon
+                                    sx={{
+                                        color: '#49007a',
+                                        cursor: 'pointer',
+                                        marginRight: 1,
+                                    }}
+                                    onClick={handleOpenModalComments}
+                                />
+                                <label>
+                                    {dataMarkerUser.comments?.length}{' '}
+                                    Comentarios
+                                </label>
+                            </div>
+                        }
+                    />
+                    <CommentModal
+                        open={openModalComments}
+                        id={dataMarkerUser.id as string}
+                        onClose={handleCloseModalComments}
+                    />
+                </>
                 {modalIsOpen && (
                     <BasicModal
                         onClose={closeModal}

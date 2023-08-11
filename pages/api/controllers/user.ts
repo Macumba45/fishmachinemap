@@ -5,6 +5,7 @@ export const getUserInfo = async (userId: any) => {
         where: {
             id: userId,
         },
+
         include: {
             markers: {
                 include: {

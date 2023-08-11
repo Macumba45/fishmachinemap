@@ -149,7 +149,7 @@ export const feedUseLogic = () => {
         }
     }
 
-    const getAllComments = async (markerId: string) => {
+    const getAllComments = useCallback(async (markerId: string) => {
         try {
             const token = getAuthenticatedToken()
             const headers = {
@@ -173,7 +173,7 @@ export const feedUseLogic = () => {
         } catch (error) {
             console.error('Error al enviar el objeto:', error)
         }
-    }
+    }, [])
 
     return {
         getMarkersUser,

@@ -262,6 +262,16 @@ export const useLogicMaps = () => {
         setModalIsOpen(false)
     }, [])
 
+    const [openModalComments, setOpenModalComments] = useState(false)
+
+    const handleOpenModalComments = useCallback(() => {
+        setOpenModalComments(true)
+    }, [])
+
+    const handleCloseModalComments = useCallback(() => {
+        setOpenModalComments(false)
+    }, [])
+
     return {
         styledMap,
         selectMapStyle,
@@ -318,5 +328,8 @@ export const useLogicMaps = () => {
         MarkerType,
         filteredMarkers,
         setFilteredMarkers,
+        openModalComments,
+        handleOpenModalComments,
+        handleCloseModalComments,
     }
 }

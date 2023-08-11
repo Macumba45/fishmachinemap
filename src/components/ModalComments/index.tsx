@@ -12,10 +12,11 @@ import CheckIcon from '@mui/icons-material/Check'
 import { feedUseLogic } from '@/app/feed/logic'
 import { Comments } from '@/app/maps/type'
 import { Container } from './styles'
+import { useLogicMaps } from '@/app/maps/logic'
 
 interface CommentSectionProps {
     comments: Comments[]
-    setComments: (comments: Comments[]) => void // Cambiar aquí
+    setComments: (comments: Comments[]) => void
     newComment: string
     setNewComment: (comment: string) => void
     onCommentSubmit: () => void
@@ -99,9 +100,9 @@ const CommentSection: FC<CommentSectionProps> = ({
 
 interface CommentModalProps {
     open: boolean
-    onClose: () => void
+    onClose?: () => void
     id: string
-    updateComments?: (comments: Comments[]) => void // Cambiar aquí
+    updateComments?: (comments: Comments[]) => void
 }
 
 const CommentModal: FC<CommentModalProps> = ({
@@ -111,7 +112,7 @@ const CommentModal: FC<CommentModalProps> = ({
     updateComments,
 }) => {
     const { addComment, getAllComments, allComents } = feedUseLogic()
-    const [comments, setComments] = useState<Comments[]>(allComents) // Cambiar aquí
+    const [comments, setComments] = useState<Comments[]>([])
     const [newComment, setNewComment] = useState<string>('')
 
     const handleCommentSubmit = async () => {
@@ -125,11 +126,11 @@ const CommentModal: FC<CommentModalProps> = ({
 
     useEffect(() => {
         getAllComments(id)
-        setComments(allComents) // Cambiar aquí
-    }, [])
+        setComments(allComents)
+    }, [open])
 
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal sx={{ outline: 'none' }} open={open} onClose={onClose}>
             <Paper
                 sx={{
                     p: 2,
@@ -140,6 +141,7 @@ const CommentModal: FC<CommentModalProps> = ({
                     width: 300,
                     maxHeight: '500px', // Ajusta la altura del modal según tus necesidades
                     overflow: 'auto', // Agrega el scroll al modal
+                    outline: 'none',
                 }}
             >
                 <Typography

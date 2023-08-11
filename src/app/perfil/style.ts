@@ -40,6 +40,11 @@ export const ContainerData = styled.div`
     margin: 1rem;
 `
 
+export const LabelIcons = styled.label`
+    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+`
+
 export const nameStyles = {
     color: 'white',
     marginTop: '1rem',
