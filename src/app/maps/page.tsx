@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState, memo } from 'react'
+import { FC, useCallback, useEffect, useState, memo, use } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CircularIndeterminate from '@/components/Loader'
@@ -28,6 +28,8 @@ import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
 import { MarkerType, UserMarker } from './type'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import Link from 'next/link'
 import {
     ButtonStyleBuscarLugares,
@@ -35,6 +37,7 @@ import {
     ButtonStyleConfirmarLugar,
     CustomizedSwitchesStyles,
     IconMarker,
+    LikesLabel,
     MainContainer,
     MapContainer,
     ReviewsContainer,
@@ -42,7 +45,7 @@ import {
 } from './style'
 import CommentModal from '@/components/ModalComments'
 import { feedUseLogic } from '../feed/logic'
-import { type } from 'os'
+import { IconButton } from '@mui/material'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -96,6 +99,10 @@ const GoogleMapComp: FC = () => {
         handleOpenModalComments,
         handleCloseModalComments,
     } = useLogicMaps()
+
+    console.log(dataMarkerUser)
+
+    const { fetchLikesMarkers, getMarkersUser } = feedUseLogic()
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -424,6 +431,41 @@ const GoogleMapComp: FC = () => {
         },
         []
     )
+    const [isLiked, setIsLiked] = useState(
+        dataMarkerUser?.likes?.some(like => like.userId === currentUser?.id)
+    )
+
+    const handleToogleLikeModal = () => {
+        // Perform like/unlike action here
+        setIsLiked(!isLiked) // Toggle the like status
+
+        // Update the like count
+        setDataMarkerUser(prevDataMarkerUser => {
+            const updatedLikes = [...(prevDataMarkerUser.likes || [])]
+            if (isLiked) {
+                // If the user previously liked, remove their like
+                const index = updatedLikes.findIndex(
+                    like => like.userId === currentUser?.id
+                )
+                if (index !== -1) {
+                    updatedLikes.splice(index, 1)
+                }
+            } else {
+                // If the user previously didn't like, add their like
+                updatedLikes.push({ userId: currentUser?.id as string })
+            }
+            return {
+                ...prevDataMarkerUser,
+                likes: updatedLikes,
+            }
+        })
+
+        // Call fetchLikesMarkers with appropriate parameters
+        fetchLikesMarkers(
+            dataMarkerUser?.id as string,
+            currentUser?.id as string
+        )
+    }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -489,7 +531,6 @@ const GoogleMapComp: FC = () => {
             }
         })
     }
-
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
@@ -565,6 +606,31 @@ const GoogleMapComp: FC = () => {
                                 )
                             }
                         }}
+                        icon3={
+                            <>
+                                <IconButton
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: 0,
+                                    }}
+                                    onClick={handleToogleLikeModal}
+                                >
+                                    {isLiked ? (
+                                        <FavoriteIcon
+                                            style={{ color: '#49007a' }}
+                                        />
+                                    ) : (
+                                        <FavoriteBorderIcon
+                                            style={{ color: '#49007a' }}
+                                        />
+                                    )}
+                                </IconButton>
+                                <LikesLabel>
+                                    {dataMarkerUser?.likes?.length} Likes
+                                </LikesLabel>
+                            </>
+                        }
                         icon2={
                             <div
                                 style={{
@@ -572,18 +638,25 @@ const GoogleMapComp: FC = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <AddCommentIcon
-                                    sx={{
-                                        color: '#49007a',
-                                        cursor: 'pointer',
-                                        marginRight: 1,
+                                <IconButton
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: 0,
                                     }}
                                     onClick={handleOpenModalComments}
-                                />
-                                <label>
+                                >
+                                    <AddCommentIcon
+                                        sx={{
+                                            color: '#49007a',
+                                            cursor: 'pointer',
+                                        }}
+                                    />
+                                </IconButton>
+                                <LikesLabel>
                                     {dataMarkerUser.comments?.length}{' '}
                                     Comentarios
-                                </label>
+                                </LikesLabel>
                             </div>
                         }
                     />

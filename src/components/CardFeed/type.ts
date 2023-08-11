@@ -16,4 +16,5 @@ export type FeedPros = {
         name: string
         email: string
     }
+    numberOfComments?: number
 }

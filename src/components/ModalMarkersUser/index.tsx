@@ -31,6 +31,8 @@ interface Props {
     }
     icon?: React.ReactElement
     icon2?: React.ReactElement
+    icon3?: React.ReactElement
+    isLiked?: boolean
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -45,6 +47,8 @@ const ModalUserMarkers: FC<Props> = ({
     link,
     icon,
     icon2,
+    icon3,
+    isLiked,
 }) => {
     const style = {
         position: 'absolute' as const,
@@ -99,6 +103,19 @@ const ModalUserMarkers: FC<Props> = ({
                             }}
                         >
                             {icon2}
+                        </ContenidoGoogle>
+                        <ContenidoGoogle
+                            style={{
+                                marginBottom: '1rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                marginLeft: '0.2rem',
+                                fontFamily: 'Roboto',
+                                fontWeight: 300,
+                                fontSize: '1rem',
+                            }}
+                        >
+                            {icon3}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>

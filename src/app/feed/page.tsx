@@ -49,6 +49,7 @@ const Feed: FC = () => {
                             }
                             likes={item.likes.length}
                             isLiked={likedMarkers[item.id] || false}
+                            numberOfComments={item.comments.length}
                             user={item.user}
                             date={fechaCreacion.toLocaleString('es-ES', {
                                 day: 'numeric',
