@@ -42,7 +42,7 @@ export const ImageContainer = styled.div`
 `
 export const ImageModal = styled.img`
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     object-fit: cover;
     background-size: cover;
 `
@@ -95,7 +95,7 @@ export const TotalRating = styled.div`
 export const CreatorLink = styled.div`
     font-family: ${({ theme }) => theme.fonts.roboto};
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-left: 0.5rem;
     text-decoration: none;
     color: #49007a;
