@@ -74,6 +74,8 @@ const ModalUserMarkers: FC<Props> = ({
         outline: 'none',
     }
 
+    console.log(window.location.pathname === '/maps')
+
     return (
         <Modal open={isOpen} onClose={onClose}>
             <Box sx={style}>
@@ -122,25 +124,29 @@ const ModalUserMarkers: FC<Props> = ({
                                 fontSize: '1rem',
                             }}
                         >
-                            <IconButton
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    padding: 0,
-                                }}
-                                onClick={onClickLike}
-                            >
-                                {isLiked ? (
-                                    <FavoriteIcon
-                                        style={{ color: '#49007a' }}
-                                    />
-                                ) : (
-                                    <FavoriteBorderIcon
-                                        style={{ color: '#49007a' }}
-                                    />
-                                )}
-                            </IconButton>
-                            <LikesLabel>{likes} Likes</LikesLabel>
+                            {typeof window !== 'undefined' && window.location.pathname === '/maps' && (
+                                <>
+                                    <IconButton
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            padding: 0,
+                                        }}
+                                        onClick={onClickLike}
+                                    >
+                                        {isLiked ? (
+                                            <FavoriteIcon
+                                                style={{ color: '#49007a' }}
+                                            />
+                                        ) : (
+                                            <FavoriteBorderIcon
+                                                style={{ color: '#49007a' }}
+                                            />
+                                        )}
+                                    </IconButton>
+                                    <LikesLabel>{likes} Likes</LikesLabel>
+                                </>
+                            )}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>

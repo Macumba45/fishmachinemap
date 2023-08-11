@@ -443,6 +443,7 @@ const GoogleMapComp: FC = () => {
             [dataMarkerUser.id as string]:
                 !prevState[dataMarkerUser.id as string],
         }))
+
     }
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -500,13 +501,12 @@ const GoogleMapComp: FC = () => {
     // cambia la posición del switch dependiendo del tamaño de la pantalla
     let bottomPosition
     if (typeof window !== 'undefined') {
-        window.addEventListener('resize', () => {
-            if (window.innerWidth < 600) {
-                bottomPosition = '150px'
-            } else {
-                bottomPosition = '160px'
-            }
-        })
+        if (window.innerWidth < 600) {
+            bottomPosition = '150px'
+        } else {
+            bottomPosition = '160px'
+        }
+
     }
 
     // Renderiza el componente.
