@@ -109,21 +109,10 @@ const ModalUserMarkers: FC<Props> = ({
                                 fontFamily: 'Roboto',
                                 fontWeight: 300,
                                 fontSize: '1rem',
+                                justifyContent: 'space-between',
                             }}
                         >
                             {icon2}
-                        </ContenidoGoogle>
-                        <ContenidoGoogle
-                            style={{
-                                marginBottom: '1rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                                marginLeft: '0.2rem',
-                                fontFamily: 'Roboto',
-                                fontWeight: 300,
-                                fontSize: '1rem',
-                            }}
-                        >
                             {typeof window !== 'undefined' && window.location.pathname === '/maps' && (
                                 <>
                                     <IconButton
@@ -131,6 +120,7 @@ const ModalUserMarkers: FC<Props> = ({
                                             display: 'flex',
                                             alignItems: 'center',
                                             padding: 0,
+                                            marginRight: '0.5rem',
                                         }}
                                         onClick={onClickLike}
                                     >
@@ -144,7 +134,7 @@ const ModalUserMarkers: FC<Props> = ({
                                             />
                                         )}
                                     </IconButton>
-                                    <LikesLabel>{likes} Likes</LikesLabel>
+                                    {/* <LikesLabel>{likes} Likes</LikesLabel> */}
                                 </>
                             )}
                         </ContenidoGoogle>
@@ -154,10 +144,10 @@ const ModalUserMarkers: FC<Props> = ({
                             id="modal-modal-description"
                             style={{ marginTop: 2, fontFamily: 'Roboto' }}
                         >
-                            <Typography sx={{ mb: 1, fontWeight: '800' }}>
+                            <Typography sx={{ mb: 1, fontWeight: '800', fontSize: '0.9rem' }}>
                                 Lugar/Dirección:
                             </Typography>
-                            <Typography sx={{ fontWeight: '400' }}>
+                            <Typography sx={{ fontWeight: '400', fontSize: '0.8rem' }}>
                                 {direction}
                             </Typography>
                         </TypographyContainer>
@@ -171,10 +161,10 @@ const ModalUserMarkers: FC<Props> = ({
                                 lineHeight: '2rem',
                             }}
                         >
-                            <Typography sx={{ mb: 1, fontWeight: '800' }}>
+                            <Typography sx={{ mb: 1, fontWeight: '800', fontSize: '0.9rem' }}>
                                 Descripción:
                             </Typography>
-                            <Typography sx={{ fontWeight: '400' }}>
+                            <Typography sx={{ fontWeight: '400', fontSize: '0.8rem' }}>
                                 {description}
                             </Typography>
                         </TypographyContainer>

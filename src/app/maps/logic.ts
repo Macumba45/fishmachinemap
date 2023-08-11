@@ -130,12 +130,13 @@ export const useLogicMaps = () => {
                     ...prevState,
                     [markerId]: isLiked,
                 }))
+                getAllMarkersUser()
                 return data.marker
             } catch (error: any) {
                 console.error('Error al obtener los marcadores:', error.message)
             }
         },
-        [setLikedMarkers]
+        [setLikedMarkers, getAllMarkersUser]
     )
 
 
