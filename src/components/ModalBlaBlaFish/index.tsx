@@ -87,6 +87,8 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
             onClose()
         } catch (error) {
             console.error('Error al crear el viaje', error)
+        } finally {
+            setLoading(false)
         }
     }
 
