@@ -1,19 +1,23 @@
 import { FC } from 'react'
-import { Modal, Box, Typography } from '@mui/material'
+import { Modal, Box, Typography, IconButton } from '@mui/material'
 import ButtonComp from '../Button'
 import NavigationIcon from '@mui/icons-material/Navigation'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import {
     TypographyContainer,
     ContenidoGoogle,
     ImageModal,
     PictureContainer,
     CreatorLink,
+    LikesLabel,
 } from './style'
 
 interface Props {
     isOpen: boolean
     onClose?: () => void
     onClick?: () => void
+    onClickLike?: () => void
     dataMarkerUser?: {
         comments: string
         rating: number
@@ -33,6 +37,7 @@ interface Props {
     icon2?: React.ReactElement
     icon3?: React.ReactElement
     isLiked?: boolean
+    likes?: number
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -44,11 +49,13 @@ const ModalUserMarkers: FC<Props> = ({
     pictures,
     creator,
     onClick,
+    onClickLike,
     link,
     icon,
     icon2,
     icon3,
     isLiked,
+    likes,
 }) => {
     const style = {
         position: 'absolute' as const,
@@ -115,7 +122,25 @@ const ModalUserMarkers: FC<Props> = ({
                                 fontSize: '1rem',
                             }}
                         >
-                            {icon3}
+                            <IconButton
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: 0,
+                                }}
+                                onClick={onClickLike}
+                            >
+                                {isLiked ? (
+                                    <FavoriteIcon
+                                        style={{ color: '#49007a' }}
+                                    />
+                                ) : (
+                                    <FavoriteBorderIcon
+                                        style={{ color: '#49007a' }}
+                                    />
+                                )}
+                            </IconButton>
+                            <LikesLabel>{likes} Likes</LikesLabel>
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>
