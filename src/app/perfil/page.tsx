@@ -14,8 +14,6 @@ import { UserMarker } from '../maps/type'
 import { Delete, Edit } from '@mui/icons-material'
 import DeleteMarkerModal from '@/components/DeletedModalMarker'
 import ButtonComp from '@/components/Button'
-import customMarkerIcon from '../../assets/anzuelo.png'
-import customMarkerIconShop from '../../assets/tienda.png'
 import RoomIcon from '@mui/icons-material/Room'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
@@ -23,26 +21,27 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-
+import AddCommentIcon from '@mui/icons-material/AddComment'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { BlaBlaFish } from '../blablafish/type'
+import { Store } from '../store/type'
+import ModalUserMarkers from '@/components/ModalMarkersUser'
+import CommentModal from '@/components/ModalComments'
 import {
     Button,
     ButtonGroup,
-    Dialog,
     IconButton,
     ImageList,
     ImageListItem,
-    ListItemAvatar,
 } from '@mui/material'
 import {
+    LabelIcons,
     MainContainer,
     UserContainerData,
     emailStyles,
     nameStyles,
 } from './style'
-import { BlaBlaFish } from '../blablafish/type'
-import { Store } from '../store/type'
-import ModalUserMarkers from '@/components/ModalMarkersUser'
-import Link from 'next/link'
+import { feedUseLogic } from '../feed/logic'
 
 const Profile: FC = () => {
     const {
@@ -71,7 +70,7 @@ const Profile: FC = () => {
     const [openModal, setOpenModal] = useState(false)
     const [selectedImage, setSelectedImage] = useState('')
     const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
-
+    const [openModalComments, setOpenModalComments] = useState(false)
     const [activeView, setActiveView] = useState('capturas')
 
     const goToMaps = useCallback(() => {
@@ -89,6 +88,14 @@ const Profile: FC = () => {
 
     const handleCloseModal = useCallback(() => {
         setOpenModal(false)
+    }, [])
+
+    const handleOpenModalComments = useCallback(() => {
+        setOpenModalComments(true)
+    }, [])
+
+    const handleCloseModalComments = useCallback(() => {
+        setOpenModalComments(false)
     }, [])
 
     const handleVisibilityToggle = useCallback(async (markerId: string) => {
@@ -753,21 +760,68 @@ const Profile: FC = () => {
                 {userMarkers
                     .filter(marker => marker.id === selectedMarkerId) // Filtrar el marcador seleccionado
                     .map(marker => (
-                        <ModalUserMarkers
-                            isOpen={openModal}
-                            key={marker.id}
-                            description={marker.description}
-                            pictures={marker.picture as string}
-                            direction={marker.direction}
-                            onClose={handleCloseModal}
-                            onClick={() => {
-                                const location: google.maps.LatLngLiteral = {
-                                    lat: marker.location?.lat,
-                                    lng: marker.location?.lng,
+                        <React.Fragment key={marker.id}>
+                            <ModalUserMarkers
+                                isOpen={openModal}
+                                key={marker.id}
+                                description={marker.description}
+                                pictures={marker.picture as string}
+                                direction={marker.direction}
+                                onClose={handleCloseModal}
+                                onClick={() => {
+                                    const location: google.maps.LatLngLiteral =
+                                        {
+                                            lat: marker.location?.lat,
+                                            lng: marker.location?.lng,
+                                        }
+                                    goToMarkerUserLocation(location)
+                                }}
+                                icon={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <AddCommentIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                cursor: 'pointer',
+                                                marginRight: 1,
+                                            }}
+                                            onClick={handleOpenModalComments}
+                                        />
+                                        <LabelIcons>
+                                            Tienes {marker.comments?.length}{' '}
+                                            Comentarios
+                                        </LabelIcons>
+                                    </div>
                                 }
-                                goToMarkerUserLocation(location)
-                            }}
-                        />
+                                icon2={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <FavoriteIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                marginRight: 1,
+                                            }}
+                                        />
+                                        <LabelIcons>
+                                            Tienes {marker.likes?.length} Likes
+                                        </LabelIcons>
+                                    </div>
+                                }
+                            />
+                            <CommentModal
+                                open={openModalComments}
+                                id={marker.id as string}
+                                onClose={handleCloseModalComments}
+                            />
+                        </React.Fragment>
                     ))}
             </MainContainer>
             <SimpleBottomNavigation />

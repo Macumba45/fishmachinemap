@@ -30,6 +30,7 @@ interface Props {
         email: string
     }
     icon?: React.ReactElement
+    icon2?: React.ReactElement
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -43,6 +44,7 @@ const ModalUserMarkers: FC<Props> = ({
     onClick,
     link,
     icon,
+    icon2,
 }) => {
     const style = {
         position: 'absolute' as const,
@@ -84,6 +86,19 @@ const ModalUserMarkers: FC<Props> = ({
                         >
                             {icon}
                             <CreatorLink>{link}</CreatorLink>
+                        </ContenidoGoogle>
+                        <ContenidoGoogle
+                            style={{
+                                marginBottom: '1rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                marginLeft: '0.2rem',
+                                fontFamily: 'Roboto',
+                                fontWeight: 300,
+                                fontSize: '1rem',
+                            }}
+                        >
+                            {icon2}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>
