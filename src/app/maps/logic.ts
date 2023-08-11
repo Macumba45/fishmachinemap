@@ -103,6 +103,42 @@ export const useLogicMaps = () => {
         }
     }, [])
 
+    const [likedMarkers, setLikedMarkers] = useState<Record<string, boolean>>(
+        {}
+    )
+
+    const fetchLikesMarkers = useCallback(
+        async (markerId: string, userId: string) => {
+            try {
+                const token = getAuthenticatedToken()
+                const headers = {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                }
+                const response = await fetch('/api/feed/toogleLike', {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({
+                        markerId: markerId,
+                    }),
+                })
+                const data = await response.json()
+                // Verificar si el usuario ha dado like al marcador
+                const isLiked = data.isLiked // Accede directamente a la propiedad isLiked de data
+                // Actualizar el estado del corazón para este marcador individualmente
+                setLikedMarkers(prevState => ({
+                    ...prevState,
+                    [markerId]: isLiked,
+                }))
+                return data.marker
+            } catch (error: any) {
+                console.error('Error al obtener los marcadores:', error.message)
+            }
+        },
+        [setLikedMarkers]
+    )
+
+
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
     | google.maps.LatLngLiteral
@@ -297,40 +333,6 @@ export const useLogicMaps = () => {
         setOpenModalComments(false)
     }, [])
 
-    const [likedMarkers, setLikedMarkers] = useState<Record<string, boolean>>(
-        {}
-    )
-
-    const fetchLikesMarkers = useCallback(
-        async (markerId: string, userId: string) => {
-            try {
-                const token = getAuthenticatedToken()
-                const headers = {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                }
-                const response = await fetch('/api/feed/toogleLike', {
-                    method: 'POST',
-                    headers,
-                    body: JSON.stringify({
-                        markerId: markerId,
-                    }),
-                })
-                const data = await response.json()
-                // Verificar si el usuario ha dado like al marcador
-                const isLiked = data.isLiked // Accede directamente a la propiedad isLiked de data
-                // Actualizar el estado del corazón para este marcador individualmente
-                setLikedMarkers(prevState => ({
-                    ...prevState,
-                    [markerId]: isLiked,
-                }))
-                return data.marker
-            } catch (error: any) {
-                console.error('Error al obtener los marcadores:', error.message)
-            }
-        },
-        [setLikedMarkers]
-    )
 
     return {
         styledMap,
