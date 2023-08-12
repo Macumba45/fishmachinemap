@@ -56,6 +56,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                     alignItems="center"
                     key={index}
                     margin={1}
+                    flexWrap={'nowrap'}
                 >
                     <Grid
                         sx={{
@@ -69,7 +70,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                                 width: 30,
                                 height: 30,
                                 paddingLeft: '0px',
-                                marginRight: 2,
+                                marginRight: 1.5,
                             }}
                             alt="User Avatar"
                         />
@@ -80,7 +81,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                         >
                             {comment.user?.name}
                         </Typography>
-                        <Typography style={{ display: 'flex', alignItems: 'center' }} variant="body2">{comment.text}
+                        <Typography style={{ display: 'flex', alignItems: 'center', wordWrap: 'break-word' }} variant="body2">{comment.text}
                             <IconButton
                                 onClick={() => {
                                     if (comment.user?.id === userId) {
@@ -103,12 +104,13 @@ const CommentSection: FC<CommentSectionProps> = ({
 
                     </Grid>
                 </Grid>
-            ))}
+            ))
+            }
             <Container>
                 <TextField
                     label="Deja un comentario"
                     multiline
-                    rows={1}
+                    rows={2}
                     value={newComment}
                     onChange={handleCommentChange}
                     fullWidth
@@ -125,7 +127,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                     Comentar
                 </Button>
             </Container>
-        </div>
+        </div >
     )
 }
 
