@@ -74,8 +74,6 @@ const ModalUserMarkers: FC<Props> = ({
         outline: 'none',
     }
 
-    console.log(window.location.pathname === '/maps')
-
     return (
         <Modal open={isOpen} onClose={onClose}>
             <Box sx={style}>
