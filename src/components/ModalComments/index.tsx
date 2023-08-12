@@ -7,12 +7,15 @@ import {
     Grid,
     Modal,
     Paper,
+    IconButton,
 } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check'
 import { feedUseLogic } from '@/app/feed/logic'
 import { Comments } from '@/app/maps/type'
 import { Container } from './styles'
 import { useLogicMaps } from '@/app/maps/logic'
+import { Delete } from '@mui/icons-material'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 interface CommentSectionProps {
     comments: Comments[]
@@ -20,6 +23,7 @@ interface CommentSectionProps {
     newComment: string
     setNewComment: (comment: string) => void
     onCommentSubmit: () => void
+    onDeleteComment: (commentId: string) => void
 }
 
 const CommentSection: FC<CommentSectionProps> = ({
@@ -28,7 +32,14 @@ const CommentSection: FC<CommentSectionProps> = ({
     newComment,
     setNewComment,
     onCommentSubmit,
+    onDeleteComment,
 }) => {
+
+    const token = getAuthenticatedToken()
+    const userId = token
+        ? JSON.parse(atob(token.split('.')[1])).userId
+        : ''
+    console.log(userId)
     const handleCommentChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -69,7 +80,27 @@ const CommentSection: FC<CommentSectionProps> = ({
                         >
                             {comment.user?.name}
                         </Typography>
-                        <Typography variant="body2">{comment.text}</Typography>
+                        <Typography style={{ display: 'flex', alignItems: 'center' }} variant="body2">{comment.text}
+                            <IconButton
+                                onClick={() => {
+                                    if (comment.user?.id === userId) {
+                                        onDeleteComment(comment.id as string);
+                                    }
+                                }}
+                                sx={{ paddingTop: 0, paddingBottom: 0 }}
+                                disabled={comment.user?.id !== userId} // Deshabilitar el botón si no es el usuario logueado
+                            >
+                                <Delete
+                                    sx={{
+                                        fontSize: '1rem',
+                                        cursor: 'pointer',
+                                        paddingTop: 0,
+                                        display: comment.user?.id !== userId ? 'none' : 'flex', // Cambiar el color si está deshabilitado
+                                    }}
+                                />
+                            </IconButton>
+                        </Typography>
+
                     </Grid>
                 </Grid>
             ))}
@@ -111,7 +142,7 @@ const CommentModal: FC<CommentModalProps> = ({
     id,
     updateComments,
 }) => {
-    const { addComment, getAllComments, allComents } = feedUseLogic()
+    const { addComment, getAllComments, allComents, deleteCommentUser } = feedUseLogic()
     const [comments, setComments] = useState<Comments[]>([])
     const [newComment, setNewComment] = useState<string>('')
 
@@ -123,6 +154,7 @@ const CommentModal: FC<CommentModalProps> = ({
             setNewComment('')
         }
     }
+
 
     useEffect(() => {
         getAllComments(id)
@@ -156,6 +188,7 @@ const CommentModal: FC<CommentModalProps> = ({
                     newComment={newComment}
                     setNewComment={setNewComment}
                     onCommentSubmit={handleCommentSubmit}
+                    onDeleteComment={deleteCommentUser}
                 />
             </Paper>
         </Modal>

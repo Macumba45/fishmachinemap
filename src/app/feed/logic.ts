@@ -175,6 +175,34 @@ export const feedUseLogic = () => {
         }
     }, [])
 
+    const deleteCommentUser = async (commentId: string) => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+            const response = await fetch(
+                `/api/markers/deleteComment?commentId=${commentId}`,
+                {
+                    method: 'DELETE',
+                    headers,
+                }
+            )
+            if (response.ok) {
+                const data = await response.json()
+                return data
+            } else {    
+                throw new Error('Error en la respuesta del servidor')
+            }
+
+        } catch (error) {
+            console.error('Error al enviar el objeto:', error)
+
+        }
+    }
+
+
     return {
         getMarkersUser,
         fotosMarkers,
@@ -189,5 +217,6 @@ export const feedUseLogic = () => {
         addComment,
         getAllComments,
         allComents,
+        deleteCommentUser
     }
 }

@@ -70,3 +70,13 @@ export const getComments = async (markerId: string) => {
 
     return comments
 }
+
+export const deleteComment = async (id: string) => {
+    const deletedComment = await prisma.comments.delete({
+        where: {
+            id,
+        },
+    })
+
+    return deletedComment
+}
