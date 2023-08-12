@@ -13,7 +13,6 @@ import CheckIcon from '@mui/icons-material/Check'
 import { feedUseLogic } from '@/app/feed/logic'
 import { Comments } from '@/app/maps/type'
 import { Container } from './styles'
-import { useLogicMaps } from '@/app/maps/logic'
 import { Delete } from '@mui/icons-material'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 
