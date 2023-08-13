@@ -145,7 +145,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         <>
             <Modal open={open} onClose={onClose}>
                 <Fade in={open}>
-                    <ModalWrapper>
+                    <ModalWrapper style={{ width: '310px', margin: '0 auto' }}>
                         <ModalContent>
                             <ModalTitle variant="h6">Crear Anuncio</ModalTitle>
                             <StyledTextField

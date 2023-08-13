@@ -19,11 +19,9 @@ export const ModalContent = styled.div`
 `
 
 export const ModalTitle = styled(Typography)`
-    margin-bottom: 16px;
 `
 
 export const StyledTextField = styled(TextField)`
-    margin-bottom: 16px;
 `
 
 export const StyledButton = styled(Button)`

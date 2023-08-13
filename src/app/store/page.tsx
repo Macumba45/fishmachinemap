@@ -28,6 +28,7 @@ const Store: FC = () => {
 
     const handleOpen = () => {
         setOpen(true)
+        console.log('open')
     }
 
     useEffect(() => {
@@ -62,7 +63,8 @@ const Store: FC = () => {
                     />
                     No hay productos a la venta
                 </MainContainerNoData>
-                <FloatAddBlaBlaFish onClick={() => handleOpen()} />
+                <StoreModal open={open} onClose={() => handleClose()} />
+                <FloatAddBlaBlaFish onClick={handleOpen} />
                 <SimpleBottomNavigation />
             </>
         )
@@ -76,7 +78,6 @@ const Store: FC = () => {
                 <TextNav>Compra, vende. Reutiliza</TextNav>
             </Container>
             <MainContainer>
-                <StoreModal open={open} onClose={() => handleClose()} />
                 {store.map(item => (
                     <Link key={item.id} href={`/store/${item.id}`}>
                         <TitlebarImageList
@@ -89,7 +90,8 @@ const Store: FC = () => {
                     </Link>
                 ))}
 
-                <FloatAddBlaBlaFish onClick={() => handleOpen()} />
+                <FloatAddBlaBlaFish onClick={handleOpen} />
+                <StoreModal open={open} onClose={() => handleClose()} />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>
