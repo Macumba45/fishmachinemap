@@ -192,16 +192,13 @@ export const feedUseLogic = () => {
             if (response.ok) {
                 const data = await response.json()
                 return data
-            } else {    
+            } else {
                 throw new Error('Error en la respuesta del servidor')
             }
-
         } catch (error) {
             console.error('Error al enviar el objeto:', error)
-
         }
     }
-
 
     return {
         getMarkersUser,
@@ -217,6 +214,6 @@ export const feedUseLogic = () => {
         addComment,
         getAllComments,
         allComents,
-        deleteCommentUser
+        deleteCommentUser,
     }
 }

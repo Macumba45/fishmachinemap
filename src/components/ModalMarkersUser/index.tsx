@@ -111,7 +111,8 @@ const ModalUserMarkers: FC<Props> = ({
                             }}
                         >
                             {icon2}
-                            {typeof window !== 'undefined' && window.location.pathname === '/maps' && (
+                            {typeof window !== 'undefined' &&
+                                window.location.pathname === '/maps' && (
                                 <>
                                     <IconButton
                                         style={{
@@ -142,10 +143,18 @@ const ModalUserMarkers: FC<Props> = ({
                             id="modal-modal-description"
                             style={{ marginTop: 2, fontFamily: 'Roboto' }}
                         >
-                            <Typography sx={{ mb: 1, fontWeight: '800', fontSize: '0.9rem' }}>
+                            <Typography
+                                sx={{
+                                    mb: 1,
+                                    fontWeight: '800',
+                                    fontSize: '0.9rem',
+                                }}
+                            >
                                 Lugar/Dirección:
                             </Typography>
-                            <Typography sx={{ fontWeight: '400', fontSize: '0.8rem' }}>
+                            <Typography
+                                sx={{ fontWeight: '400', fontSize: '0.8rem' }}
+                            >
                                 {direction}
                             </Typography>
                         </TypographyContainer>
@@ -159,10 +168,18 @@ const ModalUserMarkers: FC<Props> = ({
                                 lineHeight: '2rem',
                             }}
                         >
-                            <Typography sx={{ mb: 1, fontWeight: '800', fontSize: '0.9rem' }}>
+                            <Typography
+                                sx={{
+                                    mb: 1,
+                                    fontWeight: '800',
+                                    fontSize: '0.9rem',
+                                }}
+                            >
                                 Descripción:
                             </Typography>
-                            <Typography sx={{ fontWeight: '400', fontSize: '0.8rem' }}>
+                            <Typography
+                                sx={{ fontWeight: '400', fontSize: '0.8rem' }}
+                            >
                                 {description}
                             </Typography>
                         </TypographyContainer>

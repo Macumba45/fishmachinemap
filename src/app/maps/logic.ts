@@ -139,7 +139,6 @@ export const useLogicMaps = () => {
         [setLikedMarkers, getAllMarkersUser]
     )
 
-
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
     | google.maps.LatLngLiteral
@@ -333,7 +332,6 @@ export const useLogicMaps = () => {
     const handleCloseModalComments = useCallback(() => {
         setOpenModalComments(false)
     }, [])
-
 
     return {
         styledMap,

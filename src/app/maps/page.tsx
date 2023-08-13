@@ -443,7 +443,6 @@ const GoogleMapComp: FC = () => {
             [dataMarkerUser.id as string]:
                 !prevState[dataMarkerUser.id as string],
         }))
-
     }
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -506,7 +505,6 @@ const GoogleMapComp: FC = () => {
         } else {
             bottomPosition = '160px'
         }
-
     }
 
     // Renderiza el componente.

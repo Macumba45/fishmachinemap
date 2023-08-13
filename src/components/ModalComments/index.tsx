@@ -33,11 +33,8 @@ const CommentSection: FC<CommentSectionProps> = ({
     onCommentSubmit,
     onDeleteComment,
 }) => {
-
     const token = getAuthenticatedToken()
-    const userId = token
-        ? JSON.parse(atob(token.split('.')[1])).userId
-        : ''
+    const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
     console.log(userId)
     const handleCommentChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -80,11 +77,19 @@ const CommentSection: FC<CommentSectionProps> = ({
                         >
                             {comment.user?.name}
                         </Typography>
-                        <Typography style={{ display: 'flex', alignItems: 'center', wordWrap: 'break-word' }} variant="body2">{comment.text}
+                        <Typography
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                wordWrap: 'break-word',
+                            }}
+                            variant="body2"
+                        >
+                            {comment.text}
                             <IconButton
                                 onClick={() => {
                                     if (comment.user?.id === userId) {
-                                        onDeleteComment(comment.id as string);
+                                        onDeleteComment(comment.id as string)
                                     }
                                 }}
                                 sx={{ paddingTop: 0, paddingBottom: 0 }}
@@ -95,16 +100,17 @@ const CommentSection: FC<CommentSectionProps> = ({
                                         fontSize: '1rem',
                                         cursor: 'pointer',
                                         paddingTop: 0,
-                                        display: comment.user?.id !== userId ? 'none' : 'flex', // Cambiar el color si está deshabilitado
+                                        display:
+                                            comment.user?.id !== userId
+                                                ? 'none'
+                                                : 'flex', // Cambiar el color si está deshabilitado
                                     }}
                                 />
                             </IconButton>
                         </Typography>
-
                     </Grid>
                 </Grid>
-            ))
-            }
+            ))}
             <Container>
                 <TextField
                     label="Deja un comentario"
@@ -126,7 +132,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                     Comentar
                 </Button>
             </Container>
-        </div >
+        </div>
     )
 }
 
@@ -143,7 +149,8 @@ const CommentModal: FC<CommentModalProps> = ({
     id,
     updateComments,
 }) => {
-    const { addComment, getAllComments, allComents, deleteCommentUser } = feedUseLogic()
+    const { addComment, getAllComments, allComents, deleteCommentUser } =
+        feedUseLogic()
     const [comments, setComments] = useState<Comments[]>([])
     const [newComment, setNewComment] = useState<string>('')
 
@@ -155,7 +162,6 @@ const CommentModal: FC<CommentModalProps> = ({
             setNewComment('')
         }
     }
-
 
     useEffect(() => {
         getAllComments(id)
