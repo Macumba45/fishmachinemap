@@ -167,6 +167,7 @@ export const useLogicMaps = () => {
     const [fotos, setFotos] = useState<string>('')
     const [confirmedMarkers, setConfirmedMarkers] = useState(false)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
+    console.log(userMarkers)
     const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
         null
     )

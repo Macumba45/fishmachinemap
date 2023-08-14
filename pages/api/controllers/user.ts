@@ -24,7 +24,24 @@ export const getUserInfo = async (userId: any) => {
                     createdAt: 'desc', // Ordenar los marcadores por fecha de creación de forma descendente
                 },
             },
-            Likes: true,
+            Likes: {
+                include: {
+                    marker: {
+                        select: {
+                            id: true,
+                            description: true,
+                            direction: true,
+                            markerType: true,
+                            picture: true,
+                            userId: true,
+                            visible: true,
+                            location: true,
+                            comments: true,
+                            likes: true,
+                        },
+                    },
+                },
+            },
             blaBlaFish: true,
             stores: true,
         },

@@ -4,10 +4,13 @@ import { UserMarker } from '../maps/type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { BlaBlaFish } from '../blablafish/type'
 import { Store } from '../store/type'
+import { userLikesProps } from './type'
 
 export const useLogicUser = () => {
     const [user, setUser] = useState<User | null>(null)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
+    const [userLikes, setUserLikes] = useState<userLikesProps[]>([])
+    console.log(userLikes)
     const [toBeDeletedMarkers, setToBeDeletedMarkers] = useState<{
         [key: string]: boolean
     }>({})
@@ -40,9 +43,11 @@ export const useLogicUser = () => {
                     headers,
                 })
                 const data = await response.json()
+                console.log(data.user.Likes)
                 setBlaBlaFish(data.user.blaBlaFish)
                 setUser(data.user)
                 setUserMarkers(data.user.markers)
+                setUserLikes(data.user.Likes)
                 setStores(data.user.stores)
 
                 // Set marker visibility state
@@ -173,6 +178,7 @@ export const useLogicUser = () => {
         toBeDeletedBlaBlaFish,
         setToBeDeletedBlaBlaFish,
         stores,
+        userLikes,
         toBeDeletedStores,
         setToBeDeletedStores,
         deleteStore,

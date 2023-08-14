@@ -35,7 +35,6 @@ const CommentSection: FC<CommentSectionProps> = ({
 }) => {
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
-    console.log(userId)
     const handleCommentChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {

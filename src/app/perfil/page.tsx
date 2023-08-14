@@ -42,6 +42,7 @@ import {
     nameStyles,
 } from './style'
 import { feedUseLogic } from '../feed/logic'
+import { userLikesProps } from './type'
 
 const Profile: FC = () => {
     const {
@@ -62,6 +63,7 @@ const Profile: FC = () => {
         toBeDeletedBlaBlaFish,
         setToBeDeletedBlaBlaFish,
         stores,
+        userLikes,
         toBeDeletedStores,
         setToBeDeletedStores,
         deleteStore,
@@ -264,6 +266,15 @@ const Profile: FC = () => {
                                 onClick={() => handleViewChange('stores')}
                             >
                                 <ShoppingBagIcon />
+                            </Button>
+                            <Button
+                                sx={{
+                                    backgroundColor: '#49007a',
+                                    '&:hover': { backgroundColor: '#7900ca' },
+                                }}
+                                onClick={() => handleViewChange('likes')}
+                            >
+                                <FavoriteIcon />
                             </Button>
                         </ButtonGroup>
                         <Divider
@@ -704,6 +715,126 @@ const Profile: FC = () => {
                             )}
                         </React.Fragment>
                     ))}
+                {activeView === 'likes' && userLikes.length === 0 && (
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '2rem',
+                            color: '#49007a',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                        }}
+                        variant="h6"
+                        gutterBottom
+                    >
+                        No tienes favoritos
+                    </Typography>
+                )}
+
+                {activeView === 'likes' && (
+                    <React.Fragment>
+                        <ImageList
+                            sx={{
+                                maxWidth: '600px',
+                                minWidth: '300px',
+                                height: '100%',
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                marginBottom: '2rem',
+                            }}
+                            cols={2}
+                            rowHeight={150}
+                        >
+                            {userLikes.map(
+                                item =>
+                                    item.marker && (
+                                        <ImageListItem key={item.id}>
+                                            <img
+                                                style={{
+                                                    width: '150px',
+                                                    height: '150px',
+                                                }}
+                                                src={`${item.marker.picture}?w=164&h=164&fit=crop&auto=format`}
+                                                srcSet={`${item.marker.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                loading="lazy"
+                                                onClick={() =>
+                                                    handleOpenModal(item.marker)
+                                                }
+                                            />
+                                        </ImageListItem>
+                                    )
+                            )}
+                        </ImageList>
+                    </React.Fragment>
+                )}
+                {userLikes
+                    .filter(marker => marker.marker.id === selectedMarkerId) // Filtrar el marcador seleccionado
+                    .map(marker => (
+                        <React.Fragment key={marker.id}>
+                            <ModalUserMarkers
+                                isOpen={openModal}
+                                key={marker.id}
+                                description={marker.marker.description}
+                                pictures={marker.marker.picture as string}
+                                direction={marker.marker.direction}
+                                onClose={handleCloseModal}
+                                onClick={() => {
+                                    const location: google.maps.LatLngLiteral =
+                                        {
+                                            lat: marker.marker.location?.lat,
+                                            lng: marker.marker.location?.lng,
+                                        }
+                                    goToMarkerUserLocation(location)
+                                }}
+                                icon={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <AddCommentIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                cursor: 'pointer',
+                                                marginRight: 1,
+                                            }}
+                                            onClick={handleOpenModalComments}
+                                        />
+                                        <LabelIcons>
+                                            {marker.marker.comments?.length}{' '}
+                                            Comentarios
+                                        </LabelIcons>
+                                    </div>
+                                }
+                                icon2={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <FavoriteIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                marginRight: 1,
+                                            }}
+                                        />
+                                        <LabelIcons>
+                                            {marker.marker.likes?.length} Likes
+                                        </LabelIcons>
+                                    </div>
+                                }
+                            />
+                            <CommentModal
+                                open={openModalComments}
+                                id={marker.marker.id as string}
+                                onClose={handleCloseModalComments}
+                            />
+                        </React.Fragment>
+                    ))}
                 {activeView === 'capturas' && (
                     <React.Fragment>
                         <ImageList
@@ -792,7 +923,7 @@ const Profile: FC = () => {
                                             onClick={handleOpenModalComments}
                                         />
                                         <LabelIcons>
-                                            Tienes {marker.comments?.length}{' '}
+                                            {marker.comments?.length}{' '}
                                             Comentarios
                                         </LabelIcons>
                                     </div>
@@ -811,7 +942,7 @@ const Profile: FC = () => {
                                             }}
                                         />
                                         <LabelIcons>
-                                            Tienes {marker.likes?.length} Likes
+                                            {marker.likes?.length} Likes
                                         </LabelIcons>
                                     </div>
                                 }

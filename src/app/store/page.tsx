@@ -13,6 +13,7 @@ import {
     ContainerMenu,
     MainContainer,
     MainContainerNoData,
+    NoDataText,
     TextNav,
 } from './style'
 import CircularIndeterminate from '@/components/Loader'
@@ -55,13 +56,14 @@ const Store: FC = () => {
                 </Container>
                 <MainContainerNoData>
                     <ShoppingBagIcon
-                        style={{
-                            fontSize: '5rem',
+                        sx={{
+                            fontSize: '3rem',
                             color: '#49007a',
                             marginBottom: '2rem',
                         }}
                     />
-                    No hay productos a la venta
+
+                    <NoDataText>No hay productos a la venta</NoDataText>
                 </MainContainerNoData>
                 <StoreModal open={open} onClose={() => handleClose()} />
                 <FloatAddBlaBlaFish onClick={handleOpen} />

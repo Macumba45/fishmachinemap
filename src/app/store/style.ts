@@ -52,3 +52,10 @@ export const TextNav = styled.h1`
         font-size: 0.75rem;
     }
 `
+
+export const NoDataText = styled.h1`
+    font-family: Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 200;
+    color: #49007a;
+`
