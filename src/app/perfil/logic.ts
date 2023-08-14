@@ -4,13 +4,12 @@ import { UserMarker } from '../maps/type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { BlaBlaFish } from '../blablafish/type'
 import { Store } from '../store/type'
-import { userLikesProps } from './type'
+import { ProfileProps, userLikesProps } from './type'
 
 export const useLogicUser = () => {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<ProfileProps | null>(null)
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
     const [userLikes, setUserLikes] = useState<userLikesProps[]>([])
-    console.log(userLikes)
     const [toBeDeletedMarkers, setToBeDeletedMarkers] = useState<{
         [key: string]: boolean
     }>({})
@@ -22,7 +21,7 @@ export const useLogicUser = () => {
     }>({})
     const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
     const [stores, setStores] = useState<Store[]>([])
-    const [picturesProfile, setPicturesProfile] = useState<string[]>([])
+    const [picture, setPicture] = useState<string>('')
     const [markerVisibility, setMarkerVisibility] = useState<{
         [key: string]: boolean
     }>({})
@@ -43,7 +42,6 @@ export const useLogicUser = () => {
                     headers,
                 })
                 const data = await response.json()
-                console.log(data.user.Likes)
                 setBlaBlaFish(data.user.blaBlaFish)
                 setUser(data.user)
                 setUserMarkers(data.user.markers)
@@ -160,6 +158,26 @@ export const useLogicUser = () => {
         }
     }, [])
 
+    const uploadProfilePicture = useCallback(async (picture: string) => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+
+            const response = await fetch('/api/user/uploadProfilePic', {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({ picture }),
+            })
+            const data = await response.json()
+            return response
+        } catch (error: any) {
+            console.error('Error al subir la imagen:', error.message)
+        }
+    }, [])
+
     return {
         user,
         userMarkers,
@@ -182,5 +200,8 @@ export const useLogicUser = () => {
         toBeDeletedStores,
         setToBeDeletedStores,
         deleteStore,
+        uploadProfilePicture,
+        picture,
+        setPicture,
     }
 }

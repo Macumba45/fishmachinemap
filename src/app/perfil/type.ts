@@ -4,14 +4,11 @@ interface userMarker {
 }
 
 export interface ProfileProps {
-    userData: {
-        id: number
-        name: string
-        email: string
-        password: string
-        picture: string
-    }
-    markers: userMarker[]
+    id: number
+    name: string
+    email: string
+    password: string
+    picture: string
 }
 
 export type userLikesProps = {

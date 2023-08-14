@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState, memo } from 'react'
+import { FC, useCallback, useEffect, useState, memo, use } from 'react'
 import React from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
@@ -27,6 +27,7 @@ import { BlaBlaFish } from '../blablafish/type'
 import { Store } from '../store/type'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import {
     Button,
     ButtonGroup,
@@ -41,8 +42,6 @@ import {
     emailStyles,
     nameStyles,
 } from './style'
-import { feedUseLogic } from '../feed/logic'
-import { userLikesProps } from './type'
 
 const Profile: FC = () => {
     const {
@@ -67,6 +66,9 @@ const Profile: FC = () => {
         toBeDeletedStores,
         setToBeDeletedStores,
         deleteStore,
+        uploadProfilePicture,
+        picture,
+        setPicture,
     } = useLogicUser()
 
     const [openModal, setOpenModal] = useState(false)
@@ -170,15 +172,119 @@ const Profile: FC = () => {
         },
         []
     )
+    const handleFileUpload = (event: any) => {
+        const file = event.target.files[0]
+        if (file) {
+            uploadProfilePicture(file)
+        }
+    }
+
+    const getBase64FromUrl = async (url: string) => {
+        const data = await fetch(url)
+        const blob = await data.blob()
+        return new Promise<string>(resolve => {
+            const reader = new FileReader()
+            reader.readAsDataURL(blob)
+            reader.onloadend = () => {
+                const base64data = reader.result as string
+                resolve(base64data)
+            }
+        })
+    }
+
+    const handleFotosChange = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const files = event.target.files
+        if (files && files.length > 0) {
+            const file = files[0]
+
+            // Reducir el tamaño de la imagen antes de convertirla a Base64
+            const resizedFile = await resizeImage(file, {
+                maxWidth: 1024,
+                maxHeight: 1024,
+            })
+
+            const fileUrl = URL.createObjectURL(resizedFile)
+            const base64Data = await getBase64FromUrl(fileUrl)
+            setPicture(base64Data) // Guarda la imagen en formato Base64 en el estado
+            uploadProfilePicture(base64Data)
+        }
+    }
+
+    const resizeImage = (
+        file: File,
+        options: { maxWidth: number; maxHeight: number }
+    ) => {
+        return new Promise<File>(resolve => {
+            const img = new Image()
+            img.src = URL.createObjectURL(file)
+
+            img.onload = () => {
+                const { width, height } = img
+                const canvas = document.createElement('canvas')
+                const ctx = canvas.getContext('2d')
+                canvas.width = options.maxWidth
+                canvas.height = options.maxHeight
+
+                const scaleFactor = Math.min(
+                    options.maxWidth / width,
+                    options.maxHeight / height
+                )
+                canvas.width = width * scaleFactor
+                canvas.height = height * scaleFactor
+
+                ctx?.drawImage(img, 0, 0, canvas.width, canvas.height)
+                canvas.toBlob(resizedBlob => {
+                    if (resizedBlob) {
+                        const resizedFile = new File([resizedBlob], file.name, {
+                            type: file.type,
+                        })
+                        resolve(resizedFile)
+                    } else {
+                        resolve(file)
+                    }
+                }, file.type)
+            }
+        })
+    }
 
     return (
         <>
             <AccountMenu />
             <MainContainer>
                 <UserContainerData>
-                    <Avatar
-                        sx={{ width: 100, height: 100, marginTop: '2rem' }}
-                    />
+                    {user?.picture ? (
+                        <Avatar
+                            sx={{ width: 100, height: 100, marginTop: '2rem' }}
+                            src={user?.picture}
+                        />
+                    ) : (
+                        <>
+                            <Avatar
+                                sx={{
+                                    width: 100,
+                                    height: 100,
+                                    marginTop: '2rem',
+                                }}
+                            >
+                                <label htmlFor="upload-input">
+                                    <CloudUploadIcon fontSize="large" />
+                                </label>
+                                <input
+                                    id="upload-input"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFotosChange}
+                                    style={{ display: 'none' }}
+                                />
+                            </Avatar>
+                            {/* <button onClick={() => uploadProfilePicture(picture)}>
+                                subir
+                            </button> */}
+                        </>
+                    )}
+
                     <Typography
                         style={{
                             textAlign: 'center',

@@ -41,6 +41,9 @@ export const getUserInfo = async (userId: any) => {
                         },
                     },
                 },
+                orderBy: {
+                    createdAt: 'desc',
+                },
             },
             blaBlaFish: true,
             stores: true,
@@ -95,4 +98,17 @@ export const isVisibileMarker = async (markerId: string) => {
     }
 
     return marker.visible
+}
+
+export const uploadPictureProfile = async (userId: string, picture: string) => {
+    const updatedUser = await prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            picture,
+        },
+    })
+
+    return updatedUser
 }

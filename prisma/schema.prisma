@@ -16,6 +16,7 @@ model User {
   name       String?
   email      String?      @unique
   password   String?      @map(name: "hashed_password")
+  picture    String?
   markers    Marker[]
   Likes      Likes[]
   blaBlaFish BlaBlaFish[]

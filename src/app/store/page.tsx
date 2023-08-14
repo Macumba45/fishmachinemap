@@ -29,7 +29,6 @@ const Store: FC = () => {
 
     const handleOpen = () => {
         setOpen(true)
-        console.log('open')
     }
 
     useEffect(() => {
