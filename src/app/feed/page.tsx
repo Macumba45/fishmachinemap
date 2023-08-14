@@ -7,6 +7,7 @@ import CardFeed from '@/components/CardFeed'
 import { feedUseLogic } from './logic'
 import AccountMenu from '@/components/Menu'
 import CircularIndeterminate from '@/components/Loader'
+import { Avatar } from '@mui/material'
 
 const Feed: FC = () => {
     const {
@@ -41,6 +42,16 @@ const Feed: FC = () => {
                     return (
                         <CardFeed
                             key={item.id}
+                            iconCreator={
+                                <Avatar
+                                    src={item.user.picture}
+                                    sx={{
+                                        width: 25,
+                                        height: 25,
+                                        marginRight: '0.5rem',
+                                    }}
+                                />
+                            }
                             id={item.id}
                             description={item.description}
                             picture={item.picture}

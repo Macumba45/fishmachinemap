@@ -36,6 +36,7 @@ const CardFeed: FC<FeedPros> = ({
     likes,
     user,
     numberOfComments,
+    iconCreator,
 }) => {
     const [comments, setComments] = useState<string[]>([]) // Estado de los comentarios
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
@@ -64,9 +65,7 @@ const CardFeed: FC<FeedPros> = ({
                             marginLeft: '0.5rem',
                         }}
                     >
-                        <AccountCircleIcon
-                            style={{ color: '#49007a', marginRight: '0.3rem' }}
-                        />
+                        {iconCreator}
                         <Link
                             style={{
                                 textDecorationColor: '#49007a',

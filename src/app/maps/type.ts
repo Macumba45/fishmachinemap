@@ -27,6 +27,7 @@ export type UserMarker = {
         id: string
         name: string
         email: string
+        picture: string
     }
 }
 export type User = {

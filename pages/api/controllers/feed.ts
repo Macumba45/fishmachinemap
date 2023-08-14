@@ -45,12 +45,15 @@ export const userFeedInfo = async (userId: string) => {
             id: true,
             name: true,
             email: true,
+            picture: true,
             markers: {
                 orderBy: {
                     createdAt: 'desc',
                 },
                 include: {
                     location: true,
+                    likes: true,
+                    comments: true,
                 },
             },
             blaBlaFish: true,

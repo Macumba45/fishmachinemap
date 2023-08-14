@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type FeedPros = {
     id?: string
     creator?: string
@@ -17,4 +19,5 @@ export type FeedPros = {
         email: string
     }
     numberOfComments?: number
+    iconCreator?: React.ReactNode
 }

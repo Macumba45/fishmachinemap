@@ -8,6 +8,7 @@ export const getAllBlablaFish = async () => {
                     id: true,
                     name: true,
                     email: true,
+                    picture: true,
                 },
             },
         },

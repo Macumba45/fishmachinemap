@@ -10,10 +10,10 @@ import PhishingIcon from '@mui/icons-material/Phishing'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import customMarkerIcon from '../../../assets/anzuelo.png'
 import customMarkerIconShop from '../../../assets/tienda.png'
-import customMarkerIconPlace from '../../../assets/destino.png'
-import customMarkerIconPicture from '../../../assets/back-camera.png'
+import ModalUserMarkers from '@/components/ModalMarkersUser'
+import AddCommentIcon from '@mui/icons-material/AddComment'
 import { UserMarker } from '@/app/maps/type'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import CommentModal from '@/components/ModalComments'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
@@ -33,7 +33,7 @@ import {
     ListItemText,
     Typography,
 } from '@mui/material'
-import { UserContainerData, nameStyles } from './style'
+import { LabelIcons, UserContainerData, nameStyles } from './style'
 import { Store } from '@/app/store/type'
 import { BlaBlaFish } from '@/app/blablafish/type'
 
@@ -51,9 +51,12 @@ const Page: FC<Props> = ({ params }) => {
     const [width, setWidth] = useState<number>(0)
     const [selectedImage, setSelectedImage] = useState('')
     const [openModal, setOpenModal] = useState(false)
+    const [openModalComments, setOpenModalComments] = useState(false)
+    const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
 
     const handleOpenModal = useCallback((item: any) => {
         setSelectedImage(item.picture)
+        setSelectedMarkerId(item.id)
         setOpenModal(true)
     }, [])
 
@@ -64,6 +67,28 @@ const Page: FC<Props> = ({ params }) => {
     const handleViewChange = useCallback((view: any) => {
         setActiveView(view)
     }, [])
+
+    const handleOpenModalComments = useCallback(() => {
+        setOpenModalComments(true)
+    }, [])
+
+    const handleCloseModalComments = useCallback(() => {
+        setOpenModalComments(false)
+    }, [])
+
+    const goToMarkerUserLocation = useCallback(
+        (location: { lat: number; lng: number } | undefined) => {
+            if (location) {
+                const baseUrl =
+                    'https://www.google.com/maps/search/?api=1&query='
+                const encodedCoordinates = encodeURIComponent(
+                    `${location.lat},${location.lng}`
+                )
+                window.open(baseUrl + encodedCoordinates)
+            }
+        },
+        []
+    )
 
     // Función de utilidad para formatear la fecha
     function formatDate(date: Date) {
@@ -131,6 +156,7 @@ const Page: FC<Props> = ({ params }) => {
                             marginTop: '2rem',
                             marginBottom: '1rem',
                         }}
+                        src={dataFeedUser?.picture}
                     />
                     <Typography
                         style={{
@@ -328,7 +354,7 @@ const Page: FC<Props> = ({ params }) => {
                         variant="h6"
                         gutterBottom
                     >
-                        No tienes BlaBlaFish
+                        No tiene BlaBlaFish
                     </Typography>
                 )}
 
@@ -447,43 +473,91 @@ const Page: FC<Props> = ({ params }) => {
                             {userMarkers.map(
                                 item =>
                                     item.markerType === 'fotos' && (
-                                        <React.Fragment key={item.id}>
-                                            {' '}
-                                            {/* Agregar el atributo key aquí */}
-                                            <ImageListItem>
-                                                <img
-                                                    style={{
-                                                        width: '150px',
-                                                        height: '150px',
-                                                    }}
-                                                    src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
-                                                    srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                    loading="lazy"
-                                                    onClick={() =>
-                                                        handleOpenModal(item)
-                                                    }
-                                                />
-                                                <IconButton
-                                                    style={{ padding: 0 }}
-                                                >
-                                                    <FavoriteBorderIcon
-                                                        style={{
-                                                            color: 'white',
-                                                            position:
-                                                                'absolute',
-                                                            display: 'flex',
-                                                            bottom: '10px',
-                                                            right: '10px',
-                                                        }}
-                                                    />
-                                                </IconButton>
-                                            </ImageListItem>
-                                        </React.Fragment>
+                                        <ImageListItem key={item.id}>
+                                            <img
+                                                style={{
+                                                    width: '150px',
+                                                    height: '150px',
+                                                }}
+                                                src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
+                                                srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                loading="lazy"
+                                                onClick={() =>
+                                                    handleOpenModal(item)
+                                                }
+                                            />
+                                        </ImageListItem>
                                     )
                             )}
                         </ImageList>
                     </React.Fragment>
                 )}
+                {userMarkers
+                    .filter(marker => marker.id === selectedMarkerId) // Filtrar el marcador seleccionado
+                    .map(marker => (
+                        <React.Fragment key={marker.id}>
+                            <ModalUserMarkers
+                                isOpen={openModal}
+                                key={marker.id}
+                                description={marker.description}
+                                pictures={marker.picture as string}
+                                direction={marker.direction}
+                                onClose={handleCloseModal}
+                                onClick={() => {
+                                    const location: google.maps.LatLngLiteral =
+                                        {
+                                            lat: marker.location?.lat,
+                                            lng: marker.location?.lng,
+                                        }
+                                    goToMarkerUserLocation(location)
+                                }}
+                                icon={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <AddCommentIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                cursor: 'pointer',
+                                                marginRight: 1,
+                                            }}
+                                            onClick={handleOpenModalComments}
+                                        />
+                                        <LabelIcons>
+                                            {marker.comments?.length}{' '}
+                                            Comentarios
+                                        </LabelIcons>
+                                    </div>
+                                }
+                                icon2={
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <FavoriteIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                marginRight: 1,
+                                            }}
+                                        />
+                                        <LabelIcons>
+                                            {marker.likes?.length} Likes
+                                        </LabelIcons>
+                                    </div>
+                                }
+                            />
+                            <CommentModal
+                                open={openModalComments}
+                                id={marker.id as string}
+                                onClose={handleCloseModalComments}
+                            />
+                        </React.Fragment>
+                    ))}
 
                 {activeView === 'stores' && userStores.length === 0 && (
                     <Typography
@@ -498,7 +572,7 @@ const Page: FC<Props> = ({ params }) => {
                         variant="h6"
                         gutterBottom
                     >
-                        No tienes productos en Venta
+                        No tiene productos en Venta
                     </Typography>
                 )}
 
@@ -569,17 +643,6 @@ const Page: FC<Props> = ({ params }) => {
                             </ListItem>
                         </React.Fragment>
                     ))}
-                <Dialog open={openModal} onClose={handleCloseModal}>
-                    <img
-                        style={{
-                            width: '100%',
-                            height: 'auto',
-                            maxHeight: '80vh',
-                        }}
-                        src={selectedImage}
-                        alt="Selected Image"
-                    />
-                </Dialog>
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

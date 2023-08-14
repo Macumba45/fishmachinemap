@@ -20,6 +20,7 @@ interface Props {
     price: string
     phone: string
     user?: string
+    iconCreator?: React.ReactNode
 }
 
 const CardBlaBlaFish: FC<Props> = ({
@@ -32,6 +33,7 @@ const CardBlaBlaFish: FC<Props> = ({
     phone,
     date,
     user,
+    iconCreator,
 }) => {
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
@@ -98,9 +100,7 @@ const CardBlaBlaFish: FC<Props> = ({
                         display: 'flex',
                     }}
                 >
-                    <AccountCircleIcon
-                        sx={{ marginRight: '0.3rem', fontSize: '1.2rem' }}
-                    />{' '}
+                    {iconCreator}
                     {user}
                 </Typography>
                 <Typography

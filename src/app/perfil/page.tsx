@@ -172,12 +172,6 @@ const Profile: FC = () => {
         },
         []
     )
-    const handleFileUpload = (event: any) => {
-        const file = event.target.files[0]
-        if (file) {
-            uploadProfilePicture(file)
-        }
-    }
 
     const getBase64FromUrl = async (url: string) => {
         const data = await fetch(url)

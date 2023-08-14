@@ -184,6 +184,7 @@ export const useLogicMaps = () => {
             id: '',
             name: '',
             email: '',
+            picture: '',
         },
     })
     const [modalUserMarker, setModalUserMarker] = useState(false)

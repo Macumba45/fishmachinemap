@@ -14,6 +14,7 @@ export const getAllMarkers = async (userId: string) => {
                     id: true,
                     name: true,
                     email: true,
+                    picture: true,
                 },
             },
         },

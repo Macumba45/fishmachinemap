@@ -10,12 +10,9 @@ import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import MarkerUserIcon from '../../assets/location.png'
-import customMarkerIcon from '../../assets/anzuelo.png'
 import hiddenMarker from '../../assets/hostage.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
-import customMarkerIconPicture from '../../assets/back-camera.png'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
 import BasicModal, { PlaceReview } from '@/components/ModalPlaces'
 import SimpleSlider from '@/components/Carousel/page'
@@ -28,9 +25,9 @@ import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
 import { MarkerType, UserMarker } from './type'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import Link from 'next/link'
+import CommentModal from '@/components/ModalComments'
+import { Avatar, IconButton } from '@mui/material'
 import {
     ButtonStyleBuscarLugares,
     ButtonStyleCancelarLugar,
@@ -43,9 +40,6 @@ import {
     ReviewsContainer,
     stylesMaps,
 } from './style'
-import CommentModal from '@/components/ModalComments'
-import { feedUseLogic } from '../feed/logic'
-import { IconButton } from '@mui/material'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -537,7 +531,16 @@ const GoogleMapComp: FC = () => {
                     <ModalUserMarkers
                         isOpen={modalUserMarker}
                         creator={dataMarkerUser?.user?.name}
-                        icon={<AccountCircleIcon sx={{ color: '#49007a' }} />}
+                        icon={
+                            <Avatar
+                                src={dataMarkerUser.user?.picture}
+                                sx={{
+                                    width: 25,
+                                    height: 25,
+                                    marginTop: '0rem',
+                                }}
+                            />
+                        }
                         link={
                             <Link
                                 style={{

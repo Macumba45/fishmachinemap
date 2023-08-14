@@ -19,6 +19,7 @@ import {
     TextNav,
     ContainerMenu,
 } from './style'
+import { Avatar } from '@mui/material'
 
 const BlaBlaFish: FC = () => {
     const { fetchBlaBlaFish, blaBlaFish, loading } = useLogicBlaBla()
@@ -85,6 +86,7 @@ const BlaBlaFish: FC = () => {
             </>
         )
     }
+    console.log(blaBlaFish)
 
     return (
         <>
@@ -129,6 +131,16 @@ const BlaBlaFish: FC = () => {
                                 price={item.price}
                                 phone={item.phone}
                                 user={item.user?.name}
+                                iconCreator={
+                                    <Avatar
+                                        src={item.user?.picture}
+                                        sx={{
+                                            width: '19.2px',
+                                            height: '19.2px',
+                                            marginRight: '0.5rem',
+                                        }}
+                                    />
+                                }
                             />
                         )
                     })}

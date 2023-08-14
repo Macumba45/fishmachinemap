@@ -14,5 +14,6 @@ export type BlaBlaFish = {
         name: string
         email: string
         userId?: string
+        picture: string
     }
 }
