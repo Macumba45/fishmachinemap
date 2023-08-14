@@ -86,7 +86,6 @@ const BlaBlaFish: FC = () => {
             </>
         )
     }
-    console.log(blaBlaFish)
 
     return (
         <>

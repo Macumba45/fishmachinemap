@@ -57,6 +57,7 @@ const CardFeed: FC<FeedPros> = ({
             <IconsContainer>
                 <HearthContainerTop>
                     <Typography
+                        component={'div'}
                         style={{
                             fontSize: '0.8rem',
                             fontWeight: 500,
