@@ -1,14 +1,14 @@
 import { FC, memo, useState } from 'react'
+import Link from 'next/link'
 import { FeedPros } from './type'
-import CommentIcon from '@mui/icons-material/Comment'
-import { IconButton, Typography } from '@mui/material'
+import { Box, Dialog, IconButton, Modal, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import TodayIcon from '@mui/icons-material/Today'
-import Link from 'next/link'
-import CommentSection from '../ModalComments'
+import ShareIcon from '@mui/icons-material/Share';
 import AddCommentIcon from '@mui/icons-material/AddComment'
+import CommentModal from '../ModalComments'
+import FacebookIcon from '@mui/icons-material/Facebook';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import {
     Imagen,
     ImagenContainer,
@@ -21,7 +21,6 @@ import {
     DateContainer,
     HearthContainerTop,
 } from './style'
-import CommentModal from '../ModalComments'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -38,8 +37,9 @@ const CardFeed: FC<FeedPros> = ({
     numberOfComments,
     iconCreator,
 }) => {
-    const [comments, setComments] = useState<string[]>([]) // Estado de los comentarios
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
+    const [isShareModalOpen, setShareModalOpen] = useState(false);
+
 
     const handleCommentModalOpen = () => {
         setCommentModalOpen(true)
@@ -47,6 +47,48 @@ const CardFeed: FC<FeedPros> = ({
 
     const handleCommentModalClose = () => {
         setCommentModalOpen(false)
+    }
+
+    const handleShareModalOpen = () => {
+        setShareModalOpen(true);
+    };
+
+    const handleShareModalClose = () => {
+        setShareModalOpen(false);
+    };
+
+    const handleShareOnFacebook = () => {
+        const feedUrl = `https://fishmachinemap.vercel.app/feed/${id}`; // Reemplaza con la URL real del feed
+        console.log(feedUrl);
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(feedUrl)}`;
+        window.open(url, '_blank');
+    };
+
+    const handleShareOnWhatsApp = () => {
+        const feedUrl = `https://fishmachinemap.vercel.app/feed/${id}`; // Reemplaza con la URL real del feed
+        console.log(feedUrl);
+        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`;
+        window.open(url, '_blank');
+    };
+
+
+    const style = {
+        position: 'absolute' as const,
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.paper',
+        boxShadow: '0 10px 100px #000', // Corrección aquí
+        p: 0,
+        borderRadius: '10px',
+        maxHeight: '600px',
+        height: '150px',
+        minWidth: '300px',
+        overflowY: 'scroll',
+        borderColor: 'transparent',
+        border: 'none',
+        outline: 'none',
     }
 
     return (
@@ -77,6 +119,11 @@ const CardFeed: FC<FeedPros> = ({
                             {user?.name}
                         </Link>
                     </Typography>
+                    <IconButton
+                        onClick={handleShareModalOpen}
+                    >
+                        <ShareIcon style={{ color: '#49007a' }} />
+                    </IconButton>
                     <IconButton
                         onClick={handleCommentModalOpen}
                         style={{ justifySelf: 'end' }}
@@ -110,6 +157,38 @@ const CardFeed: FC<FeedPros> = ({
                     id={id as string}
                 />
             </IconsContainer>
+
+            <Modal
+                open={isShareModalOpen}
+                onClose={handleShareModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+                <Box sx={style}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                        sx={{ mb: 1 }}
+                    >
+                        Comparte con amigos
+                    </Typography>
+                    <Typography
+                        id="modal-modal-description"
+                        sx={{ mt: 2 }}
+                    >
+                        <IconButton onClick={handleShareOnWhatsApp}>
+                            <WhatsAppIcon />
+                        </IconButton>
+                        <IconButton onClick={handleShareOnFacebook}>
+                            <FacebookIcon />
+                        </IconButton>
+                    </Typography>
+                </Box>
+            </Modal>
+
+
         </CardContainer>
     )
 }

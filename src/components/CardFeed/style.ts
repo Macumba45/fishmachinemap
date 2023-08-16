@@ -28,7 +28,7 @@ export const Icons = styled.div`
 `
 export const HearthContainerTop = styled.div`
     display: grid;
-    grid-template-columns: 7fr 1fr 1fr;
+    grid-template-columns: 7fr 1fr 1fr 1fr;
     align-items: center;
     margin-right: 0.5rem;
     margin-top: 0.5rem;

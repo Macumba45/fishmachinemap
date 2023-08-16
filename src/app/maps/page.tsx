@@ -763,7 +763,12 @@ const GoogleMapComp: FC = () => {
                     opacity: isButtonDisabledPlaces ? 0 : 1,
                     position: 'fixed',
                     width: isSmallScreen ? '100px' : '235px', // Cambia el título si la pantalla es pequeña
-                    ...ButtonStyleBuscarLugares,
+                    top: '40px',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                    height: '2rem',
                 }}
                 icon={<SearchIcon style={{ color: 'black', marginRight: 1 }} />}
                 variant="contained"
