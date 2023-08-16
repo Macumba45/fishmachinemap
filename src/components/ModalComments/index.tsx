@@ -163,9 +163,12 @@ const CommentModal: FC<CommentModalProps> = ({
     }
 
     useEffect(() => {
-        getAllComments(id)
-        setComments(allComents)
-    }, [open, allComents])
+        if (open) {
+            getAllComments(id).then(updatedComments => {
+                setComments(updatedComments);
+            });
+        }
+    }, [open])
 
     return (
         <Modal sx={{ outline: 'none' }} open={open} onClose={onClose}>

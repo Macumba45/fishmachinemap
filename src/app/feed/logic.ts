@@ -191,6 +191,7 @@ export const feedUseLogic = () => {
             )
             if (response.ok) {
                 const data = await response.json()
+                getAllComments(data.deletedComment.markerId)
                 return data
             } else {
                 throw new Error('Error en la respuesta del servidor')
