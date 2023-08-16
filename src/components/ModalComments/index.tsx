@@ -27,7 +27,6 @@ interface CommentSectionProps {
 
 const CommentSection: FC<CommentSectionProps> = ({
     comments,
-    setComments,
     newComment,
     setNewComment,
     onCommentSubmit,
