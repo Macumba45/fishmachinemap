@@ -35,6 +35,7 @@ export const feedUseLogic = () => {
 
             if (response.ok) {
                 const data = await response.json()
+                console.log('data', data)
 
                 const capturasMarkers = data.markers.filter(
                     (marker: any) => marker.markerType === 'fotos'

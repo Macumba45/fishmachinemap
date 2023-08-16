@@ -18,6 +18,21 @@ const Feed: FC = () => {
         loading,
     } = feedUseLogic()
 
+
+    const handleShareOnFacebook = (userId: string) => {
+        const feedUrl = `https://fishmachinemap.vercel.app/feed/${userId}`; // Reemplaza con la URL real del feed
+        console.log(feedUrl);
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(feedUrl)}`;
+        window.open(url, '_blank');
+    };
+
+    const handleShareOnWhatsApp = (userId: string) => {
+        const feedUrl = `https://fishmachinemap.vercel.app/feed/${userId}`; // Reemplaza con la URL real del feed
+        console.log(feedUrl);
+        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`;
+        window.open(url, '_blank');
+    };
+
     useEffect(() => {
         getMarkersUser()
     }, [getMarkersUser])
@@ -66,6 +81,8 @@ const Feed: FC = () => {
                                 day: 'numeric',
                                 month: 'long',
                             })}
+                            handleShareOnWhatsApp={() => handleShareOnWhatsApp(item.userId)}
+                            handleShareOnFacebook={() => handleShareOnFacebook(item.userId)}
                         />
                     )
                 })}

@@ -21,6 +21,7 @@ import {
     DateContainer,
     HearthContainerTop,
 } from './style'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -36,10 +37,11 @@ const CardFeed: FC<FeedPros> = ({
     user,
     numberOfComments,
     iconCreator,
+    handleShareOnWhatsApp,
+    handleShareOnFacebook,
 }) => {
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
     const [isShareModalOpen, setShareModalOpen] = useState(false);
-
 
     const handleCommentModalOpen = () => {
         setCommentModalOpen(true)
@@ -55,20 +57,6 @@ const CardFeed: FC<FeedPros> = ({
 
     const handleShareModalClose = () => {
         setShareModalOpen(false);
-    };
-
-    const handleShareOnFacebook = () => {
-        const feedUrl = `https://fishmachinemap.vercel.app/feed/${id}`; // Reemplaza con la URL real del feed
-        console.log(feedUrl);
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(feedUrl)}`;
-        window.open(url, '_blank');
-    };
-
-    const handleShareOnWhatsApp = () => {
-        const feedUrl = `https://fishmachinemap.vercel.app/feed/${id}`; // Reemplaza con la URL real del feed
-        console.log(feedUrl);
-        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`;
-        window.open(url, '_blank');
     };
 
 

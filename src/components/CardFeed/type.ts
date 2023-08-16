@@ -20,4 +20,6 @@ export type FeedPros = {
     }
     numberOfComments?: number
     iconCreator?: React.ReactNode
+    handleShareOnWhatsApp?: () => void
+    handleShareOnFacebook?: () => void
 }
