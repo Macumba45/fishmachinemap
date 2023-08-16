@@ -165,7 +165,7 @@ const CommentModal: FC<CommentModalProps> = ({
     useEffect(() => {
         getAllComments(id)
         setComments(allComents)
-    }, [open, deleteCommentUser])
+    }, [open, allComents])
 
     return (
         <Modal sx={{ outline: 'none' }} open={open} onClose={onClose}>

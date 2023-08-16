@@ -13,7 +13,6 @@ import {
 } from './style'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
-import { useScrollBlock } from '@/hooks'
 
 const HeaderComp: FC = () => {
     useEffect(() => {
