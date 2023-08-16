@@ -1,4 +1,10 @@
 import React, { FC, useEffect, useState } from 'react'
+import CheckIcon from '@mui/icons-material/Check'
+import { feedUseLogic } from '@/app/feed/logic'
+import { Comments } from '@/app/maps/type'
+import { Container } from './styles'
+import { Delete } from '@mui/icons-material'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 import {
     TextField,
     Button,
@@ -9,12 +15,7 @@ import {
     Paper,
     IconButton,
 } from '@mui/material'
-import CheckIcon from '@mui/icons-material/Check'
-import { feedUseLogic } from '@/app/feed/logic'
-import { Comments } from '@/app/maps/type'
-import { Container } from './styles'
-import { Delete } from '@mui/icons-material'
-import { getAuthenticatedToken } from '@/lib/storage/storage'
+
 
 interface CommentSectionProps {
     comments: Comments[]
@@ -68,6 +69,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                                 marginRight: 1.5,
                             }}
                             alt="User Avatar"
+                            src={comment.user?.picture}
                         />
                     </Grid>
                     <Grid>
@@ -150,7 +152,7 @@ const CommentModal: FC<CommentModalProps> = ({
 }) => {
     const { addComment, getAllComments, allComents, deleteCommentUser } =
         feedUseLogic()
-    const [comments, setComments] = useState<Comments[]>([])
+    const [comments, setComments] = useState<Comments[]>(allComents)
     const [newComment, setNewComment] = useState<string>('')
 
     const handleCommentSubmit = async () => {
@@ -164,7 +166,7 @@ const CommentModal: FC<CommentModalProps> = ({
 
     useEffect(() => {
         getAllComments(id)
-        setComments(allComents)
+        setComments(comments)
     }, [open])
 
     return (

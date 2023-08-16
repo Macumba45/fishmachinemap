@@ -64,6 +64,7 @@ export const getComments = async (markerId: string) => {
                     id: true,
                     name: true,
                     email: true,
+                    picture: true,
                 },
             },
         },

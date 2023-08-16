@@ -54,6 +54,7 @@ export type Comments = {
         id: string
         name: string
         email: string
+        picture: string
     }
     text?: string
     createdAt?: string
