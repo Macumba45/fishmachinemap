@@ -35,7 +35,7 @@ const HeaderComp: FC = () => {
     return (
         <MainContainer>
             <TitleContainer>
-                <TitleHeader>Bienvenido a FishApp</TitleHeader>
+                <TitleHeader>Bienvenido a FishGram</TitleHeader>
             </TitleContainer>
             <SubtitleContainer>
                 <SubtitleHeader>

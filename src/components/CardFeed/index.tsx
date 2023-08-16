@@ -4,11 +4,11 @@ import { FeedPros } from './type'
 import { Box, Dialog, IconButton, Modal, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import ShareIcon from '@mui/icons-material/Share';
+import ShareIcon from '@mui/icons-material/Share'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import CommentModal from '../ModalComments'
-import FacebookIcon from '@mui/icons-material/Facebook';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import FacebookIcon from '@mui/icons-material/Facebook'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import {
     Imagen,
     ImagenContainer,
@@ -41,7 +41,7 @@ const CardFeed: FC<FeedPros> = ({
     handleShareOnFacebook,
 }) => {
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
-    const [isShareModalOpen, setShareModalOpen] = useState(false);
+    const [isShareModalOpen, setShareModalOpen] = useState(false)
 
     const handleCommentModalOpen = () => {
         setCommentModalOpen(true)
@@ -52,13 +52,12 @@ const CardFeed: FC<FeedPros> = ({
     }
 
     const handleShareModalOpen = () => {
-        setShareModalOpen(true);
-    };
+        setShareModalOpen(true)
+    }
 
     const handleShareModalClose = () => {
-        setShareModalOpen(false);
-    };
-
+        setShareModalOpen(false)
+    }
 
     const style = {
         position: 'absolute' as const,
@@ -107,9 +106,7 @@ const CardFeed: FC<FeedPros> = ({
                             {user?.name}
                         </Link>
                     </Typography>
-                    <IconButton
-                        onClick={handleShareModalOpen}
-                    >
+                    <IconButton onClick={handleShareModalOpen}>
                         <ShareIcon style={{ color: '#49007a' }} />
                     </IconButton>
                     <IconButton
@@ -151,7 +148,11 @@ const CardFeed: FC<FeedPros> = ({
                 onClose={handleShareModalClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
             >
                 <Box sx={style}>
                     <Typography
@@ -162,10 +163,7 @@ const CardFeed: FC<FeedPros> = ({
                     >
                         Comparte con amigos
                     </Typography>
-                    <Typography
-                        id="modal-modal-description"
-                        sx={{ mt: 2 }}
-                    >
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <IconButton onClick={handleShareOnWhatsApp}>
                             <WhatsAppIcon />
                         </IconButton>
@@ -175,8 +173,6 @@ const CardFeed: FC<FeedPros> = ({
                     </Typography>
                 </Box>
             </Modal>
-
-
         </CardContainer>
     )
 }

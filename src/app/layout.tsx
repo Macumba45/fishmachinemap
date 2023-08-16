@@ -5,9 +5,19 @@ import React from 'react'
 import StyledTheme from './style/styledTheme'
 
 export const metadata = {
-    title: 'Fish App',
+    title: 'FishGram',
     description: 'App hecha para y por pescadores',
-    keywords: 'pesca, pescadores, pesca deportiva, pesca submarina',
+    image: '/images/logo.png',
+    og: {
+        title: 'FishGram',
+        description: 'App hecha para y por pescadores',
+        image: '/images/logo.png',
+        type: 'website',
+        url: 'https://fishgram.vercel.app',
+    },
+
+    keywords:
+        'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 }
 
 export default function RootLayout({

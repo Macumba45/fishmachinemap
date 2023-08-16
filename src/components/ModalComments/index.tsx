@@ -16,7 +16,6 @@ import {
     IconButton,
 } from '@mui/material'
 
-
 interface CommentSectionProps {
     comments: Comments[]
     setComments: (comments: Comments[]) => void
