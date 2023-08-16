@@ -151,7 +151,7 @@ const CommentModal: FC<CommentModalProps> = ({
 }) => {
     const { addComment, getAllComments, allComents, deleteCommentUser } =
         feedUseLogic()
-    const [comments, setComments] = useState<Comments[]>(allComents)
+    const [comments, setComments] = useState<Comments[]>([])
     const [newComment, setNewComment] = useState<string>('')
 
     const handleCommentSubmit = async () => {
@@ -165,8 +165,8 @@ const CommentModal: FC<CommentModalProps> = ({
 
     useEffect(() => {
         getAllComments(id)
-        setComments(comments)
-    }, [open])
+        setComments(allComents)
+    }, [open, deleteCommentUser])
 
     return (
         <Modal sx={{ outline: 'none' }} open={open} onClose={onClose}>
