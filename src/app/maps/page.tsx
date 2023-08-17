@@ -1,35 +1,32 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState, memo, use } from 'react'
-import SimpleBottomNavigation from '@/components/BottomNav'
-import { MarkerClusterer } from '@googlemaps/markerclusterer'
-import CircularIndeterminate from '@/components/Loader'
-import { ToastContainer } from 'react-toastify'
+import { FC, useCallback, useEffect, useState, memo } from 'react'
+import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
+import Link from 'next/link'
+import { MarkerClusterer } from '@googlemaps/markerclusterer'
+import CommentModal from '@/components/ModalComments'
+import SimpleBottomNavigation from '@/components/BottomNav'
+import CircularIndeterminate from '@/components/Loader'
 import ButtonComp from '@/components/Button'
 import CustomizedSwitches from '@/components/MuiSwitch'
-import AddCommentIcon from '@mui/icons-material/AddComment'
-import MarkerUserIcon from '../../assets/location.png'
-import hiddenMarker from '../../assets/hostage.png'
-import customMarkerIconShop from '../../assets/tienda.png'
-import customMarkerIconPlace from '../../assets/destino.png'
 import FloatAddMarkerButton from '@/components/FloatAddMarkerButton'
 import BasicModal, { PlaceReview } from '@/components/ModalPlaces'
 import SimpleSlider from '@/components/Carousel/page'
 import CircularColor from '@/components/CircularColor'
-import SearchIcon from '@mui/icons-material/Search'
-import 'react-toastify/dist/ReactToastify.css'
 import ReviewsComp from '@/components/Reviews'
 import ModalCrearMarcador from '@/components/ModalAddMarker'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
-import { MarkerType, UserMarker } from './type'
-import Link from 'next/link'
-import CommentModal from '@/components/ModalComments'
+import MarkerUserIcon from '../../assets/location.png'
+import hiddenMarker from '../../assets/hostage.png'
+import customMarkerIconShop from '../../assets/tienda.png'
+import customMarkerIconPlace from '../../assets/destino.png'
 import { Avatar, IconButton } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import AddCommentIcon from '@mui/icons-material/AddComment'
 import {
-    ButtonStyleBuscarLugares,
     ButtonStyleCancelarLugar,
     ButtonStyleConfirmarLugar,
     CustomizedSwitchesStyles,
@@ -40,6 +37,7 @@ import {
     ReviewsContainer,
     stylesMaps,
 } from './style'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -96,6 +94,9 @@ const GoogleMapComp: FC = () => {
         fetchLikesMarkers,
         setLikedMarkers,
     } = useLogicMaps()
+
+    const token = getAuthenticatedToken()
+    const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -390,17 +391,28 @@ const GoogleMapComp: FC = () => {
         })
     }
 
+    const [filterAll, setFilterAll] = useState(false)
+
     // Función para filtrar los marcadores según el tipo de filtro.
     const filterMarkers = (filter: MarkerType) => {
         let filteredMarkerInstances: UserMarker[] = []
 
         if (filter === MarkerType.ALL) {
             filteredMarkerInstances = [...userMarkers]
+        } else if (filter === MarkerType.LIKES) {
+            filteredMarkerInstances = [
+                ...(userMarkers &&
+                    userMarkers.filter((marker: any) =>
+                        marker.likes.some((like: any) => like.userId === userId)
+                    )),
+            ]
         } else {
             filteredMarkerInstances = userMarkers.filter(
                 (marker: any) => marker.markerType === filter
             )
         }
+
+        console.log(filteredMarkerInstances)
 
         setFilteredMarkers(filteredMarkerInstances)
     }
@@ -437,6 +449,20 @@ const GoogleMapComp: FC = () => {
             [dataMarkerUser.id as string]:
                 !prevState[dataMarkerUser.id as string],
         }))
+    }
+
+    const handleShareOnFacebook = (userId: string) => {
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            feedUrl
+        )}`
+        window.open(url, '_blank')
+    }
+
+    const handleShareOnWhatsApp = (userId: string) => {
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
+        window.open(url, '_blank')
     }
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -587,6 +613,16 @@ const GoogleMapComp: FC = () => {
                         isLiked={likedMarkers[dataMarkerUser.id as string]} // Accede al valor correspondiente al marcador actual
                         onClickLike={handleToogleLikeModal}
                         likes={dataMarkerUser?.likes?.length}
+                        handleShareOnWhatsApp={() =>
+                            handleShareOnWhatsApp(
+                                dataMarkerUser.userId as string
+                            )
+                        }
+                        handleShareOnFacebook={() =>
+                            handleShareOnFacebook(
+                                dataMarkerUser.userId as string
+                            )
+                        }
                         icon2={
                             <div
                                 style={{
@@ -682,7 +718,6 @@ const GoogleMapComp: FC = () => {
                     </div>
                 )}
                 <SimpleBottomNavigation />
-                <ToastContainer autoClose={2000} limit={1} />
                 <CustomizedSwitches
                     style={{
                         bottom: bottomPosition,

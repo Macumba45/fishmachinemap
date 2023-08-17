@@ -6,10 +6,7 @@ import { feedUseLogic } from '../logic'
 import { MainContainer } from '../style'
 import AccountMenu from '@/components/Menu'
 import RoomIcon from '@mui/icons-material/Room'
-import PhishingIcon from '@mui/icons-material/Phishing'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
-import customMarkerIcon from '../../../assets/anzuelo.png'
-import customMarkerIconShop from '../../../assets/tienda.png'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import { UserMarker } from '@/app/maps/type'
@@ -23,9 +20,7 @@ import {
     Avatar,
     Button,
     ButtonGroup,
-    Dialog,
     Divider,
-    IconButton,
     ImageList,
     ImageListItem,
     ListItem,
@@ -53,6 +48,7 @@ const Page: FC<Props> = ({ params }) => {
     const [openModal, setOpenModal] = useState(false)
     const [openModalComments, setOpenModalComments] = useState(false)
     const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
+    const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
 
     const handleOpenModal = useCallback((item: any) => {
         setSelectedImage(item.picture)
@@ -454,7 +450,7 @@ const Page: FC<Props> = ({ params }) => {
                             cols={2}
                             rowHeight={150}
                         >
-                            {userMarkers.length === 0 && (
+                            {fotosMarkers.length === 0 && (
                                 <Typography
                                     sx={{
                                         display: 'flex',

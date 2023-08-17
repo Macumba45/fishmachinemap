@@ -1,6 +1,8 @@
 'use client'
 import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
+import VideoPlayer from '../VideoPlayer'
+import Link from 'next/link'
 import {
     ButtonContainer,
     MainContainer,
@@ -11,8 +13,6 @@ import {
     TitleHeader,
     VideoContainer,
 } from './style'
-import VideoPlayer from '../VideoPlayer'
-import Link from 'next/link'
 
 const HeaderComp: FC = () => {
     useEffect(() => {

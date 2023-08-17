@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Button, Modal, Typography } from '@mui/material'
 
 interface DeleteMarkerModalProps {

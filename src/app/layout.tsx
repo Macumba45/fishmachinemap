@@ -13,7 +13,7 @@ export const metadata = {
         description: 'App hecha para y por pescadores',
         image: '/images/logo.png',
         type: 'website',
-        url: 'https://fishgram.vercel.app',
+        url: 'https://fishgramapp.vercel.app',
     },
 
     keywords:
@@ -28,16 +28,10 @@ export default function RootLayout({
     return (
         <html suppressHydrationWarning lang="es">
             <head>
-                {/* <script
-                    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&libraries=geometry`}
-                >
-
-                </script> */}
                 <script
                     async
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=Function.prototype&libraries=places`}
                 ></script>
-                {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw2bVFpPABnpSh7xogUBucTML69T4U9rY&libraries=places"></script> */}
             </head>
 
             <body>

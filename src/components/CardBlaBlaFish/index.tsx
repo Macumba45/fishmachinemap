@@ -7,7 +7,6 @@ import { FC, memo } from 'react'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import PaidIcon from '@mui/icons-material/Paid'
 import WatchLaterIcon from '@mui/icons-material/WatchLater'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { IconButton } from '@mui/material'
 
 interface Props {

@@ -1,7 +1,9 @@
 'use client'
 
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { useLogicStore } from '../logic'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import { Button } from '@mui/material'
 import {
     ContainerButton,
     ContainerDescription,
@@ -14,9 +16,6 @@ import {
     Price,
     Title,
 } from './style'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import { Button } from '@mui/material'
-import CircularIndeterminate from '@/components/Loader'
 
 interface Props {
     params: {

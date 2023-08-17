@@ -1,7 +1,7 @@
 import { FC, memo, useState } from 'react'
 import Link from 'next/link'
 import { FeedPros } from './type'
-import { Box, Dialog, IconButton, Modal, Typography } from '@mui/material'
+import { Box, IconButton, Modal, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ShareIcon from '@mui/icons-material/Share'
@@ -21,7 +21,6 @@ import {
     DateContainer,
     HearthContainerTop,
 } from './style'
-import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 const CardFeed: FC<FeedPros> = ({
     id,

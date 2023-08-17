@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import BasicRating from '../Rating'
 import {
     Container,
     AuthorNameH1,
@@ -6,7 +7,6 @@ import {
     ReviewsContainer,
     TextReview,
 } from './styles'
-import BasicRating from '../Rating'
 
 interface PlaceReview {
     author_name?: string

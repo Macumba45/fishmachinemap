@@ -165,8 +165,8 @@ const CommentModal: FC<CommentModalProps> = ({
     useEffect(() => {
         if (open) {
             getAllComments(id).then(updatedComments => {
-                setComments(updatedComments);
-            });
+                setComments(updatedComments)
+            })
         }
     }, [open])
 

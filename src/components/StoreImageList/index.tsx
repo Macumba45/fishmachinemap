@@ -4,7 +4,6 @@ import ImageListItem from '@mui/material/ImageListItem'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import IconButton from '@mui/material/IconButton'
 import EuroIcon from '@mui/icons-material/Euro'
-import Link from 'next/link'
 
 interface Props {
     id?: string

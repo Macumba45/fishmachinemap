@@ -60,5 +60,8 @@
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "prisma": "^5.1.1"
+    },
+    "resolutions": {
+        "styled-components": "^5"
     }
 }

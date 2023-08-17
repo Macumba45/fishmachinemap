@@ -1,13 +1,13 @@
 'use client'
 
 import { FC, memo, useEffect } from 'react'
-import { ContainerMenu, MainContainer } from './style'
+import { feedUseLogic } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
-import { feedUseLogic } from './logic'
 import AccountMenu from '@/components/Menu'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
+import { ContainerMenu, MainContainer } from './style'
 
 const Feed: FC = () => {
     const {
@@ -19,7 +19,7 @@ const Feed: FC = () => {
     } = feedUseLogic()
 
     const handleShareOnFacebook = (userId: string) => {
-        const feedUrl = `https://fishmachinemap.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
         const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
             feedUrl
         )}`
@@ -27,7 +27,7 @@ const Feed: FC = () => {
     }
 
     const handleShareOnWhatsApp = (userId: string) => {
-        const feedUrl = `https://fishmachinemap.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
         const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
         window.open(url, '_blank')
     }

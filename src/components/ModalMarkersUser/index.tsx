@@ -1,9 +1,12 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Modal, Box, Typography, IconButton } from '@mui/material'
 import ButtonComp from '../Button'
 import NavigationIcon from '@mui/icons-material/Navigation'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import ShareIcon from '@mui/icons-material/Share'
 import {
     TypographyContainer,
     ContenidoGoogle,
@@ -38,6 +41,8 @@ interface Props {
     icon3?: React.ReactElement
     isLiked?: boolean
     likes?: number
+    handleShareOnWhatsApp?: () => void
+    handleShareOnFacebook?: () => void
 }
 
 const ModalUserMarkers: FC<Props> = ({
@@ -56,6 +61,8 @@ const ModalUserMarkers: FC<Props> = ({
     icon3,
     isLiked,
     likes,
+    handleShareOnWhatsApp,
+    handleShareOnFacebook,
 }) => {
     const style = {
         position: 'absolute' as const,
@@ -72,6 +79,28 @@ const ModalUserMarkers: FC<Props> = ({
         borderColor: 'transparent',
         border: 'none',
         outline: 'none',
+    }
+
+    const shareStyle = {
+        position: 'absolute' as const,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        bgcolor: 'background.paper',
+        boxShadow: '0 10px 100px #000', // Corrección aquí
+        p: 3,
+        outline: 'none',
+        borderRadius: '10px',
+    }
+
+    const [isShareModalOpen, setShareModalOpen] = useState(false)
+
+    const handleShareModalOpen = () => {
+        setShareModalOpen(true)
+    }
+
+    const handleShareModalClose = () => {
+        setShareModalOpen(false)
     }
 
     return (
@@ -132,8 +161,8 @@ const ModalUserMarkers: FC<Props> = ({
                                                 style={{ color: '#49007a' }}
                                             />
                                         )}
+                                        <LikesLabel>{likes}</LikesLabel>
                                     </IconButton>
-                                    {/* <LikesLabel>{likes} Likes</LikesLabel> */}
                                 </>
                             )}
                         </ContenidoGoogle>
@@ -182,6 +211,21 @@ const ModalUserMarkers: FC<Props> = ({
                             >
                                 {description}
                             </Typography>
+                            <Typography
+                                sx={{
+                                    fontWeight: '800',
+                                    fontSize: '0.9rem',
+                                    mt: 1,
+                                }}
+                            >
+                                Compartir:
+                            </Typography>
+                            <IconButton
+                                sx={{ paddingLeft: 0 }}
+                                onClick={handleShareModalOpen}
+                            >
+                                <ShareIcon style={{ color: '#49007a' }} />
+                            </IconButton>
                         </TypographyContainer>
                     </TypographyContainer>
                 </Box>
@@ -213,6 +257,28 @@ const ModalUserMarkers: FC<Props> = ({
                         onClick={onClick}
                         bgColor="#49007a"
                     />
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Modal
+                        open={isShareModalOpen}
+                        onClose={handleShareModalClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={shareStyle}>
+                            <Typography
+                                id="modal-modal-description"
+                                sx={{ mt: 2 }}
+                            >
+                                <IconButton onClick={handleShareOnWhatsApp}>
+                                    <WhatsAppIcon />
+                                </IconButton>
+                                <IconButton onClick={handleShareOnFacebook}>
+                                    <FacebookIcon />
+                                </IconButton>
+                            </Typography>
+                        </Box>
+                    </Modal>
                 </Box>
             </Box>
         </Modal>

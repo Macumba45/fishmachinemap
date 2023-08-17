@@ -45,6 +45,7 @@ export enum MarkerType {
     WORM = 'cebos',
     PESQUERO = 'pesquero',
     PICTURES = 'fotos',
+    LIKES = 'likes',
 }
 
 export type Comments = {

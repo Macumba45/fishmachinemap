@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState, memo, use } from 'react'
+import { FC, useCallback, useEffect, useState, memo } from 'react'
 import React from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
@@ -76,6 +76,7 @@ const Profile: FC = () => {
     const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
     const [openModalComments, setOpenModalComments] = useState(false)
     const [activeView, setActiveView] = useState('capturas')
+    const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
 
     const goToMaps = useCallback(() => {
         window.location.href = '/maps'
@@ -950,7 +951,7 @@ const Profile: FC = () => {
                             cols={2}
                             rowHeight={150}
                         >
-                            {userMarkers.length === 0 && (
+                            {fotosMarkers.length === 0 && (
                                 <Typography
                                     sx={{
                                         display: 'flex',

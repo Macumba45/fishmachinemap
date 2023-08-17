@@ -1,6 +1,5 @@
-// FilterComponent
-
 'use client'
+
 import React, { FC, useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
@@ -8,6 +7,7 @@ import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
+import customMarkerIconLikes from '../../assets/likes.png'
 import { Icon } from '@mui/material'
 import { MainContainer } from './style'
 import { MarkerType } from '@/app/maps/type'
@@ -23,6 +23,7 @@ const FilterComponent: FC<FilterComponentProps> = ({
 }) => {
     // Añadir el estado local para el filtro
     const [filter, setFilter] = useState<MarkerType>(selectedFilter)
+    const [filterAll, setFilterAll] = useState(false)
 
     // Añadir la función handleFilterChange
 
@@ -174,6 +175,31 @@ const FilterComponent: FC<FilterComponentProps> = ({
                             marginRight: '0.2rem',
                         }}
                         src={customMarkerIconPicture.src}
+                    ></Icon>
+                </ToggleButton>
+                <ToggleButton
+                    sx={{
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: 'white',
+                        fontSize: '0.7rem',
+                        fontWeight: filter === 'fotos' ? 800 : 'inherit',
+                        fontFamily: 'Roboto',
+                        '&.MuiToggleButton-root.Mui-selected': {
+                            color: '#b649ff',
+                            backgroundColor: 'white',
+                        },
+                    }}
+                    value="likes"
+                >
+                    <Icon
+                        component="img"
+                        sx={{
+                            width: '1.5rem',
+                            height: '1.5rem',
+                            marginRight: '0.2rem',
+                        }}
+                        src={customMarkerIconLikes.src}
                     ></Icon>
                 </ToggleButton>
             </ToggleButtonGroup>
