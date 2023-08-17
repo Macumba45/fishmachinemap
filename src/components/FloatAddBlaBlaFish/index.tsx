@@ -1,13 +1,15 @@
 import { FC } from 'react'
 import { Fab, Tooltip, useMediaQuery } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import { title } from 'process'
 
 interface Props {
     onClick?: () => void
     disabled?: boolean
+    title: string
 }
 
-const FloatAddBlaBlaFish: FC<Props> = ({ onClick, disabled }) => {
+const FloatAddBlaBlaFish: FC<Props> = ({ onClick, disabled, title }) => {
     const isSmallScreen = useMediaQuery('(max-width:600px)')
 
     const CustomTooltip = ({ title, children }: any) => {
@@ -27,7 +29,7 @@ const FloatAddBlaBlaFish: FC<Props> = ({ onClick, disabled }) => {
                 marginRight: '1rem',
             }}
         >
-            <CustomTooltip title="Añadir viaje">
+            <CustomTooltip title={title}>
                 <span>
                     <Fab
                         onClick={onClick}

@@ -80,7 +80,7 @@ const BlaBlaFish: FC = () => {
                         }}
                     />
                     <NoDataText>No hay viajes disponibles</NoDataText>
-                    <FloatAddBlaBlaFish onClick={() => setOpenModal(true)} />
+                    <FloatAddBlaBlaFish title='Añadir viaje' onClick={() => setOpenModal(true)} />
                     <SimpleBottomNavigation />
                 </NoDataContainer>
             </>
@@ -144,7 +144,7 @@ const BlaBlaFish: FC = () => {
                         )
                     })}
                 </CardContainer>
-                <FloatAddBlaBlaFish onClick={() => setOpenModal(true)} />
+                <FloatAddBlaBlaFish title='Añadir viaje' onClick={() => setOpenModal(true)} />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

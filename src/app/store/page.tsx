@@ -64,7 +64,7 @@ const Store: FC = () => {
                     <NoDataText>No hay productos a la venta</NoDataText>
                 </MainContainerNoData>
                 <StoreModal open={open} onClose={() => handleClose()} />
-                <FloatAddBlaBlaFish onClick={handleOpen} />
+                <FloatAddBlaBlaFish title='Añadir producto' onClick={handleOpen} />
                 <SimpleBottomNavigation />
             </>
         )
@@ -90,7 +90,7 @@ const Store: FC = () => {
                     </Link>
                 ))}
 
-                <FloatAddBlaBlaFish onClick={handleOpen} />
+                <FloatAddBlaBlaFish title='Añadir producto' onClick={handleOpen} />
                 <StoreModal open={open} onClose={() => handleClose()} />
                 <SimpleBottomNavigation />
             </MainContainer>
