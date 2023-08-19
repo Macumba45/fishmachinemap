@@ -9,6 +9,8 @@ import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import mareas from '../../assets/mareas.png'
+import { FormControl, InputLabel, Modal, Select } from '@mui/material'
+import ButtonComp from '@/components/Button'
 
 interface AccountMenuProps {
     userPicture?: string | null
@@ -16,12 +18,21 @@ interface AccountMenuProps {
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [openModal, setOpenModal] = useState(false)
     const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
         setAnchorEl(null)
+    }
+
+    const handleModalMeteorologia = () => {
+        setOpenModal(true)
+    }
+
+    const handleCLoseModal = () => {
+        setOpenModal(false)
     }
 
     const logOut = () => {
@@ -87,6 +98,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon
+                        onClick={handleModalMeteorologia}
                         sx={{
                             color: 'inherit',
                             display: 'flex',
@@ -114,6 +126,77 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     Cerrar sesión
                 </MenuItem>
             </Menu>
+            <Modal open={openModal} onClose={handleCLoseModal}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 300,
+                        height: 300,
+                        bgcolor: 'background.paper',
+                        boxShadow: 24,
+                        borderRadius: '30px',
+                        p: 4,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-pais">
+                            País
+                        </InputLabel>
+                        <Select
+                            fullWidth
+                            label="País"
+                            value="es"
+                            labelId="demo-simple-select-pais"
+                            margin="dense"
+                            sx={{ mb: 2 }}
+                        >
+                            <MenuItem>España</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-Provincia">
+                            Provincia
+                        </InputLabel>
+                        <Select
+                            fullWidth
+                            label="Provincia"
+                            value="20"
+                            labelId="demo-simple-select-Provincia"
+                            margin="dense"
+                            sx={{ mb: 2 }}
+                        >
+                            <MenuItem>Costa</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-Ciudad">
+                            Ciudad
+                        </InputLabel>
+                        <Select
+                            fullWidth
+                            label="Ciudad"
+                            value="20"
+                            labelId="demo-simple-select-Ciudad"
+                            margin="dense"
+                            sx={{ mb: 2 }}
+                        >
+                            <MenuItem>Costa</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <ButtonComp
+                        title="Ver meteorología"
+                        color="white"
+                        variant="contained"
+                        bgColor="#49007a"
+                    />
+                </Box>
+            </Modal>
         </>
     )
 }
