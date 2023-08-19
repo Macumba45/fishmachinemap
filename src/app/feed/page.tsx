@@ -16,6 +16,8 @@ const Feed: FC = () => {
         fetchLikesMarkers,
         likedMarkers,
         loading,
+        getUserInfo,
+        dataFeedUser,
     } = feedUseLogic()
 
     const handleShareOnFacebook = (userId: string) => {
@@ -36,6 +38,10 @@ const Feed: FC = () => {
         getMarkersUser()
     }, [getMarkersUser])
 
+    useEffect(() => {
+        getUserInfo()
+    }, [getUserInfo])
+
     if (loading) {
         return (
             <>
@@ -48,7 +54,7 @@ const Feed: FC = () => {
     return (
         <>
             <ContainerMenu>
-                <AccountMenu />
+                <AccountMenu userPicture={dataFeedUser?.picture} />
             </ContainerMenu>
             <MainContainer>
                 {fotosMarkers.map(item => {

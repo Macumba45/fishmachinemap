@@ -10,6 +10,7 @@ import CreateTripModal from '@/components/ModalBlaBlaFish'
 import { useLogicBlaBla } from './logic'
 import { BlaBlaFish } from './type'
 import CircularIndeterminate from '@/components/Loader'
+import { Avatar } from '@mui/material'
 import {
     CardContainer,
     Container,
@@ -19,10 +20,15 @@ import {
     TextNav,
     ContainerMenu,
 } from './style'
-import { Avatar } from '@mui/material'
 
 const BlaBlaFish: FC = () => {
-    const { fetchBlaBlaFish, blaBlaFish, loading } = useLogicBlaBla()
+    const {
+        fetchBlaBlaFish,
+        blaBlaFish,
+        loading,
+        dataBlablaUser,
+        getUserInfo,
+    } = useLogicBlaBla()
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
     const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
@@ -45,6 +51,7 @@ const BlaBlaFish: FC = () => {
 
     useEffect(() => {
         fetchBlaBlaFish()
+        getUserInfo()
     }, [])
 
     if (loading) {
@@ -61,7 +68,7 @@ const BlaBlaFish: FC = () => {
             <>
                 <NoDataContainer>
                     <ContainerMenu>
-                        <AccountMenu />
+                        <AccountMenu userPicture={dataBlablaUser?.picture} />
                     </ContainerMenu>
                     <Container>
                         <TextNav>Conoce, pesca. Comparte Gastos</TextNav>
@@ -80,7 +87,10 @@ const BlaBlaFish: FC = () => {
                         }}
                     />
                     <NoDataText>No hay viajes disponibles</NoDataText>
-                    <FloatAddBlaBlaFish title='Añadir viaje' onClick={() => setOpenModal(true)} />
+                    <FloatAddBlaBlaFish
+                        title="Añadir viaje"
+                        onClick={() => setOpenModal(true)}
+                    />
                     <SimpleBottomNavigation />
                 </NoDataContainer>
             </>
@@ -91,7 +101,7 @@ const BlaBlaFish: FC = () => {
         <>
             <MainContainer>
                 <ContainerMenu>
-                    <AccountMenu />
+                    <AccountMenu userPicture={dataBlablaUser?.picture} />
                     <Container>
                         <TextNav>Conoce, pesca. Comparte Gastos</TextNav>
                     </Container>
@@ -144,7 +154,10 @@ const BlaBlaFish: FC = () => {
                         )
                     })}
                 </CardContainer>
-                <FloatAddBlaBlaFish title='Añadir viaje' onClick={() => setOpenModal(true)} />
+                <FloatAddBlaBlaFish
+                    title="Añadir viaje"
+                    onClick={() => setOpenModal(true)}
+                />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

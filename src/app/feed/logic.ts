@@ -110,6 +110,7 @@ export const feedUseLogic = () => {
             )
             if (response.ok) {
                 const data = await response.json()
+                console.log(data)
                 setDataFeedUser(data.user)
                 setUserMarkers(data.user.markers)
                 setBlaBlaFish(data.user.blaBlaFish)
@@ -122,6 +123,28 @@ export const feedUseLogic = () => {
             console.error('Error al enviar el objeto:', error)
         }
     }
+
+    const getUserInfo = useCallback(async () => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+            const response = await fetch('/api/user/userData', {
+                method: 'GET',
+                headers,
+            })
+            if (response.ok) {
+                const data = await response.json()
+                setDataFeedUser(data.user)
+            } else {
+                throw new Error('Error en la respuesta del servidor')
+            }
+        } catch (error) {
+            console.error('Error al enviar el objeto:', error)
+        }
+    }, [])
 
     const addComment = async (comment: string, markerId: string) => {
         try {
@@ -216,5 +239,6 @@ export const feedUseLogic = () => {
         getAllComments,
         allComents,
         deleteCommentUser,
+        getUserInfo,
     }
 }

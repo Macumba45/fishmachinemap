@@ -20,7 +20,15 @@ import {
 } from './style'
 
 const Store: FC = () => {
-    const { open, setOpen, fetchStore, store, loading } = useLogicStore()
+    const {
+        open,
+        setOpen,
+        fetchStore,
+        store,
+        loading,
+        dataStoreUser,
+        getUserInfo,
+    } = useLogicStore()
 
     const handleClose = () => {
         setOpen(false)
@@ -32,6 +40,7 @@ const Store: FC = () => {
 
     useEffect(() => {
         fetchStore()
+        getUserInfo()
     }, [])
 
     if (loading) {
@@ -47,7 +56,7 @@ const Store: FC = () => {
         return (
             <>
                 <ContainerMenu>
-                    <AccountMenu />
+                    <AccountMenu userPicture={dataStoreUser?.picture} />
                 </ContainerMenu>
                 <Container>
                     <TextNav>Compra, vende. Reutiliza</TextNav>
@@ -64,7 +73,10 @@ const Store: FC = () => {
                     <NoDataText>No hay productos a la venta</NoDataText>
                 </MainContainerNoData>
                 <StoreModal open={open} onClose={() => handleClose()} />
-                <FloatAddBlaBlaFish title='Añadir producto' onClick={handleOpen} />
+                <FloatAddBlaBlaFish
+                    title="Añadir producto"
+                    onClick={handleOpen}
+                />
                 <SimpleBottomNavigation />
             </>
         )
@@ -72,7 +84,7 @@ const Store: FC = () => {
     return (
         <>
             <ContainerMenu>
-                <AccountMenu />
+                <AccountMenu userPicture={dataStoreUser?.picture} />
             </ContainerMenu>
             <Container>
                 <TextNav>Compra, vende. Reutiliza</TextNav>
@@ -90,7 +102,10 @@ const Store: FC = () => {
                     </Link>
                 ))}
 
-                <FloatAddBlaBlaFish title='Añadir producto' onClick={handleOpen} />
+                <FloatAddBlaBlaFish
+                    title="Añadir producto"
+                    onClick={handleOpen}
+                />
                 <StoreModal open={open} onClose={() => handleClose()} />
                 <SimpleBottomNavigation />
             </MainContainer>

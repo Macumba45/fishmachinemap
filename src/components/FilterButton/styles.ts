@@ -6,6 +6,6 @@ export const ButtonContainer = styled.div`
     top: 70px;
     align-items: center;
     border-radius: 100px;
-    z-index: 99999999;
+    z-index: 1;
     margin-left: 1.3rem;
 `

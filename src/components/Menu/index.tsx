@@ -9,7 +9,11 @@ import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 
-const AccountMenu: FC = () => {
+interface AccountMenuProps {
+    userPicture?: string | null
+}
+
+const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -74,8 +78,8 @@ const AccountMenu: FC = () => {
                             borderRadius: '50%',
                             marginRight: '1rem',
                         }}
-                        src="https://api.dicebear.com/6.x/adventurer/svg?seed=Abby"
-                        alt="avatar"
+                        src={userPicture as string}
+                        alt="userPicture"
                     />
                     Mi perfil
                 </MenuItem>

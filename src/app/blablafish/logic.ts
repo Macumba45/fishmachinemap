@@ -13,6 +13,7 @@ export const useLogicBlaBla = () => {
     const [blaBlaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
     const [selectedDate, setSelectedDate] = useState('')
     const [loading, setLoading] = useState<boolean>(false)
+    const [dataBlablaUser, setDataBlablaUser] = useState<any>({})
 
     const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
@@ -54,6 +55,28 @@ export const useLogicBlaBla = () => {
         }
     }, [])
 
+    const getUserInfo = useCallback(async () => {
+        try {
+            const token = getAuthenticatedToken()
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
+            }
+            const response = await fetch('/api/user/userData', {
+                method: 'GET',
+                headers,
+            })
+            if (response.ok) {
+                const data = await response.json()
+                setDataBlablaUser(data.user)
+            } else {
+                throw new Error('Error en la respuesta del servidor')
+            }
+        } catch (error) {
+            console.error('Error al enviar el objeto:', error)
+        }
+    }, [])
+
     return {
         postBlaBlaFish,
         departureCity,
@@ -75,5 +98,7 @@ export const useLogicBlaBla = () => {
         selectedDate,
         setSelectedDate,
         loading,
+        dataBlablaUser,
+        getUserInfo,
     }
 }

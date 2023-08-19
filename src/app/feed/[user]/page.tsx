@@ -142,7 +142,7 @@ const Page: FC<Props> = ({ params }) => {
 
     return (
         <>
-            <AccountMenu />
+            <AccountMenu userPicture={dataFeedUser?.picture} />
             <MainContainer>
                 <UserContainerData>
                     <Avatar

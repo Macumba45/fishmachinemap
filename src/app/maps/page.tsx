@@ -540,7 +540,7 @@ const GoogleMapComp: FC = () => {
     return (
         <MainContainer>
             <>
-                <AccountMenu />
+                <AccountMenu userPicture={currentUser?.picture as string} />
                 <FilterButton onChange={handleFilterChange} />
                 <MapContainer id="map" />
 
