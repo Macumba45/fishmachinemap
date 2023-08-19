@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
+import mareas from '../../assets/mareas.png'
 
 interface AccountMenuProps {
     userPicture?: string | null
@@ -67,6 +68,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                 id="account-menu"
                 open={open}
                 onClose={handleClose}
+                sx={{ mt: 1 }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
@@ -83,14 +85,27 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     />
                     Mi perfil
                 </MenuItem>
-                {/* <MenuItem>
-                    <ListItemIcon>
-                        <CustomizedSwitches
-                            onClick={selectMapStyle}
-                            label="Modo oscuro"
+                <MenuItem>
+                    <ListItemIcon
+                        sx={{
+                            color: 'inherit',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <img
+                            style={{
+                                width: '36px',
+                                height: '36px',
+                                borderRadius: '50%',
+                                marginRight: '1rem',
+                            }}
+                            src={mareas.src}
+                            alt="meteorología"
                         />
+                        Meteorología
                     </ListItemIcon>
-                </MenuItem> */}
+                </MenuItem>
                 <Divider />
                 <MenuItem onClick={logOut}>
                     <ListItemIcon>

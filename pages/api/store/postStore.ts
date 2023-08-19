@@ -19,7 +19,7 @@ export default async function handler(
         }
         const decodedToken = jwt.verify(token, 'token')
         const userId = decodedToken.userId
-        const { title, description, picture, price, phone } = req.body
+        const { title, category, description, picture, price, phone } = req.body
 
         try {
             // Subir la imagen a Cloudinary
@@ -30,6 +30,7 @@ export default async function handler(
 
             const newStore = await postStore({
                 title,
+                category,
                 description,
                 picture: cloudinaryResponse.secure_url, // Utilizar la propiedad secure_url
                 price,

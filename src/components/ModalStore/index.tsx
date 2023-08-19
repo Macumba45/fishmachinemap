@@ -1,5 +1,16 @@
 import React, { FC, useState } from 'react'
-import { Modal, Fade, Box, Typography, Button, Snackbar } from '@mui/material'
+import {
+    Modal,
+    Fade,
+    Box,
+    Typography,
+    Button,
+    Snackbar,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
+} from '@mui/material'
 import { useLogicStore } from '@/app/store/logic'
 import { LoadingButton } from '@mui/lab'
 import MuiAlert from '@mui/material/Alert'
@@ -28,6 +39,8 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         price,
         setPrice,
         postStore,
+        category,
+        setCategory,
     } = useLogicStore()
 
     const [snackbarOpen, setSnackbarOpen] = useState(false)
@@ -125,6 +138,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
         // Handle submission of store data, e.g., send to backend
         const storeData = {
             title,
+            category,
             picture,
             description,
             phone,
@@ -152,12 +166,55 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                 margin="dense"
                                 placeholder="Carrete de Pesca Shimano..."
                                 label="Producto"
-                                autoFocus
                                 variant="outlined"
                                 fullWidth
                                 value={title}
                                 onChange={(e: any) => setTitle(e.target.value)}
                             />
+                            <FormControl
+                                sx={{ mb: '4px', mt: '8px' }}
+                                fullWidth
+                            >
+                                <InputLabel id="demo-simple-select-label">
+                                    Categoria
+                                </InputLabel>
+                                <Select
+                                    margin="dense"
+                                    labelId="demo-simple-select-label"
+                                    fullWidth
+                                    label="Categoria"
+                                    value={category}
+                                    onChange={(e: any) =>
+                                        setCategory(e.target.value)
+                                    }
+                                >
+                                    <MenuItem value="Accesorios">
+                                        Accesorios
+                                    </MenuItem>
+                                    <MenuItem value="Ropa">
+                                        Ropa y Calzado
+                                    </MenuItem>
+                                    <MenuItem value="Camping">Camping</MenuItem>
+                                    <MenuItem value="Equipamiento">
+                                        Equipamiento de Embarcaciones
+                                    </MenuItem>
+                                    <MenuItem value="Equipo">
+                                        Equipo Completo
+                                    </MenuItem>
+                                    <MenuItem value="Cañas">
+                                        Cañas de Pesca
+                                    </MenuItem>
+                                    <MenuItem value="Cebos">
+                                        Cebos Artificiales
+                                    </MenuItem>
+                                    <MenuItem value="Bolsas">
+                                        Bolsas y Fundas
+                                    </MenuItem>
+                                    <MenuItem value="Electrónica">
+                                        Electrónica
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
                             <StyledTextField
                                 margin="dense"
                                 placeholder="Carrete de Pesca Shimano en buen estado, con poco uso..."

@@ -13,6 +13,7 @@ export const useLogicStore = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [storeId, setStoreId] = useState<Store>()
     const [dataStoreUser, setDataStoreUser] = useState<any>({})
+    const [category, setCategory] = useState<string>('')
 
     const postStore = async (store: Store) => {
         try {
@@ -118,5 +119,7 @@ export const useLogicStore = () => {
         storeId,
         dataStoreUser,
         getUserInfo,
+        category,
+        setCategory,
     }
 }

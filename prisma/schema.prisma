@@ -88,6 +88,7 @@ model BlaBlaFish {
 model Store {
   id          String   @id @default(cuid())
   title       String?
+  category    String?
   description String?
   picture     String?
   price       String?
