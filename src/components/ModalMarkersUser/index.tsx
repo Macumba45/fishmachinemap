@@ -66,7 +66,6 @@ const ModalUserMarkers: FC<Props> = ({
     handleShareOnWhatsApp,
     handleShareOnFacebook,
 }) => {
-
     let maxHeight: any
     if (typeof window !== 'undefined') {
         if (window.innerWidth < 330) {

@@ -15,7 +15,9 @@ export default async function handler(
     if (req.method === 'POST') {
         const token = req.headers.authorization?.split(' ')[1]
         if (!token) {
-            throw new Error('Token de autenticación no proporcionado')
+            res.status(401).json({
+                message: 'Se requiere un token de autenticación',
+            })
         }
         const decodedToken = jwt.verify(token, 'token')
         const userId = decodedToken.userId

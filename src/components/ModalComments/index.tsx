@@ -134,7 +134,10 @@ const CommentSection: FC<CommentSectionProps> = ({
                     fullWidth
                     margin="normal"
                     variant="outlined"
-                    sx={{ marginBottom: '1rem', display: isLogged ? 'flex' : 'none' }}
+                    sx={{
+                        marginBottom: '1rem',
+                        display: isLogged ? 'flex' : 'none',
+                    }}
                 />
                 <Button
                     variant="contained"

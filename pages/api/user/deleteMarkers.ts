@@ -8,7 +8,9 @@ export default async function handler(
         try {
             const token = req.headers.authorization?.split(' ')[1] // Obtener el token del encabezado de autorización
             if (!token) {
-                throw new Error('Token de autenticación no proporcionado')
+                res.status(401).json({
+                    message: 'Se requiere un token de autenticación',
+                })
             }
             const query = req.query as { id: string }
             const { id } = query

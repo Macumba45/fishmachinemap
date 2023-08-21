@@ -217,7 +217,6 @@ const GoogleMapComp: FC = () => {
                 const handleClick = () => {
                     setIsButtonDisabledPlaces(true) // Deshabilita el botón
                     performSearch() // Llama a la función performSearch
-                    getAllMarkersUser()
                     setTimeout(() => {
                         setIsButtonDisabledPlaces(false) // Habilita el botón después de 5 segundos
                     }, 2000) // 5000 milisegundos = 5 segundos

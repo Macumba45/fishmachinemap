@@ -5,8 +5,12 @@ export const getUserInfo = async (userId: any) => {
         where: {
             id: userId,
         },
-
-        include: {
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            picture: true,
+            password: false,
             markers: {
                 include: {
                     location: true, // Incluir la ubicación de cada marcador
@@ -17,6 +21,8 @@ export const getUserInfo = async (userId: any) => {
                             id: true,
                             name: true,
                             email: true,
+                            picture: true,
+                            password: false,
                         },
                     },
                 },
