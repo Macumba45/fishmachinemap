@@ -11,6 +11,8 @@ import { useLogicBlaBla } from './logic'
 import { BlaBlaFish } from './type'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
+import FloatLoginButton from '@/components/FloatLoginButton'
+import { useRouter } from 'next/navigation'
 import {
     CardContainer,
     Container,
@@ -29,6 +31,7 @@ const BlaBlaFish: FC = () => {
         dataBlablaUser,
         getUserInfo,
     } = useLogicBlaBla()
+    const router = useRouter()
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
     const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
@@ -36,6 +39,11 @@ const BlaBlaFish: FC = () => {
         // Verifica si la fecha del viaje es menor o igual a la fecha actual
         return viajeDate < currentDate
     })
+
+    const goToLogin = () => {
+        router.push('/auth/login')
+    }
+
     // Función de utilidad para formatear la fecha
     function formatDate(date: Date) {
         return date.toLocaleDateString('es-ES', {
@@ -105,6 +113,19 @@ const BlaBlaFish: FC = () => {
                         onClick={() => setOpenModal(true)}
                         disabled={!isLogged}
                     />
+                    <FloatLoginButton
+                        disabled={isLogged}
+                        title="Iniciar Sesión"
+                        onClick={() => {
+                            goToLogin()
+                        }}
+                        style={{
+                            position: 'fixed',
+                            bottom: '5.3rem',
+                            left: '1rem',
+                            display: isLogged ? 'none' : 'flex',
+                        }}
+                    />
                     <SimpleBottomNavigation />
                 </NoDataContainer>
             </>
@@ -172,6 +193,19 @@ const BlaBlaFish: FC = () => {
                     title="Añadir viaje"
                     onClick={() => setOpenModal(true)}
                     disabled={!isLogged}
+                />
+                <FloatLoginButton
+                    disabled={isLogged}
+                    title="Iniciar Sesión"
+                    onClick={() => {
+                        goToLogin()
+                    }}
+                    style={{
+                        position: 'fixed',
+                        bottom: '5.3rem',
+                        left: '1rem',
+                        display: isLogged ? 'none' : 'flex',
+                    }}
                 />
                 <SimpleBottomNavigation />
             </MainContainer>

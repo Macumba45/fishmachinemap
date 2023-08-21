@@ -3,6 +3,9 @@
 import { FC, useCallback, useEffect, useState, memo } from 'react'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
+import { useRouter } from 'next/navigation'
+import FloatLoginButton from '@/components/FloatLoginButton'
 import Link from 'next/link'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CommentModal from '@/components/ModalComments'
@@ -37,8 +40,6 @@ import {
     ReviewsContainer,
     stylesMaps,
 } from './style'
-import { getAuthenticatedToken } from '@/lib/storage/storage'
-import { useRouter } from 'next/navigation'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -100,7 +101,6 @@ const GoogleMapComp: FC = () => {
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
     const [isLogged, setIsLogged] = useState(false)
 
-    const router = useRouter()
     useEffect(() => {
         if (!token) {
             setIsLogged(false)
@@ -114,6 +114,7 @@ const GoogleMapComp: FC = () => {
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
+    const router = useRouter()
 
     const [selectedMarkers, setSelectedMarkers] = useState<
     google.maps.Marker[]
@@ -403,8 +404,6 @@ const GoogleMapComp: FC = () => {
         })
     }
 
-    const [filterAll, setFilterAll] = useState(false)
-
     // Función para filtrar los marcadores según el tipo de filtro.
     const filterMarkers = (filter: MarkerType) => {
         let filteredMarkerInstances: UserMarker[] = []
@@ -475,6 +474,10 @@ const GoogleMapComp: FC = () => {
         const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
         const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
         window.open(url, '_blank')
+    }
+
+    const goToLogin = () => {
+        router.push('/auth/login')
     }
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -820,6 +823,19 @@ const GoogleMapComp: FC = () => {
                 icon={<SearchIcon style={{ color: 'black', marginRight: 1 }} />}
                 variant="contained"
                 disabled={isButtonDisabledPlaces}
+            />
+            <FloatLoginButton
+                disabled={isLogged}
+                title="Iniciar Sesión"
+                onClick={() => {
+                    goToLogin()
+                }}
+                style={{
+                    position: 'fixed',
+                    bottom: '5.3rem',
+                    left: '1rem',
+                    display: isLogged ? 'none' : 'flex',
+                }}
             />
         </MainContainer>
     )

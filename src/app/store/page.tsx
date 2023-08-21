@@ -10,6 +10,8 @@ import StoreModal from '@/components/ModalStore'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import CircularIndeterminate from '@/components/Loader'
 import Link from 'next/link'
+import FloatLoginButton from '@/components/FloatLoginButton'
+import { useRouter } from 'next/navigation'
 import {
     Container,
     ContainerMenu,
@@ -29,6 +31,12 @@ const Store: FC = () => {
         dataStoreUser,
         getUserInfo,
     } = useLogicStore()
+
+    const router = useRouter()
+
+    const goToLogin = () => {
+        router.push('/auth/login')
+    }
 
     const handleClose = () => {
         setOpen(false)
@@ -91,6 +99,19 @@ const Store: FC = () => {
                     onClick={handleOpen}
                     disabled={!isLogged}
                 />
+                <FloatLoginButton
+                    disabled={isLogged}
+                    title="Iniciar Sesión"
+                    onClick={() => {
+                        goToLogin()
+                    }}
+                    style={{
+                        position: 'fixed',
+                        bottom: '5.3rem',
+                        left: '1rem',
+                        display: isLogged ? 'none' : 'flex',
+                    }}
+                />
                 <SimpleBottomNavigation />
             </>
         )
@@ -122,6 +143,19 @@ const Store: FC = () => {
                     disabled={!isLogged}
                 />
                 <StoreModal open={open} onClose={() => handleClose()} />
+                <FloatLoginButton
+                    disabled={isLogged}
+                    title="Iniciar Sesión"
+                    onClick={() => {
+                        goToLogin()
+                    }}
+                    style={{
+                        position: 'fixed',
+                        bottom: '5.3rem',
+                        left: '1rem',
+                        display: isLogged ? 'none' : 'flex',
+                    }}
+                />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

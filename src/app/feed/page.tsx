@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo, useEffect } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { feedUseLogic } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
@@ -8,6 +8,8 @@ import AccountMenu from '@/components/Menu'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
 import { ContainerMenu, MainContainer } from './style'
+import FloatLoginButton from '@/components/FloatLoginButton'
+import { useRouter } from 'next/navigation'
 
 const Feed: FC = () => {
     const {
@@ -19,6 +21,21 @@ const Feed: FC = () => {
         getUserInfo,
         dataFeedUser,
     } = feedUseLogic()
+
+    const router = useRouter()
+
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
 
     const handleShareOnFacebook = (userId: string) => {
         const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
@@ -32,6 +49,10 @@ const Feed: FC = () => {
         const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
         const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
         window.open(url, '_blank')
+    }
+
+    const goToLogin = () => {
+        router.push('/auth/login')
     }
 
     useEffect(() => {
@@ -95,6 +116,19 @@ const Feed: FC = () => {
                         />
                     )
                 })}
+                <FloatLoginButton
+                    disabled={isLogged}
+                    title="Iniciar Sesión"
+                    onClick={() => {
+                        goToLogin()
+                    }}
+                    style={{
+                        position: 'fixed',
+                        bottom: '5.3rem',
+                        left: '1rem',
+                        display: isLogged ? 'none' : 'flex',
+                    }}
+                />
             </MainContainer>
             <SimpleBottomNavigation />
         </>
