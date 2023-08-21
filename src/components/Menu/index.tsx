@@ -17,6 +17,9 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
+    const [pais, setPais] = useState('es')
+    const [provincia, setProvincia] = useState('')
+    const [ciudad, setCiudad] = useState('')
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [openModal, setOpenModal] = useState(false)
     const open = Boolean(anchorEl)
@@ -42,6 +45,15 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
 
     const gotoProfile = () => {
         window.location.href = '/perfil'
+    }
+
+    const fetchUrlMeteorologia = (
+        pais: string,
+        provincia: string,
+        ciudad: string
+    ) => {
+        const url = `https://tablademareas.com/${pais}/${provincia}/${ciudad}`
+        return window.open(url, '_blank')
     }
 
     const boxStyles = {
@@ -149,14 +161,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             País
                         </InputLabel>
                         <Select
+                            onChange={(e: any) => setPais(e.target.value)}
                             fullWidth
                             label="País"
-                            value="es"
-                            labelId="demo-simple-select-pais"
+                            value={pais || ''}
                             margin="dense"
                             sx={{ mb: 2 }}
                         >
-                            <MenuItem>España</MenuItem>
+                            <MenuItem value="es">España</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl fullWidth>
@@ -164,14 +176,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             Provincia
                         </InputLabel>
                         <Select
+                            onChange={(e: any) => setProvincia(e.target.value)}
                             fullWidth
                             label="Provincia"
-                            value="20"
-                            labelId="demo-simple-select-Provincia"
+                            value={provincia || ''}
                             margin="dense"
                             sx={{ mb: 2 }}
                         >
-                            <MenuItem>Costa</MenuItem>
+                            <MenuItem value="cadiz">Cádiz</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl fullWidth>
@@ -179,14 +191,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             Ciudad
                         </InputLabel>
                         <Select
+                            onChange={(e: any) => setCiudad(e.target.value)}
                             fullWidth
                             label="Ciudad"
-                            value="20"
-                            labelId="demo-simple-select-Ciudad"
+                            value={ciudad || ''}
                             margin="dense"
                             sx={{ mb: 2 }}
                         >
-                            <MenuItem>Costa</MenuItem>
+                            <MenuItem value="rota">Rota</MenuItem>
                         </Select>
                     </FormControl>
                     <ButtonComp
@@ -194,6 +206,9 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         color="white"
                         variant="contained"
                         bgColor="#49007a"
+                        onClick={() =>
+                            fetchUrlMeteorologia(pais, provincia, ciudad)
+                        }
                     />
                 </Box>
             </Modal>

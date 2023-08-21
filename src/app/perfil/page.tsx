@@ -28,6 +28,7 @@ import { Store } from '../store/type'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 import {
     Button,
     ButtonGroup,
@@ -77,6 +78,8 @@ const Profile: FC = () => {
     const [openModalComments, setOpenModalComments] = useState(false)
     const [activeView, setActiveView] = useState('capturas')
     const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
+    const isAuthenticated = !!getAuthenticatedToken()
+    console.log('isAuthenticated', isAuthenticated)
 
     const goToMaps = useCallback(() => {
         window.location.href = '/maps'
@@ -242,6 +245,14 @@ const Profile: FC = () => {
                 }, file.type)
             }
         })
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <div>
+                <h1>Debes estar logueado para ver esta página</h1>
+            </div>
+        )
     }
 
     return (
@@ -883,10 +894,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.marker.location?.lat,
-                                            lng: marker.marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.marker.location?.lat,
+                                        lng: marker.marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -1002,10 +1013,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.location?.lat,
-                                            lng: marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.location?.lat,
+                                        lng: marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
