@@ -110,7 +110,6 @@ export const feedUseLogic = () => {
             )
             if (response.ok) {
                 const data = await response.json()
-                console.log(data)
                 setDataFeedUser(data.user)
                 setUserMarkers(data.user.markers)
                 setBlaBlaFish(data.user.blaBlaFish)

@@ -38,6 +38,7 @@ import {
     stylesMaps,
 } from './style'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
+import { useRouter } from 'next/navigation'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -97,6 +98,17 @@ const GoogleMapComp: FC = () => {
 
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
+    const [isLogged, setIsLogged] = useState(false)
+
+    const router = useRouter()
+    useEffect(() => {
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
 
     // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
@@ -787,7 +799,7 @@ const GoogleMapComp: FC = () => {
                 </>
             )}
             <FloatAddMarkerButton
-                disabled={isButtonDisabled}
+                disabled={isButtonDisabled || !isLogged}
                 onClick={openAddMarkerMode}
             />
             <ButtonComp

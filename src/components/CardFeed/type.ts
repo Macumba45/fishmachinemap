@@ -22,4 +22,5 @@ export type FeedPros = {
     iconCreator?: React.ReactNode
     handleShareOnWhatsApp?: () => void
     handleShareOnFacebook?: () => void
+    disabled?: boolean
 }

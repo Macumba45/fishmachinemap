@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useEffect, memo } from 'react'
+import React, { FC, useEffect, memo, useState } from 'react'
 import { useLogicStore } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
@@ -43,6 +43,19 @@ const Store: FC = () => {
         getUserInfo()
     }, [])
 
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
+
     if (loading) {
         return (
             <>
@@ -76,6 +89,7 @@ const Store: FC = () => {
                 <FloatAddBlaBlaFish
                     title="Añadir producto"
                     onClick={handleOpen}
+                    disabled={!isLogged}
                 />
                 <SimpleBottomNavigation />
             </>
@@ -105,6 +119,7 @@ const Store: FC = () => {
                 <FloatAddBlaBlaFish
                     title="Añadir producto"
                     onClick={handleOpen}
+                    disabled={!isLogged}
                 />
                 <StoreModal open={open} onClose={() => handleClose()} />
                 <SimpleBottomNavigation />

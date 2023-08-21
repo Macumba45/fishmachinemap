@@ -28,7 +28,7 @@ import { Store } from '../store/type'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import {
     Button,
     ButtonGroup,
@@ -43,8 +43,18 @@ import {
     emailStyles,
     nameStyles,
 } from './style'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 const Profile: FC = () => {
+    const router = useRouter()
+    useEffect(() => {
+        const token = getAuthenticatedToken()
+
+        if (!token && !user) {
+            router.push('/auth/login') // Redirige al usuario a la página de inicio de sesión si no hay token
+        }
+    }, [])
+
     const {
         user,
         userMarkers,
@@ -884,10 +894,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.marker.location?.lat,
-                                        lng: marker.marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.marker.location?.lat,
+                                            lng: marker.marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -1003,10 +1013,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.location?.lat,
-                                        lng: marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.location?.lat,
+                                            lng: marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={

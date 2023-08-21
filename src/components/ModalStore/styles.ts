@@ -18,10 +18,6 @@ export const ModalContent = styled.div`
     text-align: center;
 `
 
-export const ModalTitle = styled(Typography)``
-
-export const StyledTextField = styled(TextField)``
-
 export const StyledButton = styled(Button)`
     margin-top: 16px;
     margin-right: 1rem;

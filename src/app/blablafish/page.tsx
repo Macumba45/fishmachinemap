@@ -54,6 +54,19 @@ const BlaBlaFish: FC = () => {
         getUserInfo()
     }, [])
 
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
+
     if (loading) {
         return (
             <>
@@ -90,6 +103,7 @@ const BlaBlaFish: FC = () => {
                     <FloatAddBlaBlaFish
                         title="Añadir viaje"
                         onClick={() => setOpenModal(true)}
+                        disabled={!isLogged}
                     />
                     <SimpleBottomNavigation />
                 </NoDataContainer>
@@ -157,6 +171,7 @@ const BlaBlaFish: FC = () => {
                 <FloatAddBlaBlaFish
                     title="Añadir viaje"
                     onClick={() => setOpenModal(true)}
+                    disabled={!isLogged}
                 />
                 <SimpleBottomNavigation />
             </MainContainer>

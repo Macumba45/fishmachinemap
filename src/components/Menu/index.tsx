@@ -1,4 +1,4 @@
-import { FC, useState, memo } from 'react'
+import { FC, useState, memo, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -47,6 +47,10 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         window.location.href = '/perfil'
     }
 
+    const goToLogin = () => {
+        window.location.href = '/auth/login'
+    }
+
     const fetchUrlMeteorologia = (
         pais: string,
         provincia: string,
@@ -64,6 +68,62 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         top: '20px',
         zIndex: 1,
     }
+
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
+
+    if (!isLogged) {
+        return (
+            <>
+                <Box sx={boxStyles}>
+                    <Tooltip title="Menú">
+                        <IconButton
+                            onClick={handleClick}
+                            size="small"
+                            sx={{
+                                ml: 3,
+                                backgroundColor: '#49007a',
+                                '&:hover': {
+                                    backgroundColor: '#7b00cd', // Cambiar color del hover
+                                },
+                            }}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >
+                            <MenuIcon
+                                sx={{ fontSize: '2rem', color: 'white' }}
+                            />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <Menu
+                    anchorEl={anchorEl}
+                    id="account-menu"
+                    open={open}
+                    onClose={handleClose}
+                    sx={{ mt: 1 }}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                    <MenuItem onClick={goToLogin}>
+                        Debes de iniciar sesión <br /> para ver tu perfil
+                    </MenuItem>
+                </Menu>
+            </>
+        )
+    }
+
     return (
         <>
             <Box sx={boxStyles}>
@@ -183,30 +243,64 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             margin="dense"
                             sx={{ mb: 2 }}
                         >
-                            <MenuItem value="a-coruna">Mareas de A Coruña</MenuItem>
-                            <MenuItem value="pontevedra">Mareas de Pontevedra</MenuItem>
+                            <MenuItem value="a-coruna">
+                                Mareas de A Coruña
+                            </MenuItem>
+                            <MenuItem value="pontevedra">
+                                Mareas de Pontevedra
+                            </MenuItem>
                             <MenuItem value="huelva">Mareas de Huelva</MenuItem>
                             <MenuItem value="cadiz">Mareas de Cádiz</MenuItem>
                             <MenuItem value="lugo">Mareas de Lugo</MenuItem>
-                            <MenuItem value="asturias">Mareas de Asturias</MenuItem>
-                            <MenuItem value="cantabria">Mareas de Cantabria</MenuItem>
-                            <MenuItem value="vizcaya">Mareas de Vizcaya</MenuItem>
-                            <MenuItem value="guipuzcoa">Mareas de Guipúzcoa</MenuItem>
+                            <MenuItem value="asturias">
+                                Mareas de Asturias
+                            </MenuItem>
+                            <MenuItem value="cantabria">
+                                Mareas de Cantabria
+                            </MenuItem>
+                            <MenuItem value="vizcaya">
+                                Mareas de Vizcaya
+                            </MenuItem>
+                            <MenuItem value="guipuzcoa">
+                                Mareas de Guipúzcoa
+                            </MenuItem>
                             <MenuItem value="malaga">Mareas de Málaga</MenuItem>
-                            <MenuItem value="granada">Mareas de Granada</MenuItem>
-                            <MenuItem value="almeria">Mareas de Almería</MenuItem>
+                            <MenuItem value="granada">
+                                Mareas de Granada
+                            </MenuItem>
+                            <MenuItem value="almeria">
+                                Mareas de Almería
+                            </MenuItem>
                             <MenuItem value="murcia">Mareas de Murcia</MenuItem>
-                            <MenuItem value="alicante">Mareas de Alicante</MenuItem>
-                            <MenuItem value="valencia">Mareas de Valencia</MenuItem>
-                            <MenuItem value="castellon">Mareas de Castellón</MenuItem>
-                            <MenuItem value="tarragona">Mareas de Tarragona</MenuItem>
-                            <MenuItem value="barcelona">Mareas de Barcelona</MenuItem>
+                            <MenuItem value="alicante">
+                                Mareas de Alicante
+                            </MenuItem>
+                            <MenuItem value="valencia">
+                                Mareas de Valencia
+                            </MenuItem>
+                            <MenuItem value="castellon">
+                                Mareas de Castellón
+                            </MenuItem>
+                            <MenuItem value="tarragona">
+                                Mareas de Tarragona
+                            </MenuItem>
+                            <MenuItem value="barcelona">
+                                Mareas de Barcelona
+                            </MenuItem>
                             <MenuItem value="girona">Mareas de Girona</MenuItem>
-                            <MenuItem value="islas-canarias">Mareas de Islas Canarias</MenuItem>
-                            <MenuItem value="islas-baleares">Mareas de Islas Baleares</MenuItem>
-                            <MenuItem value="sevilla">Mareas de Sevilla</MenuItem>
+                            <MenuItem value="islas-canarias">
+                                Mareas de Islas Canarias
+                            </MenuItem>
+                            <MenuItem value="islas-baleares">
+                                Mareas de Islas Baleares
+                            </MenuItem>
+                            <MenuItem value="sevilla">
+                                Mareas de Sevilla
+                            </MenuItem>
                             <MenuItem value="ceuta">Mareas de Ceuta</MenuItem>
-                            <MenuItem value="melilla">Mareas de Melilla</MenuItem>
+                            <MenuItem value="melilla">
+                                Mareas de Melilla
+                            </MenuItem>
                         </Select>
                     </FormControl>
                     {/* <FormControl fullWidth>

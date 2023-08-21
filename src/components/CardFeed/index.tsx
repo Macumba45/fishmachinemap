@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { FeedPros } from './type'
 import { Box, IconButton, Modal, Typography } from '@mui/material'
@@ -38,6 +38,7 @@ const CardFeed: FC<FeedPros> = ({
     iconCreator,
     handleShareOnWhatsApp,
     handleShareOnFacebook,
+    disabled,
 }) => {
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
     const [isShareModalOpen, setShareModalOpen] = useState(false)
@@ -76,6 +77,19 @@ const CardFeed: FC<FeedPros> = ({
         border: 'none',
         outline: 'none',
     }
+
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
 
     return (
         <CardContainer key={id}>
@@ -118,6 +132,7 @@ const CardFeed: FC<FeedPros> = ({
                     <IconButton
                         onClick={onClick}
                         style={{ justifySelf: 'end' }}
+                        disabled={!isLogged}
                     >
                         {isLiked ? (
                             <FavoriteIcon style={{ color: '#49007a' }} />

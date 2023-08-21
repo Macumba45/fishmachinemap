@@ -23,6 +23,7 @@ interface CommentSectionProps {
     setNewComment: (comment: string) => void
     onCommentSubmit: () => void
     onDeleteComment: (commentId: string) => void
+    disabled?: boolean
 }
 
 const CommentSection: FC<CommentSectionProps> = ({
@@ -31,6 +32,7 @@ const CommentSection: FC<CommentSectionProps> = ({
     setNewComment,
     onCommentSubmit,
     onDeleteComment,
+    disabled,
 }) => {
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
@@ -39,6 +41,18 @@ const CommentSection: FC<CommentSectionProps> = ({
     ) => {
         setNewComment(event.target.value)
     }
+
+    const [isLogged, setIsLogged] = useState(false)
+    const textButton = isLogged ? 'Comentar' : 'Inicia sesión para comentar'
+
+    useEffect(() => {
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
 
     return (
         <div>
@@ -127,8 +141,9 @@ const CommentSection: FC<CommentSectionProps> = ({
                     sx={{ backgroundColor: '#49007a', color: 'white' }}
                     onClick={onCommentSubmit}
                     endIcon={<CheckIcon />}
+                    disabled={!isLogged}
                 >
-                    Comentar
+                    {textButton}
                 </Button>
             </Container>
         </div>

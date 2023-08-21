@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Modal, Box, Typography, IconButton } from '@mui/material'
 import ButtonComp from '../Button'
 import NavigationIcon from '@mui/icons-material/Navigation'
@@ -17,6 +17,7 @@ import {
 } from './style'
 
 interface Props {
+    disabled?: boolean
     isOpen: boolean
     onClose?: () => void
     onClick?: () => void
@@ -46,6 +47,7 @@ interface Props {
 }
 
 const ModalUserMarkers: FC<Props> = ({
+    disabled,
     isOpen,
     onClose,
     direction,
@@ -103,6 +105,19 @@ const ModalUserMarkers: FC<Props> = ({
         setShareModalOpen(false)
     }
 
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [])
+
     return (
         <Modal open={isOpen} onClose={onClose}>
             <Box sx={style}>
@@ -151,6 +166,7 @@ const ModalUserMarkers: FC<Props> = ({
                                             marginRight: '0.5rem',
                                         }}
                                         onClick={onClickLike}
+                                        disabled={!isLogged}
                                     >
                                         {isLiked ? (
                                             <FavoriteIcon

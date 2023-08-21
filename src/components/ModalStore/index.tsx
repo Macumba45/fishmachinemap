@@ -1,4 +1,7 @@
 import React, { FC, useState } from 'react'
+import { useLogicStore } from '@/app/store/logic'
+import { LoadingButton } from '@mui/lab'
+import MuiAlert from '@mui/material/Alert'
 import {
     Modal,
     Fade,
@@ -10,16 +13,9 @@ import {
     MenuItem,
     FormControl,
     InputLabel,
+    TextField,
 } from '@mui/material'
-import { useLogicStore } from '@/app/store/logic'
-import { LoadingButton } from '@mui/lab'
-import MuiAlert from '@mui/material/Alert'
-import {
-    ModalWrapper,
-    ModalContent,
-    ModalTitle,
-    StyledTextField,
-} from './styles'
+import { ModalWrapper, ModalContent } from './styles'
 
 interface Props {
     open: boolean
@@ -161,8 +157,8 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                 <Fade in={open}>
                     <ModalWrapper style={{ width: '310px', margin: '0 auto' }}>
                         <ModalContent>
-                            <ModalTitle variant="h6">Crear Anuncio</ModalTitle>
-                            <StyledTextField
+                            <Typography variant="h6">Crear Anuncio</Typography>
+                            <TextField
                                 margin="dense"
                                 placeholder="Carrete de Pesca Shimano..."
                                 label="Producto"
@@ -215,7 +211,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
-                            <StyledTextField
+                            <TextField
                                 margin="dense"
                                 placeholder="Carrete de Pesca Shimano en buen estado, con poco uso..."
                                 label="Descripción"
@@ -228,7 +224,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                 }
                             />
 
-                            <StyledTextField
+                            <TextField
                                 margin="dense"
                                 placeholder="10€"
                                 label="Precio €"
@@ -241,7 +237,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                     pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
                                 }}
                             />
-                            <StyledTextField
+                            <TextField
                                 margin="dense"
                                 variant="outlined"
                                 fullWidth

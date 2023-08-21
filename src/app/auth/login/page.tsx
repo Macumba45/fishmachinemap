@@ -138,11 +138,11 @@ const Login: FC = () => {
                             </LoadingButton>
                         </Stack>
                         <Grid container>
-                            <Grid item xs>
+                            {/* <Grid item xs>
                                 <Link href="#" variant="body2">
                                     Olvidaste la contraseña?
                                 </Link>
-                            </Grid>
+                            </Grid> */}
                             <Grid item>
                                 <Link href="/auth/signup" variant="body2">
                                     {'¿No tienes una cuenta? Regístrate'}
