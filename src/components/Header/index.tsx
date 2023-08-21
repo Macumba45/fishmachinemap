@@ -59,6 +59,15 @@ const HeaderComp: FC = () => {
                         title="Registrarse"
                     />
                 </Link>
+                <Link style={{ textDecoration: 'none' }} href="/maps">
+                    <ButtonComp
+                        color="white"
+                        variant="outlined"
+                        bgColor="transparent"
+                        border="1px solid white"
+                        title="Continuar como invitado"
+                    />
+                </Link>
             </ButtonContainer>
             <VideoContainer>
                 <VideoPlayer url={'/video.mp4'} />
