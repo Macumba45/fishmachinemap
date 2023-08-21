@@ -28,7 +28,7 @@ import { Store } from '../store/type'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { getAuthenticatedToken } from '@/lib/storage/storage'
+import { useRouter } from 'next/navigation';
 import {
     Button,
     ButtonGroup,
@@ -56,7 +56,7 @@ const Profile: FC = () => {
         width,
         setWidth,
         blablaFish,
-        updateMarker,
+        updateMarkerVisible,
         markerVisibility,
         setMarkerVisibility,
         deleteBlaBlaFish,
@@ -78,8 +78,6 @@ const Profile: FC = () => {
     const [openModalComments, setOpenModalComments] = useState(false)
     const [activeView, setActiveView] = useState('capturas')
     const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
-    const isAuthenticated = !!getAuthenticatedToken()
-    console.log('isAuthenticated', isAuthenticated)
 
     const goToMaps = useCallback(() => {
         window.location.href = '/maps'
@@ -109,7 +107,7 @@ const Profile: FC = () => {
     const handleVisibilityToggle = useCallback(async (markerId: string) => {
         try {
             // Lógica para actualizar la visibilidad del marcador en el servidor
-            await updateMarker(markerId) // Actualiza el estado en el servidor, no necesitas pasar `{ visible: !visible }` aquí
+            await updateMarkerVisible(markerId)
 
             // Actualiza el estado local para reflejar la nueva visibilidad
             setMarkerVisibility(prevState => ({
@@ -247,17 +245,9 @@ const Profile: FC = () => {
         })
     }
 
-    if (!isAuthenticated) {
-        return (
-            <div>
-                <h1>Debes estar logueado para ver esta página</h1>
-            </div>
-        )
-    }
-
     return (
         <>
-            <AccountMenu />
+            <AccountMenu userPicture={user?.picture} />
             <MainContainer>
                 <UserContainerData>
                     {user?.picture ? (

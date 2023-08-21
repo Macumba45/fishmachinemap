@@ -87,7 +87,7 @@ export const useLogicUser = () => {
         }
     }, [])
 
-    const updateMarker = useCallback(async (markerId: string) => {
+    const updateMarkerVisible = useCallback(async (markerId: string) => {
         try {
             const token = getAuthenticatedToken()
             const headers = {
@@ -189,7 +189,7 @@ export const useLogicUser = () => {
         width,
         setWidth,
         blablaFish,
-        updateMarker,
+        updateMarkerVisible,
         markerVisibility,
         setMarkerVisibility,
         deleteBlaBlaFish,

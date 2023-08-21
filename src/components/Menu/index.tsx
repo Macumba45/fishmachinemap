@@ -145,8 +145,8 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 300,
-                        height: 300,
+                        width: 250,
+                        height: 250,
                         bgcolor: 'background.paper',
                         boxShadow: 24,
                         borderRadius: '30px',
@@ -183,10 +183,33 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             margin="dense"
                             sx={{ mb: 2 }}
                         >
-                            <MenuItem value="cadiz">Cádiz</MenuItem>
+                            <MenuItem value="a-coruna">Mareas de A Coruña</MenuItem>
+                            <MenuItem value="pontevedra">Mareas de Pontevedra</MenuItem>
+                            <MenuItem value="huelva">Mareas de Huelva</MenuItem>
+                            <MenuItem value="cadiz">Mareas de Cádiz</MenuItem>
+                            <MenuItem value="lugo">Mareas de Lugo</MenuItem>
+                            <MenuItem value="asturias">Mareas de Asturias</MenuItem>
+                            <MenuItem value="cantabria">Mareas de Cantabria</MenuItem>
+                            <MenuItem value="vizcaya">Mareas de Vizcaya</MenuItem>
+                            <MenuItem value="guipuzcoa">Mareas de Guipúzcoa</MenuItem>
+                            <MenuItem value="malaga">Mareas de Málaga</MenuItem>
+                            <MenuItem value="granada">Mareas de Granada</MenuItem>
+                            <MenuItem value="almeria">Mareas de Almería</MenuItem>
+                            <MenuItem value="murcia">Mareas de Murcia</MenuItem>
+                            <MenuItem value="alicante">Mareas de Alicante</MenuItem>
+                            <MenuItem value="valencia">Mareas de Valencia</MenuItem>
+                            <MenuItem value="castellon">Mareas de Castellón</MenuItem>
+                            <MenuItem value="tarragona">Mareas de Tarragona</MenuItem>
+                            <MenuItem value="barcelona">Mareas de Barcelona</MenuItem>
+                            <MenuItem value="girona">Mareas de Girona</MenuItem>
+                            <MenuItem value="islas-canarias">Mareas de Islas Canarias</MenuItem>
+                            <MenuItem value="islas-baleares">Mareas de Islas Baleares</MenuItem>
+                            <MenuItem value="sevilla">Mareas de Sevilla</MenuItem>
+                            <MenuItem value="ceuta">Mareas de Ceuta</MenuItem>
+                            <MenuItem value="melilla">Mareas de Melilla</MenuItem>
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth>
+                    {/* <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-Ciudad">
                             Ciudad
                         </InputLabel>
@@ -200,7 +223,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         >
                             <MenuItem value="rota">Rota</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                     <ButtonComp
                         title="Ver meteorología"
                         color="white"
