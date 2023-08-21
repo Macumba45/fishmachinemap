@@ -77,6 +77,7 @@ const ModalUserMarkers: FC<Props> = ({
         borderRadius: '10px',
         maxHeight: '600px',
         minWidth: '300px',
+        maxWidth: '400px',
         overflowY: 'scroll',
         borderColor: 'transparent',
         border: 'none',
@@ -157,38 +158,38 @@ const ModalUserMarkers: FC<Props> = ({
                             {icon2}
                             {typeof window !== 'undefined' &&
                                 window.location.pathname === '/maps' && (
-                                <>
-                                    <IconButton
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            padding: 0,
-                                            marginRight: '0.5rem',
-                                        }}
-                                        onClick={onClickLike}
-                                        disabled={!isLogged}
-                                    >
-                                        {isLiked ? (
-                                            <FavoriteIcon
-                                                style={{
-                                                    color: isLogged
-                                                        ? '#49007a'
-                                                        : 'grey',
-                                                }}
-                                            />
-                                        ) : (
-                                            <FavoriteBorderIcon
-                                                style={{
-                                                    color: isLogged
-                                                        ? '#49007a'
-                                                        : 'grey',
-                                                }}
-                                            />
-                                        )}
-                                        <LikesLabel>{likes}</LikesLabel>
-                                    </IconButton>
-                                </>
-                            )}
+                                    <>
+                                        <IconButton
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                padding: 0,
+                                                marginRight: '0.5rem',
+                                            }}
+                                            onClick={onClickLike}
+                                            disabled={!isLogged}
+                                        >
+                                            {isLiked ? (
+                                                <FavoriteIcon
+                                                    style={{
+                                                        color: isLogged
+                                                            ? '#49007a'
+                                                            : 'grey',
+                                                    }}
+                                                />
+                                            ) : (
+                                                <FavoriteBorderIcon
+                                                    style={{
+                                                        color: isLogged
+                                                            ? '#49007a'
+                                                            : 'grey',
+                                                    }}
+                                                />
+                                            )}
+                                            <LikesLabel>{likes}</LikesLabel>
+                                        </IconButton>
+                                    </>
+                                )}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>
