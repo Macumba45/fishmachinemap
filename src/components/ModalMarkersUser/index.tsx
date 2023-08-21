@@ -66,6 +66,18 @@ const ModalUserMarkers: FC<Props> = ({
     handleShareOnWhatsApp,
     handleShareOnFacebook,
 }) => {
+
+    let maxHeight: any
+    if (typeof window !== 'undefined') {
+        if (window.innerWidth < 330) {
+            maxHeight = '430px'
+        } else if (window.innerWidth > 331) {
+            maxHeight = '600px'
+        } else if (window.innerWidth > 500) {
+            maxHeight = '700px'
+        }
+    }
+
     const style = {
         position: 'absolute' as const,
         top: '50%',
@@ -75,7 +87,7 @@ const ModalUserMarkers: FC<Props> = ({
         boxShadow: '0 10px 100px #000', // Corrección aquí
         p: 0,
         borderRadius: '10px',
-        maxHeight: '600px',
+        maxHeight: maxHeight,
         minWidth: '300px',
         maxWidth: '400px',
         overflowY: 'scroll',
@@ -158,38 +170,38 @@ const ModalUserMarkers: FC<Props> = ({
                             {icon2}
                             {typeof window !== 'undefined' &&
                                 window.location.pathname === '/maps' && (
-                                    <>
-                                        <IconButton
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                padding: 0,
-                                                marginRight: '0.5rem',
-                                            }}
-                                            onClick={onClickLike}
-                                            disabled={!isLogged}
-                                        >
-                                            {isLiked ? (
-                                                <FavoriteIcon
-                                                    style={{
-                                                        color: isLogged
-                                                            ? '#49007a'
-                                                            : 'grey',
-                                                    }}
-                                                />
-                                            ) : (
-                                                <FavoriteBorderIcon
-                                                    style={{
-                                                        color: isLogged
-                                                            ? '#49007a'
-                                                            : 'grey',
-                                                    }}
-                                                />
-                                            )}
-                                            <LikesLabel>{likes}</LikesLabel>
-                                        </IconButton>
-                                    </>
-                                )}
+                                <>
+                                    <IconButton
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            padding: 0,
+                                            marginRight: '0.5rem',
+                                        }}
+                                        onClick={onClickLike}
+                                        disabled={!isLogged}
+                                    >
+                                        {isLiked ? (
+                                            <FavoriteIcon
+                                                style={{
+                                                    color: isLogged
+                                                        ? '#49007a'
+                                                        : 'grey',
+                                                }}
+                                            />
+                                        ) : (
+                                            <FavoriteBorderIcon
+                                                style={{
+                                                    color: isLogged
+                                                        ? '#49007a'
+                                                        : 'grey',
+                                                }}
+                                            />
+                                        )}
+                                        <LikesLabel>{likes}</LikesLabel>
+                                    </IconButton>
+                                </>
+                            )}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>
