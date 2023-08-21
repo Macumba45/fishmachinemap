@@ -170,11 +170,19 @@ const ModalUserMarkers: FC<Props> = ({
                                     >
                                         {isLiked ? (
                                             <FavoriteIcon
-                                                style={{ color: '#49007a' }}
+                                                style={{
+                                                    color: isLogged
+                                                        ? '#49007a'
+                                                        : 'grey',
+                                                }}
                                             />
                                         ) : (
                                             <FavoriteBorderIcon
-                                                style={{ color: '#49007a' }}
+                                                style={{
+                                                    color: isLogged
+                                                        ? '#49007a'
+                                                        : 'grey',
+                                                }}
                                             />
                                         )}
                                         <LikesLabel>{likes}</LikesLabel>

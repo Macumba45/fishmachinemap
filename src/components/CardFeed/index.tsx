@@ -135,9 +135,13 @@ const CardFeed: FC<FeedPros> = ({
                         disabled={!isLogged}
                     >
                         {isLiked ? (
-                            <FavoriteIcon style={{ color: '#49007a' }} />
+                            <FavoriteIcon
+                                style={{ color: isLogged ? '#49007a' : 'grey' }}
+                            />
                         ) : (
-                            <FavoriteBorderIcon style={{ color: '#49007a' }} />
+                            <FavoriteBorderIcon
+                                style={{ color: isLogged ? '#49007a' : 'grey' }}
+                            />
                         )}
                         <LikesLabel>{likes}</LikesLabel>
                     </IconButton>
