@@ -16,12 +16,24 @@ interface Props {
 let width: any
 
 if (typeof window !== 'undefined') {
-    if (window.innerWidth > 600) {
-        width = 330
-    } else if (window.innerWidth > 400) {
-        width = 200
-    } else if (window.innerWidth > 300) {
+    if (window.innerWidth <= 320) {
         width = 150
+    } else if (window.innerWidth <= 449) {
+        width = 170
+    } else if (window.innerWidth >= 450) {
+        width = 180
+    }
+}
+
+let height: any
+
+if (typeof window !== 'undefined') {
+    if (window.innerWidth <= 320) {
+        height = 150
+    } else if (window.innerWidth <= 449) {
+        height = 160
+    } else if (window.innerWidth >= 450) {
+        height = 180
     }
 }
 
@@ -37,8 +49,8 @@ const TitlebarImageList: FC<Props> = ({
             component="div"
             style={{
                 display: 'flex',
-                width: 150,
-                height: 150,
+                width: width,
+                height: height,
                 margin: '0.2rem',
             }}
             key={id}
@@ -48,7 +60,7 @@ const TitlebarImageList: FC<Props> = ({
                 srcSet={`${picture}`}
                 style={{
                     width: '100%',
-                    height: '150px',
+                    height: height,
                     objectFit: 'cover',
                     borderRadius: '10px',
                 }}
