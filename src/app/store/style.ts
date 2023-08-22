@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
     height: 100%;
     object-fit: cover;
     background-size: cover;
-    margin-top: 5.2rem;
+    margin-top: 2rem;
     margin-bottom: 5rem;
     justify-content: center;
 `
@@ -31,6 +31,13 @@ export const Container = styled.div`
     background-color: #49007a;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     z-index: 1;
+`
+
+export const FilterContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
 `
 
 export const ContainerMenu = styled.div`

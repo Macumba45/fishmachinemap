@@ -388,7 +388,7 @@ const GoogleMapComp: FC = () => {
                     animation: window.google.maps.Animation.DROP,
                     icon: {
                         url: iconUrl?.url,
-                        scaledSize: new google.maps.Size(40, 40),
+                        scaledSize: new google.maps.Size(24, 24),
                     },
                 })
                 markers.setMap(map)

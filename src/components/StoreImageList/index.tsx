@@ -35,7 +35,12 @@ const TitlebarImageList: FC<Props> = ({
     return (
         <ImageListItem
             component="div"
-            style={{ display: 'flex', width: width, margin: '0.2rem' }}
+            style={{
+                display: 'flex',
+                width: 150,
+                height: 150,
+                margin: '0.2rem',
+            }}
             key={id}
         >
             <img
@@ -43,7 +48,7 @@ const TitlebarImageList: FC<Props> = ({
                 srcSet={`${picture}`}
                 style={{
                     width: '100%',
-                    height: '200px',
+                    height: '150px',
                     objectFit: 'cover',
                     borderRadius: '10px',
                 }}
