@@ -39,9 +39,9 @@ export const feedUseLogic = () => {
                 const capturasMarkers = data.markers.filter(
                     (marker: any) => marker.markerType === 'fotos'
                 )
-                setFotosMarkers(capturasMarkers)
+                setFotosMarkers(data.markers)
 
-                const likedMarkerStates = capturasMarkers.reduce(
+                const likedMarkerStates = data.markers.reduce(
                     (states: any, marker: any) => {
                         const isLiked = marker.likes.some(
                             (like: any) => like.userId === userId
