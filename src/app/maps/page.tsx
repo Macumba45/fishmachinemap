@@ -499,6 +499,18 @@ const GoogleMapComp: FC = () => {
         setOpenModalBadged(false)
     }
 
+    const OneMonthInMiliSeconds = 2592000000
+    const OneWeekInMillis = 7 * 24 * 60 * 60 * 1000 // Una semana en milisegundos
+
+    const now = new Date()
+    const oneWeekAgo = new Date(now.getTime() - OneMonthInMiliSeconds)
+    const oneWeekAgoNew = new Date(now.getTime() - OneWeekInMillis)
+
+    const newMarkers = userMarkers.filter(marker => {
+        const markerCreatedAt = new Date(marker.createdAt as string)
+        return markerCreatedAt >= oneWeekAgo
+    })
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -580,7 +592,7 @@ const GoogleMapComp: FC = () => {
                 <BadgeContainer>
                     <IconButton onClick={openModalBadge} sx={{ padding: 0 }}>
                         <Badge
-                            badgeContent={userMarkers.length}
+                            badgeContent={newMarkers.length}
                             color="secondary"
                         >
                             <MailIcon sx={{ color: '#fff' }} />
@@ -596,7 +608,8 @@ const GoogleMapComp: FC = () => {
                                 left: '50%',
                                 transform: 'translate(-50%, -50%)',
                                 width: '90%',
-                                height: '90%',
+                                height: 'auto',
+                                maxHeight: '90%',
                                 backgroundColor: '#fff',
                                 borderRadius: '10px',
                                 display: 'flex',
@@ -604,80 +617,109 @@ const GoogleMapComp: FC = () => {
                                 overflowY: 'scroll',
                             }}
                         >
-                            {userMarkers.map((marker: any) => (
-                                <ListItem
-                                    key={marker.id}
-                                    sx={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'flex-start',
-                                    }}
-                                    alignItems="flex-start"
-                                >
-                                    <div>
-                                        <img
-                                            key={marker.id}
-                                            style={{
-                                                width: '50px',
-                                                height: '50px',
-                                                borderRadius: '30px',
-                                                marginRight: '1.5rem',
-                                                objectFit: 'cover',
-                                            }}
-                                            src={marker.picture as string}
-                                        />
-                                    </div>
-
-                                    <ListItemText
-                                        primaryTypographyProps={{
-                                            width: '220px',
+                            <Typography
+                                sx={{
+                                    textAlign: 'center',
+                                    mt: 3,
+                                    fontSize: '1rem',
+                                    fontWeight: 500,
+                                    marginBottom: 2,
+                                }}
+                            >
+                                Marcadores Mensuales
+                            </Typography>
+                            {newMarkers.map((marker: any) => (
+                                <>
+                                    <ListItem
+                                        key={marker.id}
+                                        sx={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
                                         }}
-                                        primary={
-                                            marker.direction
-                                                .charAt(0)
-                                                .toUpperCase() +
-                                            marker.direction.slice(1)
-                                        }
-                                        secondary={
-                                            <>
-                                                <Typography
-                                                    sx={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        fontWeight: 400,
-                                                        wordWrap: 'break-word',
-                                                    }}
-                                                    component="span"
-                                                    variant="body2"
-                                                    color="text.primary"
-                                                >
-                                                    {marker.description
-                                                        .charAt(0)
-                                                        .toUpperCase() +
-                                                        marker.description.slice(
-                                                            1
-                                                        )}
-                                                </Typography>
-                                                <Typography
-                                                    component="span"
-                                                    sx={{
-                                                        width: '100%',
-                                                        fontWeight: 200,
-                                                        fontSize: '0.8rem',
-                                                    }}
-                                                >
-                                                    {marker.markerType
-                                                        .charAt(0)
-                                                        .toUpperCase() +
-                                                        marker.markerType.slice(
-                                                            1
-                                                        )}
-                                                </Typography>
-                                            </>
-                                        }
-                                    />
-                                </ListItem>
+                                        alignItems="flex-start"
+                                    >
+                                        <div>
+                                            <img
+                                                key={marker.id}
+                                                style={{
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '30px',
+                                                    marginRight: '1.5rem',
+                                                    objectFit: 'cover',
+                                                }}
+                                                src={marker.picture as string}
+                                            />
+                                        </div>
+
+                                        <ListItemText
+                                            primaryTypographyProps={{
+                                                width: '220px',
+                                            }}
+                                            primary={
+                                                marker.direction
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                marker.direction.slice(1)
+                                            }
+                                            secondary={
+                                                <>
+                                                    <Typography
+                                                        sx={{
+                                                            display: 'flex',
+                                                            flexDirection:
+                                                                'column',
+                                                            fontWeight: 400,
+                                                            wordWrap:
+                                                                'break-word',
+                                                        }}
+                                                        component="span"
+                                                        variant="body2"
+                                                        color="text.primary"
+                                                    >
+                                                        {marker.description
+                                                            .charAt(0)
+                                                            .toUpperCase() +
+                                                            marker.description.slice(
+                                                                1
+                                                            )}
+                                                    </Typography>
+                                                    <Typography
+                                                        component="span"
+                                                        sx={{
+                                                            width: '100%',
+                                                            fontWeight: 200,
+                                                            fontSize: '0.8rem',
+                                                        }}
+                                                    >
+                                                        {marker.markerType
+                                                            .charAt(0)
+                                                            .toUpperCase() +
+                                                            marker.markerType.slice(
+                                                                1
+                                                            )}
+                                                    </Typography>
+                                                    {new Date(
+                                                        marker.createdAt
+                                                    ) >= oneWeekAgoNew ? (
+                                                            <Typography
+                                                                variant="body2"
+                                                                color="secondary"
+                                                                style={{
+                                                                    marginRight:
+                                                                    '0.5rem',
+                                                                }}
+                                                            >
+                                                            Nuevo
+                                                            </Typography>
+                                                        ) : null}
+                                                </>
+                                            }
+                                        />
+                                    </ListItem>
+                                </>
                             ))}
                         </Box>
                     </>

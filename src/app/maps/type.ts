@@ -29,6 +29,7 @@ export type UserMarker = {
         email: string
         picture: string
     }
+    createdAt?: string
 }
 export type User = {
     // Define la interfaz del usuario según los datos que esperas recibir
