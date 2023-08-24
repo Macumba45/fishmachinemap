@@ -16,6 +16,7 @@ export const CardContainer = styled.div`
 export const ImagenContainer = styled.div``
 export const Imagen = styled.img`
     width: 100%;
+    height: auto;
     object-fit: cover;
     background-size: cover;
 `

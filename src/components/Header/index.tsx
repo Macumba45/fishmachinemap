@@ -1,4 +1,5 @@
 'use client'
+
 import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
@@ -13,6 +14,7 @@ import {
     TitleHeader,
     VideoContainer,
 } from './style'
+import ContinueWithGoogleButton from '../GoogleButtonLogin'
 
 const HeaderComp: FC = () => {
     useEffect(() => {
@@ -59,6 +61,11 @@ const HeaderComp: FC = () => {
                         title="Registrarse"
                     />
                 </Link>
+                {/* <Link style={{ textDecoration: 'none' }} href="/maps">
+                    <ContinueWithGoogleButton
+
+                    />
+                </Link> */}
                 <Link style={{ textDecoration: 'none' }} href="/maps">
                     <ButtonComp
                         color="white"
@@ -70,7 +77,7 @@ const HeaderComp: FC = () => {
                 </Link>
             </ButtonContainer>
             <VideoContainer>
-                <VideoPlayer url={'/video.mp4'} />
+                <VideoPlayer url={'/backgroundVideo.mp4'} />
             </VideoContainer>
         </MainContainer>
     )

@@ -20,7 +20,7 @@ export const VideoContainer = styled.div`
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.4);
         z-index: 1;
     }
     @media screen and (max-width: 375px) {
@@ -69,10 +69,10 @@ export const SubtitleContainer = styled.div`
     position: absolute;
     justify-content: center;
     width: 100%;
-    margin-top: 18rem;
+    margin-top: 17rem;
     z-index: 999;
     @media screen and (max-width: 600px) {
-        margin-top: 18rem;
+        margin-top: 17rem;
     }
 `
 export const SubtitleHeader = styled.h2`
@@ -112,6 +112,6 @@ export const ButtonContainer = styled.div`
     margin-top: 30rem;
     @media screen and (max-width: 600px) {
         flex-direction: column;
-        margin-top: 28rem;
+        margin-top: 25rem;
     }
 `

@@ -56,6 +56,13 @@ export const LikesLabel = styled.div`
     font-family: 'Roboto', sans-serif;
     margin-left: 0.5rem;
 `
+export const BadgeContainer = styled.div`
+    display: flex;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 1;
+`
 
 export const ButtonStyleConfirmarLugar = {
     top: '85%',

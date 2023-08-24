@@ -7,7 +7,7 @@ import CardFeed from '@/components/CardFeed'
 import AccountMenu from '@/components/Menu'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
-import { ContainerMenu, MainContainer } from './style'
+import { Container, ContainerMenu, MainContainer, TextNav } from './style'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import { useRouter } from 'next/navigation'
 
@@ -77,6 +77,9 @@ const Feed: FC = () => {
             <ContainerMenu>
                 <AccountMenu userPicture={dataFeedUser?.picture} />
             </ContainerMenu>
+            <Container>
+                <TextNav>Marcadores Recientes</TextNav>
+            </Container>
             <MainContainer>
                 {fotosMarkers.map(item => {
                     const fechaCreacion = new Date(item.createdAt)

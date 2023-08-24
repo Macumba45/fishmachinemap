@@ -26,9 +26,20 @@ import MarkerUserIcon from '../../assets/location.png'
 import hiddenMarker from '../../assets/hostage.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
-import { Avatar, IconButton } from '@mui/material'
+import {
+    Avatar,
+    Box,
+    Divider,
+    IconButton,
+    ListItem,
+    ListItemText,
+    Modal,
+    Typography,
+} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import AddCommentIcon from '@mui/icons-material/AddComment'
+import Badge from '@mui/material/Badge'
+import MailIcon from '@mui/icons-material/Mail'
 import {
     ButtonStyleCancelarLugar,
     ButtonStyleConfirmarLugar,
@@ -38,8 +49,10 @@ import {
     MainContainer,
     MapContainer,
     ReviewsContainer,
+    BadgeContainer,
     stylesMaps,
 } from './style'
+import React from 'react'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -421,9 +434,6 @@ const GoogleMapComp: FC = () => {
                 (marker: any) => marker.markerType === filter
             )
         }
-
-        console.log(filteredMarkerInstances)
-
         setFilteredMarkers(filteredMarkerInstances)
     }
 
@@ -478,6 +488,17 @@ const GoogleMapComp: FC = () => {
     const goToLogin = () => {
         router.push('/auth/login')
     }
+
+    const [openModalBadged, setOpenModalBadged] = useState(false)
+
+    const openModalBadge = () => {
+        setOpenModalBadged(true)
+    }
+
+    const closeModalBadge = () => {
+        setOpenModalBadged(false)
+    }
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -556,8 +577,112 @@ const GoogleMapComp: FC = () => {
             <>
                 <AccountMenu userPicture={currentUser?.picture as string} />
                 <FilterButton onChange={handleFilterChange} />
-                <MapContainer id="map" />
+                <BadgeContainer>
+                    <IconButton onClick={openModalBadge} sx={{ padding: 0 }}>
+                        <Badge
+                            badgeContent={userMarkers.length}
+                            color="secondary"
+                        >
+                            <MailIcon sx={{ color: '#fff' }} />
+                        </Badge>
+                    </IconButton>
+                </BadgeContainer>
+                <Modal open={openModalBadged} onClose={closeModalBadge}>
+                    <>
+                        <Box
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '90%',
+                                height: '90%',
+                                backgroundColor: '#fff',
+                                borderRadius: '10px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                overflowY: 'scroll',
+                            }}
+                        >
+                            {userMarkers.map((marker: any) => (
+                                <ListItem
+                                    key={marker.id}
+                                    sx={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-start',
+                                    }}
+                                    alignItems="flex-start"
+                                >
+                                    <div>
+                                        <img
+                                            key={marker.id}
+                                            style={{
+                                                width: '50px',
+                                                height: '50px',
+                                                borderRadius: '30px',
+                                                marginRight: '1.5rem',
+                                                objectFit: 'cover',
+                                            }}
+                                            src={marker.picture as string}
+                                        />
+                                    </div>
 
+                                    <ListItemText
+                                        primaryTypographyProps={{
+                                            width: '220px',
+                                        }}
+                                        primary={
+                                            marker.direction
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                            marker.direction.slice(1)
+                                        }
+                                        secondary={
+                                            <>
+                                                <Typography
+                                                    sx={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        fontWeight: 400,
+                                                        wordWrap: 'break-word',
+                                                    }}
+                                                    component="span"
+                                                    variant="body2"
+                                                    color="text.primary"
+                                                >
+                                                    {marker.description
+                                                        .charAt(0)
+                                                        .toUpperCase() +
+                                                        marker.description.slice(
+                                                            1
+                                                        )}
+                                                </Typography>
+                                                <Typography
+                                                    component="span"
+                                                    sx={{
+                                                        width: '100%',
+                                                        fontWeight: 200,
+                                                        fontSize: '0.8rem',
+                                                    }}
+                                                >
+                                                    {marker.markerType
+                                                        .charAt(0)
+                                                        .toUpperCase() +
+                                                        marker.markerType.slice(
+                                                            1
+                                                        )}
+                                                </Typography>
+                                            </>
+                                        }
+                                    />
+                                </ListItem>
+                            ))}
+                        </Box>
+                    </>
+                </Modal>
+                <MapContainer id="map" />
                 <ModalCrearMarcador
                     onClose={handleCloseModal} // Cierra el modal
                     isOpen={addingMarker}
