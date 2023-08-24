@@ -26,6 +26,10 @@ import MarkerUserIcon from '../../assets/location.png'
 import hiddenMarker from '../../assets/hostage.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
+import SearchIcon from '@mui/icons-material/Search'
+import AddCommentIcon from '@mui/icons-material/AddComment'
+import Badge from '@mui/material/Badge'
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
     Avatar,
     Box,
@@ -36,10 +40,6 @@ import {
     Modal,
     Typography,
 } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
-import AddCommentIcon from '@mui/icons-material/AddComment'
-import Badge from '@mui/material/Badge'
-import MailIcon from '@mui/icons-material/Mail'
 import {
     ButtonStyleCancelarLugar,
     ButtonStyleConfirmarLugar,
@@ -52,7 +52,6 @@ import {
     BadgeContainer,
     stylesMaps,
 } from './style'
-import React from 'react'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -594,8 +593,12 @@ const GoogleMapComp: FC = () => {
                         <Badge
                             badgeContent={newMarkers.length}
                             color="secondary"
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
                         >
-                            <MailIcon sx={{ color: '#fff' }} />
+                            <NotificationsIcon sx={{ color: '#fff' }} />
                         </Badge>
                     </IconButton>
                 </BadgeContainer>
@@ -637,8 +640,16 @@ const GoogleMapComp: FC = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'flex-start',
+                                            cursor: 'pointer',
                                         }}
                                         alignItems="flex-start"
+                                        onClick={() => {
+                                            setModalUserMarker(true)
+                                            setDataMarkerUser(marker)
+                                            setLocationUser(
+                                                marker.location
+                                            )
+                                        }}
                                     >
                                         <div>
                                             <img
@@ -651,6 +662,8 @@ const GoogleMapComp: FC = () => {
                                                     objectFit: 'cover',
                                                 }}
                                                 src={marker.picture as string}
+
+
                                             />
                                         </div>
 
@@ -719,6 +732,8 @@ const GoogleMapComp: FC = () => {
                                             }
                                         />
                                     </ListItem>
+                                    <Divider sx={{ width: '70%', display: 'flex', margin: '0 auto' }} />
+
                                 </>
                             ))}
                         </Box>
