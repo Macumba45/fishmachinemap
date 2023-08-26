@@ -14,7 +14,6 @@ import {
     TitleHeader,
     VideoContainer,
 } from './style'
-import ContinueWithGoogleButton from '../GoogleButtonLogin'
 
 const HeaderComp: FC = () => {
     useEffect(() => {
