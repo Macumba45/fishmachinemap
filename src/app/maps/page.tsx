@@ -130,7 +130,7 @@ const GoogleMapComp: FC = () => {
     const router = useRouter()
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -510,6 +510,8 @@ const GoogleMapComp: FC = () => {
         const markerCreatedAt = new Date(marker.createdAt as string)
         return markerCreatedAt >= oneWeekAgo
     })
+    const badgeNewMarkers = newMarkers.filter((marker: any) => new Date(marker.createdAt) >= oneWeekAgoNew)
+
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
@@ -592,7 +594,7 @@ const GoogleMapComp: FC = () => {
                 <BadgeContainer>
                     <IconButton onClick={openModalBadge} sx={{ padding: 0 }}>
                         <Badge
-                            badgeContent={newMarkers.length}
+                            badgeContent={badgeNewMarkers.length}
                             color="secondary"
                             anchorOrigin={{
                                 vertical: 'top',
@@ -724,19 +726,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                            <Typography
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="secondary"
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection:
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="secondary"
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection:
                                                                     'column',
-                                                                }}
-                                                            >
+                                                            }}
+                                                        >
                                                             Nuevo
-                                                            </Typography>
-                                                        ) : null}
+                                                        </Typography>
+                                                    ) : null}
                                                 </>
                                             }
                                         />
