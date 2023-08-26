@@ -130,6 +130,7 @@ export const feedUseLogic = () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
             }
+            if (!token) return setDataFeedUser(null)
             const response = await fetch('/api/user/userData', {
                 method: 'GET',
                 headers,

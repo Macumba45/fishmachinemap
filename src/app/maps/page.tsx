@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState, memo } from 'react'
+import React, { FC, useCallback, useEffect, useState, memo } from 'react'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
@@ -29,7 +29,8 @@ import customMarkerIconPlace from '../../assets/destino.png'
 import SearchIcon from '@mui/icons-material/Search'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import Badge from '@mui/material/Badge'
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import CloseIcon from '@mui/icons-material/Close'
 import {
     Avatar,
     Box,
@@ -192,7 +193,7 @@ const GoogleMapComp: FC = () => {
                 document.getElementById('map') as HTMLElement,
                 {
                     center: center,
-                    zoom: 6,
+                    zoom: 8,
                     zoomControl: false,
                     zoomControlOptions: {
                         position: 9,
@@ -621,6 +622,7 @@ const GoogleMapComp: FC = () => {
                             }}
                         >
                             <Typography
+                                component={'div'}
                                 sx={{
                                     textAlign: 'center',
                                     mt: 3,
@@ -630,9 +632,18 @@ const GoogleMapComp: FC = () => {
                                 }}
                             >
                                 Marcadores Mensuales
+                                <CloseIcon
+                                    onClick={closeModalBadge}
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '10px',
+                                        right: '10px',
+                                        cursor: 'pointer',
+                                    }}
+                                />
                             </Typography>
                             {newMarkers.map((marker: any) => (
-                                <>
+                                <React.Fragment key={marker.id}>
                                     <ListItem
                                         key={marker.id}
                                         sx={{
@@ -646,9 +657,7 @@ const GoogleMapComp: FC = () => {
                                         onClick={() => {
                                             setModalUserMarker(true)
                                             setDataMarkerUser(marker)
-                                            setLocationUser(
-                                                marker.location
-                                            )
+                                            setLocationUser(marker.location)
                                         }}
                                     >
                                         <div>
@@ -662,8 +671,6 @@ const GoogleMapComp: FC = () => {
                                                     objectFit: 'cover',
                                                 }}
                                                 src={marker.picture as string}
-
-
                                             />
                                         </div>
 
@@ -718,11 +725,13 @@ const GoogleMapComp: FC = () => {
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
                                                             <Typography
+                                                                component="span"
                                                                 variant="body2"
                                                                 color="secondary"
                                                                 style={{
-                                                                    marginRight:
-                                                                    '0.5rem',
+                                                                    display: 'flex',
+                                                                    flexDirection:
+                                                                    'column',
                                                                 }}
                                                             >
                                                             Nuevo
@@ -732,9 +741,14 @@ const GoogleMapComp: FC = () => {
                                             }
                                         />
                                     </ListItem>
-                                    <Divider sx={{ width: '70%', display: 'flex', margin: '0 auto' }} />
-
-                                </>
+                                    <Divider
+                                        sx={{
+                                            width: '70%',
+                                            display: 'flex',
+                                            margin: '0 auto',
+                                        }}
+                                    />
+                                </React.Fragment>
                             ))}
                         </Box>
                     </>

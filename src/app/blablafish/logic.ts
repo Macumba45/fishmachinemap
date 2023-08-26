@@ -62,6 +62,7 @@ export const useLogicBlaBla = () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`, // Agregar el token al header 'Authorization'
             }
+            if (!token) return setDataBlablaUser(null)
             const response = await fetch('/api/user/userData', {
                 method: 'GET',
                 headers,
