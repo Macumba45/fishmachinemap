@@ -1,4 +1,3 @@
-import { User } from 'next-auth'
 import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
