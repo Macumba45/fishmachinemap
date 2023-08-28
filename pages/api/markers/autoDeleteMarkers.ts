@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/db'
 
 // función para eliminar registros
-export async function deleteOldRecords() {
+export default async function deleteOldRecords() {
     const currentDate = new Date();
     const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 24 horas * 60 minutos * 60 segundos * 1000 milisegundos
     console.log('currentDate', currentDate);
