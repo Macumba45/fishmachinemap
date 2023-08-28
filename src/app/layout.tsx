@@ -50,7 +50,6 @@ export default function RootLayout({
             </head>
 
 
-
             <body>
                 <StyledComponentsRegistry>
                     <StyledTheme>{children}</StyledTheme>
