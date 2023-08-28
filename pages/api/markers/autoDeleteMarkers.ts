@@ -18,7 +18,7 @@ async function deleteOldRecords() {
             createdAt: {
                 lt: oneDayAgo,
             },
-            markerType: "algas", // Agrega esta condición
+            markerType: 'algas', // Agrega esta condición
 
         },
     });
