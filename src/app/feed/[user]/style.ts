@@ -50,7 +50,7 @@ export const ContainerMenu = styled.div`
     height: 80px;
     position: fixed;
     top: 0;
-    width: 100%;    
+    width: 100%;
     z-index: 2;
 `
 

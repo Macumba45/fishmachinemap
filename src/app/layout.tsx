@@ -20,7 +20,6 @@ export const metadata = {
         'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 }
 
-
 export default function RootLayout({
     children,
 }: {
@@ -48,7 +47,6 @@ export default function RootLayout({
                     }}
                 ></script>
             </head>
-
 
             <body>
                 <StyledComponentsRegistry>

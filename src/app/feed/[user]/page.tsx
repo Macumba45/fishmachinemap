@@ -27,7 +27,13 @@ import {
     ListItemText,
     Typography,
 } from '@mui/material'
-import { ContainerMenu, LabelIcons, MainContainer, UserContainerData, nameStyles } from './style'
+import {
+    ContainerMenu,
+    LabelIcons,
+    MainContainer,
+    UserContainerData,
+    nameStyles,
+} from './style'
 import { Store } from '@/app/store/type'
 import { BlaBlaFish } from '@/app/blablafish/type'
 
@@ -477,13 +483,10 @@ const Page: FC<Props> = ({ params }) => {
                                         src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
                                         srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                         loading="lazy"
-                                        onClick={() =>
-                                            handleOpenModal(item)
-                                        }
+                                        onClick={() => handleOpenModal(item)}
                                     />
                                 </ImageListItem>
-                            )
-                            )}
+                            ))}
                         </ImageList>
                     </React.Fragment>
                 )}
@@ -500,10 +503,10 @@ const Page: FC<Props> = ({ params }) => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.location?.lat,
-                                        lng: marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.location?.lat,
+                                            lng: marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
