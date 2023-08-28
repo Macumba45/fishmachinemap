@@ -20,6 +20,7 @@ export const metadata = {
         'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 }
 
+
 export default function RootLayout({
     children,
 }: {
@@ -32,7 +33,23 @@ export default function RootLayout({
                     async
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=Function.prototype&libraries=places`}
                 ></script>
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-YQKPKC8399"
+                ></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YQKPKC8399');
+        `,
+                    }}
+                ></script>
             </head>
+
+
 
             <body>
                 <StyledComponentsRegistry>

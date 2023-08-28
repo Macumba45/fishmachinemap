@@ -894,10 +894,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.marker.location?.lat,
-                                            lng: marker.marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.marker.location?.lat,
+                                        lng: marker.marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -978,24 +978,22 @@ const Profile: FC = () => {
                                     No tienes capturas
                                 </Typography>
                             )}
-                            {userMarkers.map(
-                                item =>
-                                    item.markerType === 'fotos' && (
-                                        <ImageListItem key={item.id}>
-                                            <img
-                                                style={{
-                                                    width: '150px',
-                                                    height: '150px',
-                                                }}
-                                                src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
-                                                srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                loading="lazy"
-                                                onClick={() =>
-                                                    handleOpenModal(item)
-                                                }
-                                            />
-                                        </ImageListItem>
-                                    )
+                            {userMarkers.map(item => (
+                                <ImageListItem key={item.id}>
+                                    <img
+                                        style={{
+                                            width: '150px',
+                                            height: '150px',
+                                        }}
+                                        src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
+                                        srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                        loading="lazy"
+                                        onClick={() =>
+                                            handleOpenModal(item)
+                                        }
+                                    />
+                                </ImageListItem>
+                            )
                             )}
                         </ImageList>
                     </React.Fragment>
@@ -1013,10 +1011,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.location?.lat,
-                                            lng: marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.location?.lat,
+                                        lng: marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={

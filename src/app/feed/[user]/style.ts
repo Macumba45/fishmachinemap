@@ -45,6 +45,15 @@ export const LabelIcons = styled.label`
     font-family: 'Roboto', sans-serif;
 `
 
+export const ContainerMenu = styled.div`
+    display: flex;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    width: 100%;    
+    z-index: 2;
+`
+
 export const nameStyles = {
     color: 'white',
     marginTop: '1rem',

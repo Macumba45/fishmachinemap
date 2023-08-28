@@ -3,7 +3,6 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react'
 import React from 'react'
 import { feedUseLogic } from '../logic'
-import { MainContainer } from '../style'
 import AccountMenu from '@/components/Menu'
 import RoomIcon from '@mui/icons-material/Room'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
@@ -28,7 +27,7 @@ import {
     ListItemText,
     Typography,
 } from '@mui/material'
-import { LabelIcons, UserContainerData, nameStyles } from './style'
+import { ContainerMenu, LabelIcons, MainContainer, UserContainerData, nameStyles } from './style'
 import { Store } from '@/app/store/type'
 import { BlaBlaFish } from '@/app/blablafish/type'
 
@@ -142,7 +141,9 @@ const Page: FC<Props> = ({ params }) => {
 
     return (
         <>
-            <AccountMenu userPicture={dataFeedUser?.picture} />
+            <ContainerMenu>
+                <AccountMenu userPicture={dataFeedUser?.picture} />
+            </ContainerMenu>
             <MainContainer>
                 <UserContainerData>
                     <Avatar
@@ -466,24 +467,22 @@ const Page: FC<Props> = ({ params }) => {
                                     No tiene capturas
                                 </Typography>
                             )}
-                            {userMarkers.map(
-                                item =>
-                                    item.markerType === 'fotos' && (
-                                        <ImageListItem key={item.id}>
-                                            <img
-                                                style={{
-                                                    width: '150px',
-                                                    height: '150px',
-                                                }}
-                                                src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
-                                                srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                loading="lazy"
-                                                onClick={() =>
-                                                    handleOpenModal(item)
-                                                }
-                                            />
-                                        </ImageListItem>
-                                    )
+                            {userMarkers.map(item => (
+                                <ImageListItem key={item.id}>
+                                    <img
+                                        style={{
+                                            width: '150px',
+                                            height: '150px',
+                                        }}
+                                        src={`${item.picture}?w=164&h=164&fit=crop&auto=format`}
+                                        srcSet={`${item.picture}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                        loading="lazy"
+                                        onClick={() =>
+                                            handleOpenModal(item)
+                                        }
+                                    />
+                                </ImageListItem>
+                            )
                             )}
                         </ImageList>
                     </React.Fragment>
@@ -501,10 +500,10 @@ const Page: FC<Props> = ({ params }) => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.location?.lat,
-                                            lng: marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.location?.lat,
+                                        lng: marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
