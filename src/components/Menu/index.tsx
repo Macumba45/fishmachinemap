@@ -64,7 +64,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         display: 'flex',
         alignItems: 'center',
         textAlign: 'center',
-        position: 'fixed',
+        position: 'absolute',
         top: '20px',
         zIndex: 1,
     }

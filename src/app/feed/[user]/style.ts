@@ -48,7 +48,7 @@ export const LabelIcons = styled.label`
 export const ContainerMenu = styled.div`
     display: flex;
     height: 80px;
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 2;
