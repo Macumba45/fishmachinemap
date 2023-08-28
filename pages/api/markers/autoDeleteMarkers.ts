@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/db';
 
 // función para eliminar registros
 export default async function deleteOldRecords() {
@@ -14,9 +14,6 @@ export default async function deleteOldRecords() {
     // consulta y elimina registros que cumplen el criterio
     const recordsToDelete = await prisma.marker.findMany({
         where: {
-            createdAt: {
-                lt: oneDayAgo,
-            },
             markerType: 'algas', // Agrega esta condición
 
         },

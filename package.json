@@ -1,5 +1,6 @@
 {
     "name": "pesca_app_final",
+    "license": "MIT",
     "version": "0.1.0",
     "private": true,
     "scripts": {
