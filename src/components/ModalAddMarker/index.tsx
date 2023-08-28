@@ -4,6 +4,7 @@ import { SelectChangeEvent } from '@mui/material'
 import ButtonComp from '@/components/Button'
 import { LoadingButton } from '@mui/lab'
 import MuiAlert from '@mui/material/Alert'
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import {
     Modal,
     Box,
@@ -221,13 +222,16 @@ const ModalCrearMarcador: FC<Props> = ({
                                 onChange={handleTipoLugarChange}
                                 fullWidth
                             >
-                                <MenuItem value="pesquero">Pesquero</MenuItem>
+                                <MenuItem value="pesquero">Lugar de Pesca</MenuItem>
                                 <MenuItem value="tienda">
                                     Tienda de Pesca
                                 </MenuItem>
                                 <MenuItem value="cebos">Cebos 24H</MenuItem>
                                 <MenuItem value="fotos">
                                     Fotos de Capturas
+                                </MenuItem>
+                                <MenuItem value="algas">
+                                    Algas (Dura un solo día) <ReportProblemIcon sx={{ ml: 0.8, color: 'red' }} />
                                 </MenuItem>
                             </Select>
                         </Box>

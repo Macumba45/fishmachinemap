@@ -27,8 +27,8 @@ const FilterExperiencias: FC<Props> = ({ onChange, value }) => {
             >
                 <Tab
                     sx={{ fontSize: '0.8rem' }}
-                    value="Particulares"
-                    label="Particulares"
+                    value="Influencers"
+                    label="Influencers"
                 />
                 <Tab
                     sx={{ fontSize: '0.8rem' }}

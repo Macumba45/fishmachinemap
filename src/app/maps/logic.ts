@@ -3,6 +3,8 @@ import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
+import customMarkerIconAlgas from '../../assets/algas.png'
+
 import { defaultStylesMaps, stylesMaps } from './style'
 import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
@@ -142,11 +144,11 @@ export const useLogicMaps = () => {
 
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+            lat: number | undefined
+            lng: number | undefined
+        }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -229,9 +231,9 @@ export const useLogicMaps = () => {
     const confirmMarker = useCallback(
         async (
             location:
-            | google.maps.LatLngLiteral
-            | { lat: number | undefined; lng: number | undefined }
-            | undefined,
+                | google.maps.LatLngLiteral
+                | { lat: number | undefined; lng: number | undefined }
+                | undefined,
             direction: string,
             markerType: string,
             description: string,
@@ -294,6 +296,12 @@ export const useLogicMaps = () => {
             case MarkerType.PICTURES:
                 icon = {
                     url: customMarkerIconPicture.src,
+                    scaledSize: new google.maps.Size(32, 32),
+                }
+                break
+            case MarkerType.ALGAS:
+                icon = {
+                    url: customMarkerIconAlgas.src,
                     scaledSize: new google.maps.Size(32, 32),
                 }
                 break
