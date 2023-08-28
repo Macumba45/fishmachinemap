@@ -1,8 +1,7 @@
-import { scheduleJob } from 'node-schedule';
 import { prisma } from '@/lib/db'
 
 // función para eliminar registros
-async function deleteOldRecords() {
+export async function deleteOldRecords() {
     const currentDate = new Date();
     const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 24 horas * 60 minutos * 60 segundos * 1000 milisegundos
     console.log('currentDate', currentDate);
@@ -33,13 +32,3 @@ async function deleteOldRecords() {
     console.log('Registros eliminados:', recordsToDelete.length);
     console.log('Registros eliminados:', recordsToDelete);
 }
-
-// // programa la ejecución de la función una vez al día
-// scheduleJob('0 0 * * *', () => {
-//     deleteOldRecords();
-// });
-
-// programa la ejecución de la función cada minuto
-scheduleJob('*/1 * * * *', () => {
-    deleteOldRecords();
-});

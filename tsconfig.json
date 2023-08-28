@@ -35,6 +35,6 @@
         "src/app/utils/formidable.js",
         "pages/api/upload.js",
         "webpack.config.js"
-    ],
+, "pages/api/markers/autoDeleteMarkers.mjs"    ],
     "exclude": ["node_modules"]
 }
