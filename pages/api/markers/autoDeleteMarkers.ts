@@ -1,15 +1,10 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '@/lib/db';
 
 // función para eliminar registros
-export default async function deleteOldRecords() {
-    const currentDate = new Date();
-    const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 24 horas * 60 minutos * 60 segundos * 1000 milisegundos
-    console.log('currentDate', currentDate);
-    // Calcula el valor en milisegundos para restar un día
-    const oneDayAgoInMilliseconds = currentDate.getTime() - oneDayInMilliseconds;
-
-    // Crea un nuevo objeto Date utilizando el valor calculado
-    const oneDayAgo = new Date(oneDayAgoInMilliseconds);
+export default async function deleteOldRecords(
+    req: NextApiRequest,
+    res: NextApiResponse) {
 
     // consulta y elimina registros que cumplen el criterio
     const recordsToDelete = await prisma.marker.findMany({
@@ -26,6 +21,12 @@ export default async function deleteOldRecords() {
             },
         });
     }
-    console.log('Registros eliminados:', recordsToDelete.length);
-    console.log('Registros eliminados:', recordsToDelete);
+    if (recordsToDelete.length > 0) {
+        console.log('Registros eliminados:', recordsToDelete.length);
+        console.log('Registros eliminados:', recordsToDelete);
+        res.status(200).json({ recordsToDelete });
+    } else {
+        console.log('No hay registros para eliminar');
+        res.status(200).json({ message: 'No hay registros para eliminar' });
+    }
 }
