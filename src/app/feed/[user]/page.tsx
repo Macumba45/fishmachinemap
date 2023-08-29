@@ -457,7 +457,7 @@ const Page: FC<Props> = ({ params }) => {
                             cols={2}
                             rowHeight={150}
                         >
-                            {fotosMarkers.length === 0 && (
+                            {userMarkers.length === 0 && (
                                 <Typography
                                     sx={{
                                         display: 'flex',
