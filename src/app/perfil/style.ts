@@ -22,6 +22,8 @@ export const MainContainerNoUser = styled.div`
 export const Container = styled.div`
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    top: 20px;
+    position: absolute;
 `
 
 export const UserContainerData = styled.div`

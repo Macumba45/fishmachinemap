@@ -37,6 +37,7 @@ import {
     ImageListItem,
 } from '@mui/material'
 import {
+    Container,
     LabelIcons,
     MainContainer,
     UserContainerData,
@@ -257,7 +258,9 @@ const Profile: FC = () => {
 
     return (
         <>
-            <AccountMenu userPicture={user?.picture} />
+            <Container>
+                <AccountMenu userPicture={user?.picture} />
+            </Container>
             <MainContainer>
                 <UserContainerData>
                     {user?.picture ? (
