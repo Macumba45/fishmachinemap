@@ -398,10 +398,17 @@ const GoogleMapComp: FC = () => {
                 const markers = new google.maps.Marker({
                     position: location,
                     map: mapRef.current,
-                    animation: window.google.maps.Animation.DROP,
+                    animation:
+                        iconUrl.url === '/_next/static/media/algas.f94c4aec.png'
+                            ? window.google.maps.Animation.BOUNCE
+                            : window.google.maps.Animation.DROP,
                     icon: {
                         url: iconUrl?.url,
-                        scaledSize: new google.maps.Size(24, 24),
+                        scaledSize:
+                            iconUrl.url ===
+                            '/_next/static/media/algas.f94c4aec.png'
+                                ? new google.maps.Size(36, 36)
+                                : new google.maps.Size(26, 26),
                     },
                 })
                 markers.setMap(map)

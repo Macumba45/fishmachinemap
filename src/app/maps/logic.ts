@@ -273,6 +273,7 @@ export const useLogicMaps = () => {
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): google.maps.Icon {
         let icon: google.maps.Icon
+        let iconType: any
 
         switch (selectIcon) {
             case MarkerType.SHOP:

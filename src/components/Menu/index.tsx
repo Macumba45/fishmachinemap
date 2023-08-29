@@ -60,11 +60,20 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         return window.open(url, '_blank')
     }
 
+    let position
+    if (typeof window !== 'undefined') {
+        if (window.location.pathname === '/maps') {
+            position = 'fixed'
+        } else {
+            position = 'absolute'
+        }
+    }
+
     const boxStyles = {
         display: 'flex',
         alignItems: 'center',
         textAlign: 'center',
-        position: 'absolute',
+        position: position as any,
         top: '20px',
         zIndex: 1,
     }

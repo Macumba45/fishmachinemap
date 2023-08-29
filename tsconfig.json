@@ -34,7 +34,8 @@
         "src/app/utils/cloudinary.ts",
         "src/app/utils/formidable.js",
         "pages/api/upload.js",
-        "webpack.config.js"
-, "pages/api/markers/autoDeleteMarkers.ts"    ],
+        "webpack.config.js",
+        "pages/api/markers/autoDeleteMarkers.ts"
+    ],
     "exclude": ["node_modules"]
 }
