@@ -223,7 +223,7 @@ const ModalCrearMarcador: FC<Props> = ({
                                 fullWidth
                             >
                                 <MenuItem value="pesquero">
-                                    Lugar de Pesca
+                                    Spot de Pesca
                                 </MenuItem>
                                 <MenuItem value="tienda">
                                     Tienda de Pesca

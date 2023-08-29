@@ -10,6 +10,7 @@ import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import mareas from '../../assets/mareas.png'
 import { FormControl, InputLabel, Modal, Select } from '@mui/material'
+import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
 
 interface AccountMenuProps {
@@ -17,6 +18,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
+    const [isLogged, setIsLogged] = useState(false)
     const [pais, setPais] = useState('es')
     const [provincia, setProvincia] = useState('')
     const [ciudad, setCiudad] = useState('')
@@ -51,6 +53,10 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         window.location.href = '/auth/login'
     }
 
+    const emailMe = () => {
+        return window.open('mailto:gonzalolovo@gmail.com', '_blank')
+    }
+
     const fetchUrlMeteorologia = (
         pais: string,
         provincia: string,
@@ -77,8 +83,6 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         top: '20px',
         zIndex: 1,
     }
-
-    const [isLogged, setIsLogged] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -200,6 +204,12 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     </ListItemIcon>
                 </MenuItem>
                 <Divider />
+                <MenuItem onClick={emailMe}>
+                    <ListItemIcon>
+                        <EmailIcon fontSize="small" />
+                    </ListItemIcon>
+                    Contacto/Ayuda
+                </MenuItem>
                 <MenuItem onClick={logOut}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
