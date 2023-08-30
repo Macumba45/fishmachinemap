@@ -16,11 +16,13 @@ import { setAuthenticatedToken } from '../../../lib/storage/storage'
 import { toast } from 'react-toastify'
 import { LoadingButton } from '@mui/lab'
 import { Stack } from '@mui/material'
+import useTranslation from 'next-translate/useTranslation'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
+    const { t } = useTranslation('common')
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState(false)
 
@@ -101,7 +103,7 @@ const SignUp: FC = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Regístrate
+                        {t('register')}
                     </Typography>
                     <Box
                         component="form"
@@ -117,7 +119,7 @@ const SignUp: FC = () => {
                                     required
                                     fullWidth
                                     id="firstName"
-                                    label="Nombre"
+                                    label={t('nameRegister')}
                                     autoFocus
                                 />
                             </Grid>
@@ -137,7 +139,7 @@ const SignUp: FC = () => {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Contraseña"
+                                    label={t('password')}
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
@@ -162,13 +164,13 @@ const SignUp: FC = () => {
                                 fullWidth
                                 loading={loading}
                             >
-                                Crear cuenta
+                                {t('createAccount')}
                             </LoadingButton>
                         </Stack>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/auth/login" variant="body2">
-                                    ¿Tienes una cuenta ya? Inicia sesión
+                                    {t('alreadyAccount')}
                                 </Link>
                             </Grid>
                         </Grid>

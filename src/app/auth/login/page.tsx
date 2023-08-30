@@ -15,11 +15,12 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
-
+import useTranslation from 'next-translate/useTranslation'
 import { SpanError } from './styles'
 
 const Login: FC = () => {
     const router = useRouter()
+    const { t } = useTranslation('common')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -93,7 +94,7 @@ const Login: FC = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Inicia sesión
+                        {t('login')}
                     </Typography>
                     <Box
                         component="form"
@@ -115,15 +116,11 @@ const Login: FC = () => {
                             required
                             fullWidth
                             name="password"
-                            label="Contraseña"
+                            label={t('password')}
                             type="password"
                             id="password"
                         />
-                        {error && (
-                            <SpanError>
-                                Usuario o contraseña inválidos
-                            </SpanError>
-                        )}
+                        {error && <SpanError>{t('errorLogin')}</SpanError>}
 
                         <Stack direction="row" mb={2} mt={2} spacing={2}>
                             <LoadingButton
@@ -134,7 +131,7 @@ const Login: FC = () => {
                                 fullWidth
                                 loading={loading}
                             >
-                                Iniciar sesión
+                                {t('login')}
                             </LoadingButton>
                         </Stack>
                         <Grid container>
@@ -145,7 +142,7 @@ const Login: FC = () => {
                             </Grid> */}
                             <Grid item>
                                 <Link href="/auth/signup" variant="body2">
-                                    {'¿No tienes una cuenta? Regístrate'}
+                                    {t('noAccount')}
                                 </Link>
                             </Grid>
                         </Grid>

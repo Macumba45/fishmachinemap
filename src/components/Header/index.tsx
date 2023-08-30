@@ -4,6 +4,7 @@ import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
+import useTranslation from 'next-translate/useTranslation'
 import {
     ButtonContainer,
     MainContainer,
@@ -16,6 +17,8 @@ import {
 } from './style'
 
 const HeaderComp: FC = () => {
+    const { t } = useTranslation('common')
+
     useEffect(() => {
         const handleScroll = (event: Event) => {
             event.preventDefault()
@@ -35,12 +38,12 @@ const HeaderComp: FC = () => {
     return (
         <MainContainer>
             <TitleContainer>
-                <TitleHeader>Bienvenido a FishGram</TitleHeader>
+                <TitleHeader>{t('homeHeaderTitle')}</TitleHeader>
             </TitleContainer>
             <SubtitleContainer>
                 <SubtitleHeader>
-                    Una web de pescadores,
-                    <br /> <SpanBold>creada para pescadores</SpanBold>
+                    {t('homeSubHeaderTitle')}
+                    <br /> <SpanBold>{t('homeSubHeaderTitle2')}</SpanBold>
                 </SubtitleHeader>
             </SubtitleContainer>
             <ButtonContainer>
@@ -49,7 +52,7 @@ const HeaderComp: FC = () => {
                         color="#00a5f2"
                         bgColor="white"
                         variant="contained"
-                        title="Iniciar sesión"
+                        title={t('login')}
                     />
                 </Link>
                 <Link style={{ textDecoration: 'none' }} href="/auth/signup">
@@ -57,7 +60,7 @@ const HeaderComp: FC = () => {
                         color="#00a5f2"
                         bgColor="white"
                         variant="contained"
-                        title="Registrarse"
+                        title={t('register')}
                     />
                 </Link>
                 {/* <Link style={{ textDecoration: 'none' }} href="/maps">
@@ -71,7 +74,7 @@ const HeaderComp: FC = () => {
                         variant="outlined"
                         bgColor="transparent"
                         border="1px solid white"
-                        title="Continuar como invitado"
+                        title={t('guest')}
                     />
                 </Link>
             </ButtonContainer>
