@@ -8,5 +8,8 @@
         "*": [
             "common"
         ]
+    },
+    "paths": {
+        "locales": "./locales"
     }
 }
