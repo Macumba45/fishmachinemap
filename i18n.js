@@ -1,12 +1,7 @@
-const configi18n = {
+module.exports = {
     defaultLocale: 'es',
     locales: ['es', 'en'],
     pages: {
         '*': ['common'],
-
     },
-
-
 };
-
-module.exports = configi18n;
