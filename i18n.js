@@ -3,5 +3,6 @@ module.exports = {
     locales: ['es', 'en'],
     pages: {
         '*': ['common'],
+        '/': ['common'],
     },
 };

@@ -2,7 +2,6 @@ import StyledComponentsRegistry from '../lib/registry'
 import './reset.css'
 import React from 'react'
 import StyledTheme from './style/styledTheme'
-import useTranslation from 'next-translate/useTranslation'
 
 export const metadata = {
     title: 'FishGram',
@@ -25,9 +24,8 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const { t, lang } = useTranslation('common')
     return (
-        <html suppressHydrationWarning lang={lang}>
+        <html suppressHydrationWarning lang="es">
             <head>
                 <script
                     async
