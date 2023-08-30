@@ -10,5 +10,7 @@ module.exports = {
         '/auth/signup': ['common'], // app/auth/signup/page.tsx
         '/checkout': ['checkout'], // app/checkout/page.tsx
     },
-    localePath: path.resolve('./locales'),
+    loadLocaleFrom: async (locale, namespace) =>
+        require(`./src/locales/${locale}/${namespace}.json`),
+
 }
