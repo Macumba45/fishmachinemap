@@ -1,4 +1,3 @@
-const path = require('path')
 
 module.exports = {
     locales: ['en', 'es'],
@@ -11,6 +10,6 @@ module.exports = {
         '/checkout': ['checkout'], // app/checkout/page.tsx
     },
     loadLocaleFrom: async (locale, namespace) =>
-        require(`./src/locales/${locale}/${namespace}.json`),
+        require(`./public/locales/${locale}/${namespace}.json`),
 
 }
