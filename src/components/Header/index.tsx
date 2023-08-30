@@ -34,6 +34,7 @@ const HeaderComp: FC = () => {
             document.removeEventListener('scroll', handleScroll)
         }
     }, [])
+    console.log(t('homeHeaderTitle'));
 
     return (
         <MainContainer>
