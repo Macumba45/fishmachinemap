@@ -7,4 +7,6 @@ module.exports = {
         // '/': ['home'], // app/page.tsx
         // '/checkout': ['checkout'], // app/checkout/page.tsx
     },
+    loadLocaleFrom: (lang, ns) =>
+        import(`./locales/${ns}/${lang}.json`).then(m => m.default),
 }
