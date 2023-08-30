@@ -1,6 +1,5 @@
 import StyledComponentsRegistry from '../lib/registry'
 import './reset.css'
-import './fontWeb.css'
 import React from 'react'
 import StyledTheme from './style/styledTheme'
 
