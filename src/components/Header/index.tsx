@@ -35,6 +35,7 @@ const HeaderComp: FC = () => {
         }
     }, [])
     console.log(t('HomeHeaderTitle'))
+    console.log(t)
 
     return (
         <MainContainer>
