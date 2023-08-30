@@ -5,4 +5,3 @@ apps/web/src/config/abi/types
 cli/aptos-codegen
 dist
 packages/farms/lists
-datos.json

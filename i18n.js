@@ -1,13 +1,12 @@
-const path = require('path')
-
-module.exports = {
-
+const configi18n = {
     defaultLocale: 'es',
     locales: ['es', 'en'],
     pages: {
         '*': ['common'],
+
     },
 
-    localePath: path.resolve('./public/locales/es/common.json')
 
 };
+
+module.exports = configi18n;

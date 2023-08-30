@@ -19,8 +19,8 @@ import useTranslation from 'next-translate/useTranslation'
 import { SpanError } from './styles'
 
 const Login: FC = () => {
-    const router = useRouter()
     const { t } = useTranslation('common')
+    const router = useRouter()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
