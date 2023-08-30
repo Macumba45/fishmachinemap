@@ -16,8 +16,10 @@ import {
     VideoContainer,
 } from './style'
 
+
 const HeaderComp: FC = () => {
     const { t } = useTranslation('common')
+    console.log(useTranslation('common'))
 
     useEffect(() => {
         const handleScroll = (event: Event) => {

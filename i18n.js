@@ -1,8 +1,11 @@
 module.exports = {
     defaultLocale: 'es',
     locales: ['es', 'en'],
+    localeDetection: true,
     pages: {
-        '*': ['common'],
-        '/': ['common'],
-    },
+        "*": ["common"],
+        "/": ["common"],
+        "/maps": ["common"],
+
+    }
 };
