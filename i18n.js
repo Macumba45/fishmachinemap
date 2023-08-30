@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
     locales: ['en', 'es'],
     defaultLocale: 'es',
@@ -8,5 +10,5 @@ module.exports = {
         '/auth/signup': ['common'], // app/auth/signup/page.tsx
         '/checkout': ['checkout'], // app/checkout/page.tsx
     },
-
+    localePath: path.resolve('./locales'),
 }

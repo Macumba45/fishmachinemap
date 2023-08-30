@@ -38,9 +38,8 @@
         "eslint-config-next": "^13.4.19",
         "global": "^4.4.0",
         "jsonwebtoken": "^9.0.1",
-        "next": "^13.4.19",
+        "next": "^13.4.7",
         "next-translate": "^2.5.3",
-        "next-translate-plugin": "^2.5.3",
         "node-cron": "^3.0.2",
         "node-schedule": "^2.1.1",
         "prettier": "^2.8.8",
@@ -67,6 +66,7 @@
         "eslint-plugin-next": "^0.0.0",
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
+        "next-translate-plugin": "^2.5.3",
         "prisma": "^5.2.0"
     },
     "resolutions": {

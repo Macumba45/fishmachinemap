@@ -6915,7 +6915,7 @@ next-translate@^2.5.3:
   resolved "https://registry.npmjs.org/next-translate/-/next-translate-2.5.3.tgz"
   integrity sha512-Wl4CWqqIqeoPlrKmTgnc7w49mOEi93INUnfVHJDTqNKavlhFg26isqy0LGKWHcvthGiPFBoh5aOXBqhGEfzrSw==
 
-next@^13.4.19:
+next@^13.4.7:
   version "13.4.19"
   resolved "https://registry.yarnpkg.com/next/-/next-13.4.19.tgz#2326e02aeedee2c693d4f37b90e4f0ed6882b35f"
   integrity sha512-HuPSzzAbJ1T4BD8e0bs6B9C1kWQ6gv8ykZoRWs5AQoiIuqbGHHdQO7Ljuvg05Q0Z24E2ABozHe6FxDvI6HfyAw==
@@ -8820,7 +8820,7 @@ typed-array-length@^1.0.4:
 
 typescript@4.5.2:
   version "4.5.2"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.5.2.tgz"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
   integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
 typescript@4.9.5, typescript@^4.1.2:
