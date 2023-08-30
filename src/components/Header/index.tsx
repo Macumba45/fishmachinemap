@@ -20,8 +20,9 @@ import {
 const HeaderComp: FC = () => {
     const { t, lang } = useTranslation('common')
     lang === 'es' ? console.log('español') : console.log('ingles')
+    console.log(lang)
     console.log(useTranslation('common'))
-  
+
     useEffect(() => {
         const handleScroll = (event: Event) => {
             event.preventDefault()
