@@ -8,7 +8,5 @@ module.exports = {
         '/auth/signup': ['common'], // app/auth/signup/page.tsx
         '/checkout': ['checkout'], // app/checkout/page.tsx
     },
-    pagesInDir:{
-        
-    }
+
 }
