@@ -7,20 +7,16 @@ module.exports = {
     },
     domains: [
         {
-            domain: 'localhost:3000/es',
-            defaultLocale: 'en',
-        },
-        {
-            domain: 'localhost',
+            domain: 'https://fishgramapp.vercel.app/',
             defaultLocale: 'en',
         },
     ],
 
-    loadLocaleFrom: (lang, ns) =>
+    loadLocaleFrom: (lang: any, ns: any) =>
         // You can use a dynamic import, fetch, whatever. You should
         // return a Promise with the JSON file.
-        console.log(`./src/components/locales/${lang}/${ns}.json`) ||
         import(`./src/components/locales/${lang}/${ns}.json`).then((m) => m.default),
+}
 
 
-};  
+

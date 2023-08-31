@@ -6,7 +6,6 @@ import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
-import i18nConfig from '../../../i18n.mjs'
 import useSetLanguage from '@/hooks/setLanguage'
 import {
     ButtonContainer,
@@ -21,8 +20,6 @@ import {
 
 const HeaderComp: FC = () => {
     const setLanguage = useSetLanguage();
-    const { locales } = i18nConfig;
-    console.log(locales)
     const { t } = useTranslation('common');
     console.log(useTranslation('common'))
     console.log(t('HomeHeaderTitle'))
