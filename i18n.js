@@ -1,6 +1,17 @@
+
+let lang
+if (lang === 'es') {
+    lang = 'es';
+} else {
+    lang = 'en';
+}
+console.log(lang);
+
+
+
 module.exports = {
-    locales: ['default', 'es, en'],
-    defaultLocale: 'en',
+    locales: ['es, en'],
+    defaultLocale: lang,
     localeDetection: false,
     trailingSlash: true,
     pages: {
@@ -8,5 +19,10 @@ module.exports = {
         "/": ["common"],
         "/maps": ["common"],
 
-    }
+    },
+    loadLocaleFrom: (lang, ns) =>
+        console.log(lang, ns) ||
+        // You can use a dynamic import, fetch, whatever. You should
+        // return a Promise with the JSON file.
+        import(`./locales/${lang}/${ns}.json`).then((m) => m.default),
 };

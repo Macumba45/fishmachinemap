@@ -18,8 +18,7 @@ import {
 
 
 const HeaderComp: FC = () => {
-    const { t, lang } = useTranslation('common')
-    lang === 'es' ? console.log('español') : console.log('ingles')
+    const { t } = useTranslation('common')
     console.log(useTranslation('common'))
 
     useEffect(() => {
