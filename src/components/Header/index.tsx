@@ -22,7 +22,6 @@ const HeaderComp: FC = () => {
     console.log(useTranslation('common'))
     console.log(t('HomeHeaderTitle'))
 
-
     useEffect(() => {
         const handleScroll = (event: Event) => {
             event.preventDefault()
