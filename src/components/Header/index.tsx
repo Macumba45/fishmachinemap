@@ -5,7 +5,9 @@ import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
-import setLanguage from 'next-translate/setLanguage'
+import React from 'react'
+import i18nConfig from '../../../i18n'
+import useSetLanguage from '@/hooks/setLanguage'
 import {
     ButtonContainer,
     MainContainer,
@@ -16,17 +18,22 @@ import {
     TitleHeader,
     VideoContainer,
 } from './style'
-import React from 'react'
-import i18nConfig from '../../../i18n'
-
 
 const HeaderComp: FC = () => {
+    const setLanguage = useSetLanguage();
+
     const { locales, defaultLocale } = i18nConfig;
     console.log(locales)
     const { t, lang } = useTranslation('common');
-    console.log(lang)
     console.log(useTranslation('common'))
     console.log(lang, t('HomeHeaderTitle'))
+
+    const changeLanguage = async (newLanguage: string) => {
+        if (typeof window !== 'undefined') {
+            await setLanguage(newLanguage);
+            window.location.reload(); // Recarga la página para aplicar el nuevo locale
+        }
+    };
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -91,6 +98,8 @@ const HeaderComp: FC = () => {
             <VideoContainer>
                 <VideoPlayer url={'/backgroundVideo.mp4'} />
             </VideoContainer>
+            <button onClick={() => setLanguage('en')}>EN</button>
+            <button onClick={() => setLanguage('es')}>ES</button>
         </MainContainer>
     )
 }
