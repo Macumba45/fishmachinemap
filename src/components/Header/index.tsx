@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo, use, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
@@ -87,8 +87,8 @@ const HeaderComp: FC = () => {
             <VideoContainer>
                 <VideoPlayer url={'/backgroundVideo.mp4'} />
             </VideoContainer>
-            <button onClick={() => setLanguage('en')}>EN</button>
-            <button onClick={() => setLanguage('es')}>ES</button>
+            <button onClick={() => setLanguage('en')}>English</button>
+            <button onClick={() => setLanguage('es')}>Spanish</button>
         </MainContainer>
     )
 }
