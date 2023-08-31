@@ -6,7 +6,7 @@ import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
 import React from 'react'
-import i18nConfig from '../../../i18n'
+import i18nConfig from '../../../i18n.mjs'
 import useSetLanguage from '@/hooks/setLanguage'
 import {
     ButtonContainer,
