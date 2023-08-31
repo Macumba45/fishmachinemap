@@ -26,7 +26,6 @@ const HeaderComp: FC = () => {
     console.log(locales)
     const { t } = useTranslation('common');
     console.log(useTranslation('common'))
-    console.log(t('HomeHeaderTitle'))
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
