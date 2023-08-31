@@ -20,6 +20,8 @@ import {
 const HeaderComp: FC = () => {
     const { t } = useTranslation('common')
     console.log(useTranslation('common'))
+    console.log(t('HomeHeaderTitle'))
+
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -36,8 +38,7 @@ const HeaderComp: FC = () => {
             document.removeEventListener('scroll', handleScroll)
         }
     }, [])
-    console.log(t('HomeHeaderTitle'))
-    console.log(t)
+
 
     return (
         <MainContainer>
