@@ -42,7 +42,7 @@
         "pages/api/upload.js",
         "webpack.config.js",
         "pages/api/markers/autoDeleteMarkers.ts",
-        "i18n.ts"
+        "i18n.js"
     ],
     "exclude": [
         "node_modules"
