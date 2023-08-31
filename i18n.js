@@ -1,14 +1,4 @@
-
-let lang
-if (lang === 'es') {
-    lang = 'es';
-} else {
-    lang = 'en';
-}
-console.log(lang);
-
-
-
+const lang = "es";
 module.exports = {
     locales: ['es, en'],
     defaultLocale: lang,
