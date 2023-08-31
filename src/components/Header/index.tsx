@@ -1,10 +1,11 @@
 'use client'
 
-import { FC, memo, useEffect } from 'react'
+import { FC, memo, use, useEffect } from 'react'
 import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
+import setLanguage from 'next-translate/setLanguage'
 import {
     ButtonContainer,
     MainContainer,
@@ -15,12 +16,17 @@ import {
     TitleHeader,
     VideoContainer,
 } from './style'
+import React from 'react'
+import i18nConfig from '../../../i18n'
 
 
 const HeaderComp: FC = () => {
-    const { t } = useTranslation('common')
+    const { locales, defaultLocale } = i18nConfig;
+    console.log(locales)
+    const { t, lang } = useTranslation('common');
+    console.log(lang)
     console.log(useTranslation('common'))
-    console.log(t('HomeHeaderTitle'))
+    console.log(lang, t('HomeHeaderTitle'))
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
