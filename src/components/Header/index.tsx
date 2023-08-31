@@ -21,11 +21,11 @@ import {
 
 const HeaderComp: FC = () => {
     const setLanguage = useSetLanguage();
-
-    const { locales, defaultLocale } = i18nConfig;
+    const { locales } = i18nConfig;
     console.log(locales)
     const { t } = useTranslation('common');
     console.log(useTranslation('common'))
+    console.log(t('HomeHeaderTitle'))
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
