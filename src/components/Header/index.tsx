@@ -24,16 +24,9 @@ const HeaderComp: FC = () => {
 
     const { locales, defaultLocale } = i18nConfig;
     console.log(locales)
-    const { t, lang } = useTranslation('common');
+    const { t } = useTranslation('common');
     console.log(useTranslation('common'))
-    console.log(lang, t('HomeHeaderTitle'))
-
-    const changeLanguage = async (newLanguage: string) => {
-        if (typeof window !== 'undefined') {
-            await setLanguage(newLanguage);
-            window.location.reload(); // Recarga la página para aplicar el nuevo locale
-        }
-    };
+    console.log(t('HomeHeaderTitle'))
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
