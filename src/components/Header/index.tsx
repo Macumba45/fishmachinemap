@@ -47,7 +47,7 @@ const HeaderComp: FC = () => {
     return (
         <MainContainer>
             <TitleContainer>
-                <TitleHeader>{t('HomeHeaderTitle')}</TitleHeader>
+                <TitleHeader>{t('common:HomeHeaderTitle')}</TitleHeader>
             </TitleContainer>
             <SubtitleContainer>
                 <SubtitleHeader>
