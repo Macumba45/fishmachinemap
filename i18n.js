@@ -2,6 +2,7 @@ module.exports = {
   experimental: {
     appDir: true,
   },
+  pagesInDir: './src/app',
   locales: ['es', 'en'],
   defaultLocale: 'es',
   pages: {
@@ -9,9 +10,9 @@ module.exports = {
     '/': ['common'],
     '/maps': ['common'],
   },
-  loadLocaleFrom: async (locale, namespace) => {
-    console.log(namespace, locale)
-    return import(`./locales/${locale}/${namespace}.json`).then((m) => m.default)
-  }
+  localeRoot: './locales/',
+  defaultNS: 'common',
+  localeDetection: false,
+
 
 }
