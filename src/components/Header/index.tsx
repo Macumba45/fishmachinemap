@@ -19,9 +19,10 @@ import {
     VideoContainer,
 } from './style'
 
-const HeaderComp: FC = () => {
-    const setLanguage = useSetLanguage()
-    const { t } = useTranslation('common')
+
+const HeaderComp: FC = async () => {
+    const setLanguage = useSetLanguage();
+    const { t } = useTranslation('common');
 
     console.log(useTranslation('common'))
     console.log(t('HomeHeaderTitle'))
@@ -41,6 +42,7 @@ const HeaderComp: FC = () => {
             document.removeEventListener('scroll', handleScroll)
         }
     }, [])
+
 
     return (
         <MainContainer>
@@ -94,4 +96,4 @@ const HeaderComp: FC = () => {
     )
 }
 
-export default withTranslation(HeaderComp)
+export default memo(HeaderComp)
