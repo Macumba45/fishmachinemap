@@ -20,7 +20,8 @@ import {
 } from './style'
 
 
-const HeaderComp: FC = async () => {
+
+const HeaderComp: FC = () => {
     const setLanguage = useSetLanguage();
     const { t } = useTranslation('common');
 
