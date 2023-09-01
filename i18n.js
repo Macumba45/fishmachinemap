@@ -6,5 +6,7 @@ module.exports = {
     '/': ['common'],
     '/maps': ['common'],
   },
+  logBuild: true,
+
 
 }

@@ -3,6 +3,11 @@ import './reset.css'
 import React from 'react'
 import StyledTheme from './style/styledTheme'
 
+export function generateStaticParams() {
+    return [{ locale: 'en' }, { locale: 'es' }];
+}
+console.log(generateStaticParams())
+
 export const metadata = {
     title: 'FishGram',
     description: 'App hecha para y por pescadores',
@@ -19,13 +24,9 @@ export const metadata = {
         'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 }
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default async function LocaleLayout({ children, params: { locale } }: any) {
     return (
-        <html suppressHydrationWarning lang="es">
+        <html suppressHydrationWarning lang={locale}>
             <head>
                 <script
                     async
