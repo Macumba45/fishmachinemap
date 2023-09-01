@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "next dev",
         "local": "next build",
-        "build": "prisma generate & next build",
+        "build": "prisma generate & next build & node i18n.js",
         "start": "next start",
         "lint": "next lint",
         "prettier": "prettier --write ."
