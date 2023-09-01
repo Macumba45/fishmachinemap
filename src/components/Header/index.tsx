@@ -20,7 +20,6 @@ import {
 } from './style'
 
 
-
 const HeaderComp: FC = () => {
     const setLanguage = useSetLanguage();
     const { t } = useTranslation('common');
