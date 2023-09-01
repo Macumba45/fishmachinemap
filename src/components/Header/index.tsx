@@ -5,6 +5,7 @@ import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
+import withTranslation from 'next-translate/withTranslation'
 import React from 'react'
 import useSetLanguage from '@/hooks/setLanguage'
 import {
@@ -18,9 +19,12 @@ import {
     VideoContainer,
 } from './style'
 
+
+
 const HeaderComp: FC = () => {
     const setLanguage = useSetLanguage();
     const { t } = useTranslation('common');
+
     console.log(useTranslation('common'))
     console.log(t('HomeHeaderTitle'))
 
@@ -93,4 +97,4 @@ const HeaderComp: FC = () => {
     )
 }
 
-export default memo(HeaderComp)
+export default withTranslation(HeaderComp)

@@ -6,7 +6,7 @@ import { Props } from './types'
 const VideoPlayer: FC<Props> = ({ url }) => {
     return (
         <MainContainer>
-            <BackgroundVideo autoPlay loop muted playsInline src={url} />
+            <BackgroundVideo autoPlay muted playsInline src={url} />
         </MainContainer>
     )
 }
