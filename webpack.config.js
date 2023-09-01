@@ -10,5 +10,4 @@ module.exports = {
             'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
         }),
     ],
-    devtool: false,
 }

@@ -25,7 +25,7 @@ const HeaderComp: FC = () => {
     const { t } = useTranslation('common');
 
     console.log(useTranslation('common'))
-    console.log(t('common:HomeHeaderTitle'))
+    console.log(t(`HomeHeaderTitle`))
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -47,7 +47,7 @@ const HeaderComp: FC = () => {
     return (
         <MainContainer>
             <TitleContainer>
-                <TitleHeader>{t('common:HomeHeaderTitle')}</TitleHeader>
+                <TitleHeader>{t('HomeHeaderTitle')}</TitleHeader>
             </TitleContainer>
             <SubtitleContainer>
                 <SubtitleHeader>
@@ -88,7 +88,7 @@ const HeaderComp: FC = () => {
                 </Link>
             </ButtonContainer>
             <VideoContainer>
-                <VideoPlayer url={'/backgroundVideo.mp4'} />
+                <VideoPlayer url={'https://res.cloudinary.com/dinasxwdf/video/upload/v1693586993/backgroundVideo_tgdz7p.mp4'} />
             </VideoContainer>
             <button onClick={() => setLanguage('en')}>English</button>
             <button onClick={() => setLanguage('es')}>Spanish</button>
