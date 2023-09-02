@@ -24,6 +24,7 @@ import {
 } from './style'
 import { Store } from './type'
 import { Typography } from '@mui/material'
+import { useLocale } from 'next-intl'
 
 const Store: FC = () => {
     const {
@@ -38,13 +39,12 @@ const Store: FC = () => {
 
     const [filteredData, setFilteredData] = useState<Store[]>(store)
     const [selectedCategory, setSelectedCategory] = useState<string>('Todos') // Establecer el valor predeterminado como "Todos"
-
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const router = useRouter()
 
     const goToLogin = () => {
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
     }
-
     const handleClose = () => {
         setOpen(false)
     }
@@ -115,7 +115,10 @@ const Store: FC = () => {
                     <Typography>No hay productos en esta categoría</Typography>
                 ) : (
                     filteredData.map(item => (
-                        <Link key={item.id} href={`/store/${item.id}`}>
+                        <Link
+                            key={item.id}
+                            href={`/${locale}/store/${item.id}`}
+                        >
                             <TitlebarImageList
                                 key={item.id}
                                 title={item.title}

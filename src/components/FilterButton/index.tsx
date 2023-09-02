@@ -3,7 +3,7 @@ import { FC, useState, memo } from 'react'
 import { ButtonContainer } from './styles'
 import FilterComponent from '../FilterComponet'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import { MarkerType } from '@/app/maps/type'
+import { MarkerType } from '@/app/[locale]/maps/type'
 
 interface FilterButtonProps {
     onChange: (newFilter: MarkerType) => void

@@ -6,7 +6,7 @@ export default function useSetLanguage() {
     const searchParams = useSearchParams()
 
     return (locale: string) => {
-    // now you got a read/write object
+        // now you got a read/write object
         const current = new URLSearchParams(Array.from(searchParams!.entries())) // -> has to use this form
         console.log(current.get('lang')) // -> 'en'
         console.log(current.has('lang')) // -> true

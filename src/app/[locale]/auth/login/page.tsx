@@ -10,19 +10,21 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { setAuthenticatedToken } from '../../../lib/storage/storage'
+import { setAuthenticatedToken } from '../../../../lib/storage/storage'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
-import useTranslation from 'next-translate/useTranslation'
+import { useLocale, useTranslations } from 'next-intl'
 import { SpanError } from './styles'
 
 const Login: FC = () => {
-    const { t } = useTranslation('common')
+    const t = useTranslations('login')
     const router = useRouter()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    console.log(locale)
 
     const notifySucces = () => {
         toast.success('Inicio de sesión correctamente', {
@@ -48,7 +50,7 @@ const Login: FC = () => {
                     const data = await response.json()
                     setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
                     notifySucces()
-                    router.push('/maps')
+                    router.push(`/${locale}/maps`)
                     // Realiza alguna acción en respuesta al éxito
                 } else {
                     // Error al hacer login de usuario
@@ -141,7 +143,10 @@ const Login: FC = () => {
                                 </Link>
                             </Grid> */}
                             <Grid item>
-                                <Link href="/auth/signup" variant="body2">
+                                <Link
+                                    href={`/${locale}/auth/signup`}
+                                    variant="body2"
+                                >
                                     {t('noAccount')}
                                 </Link>
                             </Grid>

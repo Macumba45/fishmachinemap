@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react'
-import { useLogicMaps } from '@/app/maps/logic'
 import { SelectChangeEvent } from '@mui/material'
 import ButtonComp from '@/components/Button'
 import { LoadingButton } from '@mui/lab'
 import MuiAlert from '@mui/material/Alert'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
+import { useLogicMaps } from '@/app/[locale]/maps/logic'
+
 import {
     Modal,
     Box,

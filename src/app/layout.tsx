@@ -1,32 +1,24 @@
-import StyledComponentsRegistry from '../lib/registry'
-import './reset.css'
-import React from 'react'
-import StyledTheme from './style/styledTheme'
+import { ReactNode } from 'react'
 
-export function generateStaticParams() {
-    return [{ locale: 'en' }, { locale: 'es' }];
+type Props = {
+    children: ReactNode
 }
-console.log(generateStaticParams())
 
 export const metadata = {
-    title: 'FishGram',
+    title: 'FishGramApp',
     description: 'App hecha para y por pescadores',
     image: '/images/logo.png',
-    og: {
-        title: 'FishGram',
-        description: 'App hecha para y por pescadores',
-        image: '/images/logo.png',
-        type: 'website',
-        url: 'https://fishgramapp.vercel.app',
-    },
-
+    type: 'website',
+    url: 'https://fishgramapp.vercel.app',
     keywords:
         'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: any) {
+// Since we have a `not-found.tsx` page on the root, a layout file
+// is required, even if it's just passing children through.
+export default function RootLayout({ children }: Props) {
     return (
-        <html suppressHydrationWarning lang={locale}>
+        <html lang="en">
             <head>
                 <script
                     async
@@ -47,12 +39,7 @@ export default async function LocaleLayout({ children, params: { locale } }: any
                     }}
                 ></script>
             </head>
-
-            <body>
-                <StyledComponentsRegistry>
-                    <StyledTheme>{children}</StyledTheme>
-                </StyledComponentsRegistry>
-            </body>
+            <body>{children}</body>
         </html>
     )
 }

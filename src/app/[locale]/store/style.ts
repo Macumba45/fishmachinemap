@@ -4,9 +4,7 @@ export const MainContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     height: 100%;
-    object-fit: cover;
-    background-size: cover;
-    margin-top: 2rem;
+    margin-top: 12rem;
     margin-bottom: 5rem;
     justify-content: center;
 `
@@ -35,9 +33,12 @@ export const Container = styled.div`
 
 export const FilterContainer = styled.div`
     display: flex;
+    position: fixed;
+    top: 0;
     justify-content: center;
     align-items: center;
-    margin-top: 6rem;
+    margin-top: 4rem;
+    background-color: white;
 `
 
 export const ContainerMenu = styled.div`

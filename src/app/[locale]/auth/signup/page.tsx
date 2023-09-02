@@ -12,19 +12,21 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-import { setAuthenticatedToken } from '../../../lib/storage/storage'
+import { setAuthenticatedToken } from '../../../../lib/storage/storage'
 import { toast } from 'react-toastify'
 import { LoadingButton } from '@mui/lab'
 import { Stack } from '@mui/material'
-import useTranslation from 'next-translate/useTranslation'
+import { useLocale, useTranslations } from 'next-intl'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
-    const { t } = useTranslation('common')
+    const t = useTranslations('login')
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState(false)
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    console.log(locale)
 
     const notifySucces = () => {
         toast.success('Registro correctamente', {
@@ -169,7 +171,10 @@ const SignUp: FC = () => {
                         </Stack>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/auth/login" variant="body2">
+                                <Link
+                                    href={`/${locale}/auth/login`}
+                                    variant="body2"
+                                >
                                     {t('alreadyAccount')}
                                 </Link>
                             </Grid>

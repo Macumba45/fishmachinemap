@@ -1,0 +1,25 @@
+{
+    "Index": {
+        "HomeHeaderTitle": "Welcome to FishGram",
+        "homeSubHeaderTitle": "A website by fishermens,",
+        "homeSubHeaderTitle2": "made by fishermen",
+        "login": "Login",
+        "register": "Register",
+        "guest": "Continue as guest"
+    },
+    "login": {
+        "errorLogin": "User or Password incorrect",
+        "noAccount": "Don't have an account? Sign up",
+        "password": "Password",
+        "nameRegister": "Name",
+        "createAccount": "Create account",
+        "alreadyAccount": "Already have an account? Sign in",
+        "login": "Login",
+        "register": "Register"
+    },
+    "LocaleSwitcher": {
+        "label": "Language",
+        "en": "English",
+        "es": "Spanish"
+    }
+}

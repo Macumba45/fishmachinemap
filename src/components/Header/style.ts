@@ -7,6 +7,15 @@ export const MainContainer = styled.div`
     width: 100%;
 `
 
+export const ContainerLanguage = styled.div`
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    margin-top: 1rem;
+    z-index: 999;
+    width: 100%;
+`
+
 export const VideoContainer = styled.div`
     position: relative;
     width: 100%;

@@ -21,6 +21,7 @@ import {
     DateContainer,
     HearthContainerTop,
 } from './style'
+import { useLocale } from 'next-intl'
 
 const CardFeed: FC<FeedPros> = ({
     id,
@@ -79,6 +80,7 @@ const CardFeed: FC<FeedPros> = ({
     }
 
     const [isLogged, setIsLogged] = useState(false)
+    const locale = useLocale()
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -114,7 +116,7 @@ const CardFeed: FC<FeedPros> = ({
                                 textDecorationColor: '#49007a',
                                 color: '#49007a',
                             }}
-                            href={`/feed/${user?.id}`}
+                            href={`/${locale}/feed/${user?.id}`}
                         >
                             {user?.name}
                         </Link>

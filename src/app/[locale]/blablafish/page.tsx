@@ -22,6 +22,7 @@ import {
     TextNav,
     ContainerMenu,
 } from './style'
+import { useLocale } from 'next-intl'
 
 const BlaBlaFish: FC = () => {
     const {
@@ -32,6 +33,7 @@ const BlaBlaFish: FC = () => {
         getUserInfo,
     } = useLogicBlaBla()
     const router = useRouter()
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [openModal, setOpenModal] = useState(false)
     const currentDate = new Date()
     const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
@@ -41,7 +43,7 @@ const BlaBlaFish: FC = () => {
     })
 
     const goToLogin = () => {
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
     }
 
     // Función de utilidad para formatear la fecha

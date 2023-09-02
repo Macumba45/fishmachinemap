@@ -1,11 +1,7 @@
 'use client'
-import HeaderComp from '@/components/Header'
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-    return (
-        <div>
-            <HeaderComp />
-        </div>
-    )
+    return redirect('/es')
 }

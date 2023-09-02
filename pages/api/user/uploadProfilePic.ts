@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { uploadPictureProfile } from '../controllers/user'
-import { uploadImage } from '../../../src/app/utils/cloudinary'
+import { uploadImage } from '../../../src/utils/cloudinary'
 const jwt = require('jsonwebtoken')
 
 interface CloudinaryResponse {

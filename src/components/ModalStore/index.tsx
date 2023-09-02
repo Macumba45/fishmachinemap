@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { useLogicStore } from '@/app/store/logic'
+import { useLogicStore } from '@/app/[locale]/store/logic'
 import { LoadingButton } from '@mui/lab'
 import MuiAlert from '@mui/material/Alert'
 import {

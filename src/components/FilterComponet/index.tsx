@@ -10,7 +10,7 @@ import customMarkerIconPicture from '../../assets/back-camera.png'
 import customMarkerIconLikes from '../../assets/likes.png'
 import { Icon } from '@mui/material'
 import { MainContainer } from './style'
-import { MarkerType } from '@/app/maps/type'
+import { MarkerType } from '@/app/[locale]/maps/type'
 
 type FilterComponentProps = {
     onChange: (newFilter: MarkerType) => void

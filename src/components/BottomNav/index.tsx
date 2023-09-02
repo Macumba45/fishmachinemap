@@ -15,6 +15,7 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle'
 import AirportShuttleOutlinedIcon from '@mui/icons-material/AirportShuttleOutlined'
 import Link from 'next/link'
 import { FC, memo, useEffect, useState } from 'react'
+import { useLocale } from 'next-intl'
 
 const SimpleBottomNavigation: FC = () => {
     function getInitialValue(pathname: string) {
@@ -33,6 +34,7 @@ const SimpleBottomNavigation: FC = () => {
 
     // Añadir el estado local `value` y la función `setValue`
     const [locationNav, setLocationNav] = useState('')
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
 
     const [value, setValue] = useState(getInitialValue(locationNav))
 
@@ -44,15 +46,15 @@ const SimpleBottomNavigation: FC = () => {
     }, [])
     // Añadir el efecto para actualizar el valor del estado `value` cuando cambie la ruta
     useEffect(() => {
-        if (locationNav === '/maps') {
+        if (locationNav === `/${locale}/maps`) {
             setValue(0)
-        } else if (locationNav === '/feed') {
+        } else if (locationNav === `/${locale}/feed`) {
             setValue(1)
-        } else if (locationNav === '/experiencias') {
+        } else if (locationNav === `/${locale}/experiencias`) {
             setValue(2)
-        } else if (locationNav === '/blablafish') {
+        } else if (locationNav === `/${locale}/blablafish`) {
             setValue(3)
-        } else if (locationNav === '/store') {
+        } else if (locationNav === `/${locale}/store`) {
             setValue(4)
         }
     }, [locationNav])
@@ -86,7 +88,7 @@ const SimpleBottomNavigation: FC = () => {
                         )
                     }
                     component={Link}
-                    href="/maps"
+                    href={`/${locale}/maps`}
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
@@ -101,7 +103,7 @@ const SimpleBottomNavigation: FC = () => {
                         )
                     }
                     component={Link}
-                    href="/feed"
+                    href={`/${locale}/feed`}
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
@@ -114,7 +116,7 @@ const SimpleBottomNavigation: FC = () => {
                         )
                     }
                     component={Link}
-                    href="/experiencias"
+                    href={`/${locale}/experiencias`}
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
@@ -129,7 +131,7 @@ const SimpleBottomNavigation: FC = () => {
                         )
                     }
                     component={Link}
-                    href="/blablafish"
+                    href={`/${locale}/blablafish`}
                     style={buttonStyles}
                 />
                 <BottomNavigationAction
@@ -144,7 +146,7 @@ const SimpleBottomNavigation: FC = () => {
                         )
                     }
                     component={Link}
-                    href="/store"
+                    href={`/${locale}/store`}
                     style={buttonStyles}
                 />
             </BottomNavigation>

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { getAuthenticatedToken } from '../../lib/storage/storage'
+import { getAuthenticatedToken } from '../../../lib/storage/storage'
 import { Store } from './type'
 
 export const useLogicStore = () => {

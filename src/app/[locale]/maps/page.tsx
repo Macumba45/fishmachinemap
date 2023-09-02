@@ -22,10 +22,10 @@ import ModalCrearMarcador from '@/components/ModalAddMarker'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AccountMenu from '@/components/Menu'
 import FilterButton from '@/components/FilterButton'
-import MarkerUserIcon from '../../assets/location.png'
-import hiddenMarker from '../../assets/hostage.png'
-import customMarkerIconShop from '../../assets/tienda.png'
-import customMarkerIconPlace from '../../assets/destino.png'
+import MarkerUserIcon from '../../../assets/location.png'
+import hiddenMarker from '../../../assets/hostage.png'
+import customMarkerIconShop from '../../../assets/tienda.png'
+import customMarkerIconPlace from '../../../assets/destino.png'
 import SearchIcon from '@mui/icons-material/Search'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import Badge from '@mui/material/Badge'
@@ -53,6 +53,7 @@ import {
     BadgeContainer,
     stylesMaps,
 } from './style'
+import { useLocale } from 'next-intl'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -113,6 +114,7 @@ const GoogleMapComp: FC = () => {
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
     const [isLogged, setIsLogged] = useState(false)
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
 
     useEffect(() => {
         if (!token) {
@@ -493,7 +495,7 @@ const GoogleMapComp: FC = () => {
     }
 
     const goToLogin = () => {
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
     }
 
     const [openModalBadged, setOpenModalBadged] = useState(false)
@@ -793,7 +795,7 @@ const GoogleMapComp: FC = () => {
                                     textDecorationColor: '#49007a',
                                     color: '#49007a',
                                 }}
-                                href={`/feed/${dataMarkerUser?.user?.id}`}
+                                href={`/${locale}/feed/${dataMarkerUser?.user?.id}`}
                             >
                                 {dataMarkerUser?.user?.name}
                             </Link>

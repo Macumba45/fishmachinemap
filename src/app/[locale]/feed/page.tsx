@@ -10,6 +10,7 @@ import { Avatar } from '@mui/material'
 import { Container, ContainerMenu, MainContainer, TextNav } from './style'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import { useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 const Feed: FC = () => {
     const {
@@ -23,7 +24,7 @@ const Feed: FC = () => {
     } = feedUseLogic()
 
     const router = useRouter()
-
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [isLogged, setIsLogged] = useState(false)
 
     useEffect(() => {
@@ -52,7 +53,7 @@ const Feed: FC = () => {
     }
 
     const goToLogin = () => {
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
     }
 
     useEffect(() => {

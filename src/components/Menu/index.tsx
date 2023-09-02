@@ -1,4 +1,4 @@
-import { FC, useState, memo, useEffect } from 'react'
+import { FC, useState, memo, useEffect, use } from 'react'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -12,18 +12,22 @@ import mareas from '../../assets/mareas.png'
 import { FormControl, InputLabel, Modal, Select } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
+import { useLocale } from 'next-intl'
+import { useRouter } from 'next-intl/client'
 
 interface AccountMenuProps {
     userPicture?: string | null
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
+    const router = useRouter()
     const [isLogged, setIsLogged] = useState(false)
     const [pais, setPais] = useState('es')
     const [provincia, setProvincia] = useState('')
     const [ciudad, setCiudad] = useState('')
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [openModal, setOpenModal] = useState(false)
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
@@ -46,11 +50,11 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
     }
 
     const gotoProfile = () => {
-        window.location.href = '/perfil'
+        router.push('/perfil')
     }
 
     const goToLogin = () => {
-        window.location.href = '/auth/login'
+        router.push('/auth/login')
     }
 
     const emailMe = () => {

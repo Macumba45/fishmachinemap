@@ -29,6 +29,7 @@ import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useRouter } from 'next/navigation'
+import { getAuthenticatedToken } from '@/lib/storage/storage'
 import {
     Button,
     ButtonGroup,
@@ -44,7 +45,6 @@ import {
     emailStyles,
     nameStyles,
 } from './style'
-import { getAuthenticatedToken } from '@/lib/storage/storage'
 
 const Profile: FC = () => {
     const router = useRouter()
@@ -151,6 +151,16 @@ const Profile: FC = () => {
             return () => {
                 window.removeEventListener('resize', handleResize)
             }
+        }
+    }, [])
+    useEffect(() => {
+        const allowScroll = () => {
+            document.body.style.overflow = ''
+        }
+
+        return () => {
+            // Elimina el event listener para habilitar el desplazamiento
+            document.removeEventListener('scroll', allowScroll)
         }
     }, [])
 

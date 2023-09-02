@@ -4,13 +4,12 @@ import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
 import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
-import useTranslation from 'next-translate/useTranslation'
-import i18n from '../../../i18n'
-import { NextI18nConfig } from 'next-translate'
+import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
-import useSetLanguage from '@/hooks/setLanguage'
+import LocaleSwitcher from '../LocaleSwitcher'
 import {
     ButtonContainer,
+    ContainerLanguage,
     MainContainer,
     SpanBold,
     SubtitleContainer,
@@ -20,13 +19,10 @@ import {
     VideoContainer,
 } from './style'
 
-
 const HeaderComp: FC = () => {
-    const setLanguage = useSetLanguage();
-    const { t } = useTranslation('common');
-
-    console.log(useTranslation('common'))
-    console.log(t('HomeHeaderTitle'))
+    const t = useTranslations('Index')
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [currentLanguage, setCurrentLanguage] = React.useState(locale)
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -44,9 +40,12 @@ const HeaderComp: FC = () => {
         }
     }, [])
 
-
     return (
         <MainContainer>
+            <ContainerLanguage>
+                <LocaleSwitcher setLanguage={setCurrentLanguage} />{' '}
+                {/* Pasa setCurrentLanguage a LocaleSwitcher */}
+            </ContainerLanguage>
             <TitleContainer>
                 <TitleHeader>{t('HomeHeaderTitle')}</TitleHeader>
             </TitleContainer>
@@ -57,7 +56,10 @@ const HeaderComp: FC = () => {
                 </SubtitleHeader>
             </SubtitleContainer>
             <ButtonContainer>
-                <Link style={{ textDecoration: 'none' }} href="/auth/login">
+                <Link
+                    style={{ textDecoration: 'none' }}
+                    href={`${currentLanguage + '/auth/login'}`}
+                >
                     <ButtonComp
                         color="#00a5f2"
                         bgColor="white"
@@ -65,7 +67,10 @@ const HeaderComp: FC = () => {
                         title={t('login')}
                     />
                 </Link>
-                <Link style={{ textDecoration: 'none' }} href="/auth/signup">
+                <Link
+                    style={{ textDecoration: 'none' }}
+                    href={`${currentLanguage + '/auth/signup'}`}
+                >
                     <ButtonComp
                         color="#00a5f2"
                         bgColor="white"
@@ -78,7 +83,10 @@ const HeaderComp: FC = () => {
 
                     />
                 </Link> */}
-                <Link style={{ textDecoration: 'none' }} href="/maps">
+                <Link
+                    style={{ textDecoration: 'none' }}
+                    href={`${currentLanguage + '/maps'}`}
+                >
                     <ButtonComp
                         color="white"
                         variant="outlined"
@@ -89,10 +97,12 @@ const HeaderComp: FC = () => {
                 </Link>
             </ButtonContainer>
             <VideoContainer>
-                <VideoPlayer url={'https://res.cloudinary.com/dinasxwdf/video/upload/v1693586993/backgroundVideo_tgdz7p.mp4'} />
+                <VideoPlayer
+                    url={
+                        'https://res.cloudinary.com/dinasxwdf/video/upload/v1693586993/backgroundVideo_tgdz7p.mp4'
+                    }
+                />
             </VideoContainer>
-            <button onClick={() => setLanguage('en')}>English</button>
-            <button onClick={() => setLanguage('es')}>Spanish</button>
         </MainContainer>
     )
 }
