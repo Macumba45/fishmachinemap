@@ -8,7 +8,9 @@ import RoomIcon from '@mui/icons-material/Room'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AddCommentIcon from '@mui/icons-material/AddComment'
-import { UserMarker } from '@/app/maps/type'
+import { UserMarker } from '../../maps/type'
+import { BlaBlaFish } from '../../blablafish/type'
+import { Store } from '../../store/type'
 import CommentModal from '@/components/ModalComments'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import SimpleBottomNavigation from '@/components/BottomNav'
@@ -34,8 +36,7 @@ import {
     UserContainerData,
     nameStyles,
 } from './style'
-import { Store } from '@/app/store/type'
-import { BlaBlaFish } from '@/app/blablafish/type'
+
 
 interface Props {
     params: {
@@ -503,10 +504,10 @@ const Page: FC<Props> = ({ params }) => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.location?.lat,
-                                            lng: marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.location?.lat,
+                                        lng: marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
