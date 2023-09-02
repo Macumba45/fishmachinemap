@@ -153,14 +153,20 @@ const Profile: FC = () => {
             }
         }
     }, [])
+
+
     useEffect(() => {
-        const allowScroll = () => {
-            document.body.style.overflow = ''
+        const handleScroll = (event: Event) => {
+            event.preventDefault()
         }
 
+        document.body.style.overflow = ''
+        document.removeEventListener('scroll', handleScroll)
+
         return () => {
-            // Elimina el event listener para habilitar el desplazamiento
-            document.removeEventListener('scroll', allowScroll)
+            // Permitir el desplazamiento cuando se desmonta el componente
+            document.body.style.overflow = ''
+            document.removeEventListener('scroll', handleScroll)
         }
     }, [])
 
@@ -907,10 +913,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.marker.location?.lat,
-                                            lng: marker.marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.marker.location?.lat,
+                                        lng: marker.marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -1021,10 +1027,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.location?.lat,
-                                            lng: marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.location?.lat,
+                                        lng: marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
