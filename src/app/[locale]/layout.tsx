@@ -4,10 +4,6 @@ import StyledTheme from '@/style/styledTheme'
 import './reset.css'
 import StyledComponentsRegistry from '@/lib/registry'
 
-export function generateStaticParams() {
-    return [{ locale: 'en' }, { locale: 'de' }]
-}
-
 export default async function LocaleLayout({
     children,
     params: { locale },
@@ -21,6 +17,26 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale}>
+            <head>
+                <script
+                    async
+                    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=Function.prototype&libraries=places`}
+                ></script>
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-YQKPKC8399"
+                ></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YQKPKC8399');
+        `,
+                    }}
+                ></script>
+            </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <StyledComponentsRegistry>
