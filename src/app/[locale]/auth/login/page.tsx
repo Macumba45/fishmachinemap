@@ -24,7 +24,6 @@ const Login: FC = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    console.log(locale)
 
     const notifySucces = () => {
         toast.success('Inicio de sesión correctamente', {

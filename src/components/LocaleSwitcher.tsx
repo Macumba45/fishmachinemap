@@ -24,7 +24,6 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
             setLanguage((prevLanguage: string) => nextLocale) // Actualiza el estado utilizando una función de actualización
             router.push(pathname, { locale: nextLocale })
             router.refresh()
-            console.log(nextLocale)
         })
     }
 
@@ -39,10 +38,12 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
             <img
                 src={spain.src}
                 style={{
-                    width: '30px',
-                    height: '30px',
+                    width: '40px',
+                    height: '40px',
                     cursor: 'pointer',
                     marginRight: '5px',
+                    border: locale === 'es' ? '3.5px solid white' : 'none', // Agrega un borde si el idioma es 'es'
+                    borderRadius: '50%',
                 }}
                 alt="España"
                 className={clsx('cursor-pointer', {
@@ -55,10 +56,12 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
             <img
                 src={usa.src}
                 style={{
-                    width: '30px',
-                    height: '30px',
+                    width: '40px',
+                    height: '40px',
                     cursor: 'pointer',
                     marginLeft: '5px',
+                    border: locale === 'en' ? '3.5px solid white' : 'none', // Agrega un borde si el idioma es 'en'
+                    borderRadius: '50%',
                 }}
                 alt="USA"
                 className={clsx('cursor-pointer', {

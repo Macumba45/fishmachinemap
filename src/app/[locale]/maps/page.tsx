@@ -234,7 +234,7 @@ const GoogleMapComp: FC = () => {
                     performSearch() // Llama a la función performSearch
                     setTimeout(() => {
                         setIsButtonDisabledPlaces(false) // Habilita el botón después de 5 segundos
-                    }, 2000) // 5000 milisegundos = 5 segundos
+                    }, 5000) // 5000 milisegundos = 5 segundos
                 }
 
                 updateResultsButton.addEventListener('click', handleClick)
@@ -1017,7 +1017,7 @@ const GoogleMapComp: FC = () => {
                 id="updateResultsButton"
                 style={{
                     display: isButtonDisabled ? 'none' : 'flex',
-                    opacity: isButtonDisabledPlaces ? 0 : 1,
+                    opacity: isButtonDisabledPlaces || !isLogged ? 0.4 : 1,
                     position: 'fixed',
                     width: isSmallScreen ? '100px' : '235px', // Cambia el título si la pantalla es pequeña
                     top: '40px',
@@ -1029,7 +1029,7 @@ const GoogleMapComp: FC = () => {
                 }}
                 icon={<SearchIcon style={{ color: 'black', marginRight: 1 }} />}
                 variant="contained"
-                disabled={isButtonDisabledPlaces}
+                disabled={isButtonDisabledPlaces || !isLogged}
             />
             <FloatLoginButton
                 disabled={isLogged}

@@ -26,7 +26,6 @@ const SignUp: FC = () => {
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    console.log(locale)
 
     const notifySucces = () => {
         toast.success('Registro correctamente', {
