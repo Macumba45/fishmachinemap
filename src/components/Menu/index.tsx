@@ -27,7 +27,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
-    const t = useTranslations('menuComp')
+    const t = useTranslations('menu')
     const [isPending, startTransition] = useTransition()
     const locale = useLocale()
     const router = useRouter()
@@ -149,7 +149,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem onClick={goToLogin}>
-                        {t('logintoProfile')} <br />  {t('logintoProfile2')}
+                        {t('logintoProfile')} <br /> {t('logintoProfile2')}
                     </MenuItem>
                 </Menu>
             </>
@@ -198,7 +198,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         src={userPicture as string}
                         alt="userPicture"
                     />
-                    Mi perfil
+                    {t('profile')}
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon
@@ -219,7 +219,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             src={mareas.src}
                             alt="meteorología"
                         />
-                        Meteorología
+                        {t('wheater')}
                     </ListItemIcon>
                 </MenuItem>
 
@@ -228,13 +228,13 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     <ListItemIcon>
                         <EmailIcon fontSize="small" />
                     </ListItemIcon>
-                    Contacto/Ayuda
+                    {t('contact')}
                 </MenuItem>
                 <MenuItem onClick={logOut}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>
-                    Cerrar sesión
+                    {t('logout')}
                 </MenuItem>
                 <Divider />
                 <MenuItem>

@@ -8,7 +8,7 @@ import spain from '../assets/icons8-spain-96.png'
 import usa from '../assets/icons8-usa-96.png'
 
 interface LocaleSwitcherProps {
-    setLanguage: (nextLocale: string) => void;
+    setLanguage: (nextLocale: string) => void
 }
 
 const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {

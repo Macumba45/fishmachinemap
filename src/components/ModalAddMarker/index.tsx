@@ -224,9 +224,7 @@ const ModalCrearMarcador: FC<Props> = ({
                                 onChange={handleTipoLugarChange}
                                 fullWidth
                             >
-                                <MenuItem value="spot">
-                                    Spot de Pesca
-                                </MenuItem>
+                                <MenuItem value="spot">Spot de Pesca</MenuItem>
                                 <MenuItem value="tienda">
                                     Tienda de Pesca
                                 </MenuItem>

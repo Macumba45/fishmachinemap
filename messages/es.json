@@ -31,8 +31,12 @@
         "buttonPlaces": "Buscar por esta zona",
         "buttonPlacesShort": "Buscar"
     },
-    "menuComp": {
+    "menu": {
         "logintoProfile": "Debes de iniciar sesión",
-        "logintoProfile2": "para ver tu perfil"
+        "logintoProfile2": "para ver tu perfil",
+        "profile": "Mi perfil",
+        "wheater": "Meteorología",
+        "contact": "Contacto/Ayuda",
+        "logout": "Cerrar sesión"
     }
 }
