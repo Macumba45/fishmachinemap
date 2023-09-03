@@ -1,4 +1,6 @@
-import { FC, useState, memo, useEffect, use } from 'react'
+import { FC, useState, memo, useEffect, useTransition } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { usePathname, useRouter } from 'next-intl/client'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -9,26 +11,33 @@ import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import mareas from '../../assets/mareas.png'
-import { FormControl, InputLabel, Modal, Select, Typography } from '@mui/material'
+import {
+    FormControl,
+    InputLabel,
+    Modal,
+    Select,
+    Typography,
+} from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
-import { useLocale } from 'next-intl'
-import { useRouter } from 'next-intl/client'
-import LanguageIcon from '@mui/icons-material/Language';
+import LanguageIcon from '@mui/icons-material/Language'
 
 interface AccountMenuProps {
     userPicture?: string | null
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
+    const t = useTranslations('LocaleSwitcher')
+    const [isPending, startTransition] = useTransition()
+    const locale = useLocale()
     const router = useRouter()
+    const pathname = usePathname()
     const [isLogged, setIsLogged] = useState(false)
     const [pais, setPais] = useState('es')
     const [provincia, setProvincia] = useState('')
     const [ciudad, setCiudad] = useState('')
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [openModal, setOpenModal] = useState(false)
-    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
@@ -88,6 +97,20 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         top: '20px',
         zIndex: 999,
     }
+
+    // Función para cambiar el idioma al hacer clic en una bandera
+    function changeLocale(nextLocale: string) {
+        startTransition(() => {
+            // setLanguage((prevLanguage: string) => nextLocale)
+            router.push(pathname, { locale: nextLocale })
+            router.refresh()
+        })
+    }
+
+    useEffect(() => {
+        // Update the pathname when the locale changes
+        router.push(pathname, { locale: locale })
+    }, [locale, router])
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -227,13 +250,13 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     <ListItemIcon>
                         <LanguageIcon />
                     </ListItemIcon>
-                    <Select
-
-                        defaultValue={locale}
-
-                    >
-                        <MenuItem value="es">España</MenuItem>
-                        <MenuItem value="en">English</MenuItem>
+                    <Select defaultValue={locale}>
+                        <MenuItem onClick={() => changeLocale('es')} value="es">
+                            España
+                        </MenuItem>
+                        <MenuItem onClick={() => changeLocale('en')} value="en">
+                            English
+                        </MenuItem>
                     </Select>
                 </MenuItem>
             </Menu>

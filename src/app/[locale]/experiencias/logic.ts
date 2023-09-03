@@ -3,9 +3,7 @@ import { getAuthenticatedToken } from '../../../lib/storage/storage'
 import { User } from './type'
 
 export const useLogicExperience = () => {
-
     const [currentUser, setCurrentUser] = useState<User | null>(null)
-
 
     const getUserInfo = useCallback(async () => {
         try {

@@ -16,13 +16,11 @@ import MultiActionAreaCard from '@/components/CardExperiences'
 import { useLogicExperience } from './logic'
 
 const Experiencias: FC = () => {
-
     const { currentUser, getUserInfo } = useLogicExperience()
 
     useEffect(() => {
         getUserInfo()
-    }
-    , [])
+    }, [])
 
     // const [filteredData, setFilteredData] = useState<Store[]>(store)
     // const [selectedCategory, setSelectedCategory] = useState<string>('Todos') // Establecer el valor predeterminado como "Todos"
