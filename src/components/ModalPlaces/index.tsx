@@ -55,6 +55,7 @@ interface Props {
     numberRating?: number
     isOpenStore?: boolean | undefined
     place_id?: string
+    type?: string[]
 }
 
 const BasicModal: FC<Props> = ({
@@ -70,6 +71,7 @@ const BasicModal: FC<Props> = ({
     numberRating,
     isOpenStore,
     place_id,
+    type,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -164,8 +166,11 @@ const BasicModal: FC<Props> = ({
                             fontWeight: 500,
                         }}
                     >
-                        {isOpenStore ? 'Abierto' : 'Cerrado'}{' '}
-                        {/* Mostrar "Abierto" o "Cerrado" según el valor de isOpenStore */}
+                        {type?.includes('natural_feature')
+                            ? undefined
+                            : isOpenStore
+                                ? 'Abierto'
+                                : 'Cerrado'}
                     </Typography>
                     <TypographyContainer>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>

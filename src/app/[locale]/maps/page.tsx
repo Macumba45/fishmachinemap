@@ -320,6 +320,7 @@ const GoogleMapComp: FC = () => {
                 setSelectedMarkers(prevMarkers => [...prevMarkers, marker])
             }
             setPlace(place)
+            console.log(place)
         })
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -889,7 +890,12 @@ const GoogleMapComp: FC = () => {
                         value={place?.rating}
                         phone={place?.international_phone_number}
                         numberRating={place?.user_ratings_total}
-                        isOpenStore={place?.opening_hours?.isOpen()} // Utilizar el resultado de la función isOpen()
+                        type={place?.types}
+                        isOpenStore={
+                            place?.types!.includes('natural_feature')
+                                ? undefined
+                                : place?.opening_hours?.isOpen()
+                        }
                     >
                         {
                             <SimpleSlider
