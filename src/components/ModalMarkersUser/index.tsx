@@ -67,7 +67,6 @@ const ModalUserMarkers: FC<Props> = ({
     handleShareOnWhatsApp,
     handleShareOnFacebook,
 }) => {
-
     const locale = useLocale()
     let maxHeight: any
     if (typeof window !== 'undefined') {
@@ -171,39 +170,40 @@ const ModalUserMarkers: FC<Props> = ({
                         >
                             {icon2}
                             {typeof window !== 'undefined' &&
-                                window.location.pathname === `/${locale}/maps` && (
-                                    <>
-                                        <IconButton
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                padding: 0,
-                                                marginRight: '0.5rem',
-                                            }}
-                                            onClick={onClickLike}
-                                            disabled={!isLogged}
-                                        >
-                                            {isLiked ? (
-                                                <FavoriteIcon
-                                                    style={{
-                                                        color: isLogged
-                                                            ? '#49007a'
-                                                            : 'grey',
-                                                    }}
-                                                />
-                                            ) : (
-                                                <FavoriteBorderIcon
-                                                    style={{
-                                                        color: isLogged
-                                                            ? '#49007a'
-                                                            : 'grey',
-                                                    }}
-                                                />
-                                            )}
-                                            <LikesLabel>{likes}</LikesLabel>
-                                        </IconButton>
-                                    </>
-                                )}
+                                window.location.pathname ===
+                                    `/${locale}/maps` && (
+                                <>
+                                    <IconButton
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            padding: 0,
+                                            marginRight: '0.5rem',
+                                        }}
+                                        onClick={onClickLike}
+                                        disabled={!isLogged}
+                                    >
+                                        {isLiked ? (
+                                            <FavoriteIcon
+                                                style={{
+                                                    color: isLogged
+                                                        ? '#49007a'
+                                                        : 'grey',
+                                                }}
+                                            />
+                                        ) : (
+                                            <FavoriteBorderIcon
+                                                style={{
+                                                    color: isLogged
+                                                        ? '#49007a'
+                                                        : 'grey',
+                                                }}
+                                            />
+                                        )}
+                                        <LikesLabel>{likes}</LikesLabel>
+                                    </IconButton>
+                                </>
+                            )}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>

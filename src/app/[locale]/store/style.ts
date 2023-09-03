@@ -34,11 +34,12 @@ export const Container = styled.div`
 export const FilterContainer = styled.div`
     display: flex;
     position: fixed;
-    top: 0;
-    justify-content: center;
+    width: 100%;
+    top: 10px;
     align-items: center;
     margin-top: 4rem;
     background-color: white;
+    z-index: 1;
 `
 
 export const ContainerMenu = styled.div`

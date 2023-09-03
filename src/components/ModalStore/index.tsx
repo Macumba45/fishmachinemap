@@ -145,6 +145,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
             await postStore(storeData)
             setSuccessSnackbarOpen(true)
             onClose()
+            setLoading(false)
         } catch (error) {
             console.log(error)
         }

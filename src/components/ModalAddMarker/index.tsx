@@ -177,6 +177,7 @@ const ModalCrearMarcador: FC<Props> = ({
             )
             setSuccessSnackbarOpen(true)
             onClose!()
+            setLoading(false)
         } catch (error) {
             console.log(error)
         }

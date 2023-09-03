@@ -23,7 +23,6 @@ const LimitTags: FC<Props> = ({ onChange, value }) => {
                 aria-label="scrollable force tabs example"
                 indicatorColor="secondary"
                 textColor="secondary"
-                sx={{ width: '100%' }}
             >
                 <Tab sx={{ fontSize: '0.7rem' }} value="Todos" label="Todos" />
                 <Tab
