@@ -1,10 +1,18 @@
 'use client'
 
 import React, { FC, memo } from 'react'
-import { Container, ContainerMenu, MainContainer, TextNav } from './style'
+import {
+    CardContainer,
+    Container,
+    ContainerMenu,
+    FilterContainer,
+    MainContainer,
+    TextNav,
+} from './style'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FilterExperiencias from '@/components/FilterExperiencias'
+import MultiActionAreaCard from '@/components/CardExperiences'
 
 const Experiencias: FC = () => {
     // const [filteredData, setFilteredData] = useState<Store[]>(store)
@@ -29,11 +37,21 @@ const Experiencias: FC = () => {
             <Container>
                 <TextNav>Experiencias. Inolvidables</TextNav>
             </Container>
-            <MainContainer>
+            <FilterContainer>
                 <FilterExperiencias
                 // value={selectedCategory}
                 // onChange={filterByCategory}
                 />
+            </FilterContainer>
+            <CardContainer>
+                <MultiActionAreaCard />
+                <MultiActionAreaCard />
+                <MultiActionAreaCard />
+                <MultiActionAreaCard />
+                <MultiActionAreaCard />
+                <MultiActionAreaCard />
+            </CardContainer>
+            <MainContainer>
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

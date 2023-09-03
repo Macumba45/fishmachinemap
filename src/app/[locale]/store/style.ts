@@ -48,6 +48,7 @@ export const ContainerMenu = styled.div`
     top: 0;
     width: 100%;
     z-index: 2;
+    height: 80px;
 `
 
 export const TextNav = styled.h1`

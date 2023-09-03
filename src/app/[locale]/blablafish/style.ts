@@ -33,6 +33,7 @@ export const ContainerMenu = styled.div`
     top: 0;
     width: 100%;
     z-index: 1;
+    height: 80px;
 `
 
 export const NoDataContainer = styled.div`

@@ -6,7 +6,8 @@ export const MainContainer = styled.div`
     flex-direction: column;
     height: 100%;
     object-fit: cover;
-    margin-top: 5.2rem;
+    margin-top: 8rem;
+    margin-bottom: 5rem;
     background-size: cover;
 `
 export const Container = styled.div`
@@ -27,6 +28,7 @@ export const ContainerMenu = styled.div`
     position: fixed;
     top: 0;
     width: 100%;
+    height: 80px;
     z-index: 2;
 `
 export const TextNav = styled.h1`
@@ -39,4 +41,30 @@ export const TextNav = styled.h1`
     @media screen and (max-width: 370px) {
         font-size: 0.75rem;
     }
+`
+
+export const FilterContainer = styled.div`
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 10px;
+    align-items: center;
+    margin-top: 4rem;
+    background-color: white;
+    z-index: 1;
+`
+
+export const CardContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    /* @media screen and (min-width: 375px) {
+        flex-wrap: wrap;
+        
+    } */
 `
