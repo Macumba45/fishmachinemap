@@ -53,7 +53,7 @@ interface Props {
     value?: number
     phone?: string
     numberRating?: number
-    isOpenStore?: boolean | undefined;
+    isOpenStore?: boolean | undefined
     place_id?: string
 }
 
@@ -145,9 +145,7 @@ const BasicModal: FC<Props> = ({
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
                                 alt=""
                             />
-
                         </ContenidoGoogle>
-
                     </TypographyContainer>
                     <TypographyContainer>
                         <Typography
@@ -158,8 +156,16 @@ const BasicModal: FC<Props> = ({
                             {label}
                         </Typography>
                     </TypographyContainer>
-                    <Typography sx={{ mb: 1, mt: 1, color: isOpenStore ? 'green' : 'red', fontWeight: 500 }}>
-                        {isOpenStore ? "Abierto" : "Cerrado"} {/* Mostrar "Abierto" o "Cerrado" según el valor de isOpenStore */}
+                    <Typography
+                        sx={{
+                            mb: 1,
+                            mt: 1,
+                            color: isOpenStore ? 'green' : 'red',
+                            fontWeight: 500,
+                        }}
+                    >
+                        {isOpenStore ? 'Abierto' : 'Cerrado'}{' '}
+                        {/* Mostrar "Abierto" o "Cerrado" según el valor de isOpenStore */}
                     </Typography>
                     <TypographyContainer>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
