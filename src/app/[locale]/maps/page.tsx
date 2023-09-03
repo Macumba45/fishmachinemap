@@ -132,7 +132,7 @@ const GoogleMapComp: FC = () => {
     const router = useRouter()
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -408,7 +408,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -736,19 +736,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                            <Typography
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="secondary"
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection:
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="secondary"
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection:
                                                                     'column',
-                                                                }}
-                                                            >
+                                                            }}
+                                                        >
                                                             Nuevo
-                                                            </Typography>
-                                                        ) : null}
+                                                        </Typography>
+                                                    ) : null}
                                                 </>
                                             }
                                         />
@@ -882,15 +882,18 @@ const GoogleMapComp: FC = () => {
                 </>
                 {modalIsOpen && (
                     <BasicModal
+                        key={place?.place_id}
                         onClose={closeModal}
                         label={place?.name?.toLocaleUpperCase()}
                         direction={place?.formatted_address}
                         value={place?.rating}
                         phone={place?.international_phone_number}
                         numberRating={place?.user_ratings_total}
+                        isOpenStore={place?.opening_hours?.isOpen()} // Utilizar el resultado de la función isOpen()
                     >
                         {
                             <SimpleSlider
+                                key={place?.place_id}
                                 pictures={place?.photos?.map((photo: any) => {
                                     return {
                                         src: photo.getUrl(),
@@ -904,7 +907,7 @@ const GoogleMapComp: FC = () => {
                             (review: PlaceReview, index: number) => (
                                 <>
                                     <ReviewsComp
-                                        key={index}
+                                        key={review.place_id} // Aquí usa un identificador único, como 'id', si está disponible
                                         author_name={review.author_name}
                                         author_url={review.author_url}
                                         language={review.language}

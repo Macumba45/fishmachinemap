@@ -38,6 +38,7 @@ export interface PlaceReview {
     relative_time_description?: string
     text?: string
     time?: number
+    place_id?: string
 }
 
 interface Props {
@@ -52,6 +53,8 @@ interface Props {
     value?: number
     phone?: string
     numberRating?: number
+    isOpenStore?: boolean | undefined;
+    place_id?: string
 }
 
 const BasicModal: FC<Props> = ({
@@ -65,6 +68,8 @@ const BasicModal: FC<Props> = ({
     onClick,
     value,
     numberRating,
+    isOpenStore,
+    place_id,
 }) => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -72,10 +77,9 @@ const BasicModal: FC<Props> = ({
         setIsOpen(isOpenProp || true)
     }, [isOpenProp])
 
-    const handleClose = () => {
-        setIsOpen(false)
+    const handleOpen = () => {
+        setIsOpen(true)
     }
-
     let width = window.innerWidth
     if (width < 600) {
         width = 300
@@ -106,6 +110,7 @@ const BasicModal: FC<Props> = ({
                 disableEscapeKeyDown={true}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                key={place_id}
             >
                 <Box sx={style}>
                     <TypographyContainer>
@@ -140,7 +145,9 @@ const BasicModal: FC<Props> = ({
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
                                 alt=""
                             />
+
                         </ContenidoGoogle>
+
                     </TypographyContainer>
                     <TypographyContainer>
                         <Typography
@@ -151,6 +158,9 @@ const BasicModal: FC<Props> = ({
                             {label}
                         </Typography>
                     </TypographyContainer>
+                    <Typography sx={{ mb: 1, mt: 1, color: isOpenStore ? 'green' : 'red', fontWeight: 500 }}>
+                        {isOpenStore ? "Abierto" : "Cerrado"} {/* Mostrar "Abierto" o "Cerrado" según el valor de isOpenStore */}
+                    </Typography>
                     <TypographyContainer>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                             {direction}
@@ -173,7 +183,6 @@ const BasicModal: FC<Props> = ({
                             </CallNumber>
                         </NumberContainer>
                     )}
-
                     <Divider sx={{ width: '100px', margin: '1.5rem auto' }} />
                     {children}
                     <ButtonContainer>
