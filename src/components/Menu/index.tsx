@@ -100,17 +100,8 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
 
     // Función para cambiar el idioma al hacer clic en una bandera
     function changeLocale(nextLocale: string) {
-        startTransition(() => {
-            // setLanguage((prevLanguage: string) => nextLocale)
-            router.push(pathname, { locale: nextLocale })
-            router.refresh()
-        })
+        router.push(pathname, { locale: nextLocale })
     }
-
-    useEffect(() => {
-        // Update the pathname when the locale changes
-        router.push(pathname, { locale: locale })
-    }, [locale, router])
 
     useEffect(() => {
         const token = localStorage.getItem('token')
