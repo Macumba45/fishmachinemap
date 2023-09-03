@@ -72,7 +72,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
 
     let position
     if (typeof window !== 'undefined') {
-        if (window.location.pathname === '/maps') {
+        if (window.location.pathname === `/${locale}/maps`) {
             position = 'fixed'
         } else {
             position = 'absolute'
@@ -85,7 +85,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         textAlign: 'center',
         position: position as any,
         top: '20px',
-        zIndex: 1,
+        zIndex: 999,
     }
 
     useEffect(() => {
