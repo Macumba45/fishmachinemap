@@ -14,6 +14,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next-intl/client'
+import LocaleSwitcher from '../LocaleSwitcher'
 
 interface AccountMenuProps {
     userPicture?: string | null
@@ -206,6 +207,9 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         />
                         Meteorología
                     </ListItemIcon>
+                </MenuItem>
+                <MenuItem>
+                    <LocaleSwitcher />
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={emailMe}>
