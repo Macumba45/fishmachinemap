@@ -7,7 +7,7 @@ export const MainContainer = styled.div`
     height: 100%;
     object-fit: cover;
     margin-top: 8rem;
-    margin-bottom: 5rem;
+    margin-bottom: 0rem;
     background-size: cover;
 `
 export const Container = styled.div`

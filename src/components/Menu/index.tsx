@@ -9,12 +9,12 @@ import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import mareas from '../../assets/mareas.png'
-import { FormControl, InputLabel, Modal, Select } from '@mui/material'
+import { FormControl, InputLabel, Modal, Select, Typography } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next-intl/client'
-import LocaleSwitcher from '../LocaleSwitcher'
+import LanguageIcon from '@mui/icons-material/Language';
 
 interface AccountMenuProps {
     userPicture?: string | null
@@ -208,9 +208,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         Meteorología
                     </ListItemIcon>
                 </MenuItem>
-                <MenuItem>
-                    <LocaleSwitcher />
-                </MenuItem>
+
                 <Divider />
                 <MenuItem onClick={emailMe}>
                     <ListItemIcon>
@@ -224,7 +222,22 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     </ListItemIcon>
                     Cerrar sesión
                 </MenuItem>
+                <Divider />
+                <MenuItem>
+                    <ListItemIcon>
+                        <LanguageIcon />
+                    </ListItemIcon>
+                    <Select
+
+                        defaultValue={locale}
+
+                    >
+                        <MenuItem value="es">España</MenuItem>
+                        <MenuItem value="en">English</MenuItem>
+                    </Select>
+                </MenuItem>
             </Menu>
+
             <Modal open={openModal} onClose={handleCLoseModal}>
                 <Box
                     sx={{

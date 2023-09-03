@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next-intl/client'
 import { FC, useEffect, useTransition } from 'react'
 import spain from '../assets/icons8-spain-96.png'
 import usa from '../assets/icons8-usa-96.png'
+import { type } from 'os'
 
 interface LocaleSwitcherProps {
     setLanguage?: any
@@ -31,6 +32,9 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
         // Update the pathname when the locale changes
         router.push(pathname, { locale: locale }) // Use 'locale' instead of 'nextLocale'
     }, [locale, router])
+
+    // if(typeof window !== 'undefined') {
+    //     if(window.location.pa)
 
     return (
         <div>

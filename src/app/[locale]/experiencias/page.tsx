@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, memo } from 'react'
+import React, { FC, memo, use, useEffect } from 'react'
 import {
     CardContainer,
     Container,
@@ -13,8 +13,17 @@ import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FilterExperiencias from '@/components/FilterExperiencias'
 import MultiActionAreaCard from '@/components/CardExperiences'
+import { useLogicExperience } from './logic'
 
 const Experiencias: FC = () => {
+
+    const { currentUser, getUserInfo } = useLogicExperience()
+
+    useEffect(() => {
+        getUserInfo()
+    }
+    , [])
+
     // const [filteredData, setFilteredData] = useState<Store[]>(store)
     // const [selectedCategory, setSelectedCategory] = useState<string>('Todos') // Establecer el valor predeterminado como "Todos"
     // const filterByCategory = (selectedCategory: string) => {
@@ -32,7 +41,7 @@ const Experiencias: FC = () => {
     return (
         <>
             <ContainerMenu>
-                <AccountMenu />
+                <AccountMenu userPicture={currentUser?.picture} />
             </ContainerMenu>
             <Container>
                 <TextNav>Experiencias. Inolvidables</TextNav>
