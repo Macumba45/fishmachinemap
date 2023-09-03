@@ -287,7 +287,7 @@ export const useLogicMaps = () => {
                     scaledSize: new google.maps.Size(32, 32),
                 }
                 break
-            case MarkerType.PESQUERO:
+            case MarkerType.SPOT:
                 icon = {
                     url: customMarkerIconPlace.src,
                     scaledSize: new google.maps.Size(32, 32),

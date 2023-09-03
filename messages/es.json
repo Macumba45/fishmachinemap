@@ -26,5 +26,13 @@
         "label": "Idiomma",
         "en": "Inglés",
         "es": "Español"
+    },
+    "maps": {
+        "buttonPlaces": "Buscar por esta zona",
+        "buttonPlacesShort": "Buscar"
+    },
+    "menuComp": {
+        "logintoProfile": "Debes de iniciar sesión",
+        "logintoProfile2": "para ver tu perfil"
     }
 }

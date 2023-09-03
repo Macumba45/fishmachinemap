@@ -90,7 +90,7 @@ const FilterComponent: FC<FilterComponentProps> = ({
                             backgroundColor: 'white',
                         },
                     }}
-                    value="pesquero"
+                    value="spot"
                 >
                     <Icon
                         component="img"
@@ -108,7 +108,7 @@ const FilterComponent: FC<FilterComponentProps> = ({
                         borderRadius: '10px',
                         color: 'white',
                         fontSize: '0.7rem',
-                        fontWeight: filter === 'pesquero' ? 800 : 'inherit',
+                        fontWeight: filter === 'spot' ? 800 : 'inherit',
                         fontFamily: 'Roboto',
                         '&.MuiToggleButton-root.Mui-selected': {
                             color: '#b649ff',

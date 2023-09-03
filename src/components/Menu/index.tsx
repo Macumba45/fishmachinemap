@@ -27,7 +27,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
-    const t = useTranslations('LocaleSwitcher')
+    const t = useTranslations('menuComp')
     const [isPending, startTransition] = useTransition()
     const locale = useLocale()
     const router = useRouter()
@@ -118,7 +118,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
         return (
             <>
                 <Box sx={boxStyles}>
-                    <Tooltip title="Menú">
+                    <Tooltip title="Menu">
                         <IconButton
                             onClick={handleClick}
                             size="small"
@@ -149,7 +149,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem onClick={goToLogin}>
-                        Debes de iniciar sesión <br /> para ver tu perfil
+                        {t('logintoProfile')} <br />  {t('logintoProfile2')}
                     </MenuItem>
                 </Menu>
             </>
@@ -159,7 +159,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
     return (
         <>
             <Box sx={boxStyles}>
-                <Tooltip title="Menú">
+                <Tooltip title="Menu">
                     <IconButton
                         onClick={handleClick}
                         size="small"

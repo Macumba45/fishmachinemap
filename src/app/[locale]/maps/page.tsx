@@ -53,7 +53,7 @@ import {
     BadgeContainer,
     stylesMaps,
 } from './style'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -129,10 +129,11 @@ const GoogleMapComp: FC = () => {
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
+    const t = useTranslations('maps')
     const router = useRouter()
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [locationUser, setLocationUser] =
@@ -409,7 +410,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -737,19 +738,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                            <Typography
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="secondary"
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection:
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="secondary"
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection:
                                                                     'column',
-                                                                }}
-                                                            >
+                                                            }}
+                                                        >
                                                             Nuevo
-                                                            </Typography>
-                                                        ) : null}
+                                                        </Typography>
+                                                    ) : null}
                                                 </>
                                             }
                                         />
@@ -1022,7 +1023,7 @@ const GoogleMapComp: FC = () => {
                 onClick={openAddMarkerMode}
             />
             <ButtonComp
-                title={isSmallScreen ? 'Buscar' : 'Buscar por esta zona'} // Cambia el título si la pantalla es pequeña
+                title={isSmallScreen ? t('buttonPlacesShort') : t('buttonPlaces')} // Cambia el título si la pantalla es pequeña
                 id="updateResultsButton"
                 style={{
                     display: isButtonDisabled ? 'none' : 'flex',

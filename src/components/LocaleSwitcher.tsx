@@ -3,17 +3,17 @@
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next-intl/client'
-import { FC, useEffect, useTransition } from 'react'
+import { FC, useTransition } from 'react'
 import spain from '../assets/icons8-spain-96.png'
 import usa from '../assets/icons8-usa-96.png'
 
 interface LocaleSwitcherProps {
-    setLanguage?: any
+    setLanguage: (nextLocale: string) => void;
 }
 
 const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
     const t = useTranslations('LocaleSwitcher')
-    const [isPending, startTransition] = useTransition()
+    const [isPending] = useTransition()
     const locale = useLocale()
     const router = useRouter()
     const pathname = usePathname()
@@ -21,18 +21,7 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
     // Función para cambiar el idioma al hacer clic en una bandera
     function changeLocale(nextLocale: string) {
         router.push(pathname, { locale: nextLocale })
-
-        // startTransition(() => {
-        //     setLanguage((prevLanguage: string) => nextLocale)
-        //     router.push(pathname, { locale: nextLocale })
-        //     // router.refresh()
-        // })
     }
-
-    // useEffect(() => {
-    //     // Update the pathname when the locale changes
-    //     router.push(pathname, { locale: locale })
-    // }, [locale, router])
 
     return (
         <div>
