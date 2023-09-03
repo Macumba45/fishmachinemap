@@ -20,17 +20,19 @@ const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
 
     // Función para cambiar el idioma al hacer clic en una bandera
     function changeLocale(nextLocale: string) {
-        startTransition(() => {
-            setLanguage((prevLanguage: string) => nextLocale)
-            router.push(pathname, { locale: nextLocale })
-            router.refresh()
-        })
+        router.push(pathname, { locale: nextLocale })
+
+        // startTransition(() => {
+        //     setLanguage((prevLanguage: string) => nextLocale)
+        //     router.push(pathname, { locale: nextLocale })
+        //     // router.refresh()
+        // })
     }
 
-    useEffect(() => {
-        // Update the pathname when the locale changes
-        router.push(pathname, { locale: locale })
-    }, [locale, router])
+    // useEffect(() => {
+    //     // Update the pathname when the locale changes
+    //     router.push(pathname, { locale: locale })
+    // }, [locale, router])
 
     return (
         <div>
