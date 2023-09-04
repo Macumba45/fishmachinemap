@@ -1,37 +1,58 @@
 {
-    "Index": {
-        "HomeHeaderTitle": "Welcome to FishGram",
-        "homeSubHeaderTitle": "A website by fishermens,",
-        "homeSubHeaderTitle2": "made by fishermen",
-        "login": "Login",
-        "register": "Register",
-        "guest": "Continue as guest"
-    },
-    "login": {
-        "errorLogin": "User or Password incorrect",
-        "noAccount": "Don't have an account? Sign up",
-        "password": "Password",
-        "nameRegister": "Name",
-        "createAccount": "Create account",
-        "alreadyAccount": "Already have an account? Sign in",
-        "login": "Login",
-        "register": "Register"
-    },
-    "LocaleSwitcher": {
-        "label": "Language",
-        "en": "English",
-        "es": "Spanish"
-    },
-    "maps": {
-        "buttonPlaces": "Search in this area",
-        "buttonPlacesShort": "Search"
-    },
-    "menu": {
-        "logintoProfile": "You must be logged in",
-        "logintoProfile2": "to view your profile",
-        "profile": "Profile",
-        "wheater": "Forecast",
-        "contact": "Contact/Help",
-        "logout": "Log out"
-    }
+  "Index": {
+    "HomeHeaderTitle": "Welcome to FishGram",
+    "homeSubHeaderTitle": "A website by fishermens,",
+    "homeSubHeaderTitle2": "made by fishermen",
+    "login": "Login",
+    "register": "Register",
+    "guest": "Continue as guest"
+  },
+  "login": {
+    "errorLogin": "User or Password incorrect",
+    "noAccount": "Don't have an account? Sign up",
+    "password": "Password",
+    "nameRegister": "Name",
+    "createAccount": "Create account",
+    "alreadyAccount": "Already have an account? Sign in",
+    "login": "Login",
+    "register": "Register"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "es": "Spanish"
+  },
+  "maps": {
+    "buttonPlaces": "Search in this area",
+    "buttonPlacesShort": "Search",
+    "login": "Login",
+    "monthlyMarkers": "Monthly markers",
+    "new": "New",
+    "addMarker": "Add marker",
+    "cancelMarker": "Cancel marker"
+  },
+  "menu": {
+    "logintoProfile": "You must be logged in",
+    "logintoProfile2": "to view your profile",
+    "profile": "Profile",
+    "wheater": "Forecast",
+    "contact": "Contact/Help",
+    "logout": "Log out"
+  },
+  "modalAddMarker": {
+    "createMarker": "Create marker",
+    "address": "Enter Address/Location:",
+    "place": "Type of place:",
+    "spot": "Fishing spot",
+    "cebos": "Bait 24H",
+    "store": "Fishing store",
+    "pictures": "Fish pictures",
+    "algas": "Algae (Erases after 24H)",
+    "description": "Place description:",
+    "uploadPicture": "Upload picture:",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "required": "Please complete all required fields before creating the marker.",
+    "success": "Marker created successfully"
+  }
 }

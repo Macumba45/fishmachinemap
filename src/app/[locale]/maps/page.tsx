@@ -410,7 +410,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -645,7 +645,7 @@ const GoogleMapComp: FC = () => {
                                     marginBottom: 2,
                                 }}
                             >
-                                Marcadores Mensuales
+                                {t('monthlyMarkers')}
                                 <CloseIcon
                                     onClick={closeModalBadge}
                                     sx={{
@@ -748,7 +748,7 @@ const GoogleMapComp: FC = () => {
                                                                     'column',
                                                                 }}
                                                             >
-                                                            Nuevo
+                                                                {t('new')}
                                                             </Typography>
                                                         ) : null}
                                                 </>
@@ -998,7 +998,7 @@ const GoogleMapComp: FC = () => {
                     </span>
                     <ButtonComp
                         key="confirmButton"
-                        title="Añadir Marcador"
+                        title={t('addMarker')}
                         style={{
                             position: 'fixed',
                             ...ButtonStyleConfirmarLugar,
@@ -1008,7 +1008,7 @@ const GoogleMapComp: FC = () => {
                     />
                     <ButtonComp
                         key="cancelarButton"
-                        title="Cancelar Marcador"
+                        title={t('cancelMarker')}
                         style={{
                             position: 'fixed',
                             ...ButtonStyleCancelarLugar,
@@ -1045,7 +1045,7 @@ const GoogleMapComp: FC = () => {
             />
             <FloatLoginButton
                 disabled={isLogged}
-                title="Iniciar Sesión"
+                title={t('login')}
                 onClick={() => {
                     goToLogin()
                 }}

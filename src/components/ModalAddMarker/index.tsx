@@ -15,6 +15,7 @@ import {
     TextField,
     Snackbar,
 } from '@mui/material'
+import { useTranslations } from 'next-intl'
 
 interface Props {
     isOpen: boolean
@@ -51,6 +52,7 @@ const ModalCrearMarcador: FC<Props> = ({
         setAddingMarker,
     } = useLogicMaps()
 
+    const t = useTranslations('modalAddMarker')
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -200,40 +202,46 @@ const ModalCrearMarcador: FC<Props> = ({
                     }}
                 >
                     <Typography variant="h6" component="h2" align="center">
-                        Crear Marcador
+                        {t('createMarker')}
                     </Typography>
 
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <Box sx={{ mt: 2, borderRadius: '20px' }}>
                             <div style={{ marginBottom: '1rem' }}>
-                                <Typography variant="body2" component="label">
-                                    Introduce la Dirección/Lugar
+                                <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                                    {t('address')}
                                 </Typography>
                                 <TextField
+                                    sx={{ mt: 1 }}
                                     value={direccion}
                                     fullWidth
                                     id="outlined-controlled"
                                     onChange={handleDireccionChange}
                                 />
                             </div>
-                            <Typography variant="body2" component="label">
-                                Tipo de lugar:
+                            <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                                {t('place')}
                             </Typography>
                             <Select
+                                sx={{ mt: 1 }}
                                 value={tipoLugar}
                                 onChange={handleTipoLugarChange}
                                 fullWidth
                             >
-                                <MenuItem value="spot">Spot de Pesca</MenuItem>
-                                <MenuItem value="tienda">
-                                    Tienda de Pesca
+                                <MenuItem value="spot">
+                                    {t('spot')}
                                 </MenuItem>
-                                <MenuItem value="cebos">Cebos 24H</MenuItem>
+                                <MenuItem value="tienda">
+                                    {t('store')}
+                                </MenuItem>
+                                <MenuItem value="cebos">
+                                    {t('cebos')}
+                                </MenuItem>
                                 <MenuItem value="fotos">
-                                    Fotos de Capturas
+                                    {t('pictures')}
                                 </MenuItem>
                                 <MenuItem value="algas">
-                                    Algas (Se borra después de 24H){' '}
+                                    {t('algas')}
                                     <ReportProblemIcon
                                         sx={{ ml: 0.8, color: 'red' }}
                                     />
@@ -242,10 +250,11 @@ const ModalCrearMarcador: FC<Props> = ({
                         </Box>
 
                         <Box sx={{ mt: 2 }}>
-                            <Typography variant="body2" component="label">
-                                Descripción del lugar:
+                            <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                                {t('description')}
                             </Typography>
                             <TextField
+                                sx={{ mt: 1 }}
                                 value={descripcion}
                                 onChange={handleDescripcionChange}
                                 fullWidth
@@ -255,11 +264,13 @@ const ModalCrearMarcador: FC<Props> = ({
                         </Box>
 
                         <Box sx={{ mt: 2 }}>
-                            <Typography variant="body2" component="label">
-                                Subir fotos:
+                            <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                                {t('uploadPicture')}
                             </Typography>
                             <input
+                                style={{ marginTop: 5 }}
                                 accept=".jpg, .png, .gif, .jpeg"
+                                title='Subir foto'
                                 type="file"
                                 onChange={handleFotosChange}
                             />
@@ -281,11 +292,10 @@ const ModalCrearMarcador: FC<Props> = ({
                                         : '#49007a',
                                     marginRight: loading ? '0' : '0.5rem',
                                 }}
-                                title="Confirmar"
                                 loading={loading}
                                 loadingPosition="center"
                             >
-                                Confirmar
+                                {t('confirm')}
                             </LoadingButton>
                             <ButtonComp
                                 type="button"
@@ -294,7 +304,7 @@ const ModalCrearMarcador: FC<Props> = ({
                                     backgroundColor: '#49007a',
                                     display: loading ? 'none' : 'block',
                                 }}
-                                title="Cancelar"
+                                title={t('cancel')}
                                 onClick={onClose}
                                 disabled={loading}
                             />
@@ -312,8 +322,7 @@ const ModalCrearMarcador: FC<Props> = ({
                     severity="error"
                     sx={{ width: '100%' }}
                 >
-                    Por favor, completa todos los campos requeridos antes de
-                    crear el marcador.
+                    {t('required')}
                 </MuiAlert>
             </Snackbar>
             <Snackbar
@@ -326,7 +335,7 @@ const ModalCrearMarcador: FC<Props> = ({
                     severity="success"
                     sx={{ width: '100%' }}
                 >
-                    Marcador creado exitosamente!
+                    {t('success')}
                 </MuiAlert>
             </Snackbar>
         </>

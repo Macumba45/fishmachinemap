@@ -158,7 +158,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                         </ListItemIcon>
                         <Select defaultValue={locale}>
                             <MenuItem onClick={() => changeLocale('es')} value="es">
-                                España
+                                Español
                             </MenuItem>
                             <MenuItem onClick={() => changeLocale('en')} value="en">
                                 English
@@ -257,7 +257,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     </ListItemIcon>
                     <Select defaultValue={locale}>
                         <MenuItem onClick={() => changeLocale('es')} value="es">
-                            España
+                            Español
                         </MenuItem>
                         <MenuItem onClick={() => changeLocale('en')} value="en">
                             English
