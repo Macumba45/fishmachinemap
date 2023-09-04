@@ -67,7 +67,6 @@ export const BadgeContainer = styled.div`
 export const ContainerModalSmall = styled.div`
     display: flex;
     width: 100%;
-    height: 200px;
     position: fixed;
     bottom: 60px;
     overflow-x: scroll;
