@@ -71,11 +71,6 @@ export const ContainerModalSmall = styled.div`
     position: fixed;
     bottom: 60px;
     overflow-x: scroll;
-    overflow-y: hidden; /* Deshabilita el scroll vertical */
-    touch-action: none; /* Bloquea el zoom */
-
-    /* Estilos adicionales */
-    /* ... */
 `
 
 export const ButtonStyleConfirmarLugar = {
