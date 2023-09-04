@@ -5,7 +5,7 @@ export const MainContainer = styled.div`
     width: 100%;
     height: 150px;
     margin: 1rem;
-    touch-action: none; /* Bloquea el zoom */
+
 `
 
 export const Container = styled.div`
@@ -13,6 +13,7 @@ export const Container = styled.div`
     border-radius: 10px;
     object-fit: cover;
     background-size: cover;
+    overflow-x: scroll;
 `
 
 export const PictureMarker = styled.img`
