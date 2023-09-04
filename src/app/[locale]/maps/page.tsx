@@ -7,6 +7,7 @@ import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useRouter } from 'next/navigation'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import Link from 'next/link'
+import RoomIcon from '@mui/icons-material/Room'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import CommentModal from '@/components/ModalComments'
 import SimpleBottomNavigation from '@/components/BottomNav'
@@ -52,8 +53,10 @@ import {
     ReviewsContainer,
     BadgeContainer,
     stylesMaps,
+    ContainerModalSmall,
 } from './style'
 import { useLocale, useTranslations } from 'next-intl'
+import ModalSmallMarkers from '@/components/ModalSmallMarkers'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -115,6 +118,7 @@ const GoogleMapComp: FC = () => {
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
     const [isLogged, setIsLogged] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [openSmallModal, setOpenSmallModal] = useState(false)
 
     useEffect(() => {
         if (!token) {
@@ -135,6 +139,9 @@ const GoogleMapComp: FC = () => {
     const [selectedMarkers, setSelectedMarkers] = useState<
     google.maps.Marker[]
     >([])
+
+    const [markersSmallModal, markersSetSmallModal] =
+        useState<UserMarker[]>(userMarkers)
 
     const [locationUser, setLocationUser] =
         useState<google.maps.LatLngLiteral>()
@@ -240,6 +247,57 @@ const GoogleMapComp: FC = () => {
 
                 updateResultsButton.addEventListener('click', handleClick)
             }
+            map.addListener('zoom_changed', () => {
+                // Obtener el valor actual del zoom
+                const zoom = map.getZoom()
+                console.log('Zoom actual:', zoom)
+
+                if ((zoom as number) >= 10) {
+                    // Obtener las coordenadas del centro del mapa
+                    if (map) {
+                        center.lat = map.getCenter()?.lat() || 0
+                        center.lng = map.getCenter()?.lng() || 0
+                    }
+                    console.log('Centro actual:', center)
+
+                    if (center && userMarkers) {
+                        // Filtrar los marcadores cercanos al centro del mapa
+                        const filteredMarkers = userMarkers.filter(marker => {
+                            const location = marker.location
+                            console.log('Ubicación del marcador:', location)
+
+                            if (location && center) {
+                                // Calcular la distancia entre el centro del mapa y el marcador
+                                const distance =
+                                    google.maps.geometry.spherical.computeDistanceBetween(
+                                        center,
+                                        location
+                                    )
+                                console.log('Distancia:', distance)
+                                console.log('center:', center)
+
+                                // Establecer una distancia máxima deseada (en metros)
+                                const maxDistance = 100000 // Por ejemplo, 10 km
+
+                                // Mostrar el marcador si está dentro del rango de distancia
+                                return distance <= maxDistance
+                            }
+
+                            return false
+                        })
+                        console.log(filteredMarkers)
+
+                        // Actualizar el estado de los marcadores para mostrar solo los filtrados
+                        markersSetSmallModal(filteredMarkers)
+
+                        setOpenSmallModal(true)
+                    }
+                } else {
+                    // Si el zoom es menor que 10, cierra el modal y muestra todos los marcadores
+                    setOpenSmallModal(false)
+                    setFilteredMarkers(userMarkers)
+                }
+            })
 
             await getMyPosition()
 
@@ -321,7 +379,6 @@ const GoogleMapComp: FC = () => {
                 setSelectedMarkers(prevMarkers => [...prevMarkers, marker])
             }
             setPlace(place)
-            console.log(place)
         })
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -410,7 +467,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                                '/_next/static/media/algas.f94c4aec.png'
+                            '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -768,6 +825,19 @@ const GoogleMapComp: FC = () => {
                     </>
                 </Modal>
                 <MapContainer id="map" />
+                {openSmallModal && (
+                    <ContainerModalSmall>
+                        {markersSmallModal.map(marker => (
+                            <ModalSmallMarkers
+                                key={marker.id}
+                                isOpen={openSmallModal}
+                                onClose={() => setOpenSmallModal(false)}
+                                picture={marker.picture as string}
+                                place={marker.direction}
+                            />
+                        ))}
+                    </ContainerModalSmall>
+                )}
                 <ModalCrearMarcador
                     onClose={handleCloseModal} // Cierra el modal
                     isOpen={addingMarker}
@@ -1005,6 +1075,7 @@ const GoogleMapComp: FC = () => {
                         }}
                         variant="contained"
                         onClick={handlerConfirmation}
+                        icon={<RoomIcon sx={{ mr: 1, color: '#49007a' }} />}
                     />
                     <ButtonComp
                         key="cancelarButton"

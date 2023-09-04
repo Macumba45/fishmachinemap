@@ -157,10 +157,16 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                             <LanguageIcon />
                         </ListItemIcon>
                         <Select defaultValue={locale}>
-                            <MenuItem onClick={() => changeLocale('es')} value="es">
+                            <MenuItem
+                                onClick={() => changeLocale('es')}
+                                value="es"
+                            >
                                 Español
                             </MenuItem>
-                            <MenuItem onClick={() => changeLocale('en')} value="en">
+                            <MenuItem
+                                onClick={() => changeLocale('en')}
+                                value="en"
+                            >
                                 English
                             </MenuItem>
                         </Select>

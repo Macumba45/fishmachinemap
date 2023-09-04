@@ -208,7 +208,11 @@ const ModalCrearMarcador: FC<Props> = ({
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <Box sx={{ mt: 2, borderRadius: '20px' }}>
                             <div style={{ marginBottom: '1rem' }}>
-                                <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                                <Typography
+                                    sx={{ fontWeight: 500 }}
+                                    variant="body2"
+                                    component="label"
+                                >
                                     {t('address')}
                                 </Typography>
                                 <TextField
@@ -219,7 +223,11 @@ const ModalCrearMarcador: FC<Props> = ({
                                     onChange={handleDireccionChange}
                                 />
                             </div>
-                            <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                            <Typography
+                                sx={{ fontWeight: 500 }}
+                                variant="body2"
+                                component="label"
+                            >
                                 {t('place')}
                             </Typography>
                             <Select
@@ -228,15 +236,9 @@ const ModalCrearMarcador: FC<Props> = ({
                                 onChange={handleTipoLugarChange}
                                 fullWidth
                             >
-                                <MenuItem value="spot">
-                                    {t('spot')}
-                                </MenuItem>
-                                <MenuItem value="tienda">
-                                    {t('store')}
-                                </MenuItem>
-                                <MenuItem value="cebos">
-                                    {t('cebos')}
-                                </MenuItem>
+                                <MenuItem value="spot">{t('spot')}</MenuItem>
+                                <MenuItem value="tienda">{t('store')}</MenuItem>
+                                <MenuItem value="cebos">{t('cebos')}</MenuItem>
                                 <MenuItem value="fotos">
                                     {t('pictures')}
                                 </MenuItem>
@@ -250,7 +252,11 @@ const ModalCrearMarcador: FC<Props> = ({
                         </Box>
 
                         <Box sx={{ mt: 2 }}>
-                            <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                            <Typography
+                                sx={{ fontWeight: 500 }}
+                                variant="body2"
+                                component="label"
+                            >
                                 {t('description')}
                             </Typography>
                             <TextField
@@ -264,13 +270,17 @@ const ModalCrearMarcador: FC<Props> = ({
                         </Box>
 
                         <Box sx={{ mt: 2 }}>
-                            <Typography sx={{ fontWeight: 500 }} variant="body2" component="label">
+                            <Typography
+                                sx={{ fontWeight: 500 }}
+                                variant="body2"
+                                component="label"
+                            >
                                 {t('uploadPicture')}
                             </Typography>
                             <input
                                 style={{ marginTop: 5 }}
                                 accept=".jpg, .png, .gif, .jpeg"
-                                title='Subir foto'
+                                title="Subir foto"
                                 type="file"
                                 onChange={handleFotosChange}
                             />
