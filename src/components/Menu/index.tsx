@@ -151,6 +151,20 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     <MenuItem onClick={goToLogin}>
                         {t('logintoProfile')} <br /> {t('logintoProfile2')}
                     </MenuItem>
+                    <Divider />
+                    <MenuItem>
+                        <ListItemIcon>
+                            <LanguageIcon />
+                        </ListItemIcon>
+                        <Select defaultValue={locale}>
+                            <MenuItem onClick={() => changeLocale('es')} value="es">
+                                España
+                            </MenuItem>
+                            <MenuItem onClick={() => changeLocale('en')} value="en">
+                                English
+                            </MenuItem>
+                        </Select>
+                    </MenuItem>
                 </Menu>
             </>
         )
