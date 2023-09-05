@@ -25,7 +25,7 @@ const ModalSmallMarkers: FC<Props> = ({
     return (
         <React.Fragment>
             {isOpen && (
-                <MainContainer>
+                <MainContainer onClick={onClick} onClose={onClose}>
                     <Container>
                         <PictureMarker src={picture} />
                         <Typography sx={{ fontSize: '0.7rem', ml: 1 }}>

@@ -35,6 +35,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import {
     Avatar,
     Box,
+    Button,
     Divider,
     IconButton,
     ListItem,
@@ -826,17 +827,33 @@ const GoogleMapComp: FC = () => {
                 </Modal>
                 <MapContainer id="map" />
                 {openSmallModal && (
-                    <ContainerModalSmall>
-                        {markersSmallModal.map(marker => (
-                            <ModalSmallMarkers
-                                key={marker.id}
-                                isOpen={openSmallModal}
-                                onClose={() => setOpenSmallModal(false)}
-                                picture={marker.picture as string}
-                                place={marker.direction}
-                            />
-                        ))}
-                    </ContainerModalSmall>
+                    <>
+                        <Button
+                            onClick={() => setOpenSmallModal(false)}
+                            sx={{
+                                position: 'absolute',
+                                bottom: '240px',
+                                left: '15px',
+                                borderColor: 'white',
+                                color: 'white',
+                            }}
+                            variant="outlined"
+                        >
+                            Cerrar
+                        </Button>
+                        <ContainerModalSmall>
+                            {markersSmallModal.map(marker => (
+                                <ModalSmallMarkers
+                                    onClick={() => setModalUserMarker(true)}
+                                    key={marker.id}
+                                    isOpen={openSmallModal}
+                                    onClose={() => setOpenSmallModal(false)}
+                                    picture={marker.picture as string}
+                                    place={marker.direction}
+                                />
+                            ))}
+                        </ContainerModalSmall>
+                    </>
                 )}
                 <ModalCrearMarcador
                     onClose={handleCloseModal} // Cierra el modal

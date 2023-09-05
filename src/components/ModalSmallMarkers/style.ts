@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.div`
-    display: flex;
-    width: 100%;
-    height: 150px;
-    margin: 1rem;
+interface MainContainerProps {
+    onClose?: () => void
+    isSelected?: boolean
+}
 
+export const MainContainer = styled.div<MainContainerProps>`
+    display: flex;
+    width: 120px;
+    height: 150px;
+    margin: 0.8rem;
 `
 
 export const Container = styled.div`
