@@ -137,12 +137,92 @@ const GoogleMapComp: FC = () => {
     const t = useTranslations('maps')
     const router = useRouter()
 
+    const [openDetailModal, setOpenDetailModal] = useState(false)
+    const handleMarkerClick = (marker: any) => {
+        setDataMarkerUser(marker)
+        setOpenDetailModal(true)
+    }
+
+    // Función para obtener el ícono del marcador según el tipo de marcador.
+    const goToMarkerUserLocation = useCallback(
+        (location: { lat: number; lng: number } | undefined) => {
+            if (location) {
+                const baseUrl =
+                    'https://www.google.com/maps/search/?api=1&query='
+                const encodedCoordinates = encodeURIComponent(
+                    `${location.lat},${location.lng}`
+                )
+                window.open(baseUrl + encodedCoordinates)
+            }
+        },
+        []
+    )
+
+    const handleToogleLikeModal = async () => {
+        // Perform like/unlike action here
+        await fetchLikesMarkers(
+            dataMarkerUser?.id as string,
+            currentUser?.id as string
+        )
+        // Actualizar el estado del corazón en tiempo real
+        setLikedMarkers(prevState => ({
+            ...prevState,
+            [dataMarkerUser.id as string]:
+                !prevState[dataMarkerUser.id as string],
+        }))
+    }
+
+    const handleShareOnFacebook = (userId: string) => {
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            feedUrl
+        )}`
+        window.open(url, '_blank')
+    }
+
+    const handleShareOnWhatsApp = (userId: string) => {
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
+        window.open(url, '_blank')
+    }
+
+    const goToLogin = () => {
+        router.push(`/${locale}/auth/login`)
+    }
+
+    const [openModalBadged, setOpenModalBadged] = useState(false)
+
+    const openModalBadge = () => {
+        setOpenModalBadged(true)
+    }
+
+    const closeModalBadge = () => {
+        setOpenModalBadged(false)
+    }
+
+    const OneMonthInMiliSeconds = 2592000000
+    const OneWeekInMillis = 7 * 24 * 60 * 60 * 1000 // Una semana en milisegundos
+
+    const now = new Date()
+    const oneWeekAgo = new Date(now.getTime() - OneMonthInMiliSeconds)
+    const oneWeekAgoNew = new Date(now.getTime() - OneWeekInMillis)
+
+    const newMarkers = userMarkers.filter(marker => {
+        const markerCreatedAt = new Date(marker.createdAt as string)
+        return markerCreatedAt >= oneWeekAgo
+    })
+    const badgeNewMarkers = newMarkers.filter(
+        (marker: any) => new Date(marker.createdAt) >= oneWeekAgoNew
+    )
+
     const [selectedMarkers, setSelectedMarkers] = useState<
     google.maps.Marker[]
     >([])
 
     const [markersSmallModal, markersSetSmallModal] =
         useState<UserMarker[]>(userMarkers)
+
+    console.log(markersSmallModal)
 
     const [locationUser, setLocationUser] =
         useState<google.maps.LatLngLiteral>()
@@ -511,78 +591,6 @@ const GoogleMapComp: FC = () => {
         filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
     }
 
-    // Función para obtener el ícono del marcador según el tipo de marcador.
-    const goToMarkerUserLocation = useCallback(
-        (location: { lat: number; lng: number } | undefined) => {
-            if (location) {
-                const baseUrl =
-                    'https://www.google.com/maps/search/?api=1&query='
-                const encodedCoordinates = encodeURIComponent(
-                    `${location.lat},${location.lng}`
-                )
-                window.open(baseUrl + encodedCoordinates)
-            }
-        },
-        []
-    )
-
-    const handleToogleLikeModal = async () => {
-        // Perform like/unlike action here
-        await fetchLikesMarkers(
-            dataMarkerUser?.id as string,
-            currentUser?.id as string
-        )
-        // Actualizar el estado del corazón en tiempo real
-        setLikedMarkers(prevState => ({
-            ...prevState,
-            [dataMarkerUser.id as string]:
-                !prevState[dataMarkerUser.id as string],
-        }))
-    }
-
-    const handleShareOnFacebook = (userId: string) => {
-        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            feedUrl
-        )}`
-        window.open(url, '_blank')
-    }
-
-    const handleShareOnWhatsApp = (userId: string) => {
-        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
-        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
-        window.open(url, '_blank')
-    }
-
-    const goToLogin = () => {
-        router.push(`/${locale}/auth/login`)
-    }
-
-    const [openModalBadged, setOpenModalBadged] = useState(false)
-
-    const openModalBadge = () => {
-        setOpenModalBadged(true)
-    }
-
-    const closeModalBadge = () => {
-        setOpenModalBadged(false)
-    }
-
-    const OneMonthInMiliSeconds = 2592000000
-    const OneWeekInMillis = 7 * 24 * 60 * 60 * 1000 // Una semana en milisegundos
-
-    const now = new Date()
-    const oneWeekAgo = new Date(now.getTime() - OneMonthInMiliSeconds)
-    const oneWeekAgoNew = new Date(now.getTime() - OneWeekInMillis)
-
-    const newMarkers = userMarkers.filter(marker => {
-        const markerCreatedAt = new Date(marker.createdAt as string)
-        return markerCreatedAt >= oneWeekAgo
-    })
-    const badgeNewMarkers = newMarkers.filter(
-        (marker: any) => new Date(marker.createdAt) >= oneWeekAgoNew
-    )
-
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -843,16 +851,137 @@ const GoogleMapComp: FC = () => {
                         </Button>
                         <ContainerModalSmall>
                             {markersSmallModal.map(marker => (
-                                <ModalSmallMarkers
-                                    onClick={() => setModalUserMarker(true)}
+                                <div
                                     key={marker.id}
-                                    isOpen={openSmallModal}
-                                    onClose={() => setOpenSmallModal(false)}
-                                    picture={marker.picture as string}
-                                    place={marker.direction}
-                                />
+                                    onClick={() => handleMarkerClick(marker)}
+                                >
+                                    <ModalSmallMarkers
+                                        onClick={() =>
+                                            handleMarkerClick(marker)
+                                        }
+                                        key={marker.id}
+                                        isOpen={openSmallModal}
+                                        onClose={() => setOpenSmallModal(false)}
+                                        picture={marker.picture as string}
+                                        place={marker.direction}
+                                    />
+                                </div>
                             ))}
                         </ContainerModalSmall>
+                    </>
+                )}
+                {openDetailModal && (
+                    <>
+                        <ModalUserMarkers
+                            isOpen={openDetailModal}
+                            onClose={() => setOpenDetailModal(false)}
+                            pictures={dataMarkerUser?.picture as string}
+                            creator={dataMarkerUser?.user?.name}
+                            icon={
+                                <Avatar
+                                    src={dataMarkerUser!.user?.picture}
+                                    sx={{
+                                        width: 25,
+                                        height: 25,
+                                        marginTop: '0rem',
+                                    }}
+                                />
+                            }
+                            link={
+                                <Link
+                                    style={{
+                                        textDecorationColor: '#49007a',
+                                        color: '#49007a',
+                                    }}
+                                    href={`/${locale}/feed/${dataMarkerUser?.user?.id}`}
+                                >
+                                    {dataMarkerUser?.user?.name}
+                                </Link>
+                            }
+                            direction={
+                                dataMarkerUser!.direction
+                                    .charAt(0)
+                                    .toUpperCase() +
+                                dataMarkerUser!.direction.slice(1)
+                            }
+                            markerType={
+                                dataMarkerUser!.markerType
+                                    .charAt(0)
+                                    .toUpperCase() +
+                                dataMarkerUser!.markerType.slice(1)
+                            }
+                            description={
+                                dataMarkerUser!.description
+                                    .charAt(0)
+                                    .toUpperCase() +
+                                dataMarkerUser!.description.slice(1)
+                            }
+                            onClick={() => {
+                                if (
+                                    locationUser &&
+                                    locationUser?.lat !== undefined &&
+                                    locationUser?.lng !== undefined
+                                ) {
+                                    const location: google.maps.LatLngLiteral =
+                                        {
+                                            lat: locationUser?.lat,
+                                            lng: locationUser?.lng,
+                                        }
+                                    goToMarkerUserLocation(location)
+                                } else {
+                                    // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos
+                                    console.error(
+                                        'No se encontró una ubicación válida en el marcador seleccionado.'
+                                    )
+                                }
+                            }}
+                            isLiked={likedMarkers[dataMarkerUser?.id as string]} // Accede al valor correspondiente al marcador actual
+                            onClickLike={handleToogleLikeModal}
+                            likes={dataMarkerUser?.likes?.length}
+                            handleShareOnWhatsApp={() =>
+                                handleShareOnWhatsApp(
+                                    dataMarkerUser?.userId as string
+                                )
+                            }
+                            handleShareOnFacebook={() =>
+                                handleShareOnFacebook(
+                                    dataMarkerUser?.userId as string
+                                )
+                            }
+                            icon2={
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <IconButton
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            padding: 0,
+                                        }}
+                                        onClick={handleOpenModalComments}
+                                    >
+                                        <AddCommentIcon
+                                            sx={{
+                                                color: '#49007a',
+                                                cursor: 'pointer',
+                                            }}
+                                        />
+                                    </IconButton>
+                                    <LikesLabel>
+                                        {dataMarkerUser?.comments?.length}{' '}
+                                        Comentarios
+                                    </LikesLabel>
+                                </div>
+                            }
+                        />
+                        <CommentModal
+                            open={openModalComments}
+                            id={dataMarkerUser?.id as string}
+                            onClose={handleCloseModalComments}
+                        />
                     </>
                 )}
                 <ModalCrearMarcador
