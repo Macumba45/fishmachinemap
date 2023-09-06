@@ -1,6 +1,8 @@
 'use client'
 
 import React, { FC, useCallback, useEffect, useState, memo } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import ModalSmallMarkers from '@/components/ModalSmallMarkers'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
@@ -56,8 +58,7 @@ import {
     stylesMaps,
     ContainerModalSmall,
 } from './style'
-import { useLocale, useTranslations } from 'next-intl'
-import ModalSmallMarkers from '@/components/ModalSmallMarkers'
+
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -216,7 +217,7 @@ const GoogleMapComp: FC = () => {
     )
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [markersSmallModal, markersSetSmallModal] =
@@ -548,7 +549,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -804,19 +805,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                            <Typography
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="secondary"
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection:
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="secondary"
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection:
                                                                     'column',
-                                                                }}
-                                                            >
-                                                                {t('new')}
-                                                            </Typography>
-                                                        ) : null}
+                                                            }}
+                                                        >
+                                                            {t('new')}
+                                                        </Typography>
+                                                    ) : null}
                                                 </>
                                             }
                                         />
@@ -839,7 +840,7 @@ const GoogleMapComp: FC = () => {
                         <Button
                             onClick={() => setOpenSmallModal(false)}
                             sx={{
-                                position: 'absolute',
+                                position: 'fixed',
                                 bottom: '240px',
                                 left: '15px',
                                 borderColor: 'white',
@@ -923,10 +924,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: locationUser?.lat,
-                                            lng: locationUser?.lng,
-                                        }
+                                    {
+                                        lat: locationUser?.lat,
+                                        lng: locationUser?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos
