@@ -111,8 +111,6 @@ const GoogleMapComp: FC = () => {
         handleOpenModalComments,
         handleCloseModalComments,
         likedMarkers,
-        fetchLikesMarkers,
-        setLikedMarkers,
         handleToogleLikeModal,
         handleShareOnFacebook,
         handleShareOnWhatsApp,
@@ -257,10 +255,9 @@ const GoogleMapComp: FC = () => {
 
                 updateResultsButton.addEventListener('click', handleClick)
             }
-            map.addListener('zoom_changed', () => {
+            map.addListener('dragend', () => {
                 // Obtener el valor actual del zoom
                 const zoom = map.getZoom()
-                console.log('Zoom actual:', zoom)
 
                 if ((zoom as number) >= 10) {
                     // Obtener las coordenadas del centro del mapa
@@ -268,13 +265,11 @@ const GoogleMapComp: FC = () => {
                         center.lat = map.getCenter()?.lat() || 0
                         center.lng = map.getCenter()?.lng() || 0
                     }
-                    console.log('Centro actual:', center)
 
                     if (center && userMarkers) {
                         // Filtrar los marcadores cercanos al centro del mapa
                         const filteredMarkers = userMarkers.filter(marker => {
                             const location = marker.location
-                            console.log('Ubicación del marcador:', location)
 
                             if (location && center) {
                                 // Calcular la distancia entre el centro del mapa y el marcador
@@ -283,11 +278,9 @@ const GoogleMapComp: FC = () => {
                                         center,
                                         location
                                     )
-                                console.log('Distancia:', distance)
-                                console.log('center:', center)
 
                                 // Establecer una distancia máxima deseada (en metros)
-                                const maxDistance = 100000 // Por ejemplo, 10 km
+                                const maxDistance = 50000 // Por ejemplo, 10 km
 
                                 // Mostrar el marcador si está dentro del rango de distancia
                                 return distance <= maxDistance
@@ -295,7 +288,6 @@ const GoogleMapComp: FC = () => {
 
                             return false
                         })
-                        console.log(filteredMarkers)
 
                         // Actualizar el estado de los marcadores para mostrar solo los filtrados
                         markersSetSmallModal(filteredMarkers)

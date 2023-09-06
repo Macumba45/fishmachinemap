@@ -172,13 +172,11 @@ const ModalUserMarkers: FC<Props> = ({
                             {typeof window !== 'undefined' &&
                                 window.location.pathname ===
                                     `/${locale}/maps` && (
-                                <>
+                                <div style={{ display: 'flex' }}>
                                     <IconButton
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            padding: 0,
-                                            marginRight: '0.5rem',
                                         }}
                                         onClick={onClickLike}
                                         disabled={!isLogged}
@@ -200,9 +198,9 @@ const ModalUserMarkers: FC<Props> = ({
                                                 }}
                                             />
                                         )}
-                                        <LikesLabel>{likes}</LikesLabel>
                                     </IconButton>
-                                </>
+                                    <LikesLabel>{likes}</LikesLabel>
+                                </div>
                             )}
                         </ContenidoGoogle>
                     </TypographyContainer>

@@ -277,8 +277,6 @@ export const useLogicMaps = () => {
     const [markersSmallModal, markersSetSmallModal] =
         useState<UserMarker[]>(userMarkers)
 
-    console.log(markersSmallModal)
-
     const [locationUser, setLocationUser] =
         useState<google.maps.LatLngLiteral>()
 

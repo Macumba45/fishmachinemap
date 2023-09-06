@@ -105,6 +105,4 @@ export const LikesLabel = styled.div`
     align-items: center;
     font-size: 0.8rem;
     font-family: 'Roboto', sans-serif;
-    margin-left: 0.2rem;
-    padding: 0.3rem;
 `

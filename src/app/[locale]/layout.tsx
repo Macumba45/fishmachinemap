@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import StyledTheme from '@/style/styledTheme'
 import './reset.css'
 import StyledComponentsRegistry from '@/lib/registry'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export default async function LocaleLayout({
     children,
@@ -29,11 +31,11 @@ export default async function LocaleLayout({
                 <script
                     dangerouslySetInnerHTML={{
                         __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-YQKPKC8399');
-        `,
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-YQKPKC8399');
+            `,
                     }}
                 ></script>
             </head>
