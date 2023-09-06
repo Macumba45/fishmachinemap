@@ -22,7 +22,6 @@ import {
     TextNav,
     ContainerMenu,
 } from './style'
-import { useLocale } from 'next-intl'
 
 const BlaBlaFish: FC = () => {
     const {
@@ -31,16 +30,16 @@ const BlaBlaFish: FC = () => {
         loading,
         dataBlablaUser,
         getUserInfo,
+        isLogged,
+        setIsLogged,
+        openModal,
+        setOpenModal,
+        locale,
+        todosHanPasadoDeFecha,
+        currentDate,
     } = useLogicBlaBla()
     const router = useRouter()
-    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    const [openModal, setOpenModal] = useState(false)
-    const currentDate = new Date()
-    const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
-        const viajeDate = new Date(viaje.date)
-        // Verifica si la fecha del viaje es menor o igual a la fecha actual
-        return viajeDate < currentDate
-    })
+
 
     const goToLogin = () => {
         router.push(`/${locale}/auth/login`)
@@ -64,7 +63,6 @@ const BlaBlaFish: FC = () => {
         getUserInfo()
     }, [])
 
-    const [isLogged, setIsLogged] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem('token')

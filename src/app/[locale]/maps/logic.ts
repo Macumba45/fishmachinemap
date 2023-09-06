@@ -9,6 +9,8 @@ import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
 import { MarkerType } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
+import { useLocale } from 'next-intl'
+
 
 export const useLogicMaps = () => {
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
@@ -193,14 +195,17 @@ export const useLogicMaps = () => {
     const [loadingLocation, setLoadingLocation] = useState(false)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
     const [currentUser, setCurrentUser] = useState<User | null>(null)
-    const [filteredMarkers, setFilteredMarkers] =
-        useState<UserMarker[]>(userMarkers)
-
+    const [filteredMarkers, setFilteredMarkers] = useState<UserMarker[]>(userMarkers)
     const [openDetailModal, setOpenDetailModal] = useState(false)
     const handleMarkerClick = (marker: any) => {
         setDataMarkerUser(marker)
         setOpenDetailModal(true)
     }
+    const token = getAuthenticatedToken()
+    const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
+    const [isLogged, setIsLogged] = useState(false)
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [openSmallModal, setOpenSmallModal] = useState(false)
 
     // Función para obtener el ícono del marcador según el tipo de marcador.
     const goToMarkerUserLocation = useCallback(
@@ -426,6 +431,7 @@ export const useLogicMaps = () => {
     const handleCloseModalComments = useCallback(() => {
         setOpenModalComments(false)
     }, [])
+    
 
     return {
         styledMap,
@@ -508,5 +514,12 @@ export const useLogicMaps = () => {
         goToMarkerUserLocation,
         oneWeekAgoNew,
         newMarkers,
+        isLogged,
+        setIsLogged,
+        locale,
+        openSmallModal,
+        setOpenSmallModal,
+        token,
+        userId
     }
 }

@@ -1,8 +1,13 @@
 import { useCallback, useState } from 'react'
 import { BlaBlaFish } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
+import { useLocale } from 'next-intl'
+
 
 export const useLogicBlaBla = () => {
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [openModal, setOpenModal] = useState(false)
+    const [isLogged, setIsLogged] = useState(false)
     const [departureCity, setDepartureCity] = useState('')
     const [arrivalCity, setArrivalCity] = useState('')
     const [departureTime, setDepartureTime] = useState('')
@@ -14,6 +19,12 @@ export const useLogicBlaBla = () => {
     const [selectedDate, setSelectedDate] = useState('')
     const [loading, setLoading] = useState<boolean>(false)
     const [dataBlablaUser, setDataBlablaUser] = useState<any>({})
+    const currentDate = new Date()
+    const todosHanPasadoDeFecha = blaBlaFish.every(viaje => {
+        const viajeDate = new Date(viaje.date)
+        // Verifica si la fecha del viaje es menor o igual a la fecha actual
+        return viajeDate < currentDate
+    })
 
     const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
@@ -101,5 +112,12 @@ export const useLogicBlaBla = () => {
         loading,
         dataBlablaUser,
         getUserInfo,
+        isLogged,
+        setIsLogged,
+        todosHanPasadoDeFecha,
+        openModal,
+        setOpenModal,
+        locale,
+        currentDate
     }
 }

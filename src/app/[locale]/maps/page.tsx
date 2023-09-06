@@ -1,17 +1,17 @@
 'use client'
 
-import React, { FC, useCallback, useEffect, useState, memo } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
-import ModalSmallMarkers from '@/components/ModalSmallMarkers'
+import React, { FC, useEffect, memo } from 'react'
+import { useTranslations } from 'next-intl'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
-import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useRouter } from 'next/navigation'
-import FloatLoginButton from '@/components/FloatLoginButton'
+import { MarkerClusterer } from '@googlemaps/markerclusterer'
+import usePreventZoom from '@/hooks/disableZoom'
 import Link from 'next/link'
 import RoomIcon from '@mui/icons-material/Room'
-import { MarkerClusterer } from '@googlemaps/markerclusterer'
+import ModalSmallMarkers from '@/components/ModalSmallMarkers'
 import CommentModal from '@/components/ModalComments'
+import FloatLoginButton from '@/components/FloatLoginButton'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CircularIndeterminate from '@/components/Loader'
 import ButtonComp from '@/components/Button'
@@ -130,13 +130,16 @@ const GoogleMapComp: FC = () => {
         openModalBadged,
         oneWeekAgoNew,
         newMarkers,
+        isLogged,
+        setIsLogged,
+        locale,
+        openSmallModal,
+        setOpenSmallModal,
+        token,
+        userId,
     } = useLogicMaps()
 
-    const token = getAuthenticatedToken()
-    const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
-    const [isLogged, setIsLogged] = useState(false)
-    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    const [openSmallModal, setOpenSmallModal] = useState(false)
+    usePreventZoom()
 
     useEffect(() => {
         if (!token) {
@@ -469,7 +472,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -851,10 +854,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: locationUser?.lat,
-                                            lng: locationUser?.lng,
-                                        }
+                                    {
+                                        lat: locationUser?.lat,
+                                        lng: locationUser?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos
