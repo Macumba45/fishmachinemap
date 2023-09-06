@@ -59,7 +59,6 @@ import {
     ContainerModalSmall,
 } from './style'
 
-
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
 
@@ -114,6 +113,25 @@ const GoogleMapComp: FC = () => {
         likedMarkers,
         fetchLikesMarkers,
         setLikedMarkers,
+        handleToogleLikeModal,
+        handleShareOnFacebook,
+        handleShareOnWhatsApp,
+        badgeNewMarkers,
+        openModalBadge,
+        closeModalBadge,
+        openDetailModal,
+        setOpenDetailModal,
+        handleMarkerClick,
+        selectedMarkers,
+        setSelectedMarkers,
+        markersSmallModal,
+        markersSetSmallModal,
+        locationUser,
+        setLocationUser,
+        goToMarkerUserLocation,
+        openModalBadged,
+        oneWeekAgoNew,
+        newMarkers,
     } = useLogicMaps()
 
     const token = getAuthenticatedToken()
@@ -137,96 +155,6 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
     const t = useTranslations('maps')
     const router = useRouter()
-
-    const [openDetailModal, setOpenDetailModal] = useState(false)
-    const handleMarkerClick = (marker: any) => {
-        setDataMarkerUser(marker)
-        setOpenDetailModal(true)
-    }
-
-    // Función para obtener el ícono del marcador según el tipo de marcador.
-    const goToMarkerUserLocation = useCallback(
-        (location: { lat: number; lng: number } | undefined) => {
-            if (location) {
-                const baseUrl =
-                    'https://www.google.com/maps/search/?api=1&query='
-                const encodedCoordinates = encodeURIComponent(
-                    `${location.lat},${location.lng}`
-                )
-                window.open(baseUrl + encodedCoordinates)
-            }
-        },
-        []
-    )
-
-    const handleToogleLikeModal = async () => {
-        // Perform like/unlike action here
-        await fetchLikesMarkers(
-            dataMarkerUser?.id as string,
-            currentUser?.id as string
-        )
-        // Actualizar el estado del corazón en tiempo real
-        setLikedMarkers(prevState => ({
-            ...prevState,
-            [dataMarkerUser.id as string]:
-                !prevState[dataMarkerUser.id as string],
-        }))
-    }
-
-    const handleShareOnFacebook = (userId: string) => {
-        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            feedUrl
-        )}`
-        window.open(url, '_blank')
-    }
-
-    const handleShareOnWhatsApp = (userId: string) => {
-        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
-        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
-        window.open(url, '_blank')
-    }
-
-    const goToLogin = () => {
-        router.push(`/${locale}/auth/login`)
-    }
-
-    const [openModalBadged, setOpenModalBadged] = useState(false)
-
-    const openModalBadge = () => {
-        setOpenModalBadged(true)
-    }
-
-    const closeModalBadge = () => {
-        setOpenModalBadged(false)
-    }
-
-    const OneMonthInMiliSeconds = 2592000000
-    const OneWeekInMillis = 7 * 24 * 60 * 60 * 1000 // Una semana en milisegundos
-
-    const now = new Date()
-    const oneWeekAgo = new Date(now.getTime() - OneMonthInMiliSeconds)
-    const oneWeekAgoNew = new Date(now.getTime() - OneWeekInMillis)
-
-    const newMarkers = userMarkers.filter(marker => {
-        const markerCreatedAt = new Date(marker.createdAt as string)
-        return markerCreatedAt >= oneWeekAgo
-    })
-    const badgeNewMarkers = newMarkers.filter(
-        (marker: any) => new Date(marker.createdAt) >= oneWeekAgoNew
-    )
-
-    const [selectedMarkers, setSelectedMarkers] = useState<
-        google.maps.Marker[]
-    >([])
-
-    const [markersSmallModal, markersSetSmallModal] =
-        useState<UserMarker[]>(userMarkers)
-
-    console.log(markersSmallModal)
-
-    const [locationUser, setLocationUser] =
-        useState<google.maps.LatLngLiteral>()
 
     const getMyPosition = async () => {
         setLoadingLocation(true)
@@ -549,7 +477,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                                '/_next/static/media/algas.f94c4aec.png'
+                            '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -590,6 +518,10 @@ const GoogleMapComp: FC = () => {
     // Maneja el cambio de filtro.
     const handleFilterChange = (newFilter: MarkerType) => {
         filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
+    }
+
+    const goToLogin = () => {
+        router.push(`/${locale}/auth/login`)
     }
 
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
@@ -805,19 +737,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                        <Typography
-                                                            component="span"
-                                                            variant="body2"
-                                                            color="secondary"
-                                                            style={{
-                                                                display: 'flex',
-                                                                flexDirection:
+                                                            <Typography
+                                                                component="span"
+                                                                variant="body2"
+                                                                color="secondary"
+                                                                style={{
+                                                                    display: 'flex',
+                                                                    flexDirection:
                                                                     'column',
-                                                            }}
-                                                        >
-                                                            {t('new')}
-                                                        </Typography>
-                                                    ) : null}
+                                                                }}
+                                                            >
+                                                                {t('new')}
+                                                            </Typography>
+                                                        ) : null}
                                                 </>
                                             }
                                         />
@@ -837,19 +769,22 @@ const GoogleMapComp: FC = () => {
                 <MapContainer id="map" />
                 {openSmallModal && (
                     <>
-                        <Button
-                            onClick={() => setOpenSmallModal(false)}
-                            sx={{
-                                position: 'fixed',
-                                bottom: '240px',
-                                left: '15px',
-                                borderColor: 'white',
-                                color: 'white',
-                            }}
-                            variant="outlined"
-                        >
-                            Cerrar
-                        </Button>
+                        {markersSmallModal && markersSmallModal.length > 0 && (
+                            <Button
+                                onClick={() => setOpenSmallModal(false)}
+                                sx={{
+                                    position: 'fixed',
+                                    bottom: '240px',
+                                    left: '15px',
+                                    borderColor: 'white',
+                                    color: 'white',
+                                }}
+                                variant="outlined"
+                            >
+                                Cerrar
+                            </Button>
+                        )}
+
                         <ContainerModalSmall>
                             {markersSmallModal.map(marker => (
                                 <div
@@ -924,10 +859,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: locationUser?.lat,
-                                        lng: locationUser?.lng,
-                                    }
+                                        {
+                                            lat: locationUser?.lat,
+                                            lng: locationUser?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos
