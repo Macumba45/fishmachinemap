@@ -267,54 +267,47 @@ const GoogleMapComp: FC = () => {
             map.addListener('drag', () => {
                 // Obtener el valor actual del zoom
                 const zoom = map.getZoom()
-                if ((zoom as number) >= 8) {
-                    // Obtener las coordenadas del centro del mapa
-                    if (map) {
-                        center.lat = map.getCenter()?.lat() || 0
-                        center.lng = map.getCenter()?.lng() || 0
-                    }
 
-                    if (center && userMarkers) {
-                        // Crear un arreglo de objetos que contienen los marcadores y sus distancias al centro
-                        const markersWithDistance = userMarkers.map(marker => {
-                            const location = marker.location
-                            if (location && center) {
-                                // Calcular la distancia entre el centro del mapa y el marcador
-                                const distance =
-                                    google.maps.geometry.spherical.computeDistanceBetween(
-                                        center,
-                                        location
-                                    )
-                                return { marker, distance }
-                            }
-                            return null
-                        })
+                // Obtener las coordenadas del centro del mapa
+                if (map) {
+                    center.lat = map.getCenter()?.lat() || 0
+                    center.lng = map.getCenter()?.lng() || 0
+                }
 
-                        // Filtrar los marcadores dentro del rango de distancia deseado
-                        const maxDistance = 50000 // Por ejemplo, 50 km
-                        const filteredMarkers = markersWithDistance.filter(
-                            item => item && item.distance <= maxDistance
-                        )
+                if (center && userMarkers) {
+                    // Crear un arreglo de objetos que contienen los marcadores y sus distancias al centro
+                    const markersWithDistance = userMarkers.map(marker => {
+                        const location = marker.location
+                        if (location && center) {
+                            // Calcular la distancia entre el centro del mapa y el marcador
+                            const distance =
+                                google.maps.geometry.spherical.computeDistanceBetween(
+                                    center,
+                                    location
+                                )
+                            return { marker, distance }
+                        }
+                        return null
+                    })
 
-                        // Ordenar los marcadores en función de la distancia, los más cercanos primero
-                        filteredMarkers.sort(
-                            (a, b) => a!.distance - b!.distance
-                        )
+                    // Filtrar los marcadores dentro del rango de distancia deseado
+                    const maxDistance = 50000 // Por ejemplo, 50 km
+                    const filteredMarkers = markersWithDistance.filter(
+                        item => item && item.distance <= maxDistance
+                    )
 
-                        // Obtener los marcadores ordenados en un arreglo separado
-                        const orderedMarkers = filteredMarkers.map(
-                            item => item!.marker
-                        )
+                    // Ordenar los marcadores en función de la distancia, los más cercanos primero
+                    filteredMarkers.sort((a, b) => a!.distance - b!.distance)
 
-                        // Actualizar el estado de los marcadores para mostrar los filtrados y ordenados
-                        markersSetSmallModal(orderedMarkers)
+                    // Obtener los marcadores ordenados en un arreglo separado
+                    const orderedMarkers = filteredMarkers.map(
+                        item => item!.marker
+                    )
 
-                        setOpenSmallModal(true)
-                    }
-                } else {
-                    // Si el zoom es menor que 10, cierra el modal y muestra todos los marcadores
-                    setOpenSmallModal(false)
-                    setFilteredMarkers(userMarkers)
+                    // Actualizar el estado de los marcadores para mostrar los filtrados y ordenados
+                    markersSetSmallModal(orderedMarkers)
+
+                    setOpenSmallModal(true)
                 }
             })
 
@@ -605,7 +598,7 @@ const GoogleMapComp: FC = () => {
             </>
         )
     }
-
+    console.log(markersSmallModal.length)
     return (
         <MainContainer>
             <>
@@ -795,9 +788,7 @@ const GoogleMapComp: FC = () => {
                             }}
                             variant="outlined"
                         >
-                            {markersSmallModal && markersSmallModal.length > 0
-                                ? 'Cerrar'
-                                : 'Abrir'}
+                            Cerrar
                         </Button>
 
                         {markersSmallModal && markersSmallModal.length > 0 && (
@@ -842,8 +833,8 @@ const GoogleMapComp: FC = () => {
                             left: '15px',
                             borderColor: 'white',
                             color: 'white',
-                            display: markersSmallModal.length ? 'flex' : 'none',
                         }}
+                        disabled={markersSmallModal.length ? false : true}
                         variant="outlined"
                     >
                         Abrir Leyenda
