@@ -12,6 +12,7 @@ import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import mareas from '../../assets/mareas.png'
 import {
+    Avatar,
     FormControl,
     InputLabel,
     Modal,
@@ -21,6 +22,7 @@ import {
 import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
 import LanguageIcon from '@mui/icons-material/Language'
+import { Person } from '@mui/icons-material'
 
 interface AccountMenuProps {
     userPicture?: string | null
@@ -208,16 +210,28 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={gotoProfile}>
-                    <img
-                        style={{
-                            width: '36px',
-                            height: '36px',
-                            borderRadius: '50%',
-                            marginRight: '1rem',
-                        }}
-                        src={userPicture as string}
-                        alt="userPicture"
-                    />
+                    {userPicture ? (
+                        <img
+                            style={{
+                                width: '36px',
+                                height: '36px',
+                                borderRadius: '50%',
+                                marginRight: '1rem',
+                            }}
+                            src={userPicture as string} // Asegurarse de que sea una cadena
+                            alt="userPicture"
+                        />
+                    ) : (
+                        <Avatar
+                            style={{
+                                width: '36px',
+                                height: '36px',
+                                marginRight: '1rem',
+                            }}
+                        >
+                            <Person />
+                        </Avatar>
+                    )}
                     {t('profile')}
                 </MenuItem>
                 <MenuItem>

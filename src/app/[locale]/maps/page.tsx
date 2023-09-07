@@ -478,7 +478,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -861,10 +861,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: locationUser?.lat,
-                                            lng: locationUser?.lng,
-                                        }
+                                    {
+                                        lat: locationUser?.lat,
+                                        lng: locationUser?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos
