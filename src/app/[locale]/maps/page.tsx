@@ -742,19 +742,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                            <Typography
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="secondary"
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection:
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="secondary"
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection:
                                                                     'column',
-                                                                }}
-                                                            >
-                                                                {t('new')}
-                                                            </Typography>
-                                                        ) : null}
+                                                            }}
+                                                        >
+                                                            {t('new')}
+                                                        </Typography>
+                                                    ) : null}
                                                 </>
                                             }
                                         />
@@ -811,6 +811,7 @@ const GoogleMapComp: FC = () => {
                                     height: '6px',
                                     borderRadius: '50%',
                                     backgroundColor: 'white',
+                                    display: markersSmallModal.length ? 'flex' : 'none',
                                 }}
                             ></span>
                         </span>
