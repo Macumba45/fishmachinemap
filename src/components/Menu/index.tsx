@@ -15,14 +15,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import ButtonComp from '@/components/Button'
 import LanguageIcon from '@mui/icons-material/Language'
 import { Person } from '@mui/icons-material'
-import {
-    Avatar,
-    FormControl,
-    InputLabel,
-    Modal,
-    Select,
-} from '@mui/material'
-
+import { Avatar, FormControl, InputLabel, Modal, Select } from '@mui/material'
 
 interface AccountMenuProps {
     userPicture?: string | null

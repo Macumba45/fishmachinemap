@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
-import IntroJs from 'intro.js';
-import 'intro.js/introjs.css'; // Estilo CSS de intro.js
-import 'intro.js/themes/introjs-modern.css'; // Tema moderno de intro.js
-import { Modal } from '@mui/material';
-
+import React, { useEffect } from 'react'
+import IntroJs from 'intro.js'
+import 'intro.js/introjs.css' // Estilo CSS de intro.js
+import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
+import { Modal } from '@mui/material'
 
 const IntroTour = () => {
-    const intro = IntroJs();
+    const intro = IntroJs()
 
-    console.log('intro', intro);
+    console.log('intro', intro)
 
     useEffect(() => {
         intro.setOptions({
@@ -21,23 +20,19 @@ const IntroTour = () => {
             ],
             showProgress: true,
             showBullets: true,
-        });
+        })
 
         // Inicia el tour de introducción
-        intro.start();
-    }, []);
+        intro.start()
+    }, [])
 
     return (
         <div>
             <Modal open={true}>
-
-                <div>
-                    Holi
-                </div>
-
+                <div>Holi</div>
             </Modal>
         </div>
-    );
-};
+    )
+}
 
-export default IntroTour;
+export default IntroTour

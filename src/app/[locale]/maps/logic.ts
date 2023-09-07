@@ -197,17 +197,21 @@ export const useLogicMaps = () => {
     const [filteredMarkers, setFilteredMarkers] =
         useState<UserMarker[]>(userMarkers)
     const [openDetailModal, setOpenDetailModal] = useState(false)
-    const handleMarkerClick = async (marker: any, location: google.maps.LatLngLiteral) => {
+    const [activateMiniModal, setActivateMiniModal] = useState(true)
+    const handleMarkerClickMiniModal = async (
+        marker: any,
+        location: google.maps.LatLngLiteral
+    ) => {
         if (mapRef.current) {
-            mapRef.current.setCenter(location);
-            mapRef.current.setZoom(14);
+            mapRef.current.setCenter(location)
+            mapRef.current.setZoom(14)
         }
 
         // Espera un breve tiempo para que el mapa se centre antes de abrir el modal
-        await new Promise(resolve => setTimeout(resolve, 100)); // Puedes ajustar el tiempo según tus necesidades
+        await new Promise(resolve => setTimeout(resolve, 500)) // Puedes ajustar el tiempo según tus necesidades
 
-        setDataMarkerUser(marker);
-        setOpenDetailModal(true);
+        setDataMarkerUser(marker)
+        setOpenDetailModal(true)
     }
 
     const token = getAuthenticatedToken()
@@ -216,6 +220,15 @@ export const useLogicMaps = () => {
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [openSmallModal, setOpenSmallModal] = useState(false)
 
+    const disableMiniModal = () => {
+        setActivateMiniModal(false)
+        setOpenSmallModal(false)
+    }
+
+    const enableMiniModal = () => {
+        setActivateMiniModal(true)
+        setOpenSmallModal(true)
+    }
 
     // Función para obtener el ícono del marcador según el tipo de marcador.
     const goToMarkerUserLocation = useCallback(
@@ -371,7 +384,6 @@ export const useLogicMaps = () => {
     // Función para obtener la URL del ícono del marcador según el tipo.
     function getIcon(selectIcon: string): google.maps.Icon {
         let icon: google.maps.Icon
-        let iconType: any
 
         switch (selectIcon) {
             case MarkerType.SHOP:
@@ -513,7 +525,7 @@ export const useLogicMaps = () => {
         openDetailModal,
         setOpenDetailModal,
         openModalBadged,
-        handleMarkerClick,
+        handleMarkerClickMiniModal,
         selectedMarkers,
         setSelectedMarkers,
         markersSmallModal,
@@ -530,5 +542,9 @@ export const useLogicMaps = () => {
         setOpenSmallModal,
         token,
         userId,
+        activateMiniModal,
+        setActivateMiniModal,
+        disableMiniModal,
+        enableMiniModal,
     }
 }

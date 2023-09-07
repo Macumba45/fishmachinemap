@@ -58,10 +58,9 @@ import {
     ContainerModalSmall,
 } from './style'
 
-
-import IntroJs from 'intro.js';
-import 'intro.js/introjs.css'; // Estilo CSS de intro.js
-import 'intro.js/themes/introjs-modern.css'; // Tema moderno de intro.js
+import IntroJs from 'intro.js'
+import 'intro.js/introjs.css' // Estilo CSS de intro.js
+import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
 import IntroTour from '@/components/AAintroJS'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
@@ -124,7 +123,7 @@ const GoogleMapComp: FC = () => {
         closeModalBadge,
         openDetailModal,
         setOpenDetailModal,
-        handleMarkerClick,
+        handleMarkerClickMiniModal,
         selectedMarkers,
         setSelectedMarkers,
         markersSmallModal,
@@ -142,6 +141,10 @@ const GoogleMapComp: FC = () => {
         setOpenSmallModal,
         token,
         userId,
+        activateMiniModal,
+        setActivateMiniModal,
+        disableMiniModal,
+        enableMiniModal,
     } = useLogicMaps()
 
     useEffect(() => {
@@ -264,7 +267,6 @@ const GoogleMapComp: FC = () => {
             map.addListener('drag', () => {
                 // Obtener el valor actual del zoom
                 const zoom = map.getZoom()
-                console.log('zoom', zoom)
                 if ((zoom as number) >= 8) {
                     // Obtener las coordenadas del centro del mapa
                     if (map) {
@@ -484,7 +486,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                                '/_next/static/media/algas.f94c4aec.png'
+                            '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -607,7 +609,10 @@ const GoogleMapComp: FC = () => {
     return (
         <MainContainer>
             <>
-                <AccountMenu className='menu' userPicture={currentUser?.picture as string} />
+                <AccountMenu
+                    className="menu"
+                    userPicture={currentUser?.picture as string}
+                />
                 <FilterButton onChange={handleFilterChange} />
                 <BadgeContainer>
                     <IconButton onClick={openModalBadge} sx={{ padding: 0 }}>
@@ -774,46 +779,77 @@ const GoogleMapComp: FC = () => {
                     </>
                 </Modal>
                 <MapContainer id="map" />
-                {openSmallModal && (
+                {activateMiniModal ? (
                     <>
-                        {markersSmallModal && markersSmallModal.length > 0 && (
-                            <Button
-                                onClick={() => setOpenSmallModal(false)}
-                                sx={{
-                                    position: 'fixed',
-                                    bottom: '250px',
-                                    left: '15px',
-                                    borderColor: 'white',
-                                    color: 'white',
-                                }}
-                                variant="outlined"
-                            >
-                                Cerrar
-                            </Button>
-                        )}
+                        <Button
+                            onClick={() => disableMiniModal()}
+                            sx={{
+                                position: 'fixed',
+                                bottom: '250px',
+                                left: '15px',
+                                borderColor: 'white',
+                                color: 'white',
+                                display: markersSmallModal.length
+                                    ? 'flex'
+                                    : 'none',
+                            }}
+                            variant="outlined"
+                        >
+                            {markersSmallModal && markersSmallModal.length > 0
+                                ? 'Cerrar'
+                                : 'Abrir'}
+                        </Button>
 
-                        <ContainerModalSmall>
-                            {markersSmallModal.map(marker => (
-                                <div
-                                    key={marker.id}
-                                    onClick={() => handleMarkerClick(marker, marker.location)}
-                                >
-                                    <ModalSmallMarkers
-                                        onClick={() =>
-                                            handleMarkerClick(marker, marker.location)
-                                        }
+                        {markersSmallModal && markersSmallModal.length > 0 && (
+                            <ContainerModalSmall>
+                                {markersSmallModal.map(marker => (
+                                    <div
                                         key={marker.id}
-                                        isOpen={openSmallModal}
-                                        onClose={() => setOpenSmallModal(false)}
-                                        picture={marker.picture as string}
-                                        place={marker.direction}
-                                        markerType={marker.markerType}
-                                    />
-                                </div>
-                            ))}
-                        </ContainerModalSmall>
+                                        onClick={() =>
+                                            handleMarkerClickMiniModal(
+                                                marker,
+                                                marker.location
+                                            )
+                                        }
+                                    >
+                                        <ModalSmallMarkers
+                                            onClick={() =>
+                                                handleMarkerClickMiniModal(
+                                                    marker,
+                                                    marker.location
+                                                )
+                                            }
+                                            key={marker.id}
+                                            isOpen={openSmallModal}
+                                            onClose={() =>
+                                                setOpenSmallModal(false)
+                                            }
+                                            picture={marker.picture as string}
+                                            place={marker.direction}
+                                            markerType={marker.markerType}
+                                        />
+                                    </div>
+                                ))}
+                            </ContainerModalSmall>
+                        )}
                     </>
+                ) : (
+                    <Button
+                        onClick={() => enableMiniModal()}
+                        sx={{
+                            position: 'fixed',
+                            bottom: '80px',
+                            left: '15px',
+                            borderColor: 'white',
+                            color: 'white',
+                            display: markersSmallModal.length ? 'flex' : 'none',
+                        }}
+                        variant="outlined"
+                    >
+                        Abrir Leyenda
+                    </Button>
                 )}
+
                 {openDetailModal && (
                     <>
                         <ModalUserMarkers
@@ -867,10 +903,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: locationUser?.lat,
-                                        lng: locationUser?.lng,
-                                    }
+                                        {
+                                            lat: locationUser?.lat,
+                                            lng: locationUser?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos

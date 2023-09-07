@@ -923,10 +923,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.marker.location?.lat,
-                                        lng: marker.marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.marker.location?.lat,
+                                            lng: marker.marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -1037,10 +1037,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.location?.lat,
-                                        lng: marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.location?.lat,
+                                            lng: marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
