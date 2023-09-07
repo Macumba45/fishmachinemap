@@ -76,7 +76,7 @@ export const ButtonStyleConfirmarLugar = {
     top: '85%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '200px',
+    width: '210px',
     backgroundColor: '#ffffff',
     color: '#000000',
 }

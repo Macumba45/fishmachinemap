@@ -55,7 +55,7 @@ const SignUp: FC = () => {
                     const data = await response.json()
                     setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
                     notifySucces()
-                    router.push('/maps')
+                    router.push(`/${locale}/maps`)
                     // Realiza alguna acción en respuesta al éxito
                 } else {
                     const errorData = await response.json()

@@ -8,7 +8,7 @@ interface MainContainerProps {
 export const MainContainer = styled.div<MainContainerProps>`
     display: flex;
     width: 120px;
-    height: 150px;
+    height: 160px;
     margin: 0.8rem;
     cursor: pointer;
 `
@@ -23,7 +23,7 @@ export const Container = styled.div`
 
 export const PictureMarker = styled.img`
     width: 120px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     height: 100px;
     object-fit: cover;
     background-size: cover;

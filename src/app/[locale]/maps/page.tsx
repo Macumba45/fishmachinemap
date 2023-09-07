@@ -6,7 +6,6 @@ import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
 import { useRouter } from 'next/navigation'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
-import usePreventZoom from '@/hooks/disableZoom'
 import Link from 'next/link'
 import RoomIcon from '@mui/icons-material/Room'
 import ModalSmallMarkers from '@/components/ModalSmallMarkers'
@@ -139,8 +138,6 @@ const GoogleMapComp: FC = () => {
         userId,
     } = useLogicMaps()
 
-    usePreventZoom()
-
     useEffect(() => {
         if (!token) {
             setIsLogged(false)
@@ -258,7 +255,7 @@ const GoogleMapComp: FC = () => {
 
                 updateResultsButton.addEventListener('click', handleClick)
             }
-            map.addListener('dragend', () => {
+            map.addListener('drag', () => {
                 // Obtener el valor actual del zoom
                 const zoom = map.getZoom()
 
@@ -270,10 +267,9 @@ const GoogleMapComp: FC = () => {
                     }
 
                     if (center && userMarkers) {
-                        // Filtrar los marcadores cercanos al centro del mapa
-                        const filteredMarkers = userMarkers.filter(marker => {
+                        // Crear un arreglo de objetos que contienen los marcadores y sus distancias al centro
+                        const markersWithDistance = userMarkers.map(marker => {
                             const location = marker.location
-
                             if (location && center) {
                                 // Calcular la distancia entre el centro del mapa y el marcador
                                 const distance =
@@ -281,19 +277,29 @@ const GoogleMapComp: FC = () => {
                                         center,
                                         location
                                     )
-
-                                // Establecer una distancia máxima deseada (en metros)
-                                const maxDistance = 50000 // Por ejemplo, 10 km
-
-                                // Mostrar el marcador si está dentro del rango de distancia
-                                return distance <= maxDistance
+                                return { marker, distance }
                             }
-
-                            return false
+                            return null
                         })
 
-                        // Actualizar el estado de los marcadores para mostrar solo los filtrados
-                        markersSetSmallModal(filteredMarkers)
+                        // Filtrar los marcadores dentro del rango de distancia deseado
+                        const maxDistance = 50000 // Por ejemplo, 50 km
+                        const filteredMarkers = markersWithDistance.filter(
+                            item => item && item.distance <= maxDistance
+                        )
+
+                        // Ordenar los marcadores en función de la distancia, los más cercanos primero
+                        filteredMarkers.sort(
+                            (a, b) => a!.distance - b!.distance
+                        )
+
+                        // Obtener los marcadores ordenados en un arreglo separado
+                        const orderedMarkers = filteredMarkers.map(
+                            item => item!.marker
+                        )
+
+                        // Actualizar el estado de los marcadores para mostrar los filtrados y ordenados
+                        markersSetSmallModal(orderedMarkers)
 
                         setOpenSmallModal(true)
                     }
@@ -472,7 +478,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                                '/_next/static/media/algas.f94c4aec.png'
+                            '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -769,7 +775,7 @@ const GoogleMapComp: FC = () => {
                                 onClick={() => setOpenSmallModal(false)}
                                 sx={{
                                     position: 'fixed',
-                                    bottom: '240px',
+                                    bottom: '250px',
                                     left: '15px',
                                     borderColor: 'white',
                                     color: 'white',
@@ -795,6 +801,7 @@ const GoogleMapComp: FC = () => {
                                         onClose={() => setOpenSmallModal(false)}
                                         picture={marker.picture as string}
                                         place={marker.direction}
+                                        markerType={marker.markerType}
                                     />
                                 </div>
                             ))}
@@ -854,10 +861,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: locationUser?.lat,
-                                        lng: locationUser?.lng,
-                                    }
+                                        {
+                                            lat: locationUser?.lat,
+                                            lng: locationUser?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos

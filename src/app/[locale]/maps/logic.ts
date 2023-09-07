@@ -11,7 +11,6 @@ import { MarkerType } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useLocale } from 'next-intl'
 
-
 export const useLogicMaps = () => {
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
@@ -195,7 +194,8 @@ export const useLogicMaps = () => {
     const [loadingLocation, setLoadingLocation] = useState(false)
     const isSmallScreen = useMediaQuery({ maxWidth: 360 })
     const [currentUser, setCurrentUser] = useState<User | null>(null)
-    const [filteredMarkers, setFilteredMarkers] = useState<UserMarker[]>(userMarkers)
+    const [filteredMarkers, setFilteredMarkers] =
+        useState<UserMarker[]>(userMarkers)
     const [openDetailModal, setOpenDetailModal] = useState(false)
     const handleMarkerClick = (marker: any) => {
         setDataMarkerUser(marker)
@@ -431,7 +431,6 @@ export const useLogicMaps = () => {
     const handleCloseModalComments = useCallback(() => {
         setOpenModalComments(false)
     }, [])
-    
 
     return {
         styledMap,
@@ -520,6 +519,6 @@ export const useLogicMaps = () => {
         openSmallModal,
         setOpenSmallModal,
         token,
-        userId
+        userId,
     }
 }

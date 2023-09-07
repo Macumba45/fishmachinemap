@@ -3,7 +3,6 @@ import { BlaBlaFish } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useLocale } from 'next-intl'
 
-
 export const useLogicBlaBla = () => {
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [openModal, setOpenModal] = useState(false)
@@ -118,6 +117,6 @@ export const useLogicBlaBla = () => {
         openModal,
         setOpenModal,
         locale,
-        currentDate
+        currentDate,
     }
 }

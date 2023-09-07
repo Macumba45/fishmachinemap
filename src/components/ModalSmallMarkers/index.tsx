@@ -10,6 +10,7 @@ interface Props {
     picture?: string
     place?: string
     description?: string
+    markerType?: string
 }
 
 const ModalSmallMarkers: FC<Props> = ({
@@ -19,6 +20,7 @@ const ModalSmallMarkers: FC<Props> = ({
     picture,
     place,
     description,
+    markerType,
 }) => {
     usePreventZoom()
 
@@ -28,7 +30,25 @@ const ModalSmallMarkers: FC<Props> = ({
                 <MainContainer onClick={onClick} onClose={onClose}>
                     <Container>
                         <PictureMarker src={picture} />
-                        <Typography sx={{ fontSize: '0.7rem', ml: 1 }}>
+                        <Typography
+                            sx={{
+                                fontSize: '0.7rem',
+                                textAlign: 'left',
+                                ml: 1,
+                                fontWeight: 600,
+                            }}
+                        >
+                            {markerType!.charAt(0).toUpperCase() +
+                                markerType?.slice(1)}
+                        </Typography>
+                        <Typography
+                            sx={{
+                                fontSize: '0.7rem',
+                                textAlign: 'left',
+                                ml: 1,
+                                mr: 1,
+                            }}
+                        >
                             {place}
                         </Typography>
                         <Typography>{description}</Typography>

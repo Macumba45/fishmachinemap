@@ -40,7 +40,6 @@ const BlaBlaFish: FC = () => {
     } = useLogicBlaBla()
     const router = useRouter()
 
-
     const goToLogin = () => {
         router.push(`/${locale}/auth/login`)
     }
@@ -62,7 +61,6 @@ const BlaBlaFish: FC = () => {
         fetchBlaBlaFish()
         getUserInfo()
     }, [])
-
 
     useEffect(() => {
         const token = localStorage.getItem('token')
