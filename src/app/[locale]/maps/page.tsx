@@ -796,11 +796,11 @@ const GoogleMapComp: FC = () => {
                             {markersSmallModal.map(marker => (
                                 <div
                                     key={marker.id}
-                                    onClick={() => handleMarkerClick(marker)}
+                                    onClick={() => handleMarkerClick(marker, marker.location)}
                                 >
                                     <ModalSmallMarkers
                                         onClick={() =>
-                                            handleMarkerClick(marker)
+                                            handleMarkerClick(marker, marker.location)
                                         }
                                         key={marker.id}
                                         isOpen={openSmallModal}

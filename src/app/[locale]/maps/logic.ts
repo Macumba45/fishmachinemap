@@ -197,15 +197,25 @@ export const useLogicMaps = () => {
     const [filteredMarkers, setFilteredMarkers] =
         useState<UserMarker[]>(userMarkers)
     const [openDetailModal, setOpenDetailModal] = useState(false)
-    const handleMarkerClick = (marker: any) => {
-        setDataMarkerUser(marker)
-        setOpenDetailModal(true)
+    const handleMarkerClick = async (marker: any, location: google.maps.LatLngLiteral) => {
+        if (mapRef.current) {
+            mapRef.current.setCenter(location);
+            mapRef.current.setZoom(14);
+        }
+
+        // Espera un breve tiempo para que el mapa se centre antes de abrir el modal
+        await new Promise(resolve => setTimeout(resolve, 100)); // Puedes ajustar el tiempo según tus necesidades
+
+        setDataMarkerUser(marker);
+        setOpenDetailModal(true);
     }
+
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
     const [isLogged, setIsLogged] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [openSmallModal, setOpenSmallModal] = useState(false)
+
 
     // Función para obtener el ícono del marcador según el tipo de marcador.
     const goToMarkerUserLocation = useCallback(
