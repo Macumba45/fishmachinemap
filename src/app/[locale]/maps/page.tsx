@@ -58,6 +58,12 @@ import {
     ContainerModalSmall,
 } from './style'
 
+
+import IntroJs from 'intro.js';
+import 'intro.js/introjs.css'; // Estilo CSS de intro.js
+import 'intro.js/themes/introjs-modern.css'; // Tema moderno de intro.js
+import IntroTour from '@/components/AAintroJS'
+
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
 
@@ -258,8 +264,8 @@ const GoogleMapComp: FC = () => {
             map.addListener('drag', () => {
                 // Obtener el valor actual del zoom
                 const zoom = map.getZoom()
-
-                if ((zoom as number) >= 10) {
+                console.log('zoom', zoom)
+                if ((zoom as number) >= 8) {
                     // Obtener las coordenadas del centro del mapa
                     if (map) {
                         center.lat = map.getCenter()?.lat() || 0
@@ -601,7 +607,7 @@ const GoogleMapComp: FC = () => {
     return (
         <MainContainer>
             <>
-                <AccountMenu userPicture={currentUser?.picture as string} />
+                <AccountMenu className='menu' userPicture={currentUser?.picture as string} />
                 <FilterButton onChange={handleFilterChange} />
                 <BadgeContainer>
                     <IconButton onClick={openModalBadge} sx={{ padding: 0 }}>

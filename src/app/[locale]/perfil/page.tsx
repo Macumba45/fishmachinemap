@@ -45,6 +45,7 @@ import {
     emailStyles,
     nameStyles,
 } from './style'
+import CircularIndeterminate from '@/components/Loader'
 
 const Profile: FC = () => {
     const router = useRouter()
@@ -269,6 +270,16 @@ const Profile: FC = () => {
                 }, file.type)
             }
         })
+    }
+
+    // Renderiza el componente.
+    if (!user) {
+        return (
+            <>
+                <CircularIndeterminate />
+                <SimpleBottomNavigation />
+            </>
+        )
     }
 
     return (
@@ -912,10 +923,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.marker.location?.lat,
-                                            lng: marker.marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.marker.location?.lat,
+                                        lng: marker.marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -1026,10 +1037,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: marker.location?.lat,
-                                            lng: marker.location?.lng,
-                                        }
+                                    {
+                                        lat: marker.location?.lat,
+                                        lng: marker.location?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={

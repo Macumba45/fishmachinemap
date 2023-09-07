@@ -1,4 +1,4 @@
-import { FC, useState, memo, useEffect, useTransition } from 'react'
+import { FC, useState, memo, useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next-intl/client'
 import Box from '@mui/material/Box'
@@ -11,26 +11,26 @@ import Tooltip from '@mui/material/Tooltip'
 import Logout from '@mui/icons-material/Logout'
 import MenuIcon from '@mui/icons-material/Menu'
 import mareas from '../../assets/mareas.png'
+import EmailIcon from '@mui/icons-material/Email'
+import ButtonComp from '@/components/Button'
+import LanguageIcon from '@mui/icons-material/Language'
+import { Person } from '@mui/icons-material'
 import {
     Avatar,
     FormControl,
     InputLabel,
     Modal,
     Select,
-    Typography,
 } from '@mui/material'
-import EmailIcon from '@mui/icons-material/Email'
-import ButtonComp from '@/components/Button'
-import LanguageIcon from '@mui/icons-material/Language'
-import { Person } from '@mui/icons-material'
+
 
 interface AccountMenuProps {
     userPicture?: string | null
+    className?: string
 }
 
-const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
     const t = useTranslations('menu')
-    const [isPending, startTransition] = useTransition()
     const locale = useLocale()
     const router = useRouter()
     const pathname = usePathname()
@@ -179,7 +179,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
     }
 
     return (
-        <>
+        <div className={className}>
             <Box sx={boxStyles}>
                 <Tooltip title="Menu">
                     <IconButton
@@ -417,7 +417,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
                     />
                 </Box>
             </Modal>
-        </>
+        </div>
     )
 }
 

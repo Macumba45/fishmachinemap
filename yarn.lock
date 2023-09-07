@@ -4024,6 +4024,11 @@ intl-messageformat@^9.3.18:
     "@formatjs/icu-messageformat-parser" "2.1.0"
     tslib "^2.1.0"
 
+intro.js@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/intro.js/-/intro.js-7.2.0.tgz#e58e8fee4f6b43d6e0fcb264c9ca8a0f0565026d"
+  integrity sha512-qbMfaB70rOXVBceIWNYnYTpVTiZsvQh/MIkfdQbpA9di9VBfj1GigUPfcCv3aOfsbrtPcri8vTLTA4FcEDcHSQ==
+
 invariant@2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -5123,6 +5128,11 @@ react-dom@18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-intro.js@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-intro.js/-/react-intro.js-1.0.0.tgz#44ad03032ff7c57515d3bc335580e9e5be03887d"
+  integrity sha512-urAEMgc37XHno2xxl8AoEWPIlurdfoPlDwyF7PBYDfTXFXrE8MORDNsl2B7W8Fmhnjb/aTGX7WklDKm19nkDEA==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
