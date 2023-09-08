@@ -1,6 +1,14 @@
 'use client'
 
 import { FC, memo, useEffect, useState } from 'react'
+import { useLogicExperience } from './logic'
+import { Experiences } from './type'
+import SimpleBottomNavigation from '@/components/BottomNav'
+import AccountMenu from '@/components/Menu'
+import FilterExperiencias from '@/components/FilterExperiencias'
+import MultiActionAreaCard from '@/components/CardExperiences'
+import FloatAddExperiences from '@/components/FloatAddExperiences'
+import ExperienceModal from '@/components/ModalAddExperiences'
 import {
     CardContainer,
     Container,
@@ -9,17 +17,13 @@ import {
     MainContainer,
     TextNav,
 } from './style'
-import SimpleBottomNavigation from '@/components/BottomNav'
-import AccountMenu from '@/components/Menu'
-import FilterExperiencias from '@/components/FilterExperiencias'
-import MultiActionAreaCard from '@/components/CardExperiences'
-import { useLogicExperience } from './logic'
-import FloatAddExperiences from '@/components/FloatAddExperiences'
-import ExperienceModal from '@/components/ModalAddExperiences'
-import { title } from 'process'
 
 const Experiencias: FC = () => {
     const { currentUser, getUserInfo } = useLogicExperience()
+    const [selectedCategory, setSelectedCategory] =
+        useState<string>('Influencers')
+    const [filteredData, setFilteredData] = useState<Experiences[]>([])
+
     const [openModal, setOpenModal] = useState(false)
     const isInfluencer = currentUser?.role === 'INFLUENCER'
     console.log(isInfluencer)
@@ -27,20 +31,18 @@ const Experiencias: FC = () => {
         getUserInfo()
     }, [])
 
-    // const [filteredData, setFilteredData] = useState<Store[]>(store)
-    // const [selectedCategory, setSelectedCategory] = useState<string>('Todos') // Establecer el valor predeterminado como "Todos"
-    // const filterByCategory = (selectedCategory: string) => {
-    //     if (selectedCategory === 'Todos') {
-    //         setSelectedCategory('Todos') // Update the selected category
-    //         setFilteredData(store) // Si el valor seleccionado es "all", entonces mostrar todos los datos
-    //         return
-    //     }
-    //     setSelectedCategory(selectedCategory) // Update the selected category
-    //     const filteredData = store.filter(
-    //         (item: any) => item.category === selectedCategory
-    //     )
-    //     setFilteredData(filteredData)
-    // }
+    const filterByCategory = (selectedCategory: string) => {
+        if (selectedCategory === 'Influencers') {
+            setSelectedCategory('Influencers') // Update the selected category
+            // setFilteredData(store) // Si el valor seleccionado es "all", entonces mostrar todos los datos
+            return
+        }
+        setSelectedCategory(selectedCategory) // Update the selected category
+        // const filteredData = store.filter(
+        //     (item: any) => item.category === selectedCategory
+        // )
+        setFilteredData(filteredData)
+    }
     return (
         <>
             <ContainerMenu>
@@ -51,8 +53,8 @@ const Experiencias: FC = () => {
             </Container>
             <FilterContainer>
                 <FilterExperiencias
-                // value={selectedCategory}
-                // onChange={filterByCategory}
+                    value={selectedCategory}
+                    onChange={filterByCategory}
                 />
             </FilterContainer>
             <CardContainer>

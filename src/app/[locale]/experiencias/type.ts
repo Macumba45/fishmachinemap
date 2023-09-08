@@ -6,3 +6,12 @@ export type User = {
     password: string
     picture: string
 }
+
+export type Experiences = {
+    title: string
+    category: string
+    description: string
+    price: string
+    phone: string
+    url: string
+}
