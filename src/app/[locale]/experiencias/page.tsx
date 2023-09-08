@@ -9,6 +9,7 @@ import FilterExperiencias from '@/components/FilterExperiencias'
 import MultiActionAreaCard from '@/components/CardExperiences'
 import FloatAddExperiences from '@/components/FloatAddExperiences'
 import ExperienceModal from '@/components/ModalAddExperiences'
+import CircularIndeterminate from '@/components/Loader'
 import {
     CardContainer,
     Container,
@@ -19,11 +20,10 @@ import {
 } from './style'
 
 const Experiencias: FC = () => {
-    const { currentUser, getUserInfo } = useLogicExperience()
+    const { currentUser, getUserInfo, loading } = useLogicExperience()
     const [selectedCategory, setSelectedCategory] =
         useState<string>('Influencers')
     const [filteredData, setFilteredData] = useState<Experiences[]>([])
-
     const [openModal, setOpenModal] = useState(false)
     const isInfluencer = currentUser?.role === 'INFLUENCER'
     useEffect(() => {
@@ -41,6 +41,15 @@ const Experiencias: FC = () => {
         //     (item: any) => item.category === selectedCategory
         // )
         setFilteredData(filteredData)
+    }
+
+    if (loading) {
+        return (
+            <>
+                <CircularIndeterminate />
+                <SimpleBottomNavigation />
+            </>
+        )
     }
     return (
         <>

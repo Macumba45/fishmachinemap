@@ -1,15 +1,17 @@
 'use client'
 
-import React, { FC, useEffect, memo, useState, use } from 'react'
+import { FC, useEffect, memo, useState } from 'react'
 import { useLogicStore } from './logic'
+import { Store } from './type'
+import { useLocale } from 'next-intl'
+import Link from 'next/link'
+import { Typography } from '@mui/material'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import TitlebarImageList from '@/components/StoreImageList'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
 import StoreModal from '@/components/ModalStore'
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import CircularIndeterminate from '@/components/Loader'
-import Link from 'next/link'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import LimitTags from '@/components/FilterStore'
 import { useRouter } from 'next/navigation'
@@ -18,13 +20,8 @@ import {
     ContainerMenu,
     FilterContainer,
     MainContainer,
-    MainContainerNoData,
-    NoDataText,
     TextNav,
 } from './style'
-import { Store } from './type'
-import { Typography } from '@mui/material'
-import { useLocale } from 'next-intl'
 
 const Store: FC = () => {
     const {

@@ -4,9 +4,11 @@ import { User } from './type'
 
 export const useLogicExperience = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
+    const [loading, setLoading] = useState(false)
 
     const getUserInfo = useCallback(async () => {
         try {
+            setLoading(true)
             const token = getAuthenticatedToken()
             const headers = {
                 'Content-Type': 'application/json',
@@ -20,6 +22,7 @@ export const useLogicExperience = () => {
             if (response.ok) {
                 const data = await response.json()
                 setCurrentUser(data.user)
+                setLoading(false)
             } else {
                 throw new Error('Error en la respuesta del servidor')
             }
@@ -28,5 +31,5 @@ export const useLogicExperience = () => {
         }
     }, [])
 
-    return { getUserInfo, currentUser }
+    return { getUserInfo, currentUser, loading }
 }

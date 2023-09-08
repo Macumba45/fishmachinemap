@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState, memo } from 'react'
+import { FC, useEffect, memo } from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FloatAddBlaBlaFish from '@/components/FloatAddBlaBlaFish'
@@ -12,7 +12,6 @@ import { BlaBlaFish } from './type'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
 import FloatLoginButton from '@/components/FloatLoginButton'
-import { useRouter } from 'next/navigation'
 import {
     CardContainer,
     Container,
@@ -34,33 +33,12 @@ const BlaBlaFish: FC = () => {
         setIsLogged,
         openModal,
         setOpenModal,
-        locale,
         todosHanPasadoDeFecha,
         currentDate,
+        formatDate,
+        capitalizeString,
+        goToLogin,
     } = useLogicBlaBla()
-    const router = useRouter()
-
-    const goToLogin = () => {
-        router.push(`/${locale}/auth/login`)
-    }
-
-    // Función de utilidad para formatear la fecha
-    function formatDate(date: Date) {
-        return date.toLocaleDateString('es-ES', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-        })
-    }
-    // Función de utilidad para capitalizar una cadena
-    function capitalizeString(str: string) {
-        return str.charAt(0).toUpperCase() + str.slice(1)
-    }
-
-    useEffect(() => {
-        fetchBlaBlaFish()
-        getUserInfo()
-    }, [])
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -71,6 +49,11 @@ const BlaBlaFish: FC = () => {
         } else {
             setIsLogged(true)
         }
+    }, [])
+
+    useEffect(() => {
+        fetchBlaBlaFish()
+        getUserInfo()
     }, [])
 
     if (loading) {

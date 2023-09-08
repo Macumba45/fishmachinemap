@@ -108,6 +108,8 @@ model Experiencies {
   description String?
   price       String?
   phone       String?
+  city        String?
+  whatsapp    String?
   url         String?
   role        String?
   user        User?    @relation(fields: [userId], references: [id])

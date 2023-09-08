@@ -2,9 +2,12 @@ import { useCallback, useState } from 'react'
 import { BlaBlaFish } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 export const useLogicBlaBla = () => {
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const router = useRouter()
+
     const [openModal, setOpenModal] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
     const [departureCity, setDepartureCity] = useState('')
@@ -88,6 +91,23 @@ export const useLogicBlaBla = () => {
         }
     }, [])
 
+    const goToLogin = () => {
+        router.push(`/${locale}/auth/login`)
+    }
+
+    // Función de utilidad para formatear la fecha
+    function formatDate(date: Date) {
+        return date.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+        })
+    }
+    // Función de utilidad para capitalizar una cadena
+    function capitalizeString(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+
     return {
         postBlaBlaFish,
         departureCity,
@@ -118,5 +138,8 @@ export const useLogicBlaBla = () => {
         setOpenModal,
         locale,
         currentDate,
+        formatDate,
+        capitalizeString,
+        goToLogin,
     }
 }

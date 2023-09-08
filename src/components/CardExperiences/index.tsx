@@ -4,8 +4,9 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { Button, CardActionArea, CardActions, IconButton } from '@mui/material'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { CardContainer, Spanbold } from './style'
-import { Phone } from '@mui/icons-material'
+import { Phone, WhatsApp, WhatshotRounded } from '@mui/icons-material'
 
 export default function MultiActionAreaCard() {
     return (
@@ -32,20 +33,55 @@ export default function MultiActionAreaCard() {
                     <Spanbold>Precio:</Spanbold> 100€
                 </Typography>
                 <Typography
-                    sx={{ mt: 2, display: 'flex', alignItems: 'center' }}
+                    sx={{ mt: 2 }}
                     variant="body2"
                     color="text.secondary"
                 >
-                    <IconButton>
-                        <Phone />
-                    </IconButton>
-                    Llamar
+                    <Spanbold>Ciudad:</Spanbold> Cádiz
                 </Typography>
+                <Typography
+                    sx={{ mt: 2 }}
+                    variant="body2"
+                    color="text.secondary"
+                >
+                    <Spanbold>Teléfono:</Spanbold> +34 666 666 666
+                </Typography>
+                <Typography
+                    sx={{
+                        mt: 2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        color: '#49007a',
+                    }}
+                    variant="body2"
+                    color="text.primary"
+                ></Typography>
             </CardContent>
-            <CardActions>
-                <Button size="small" color="primary">
+            <CardActions
+                sx={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+                <Button
+                    sx={{ color: 'white', backgroundColor: '#49007a', ml: 1 }}
+                    size="small"
+                    color="primary"
+                >
                     + Info
                 </Button>
+                <IconButton
+                    sx={{
+                        fontSize: '1rem',
+                        color: '#49007a',
+                        backgroundColor: '#25D366',
+                        borderRadius: '30px',
+                        mr: 2,
+                        mb: 1,
+                        '&:hover': {
+                            backgroundColor: '#1a8642', // Cambiar color del hover
+                        },
+                    }}
+                >
+                    <WhatsAppIcon sx={{ color: 'white' }} />
+                </IconButton>
             </CardActions>
         </Card>
     )
