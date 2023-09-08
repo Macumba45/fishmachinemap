@@ -9,6 +9,7 @@ export const getUserInfo = async (userId: any) => {
             id: true,
             name: true,
             email: true,
+            role: true,
             picture: true,
             password: false,
             markers: {

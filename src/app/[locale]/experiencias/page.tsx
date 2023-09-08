@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, memo, use, useEffect } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import {
     CardContainer,
     Container,
@@ -14,10 +14,15 @@ import AccountMenu from '@/components/Menu'
 import FilterExperiencias from '@/components/FilterExperiencias'
 import MultiActionAreaCard from '@/components/CardExperiences'
 import { useLogicExperience } from './logic'
+import FloatAddExperiences from '@/components/FloatAddExperiences'
+import ExperienceModal from '@/components/ModalAddExperiences'
+import { title } from 'process'
 
 const Experiencias: FC = () => {
     const { currentUser, getUserInfo } = useLogicExperience()
-
+    const [openModal, setOpenModal] = useState(false)
+    const isInfluencer = currentUser?.role === 'INFLUENCER'
+    console.log(isInfluencer)
     useEffect(() => {
         getUserInfo()
     }, [])
@@ -59,6 +64,25 @@ const Experiencias: FC = () => {
                 <MultiActionAreaCard />
             </CardContainer>
             <MainContainer>
+                {isInfluencer && (
+                    <FloatAddExperiences
+                        title="Añadir Experiencia"
+                        onClick={() => setOpenModal(true)}
+                    />
+                )}
+                <ExperienceModal
+                    experience={{
+                        title: '',
+                        category: '',
+                        description: '',
+                        price: '',
+                        phone: '',
+                        url: '',
+                        role: '',
+                    }}
+                    isOpen={openModal}
+                    onClose={() => setOpenModal(false)}
+                />
                 <SimpleBottomNavigation />
             </MainContainer>
         </>

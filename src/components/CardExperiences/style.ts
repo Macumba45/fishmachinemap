@@ -11,3 +11,8 @@ export const CardContainer = styled.div`
         
     } */
 `
+export const Spanbold = styled.span`
+    font-weight: 700;
+    margin-left: 0.5rem;
+    font-family: ${({ theme }) => theme.fonts.roboto};
+`
