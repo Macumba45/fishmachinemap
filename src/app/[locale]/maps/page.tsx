@@ -479,7 +479,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                                '/_next/static/media/algas.f94c4aec.png'
+                            '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -790,13 +790,12 @@ const GoogleMapComp: FC = () => {
                             Cerrar
                         </Button>
 
-                        <span
+                        {/* <span
                             style={{
                                 position: 'fixed',
                                 display: 'flex',
                             }}
                         >
-                            {/* Punto debajo del icono */}
                             <span
                                 style={{
                                     position: 'fixed',
@@ -813,7 +812,7 @@ const GoogleMapComp: FC = () => {
                             >
 
                             </span>
-                        </span>
+                        </span> */}
 
                         {markersSmallModal && markersSmallModal.length > 0 && (
                             <ContainerModalSmall>
@@ -918,10 +917,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: locationUser?.lat,
-                                        lng: locationUser?.lng,
-                                    }
+                                        {
+                                            lat: locationUser?.lat,
+                                            lng: locationUser?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos
@@ -1241,7 +1240,7 @@ const GoogleMapComp: FC = () => {
                 id="updateResultsButton"
                 style={{
                     display: isButtonDisabled ? 'none' : 'flex',
-                    opacity: isButtonDisabledPlaces || !isLogged ? 0.4 : 1,
+                    opacity: isButtonDisabledPlaces || !isLogged ? 0 : 1,
                     position: 'fixed',
                     width: isSmallScreen ? '100px' : '235px', // Cambia el título si la pantalla es pequeña
                     top: '40px',
@@ -1262,9 +1261,10 @@ const GoogleMapComp: FC = () => {
                     goToLogin()
                 }}
                 style={{
-                    position: 'fixed',
-                    bottom: '5.3rem',
-                    left: '1rem',
+                    position: 'absolute',
+                    top: '42px', // Centra verticalmente
+                    left: '50%', // Centra horizontalmente
+                    transform: 'translate(-50%, -50%)', // Centra el contenido
                     display: isLogged ? 'none' : 'flex',
                 }}
             />

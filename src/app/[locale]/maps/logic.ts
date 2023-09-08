@@ -198,27 +198,55 @@ export const useLogicMaps = () => {
         useState<UserMarker[]>(userMarkers)
     const [openDetailModal, setOpenDetailModal] = useState(false)
     const [activateMiniModal, setActivateMiniModal] = useState(true)
-    const handleMarkerClickMiniModal = async (
-        marker: any,
-        location: google.maps.LatLngLiteral
-    ) => {
-        if (mapRef.current) {
-            mapRef.current.setCenter(location)
-            mapRef.current.setZoom(14)
-        }
-
-        // Espera un breve tiempo para que el mapa se centre antes de abrir el modal
-        await new Promise(resolve => setTimeout(resolve, 500)) // Puedes ajustar el tiempo según tus necesidades
-
-        setDataMarkerUser(marker)
-        setOpenDetailModal(true)
-    }
-
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
     const [isLogged, setIsLogged] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [openSmallModal, setOpenSmallModal] = useState(false)
+
+    const handleMarkerClickMiniModal = async (
+        marker: any,
+        location: google.maps.LatLngLiteral
+    ) => {
+        const map = mapRef.current
+        if (map) {
+            const currentZoom = map.getZoom()
+            const targetZoom = 14
+            const initialCenter = map.getCenter() as google.maps.LatLng
+            const targetCenter =
+                location.lat && location.lng
+                    ? new google.maps.LatLng(location.lat, location.lng)
+                    : initialCenter
+            const latDiff = targetCenter.lat() - initialCenter.lat()
+            const lngDiff = targetCenter.lng() - initialCenter.lng()
+            const duration = 500
+            let startTime: number
+            const animateZoomAndPan = (timestamp: number) => {
+                if (!startTime) {
+                    startTime = timestamp
+                }
+                const progress = (timestamp - startTime) / duration
+                const easeProgress = Math.min(1, progress)
+                if (currentZoom) {
+                    const newZoom =
+                        currentZoom + (targetZoom - currentZoom) * easeProgress
+                    map.setZoom(newZoom)
+                    const newLat = initialCenter.lat() + latDiff * easeProgress
+                    const newLng = initialCenter.lng() + lngDiff * easeProgress
+                    map.setCenter(new google.maps.LatLng(newLat, newLng))
+                    if (progress < 1) {
+                        requestAnimationFrame(animateZoomAndPan)
+                    } else {
+                        setDataMarkerUser(marker)
+                        setTimeout(() => {
+                            setOpenDetailModal(true)
+                        }, 500)
+                    }
+                }
+            }
+            requestAnimationFrame(animateZoomAndPan)
+        }
+    }
 
     const disableMiniModal = () => {
         setActivateMiniModal(false)
