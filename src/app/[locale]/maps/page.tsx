@@ -479,7 +479,7 @@ const GoogleMapComp: FC = () => {
                         url: iconUrl?.url,
                         scaledSize:
                             iconUrl.url ===
-                            '/_next/static/media/algas.f94c4aec.png'
+                                '/_next/static/media/algas.f94c4aec.png'
                                 ? new google.maps.Size(36, 36)
                                 : new google.maps.Size(26, 26),
                     },
@@ -598,7 +598,6 @@ const GoogleMapComp: FC = () => {
             </>
         )
     }
-    console.log(markersSmallModal.length)
     return (
         <MainContainer>
             <>
@@ -793,8 +792,8 @@ const GoogleMapComp: FC = () => {
 
                         <span
                             style={{
-                                position: 'relative',
-                                display: 'inline-block',
+                                position: 'fixed',
+                                display: 'flex',
                             }}
                         >
                             {/* Punto debajo del icono */}
@@ -803,16 +802,17 @@ const GoogleMapComp: FC = () => {
                                     position: 'fixed',
                                     top: '50%',
                                     left: '50%',
-                                    transform: 'translate(-50%, -50%)',
+                                    alignItems: 'center', // Centra verticalmente
+                                    justifyContent: 'center', // Centra horizontalmente
                                     width: '6px',
                                     height: '6px',
                                     borderRadius: '50%',
                                     backgroundColor: 'white',
-                                    display: markersSmallModal.length
-                                        ? 'flex'
-                                        : 'none',
+                                    display: markersSmallModal.length ? 'flex' : 'none',
                                 }}
-                            ></span>
+                            >
+
+                            </span>
                         </span>
 
                         {markersSmallModal && markersSmallModal.length > 0 && (
@@ -918,10 +918,10 @@ const GoogleMapComp: FC = () => {
                                     locationUser?.lng !== undefined
                                 ) {
                                     const location: google.maps.LatLngLiteral =
-                                        {
-                                            lat: locationUser?.lat,
-                                            lng: locationUser?.lng,
-                                        }
+                                    {
+                                        lat: locationUser?.lat,
+                                        lng: locationUser?.lng,
+                                    }
                                     goToMarkerUserLocation(location)
                                 } else {
                                     // Aquí puedes manejar el caso donde `dataMarkerUser` no tiene valores válidos

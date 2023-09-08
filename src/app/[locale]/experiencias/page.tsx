@@ -26,7 +26,6 @@ const Experiencias: FC = () => {
 
     const [openModal, setOpenModal] = useState(false)
     const isInfluencer = currentUser?.role === 'INFLUENCER'
-    console.log(isInfluencer)
     useEffect(() => {
         getUserInfo()
     }, [])
