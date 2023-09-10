@@ -62,39 +62,6 @@ const Experiencias: FC = () => {
         )
     }
 
-    if (!experiences.length) {
-        return (
-            <>
-                <ContainerMenu>
-                    <AccountMenu userPicture={currentUser?.picture} />
-                </ContainerMenu>
-                <Container>
-                    <TextNav>Experiencias. Inolvidables</TextNav>
-                </Container>
-                <FilterContainer>
-                    <FilterExperiencias
-                        value={selectedCategory}
-                        onChange={filterByCategory}
-                    />
-                </FilterContainer>
-                {!isInfluencer && (
-                    <ContainerInFluencer>
-                        <Typography variant="body1">
-                            ¿Eres Influencer?
-                        </Typography>
-                        <Button
-                            sx={{ color: '#49007a' }}
-                            onClick={() => sendUsEmail()}
-                        >
-                            ¡Envíanos un email!
-                        </Button>
-                    </ContainerInFluencer>
-                )}
-                <NoDataText>No hay experiencias disponibles</NoDataText>
-            </>
-        )
-    }
-
     return (
         <>
             <ContainerMenu>
@@ -135,7 +102,7 @@ const Experiencias: FC = () => {
                             city={item.city}
                             country={item.country}
                             whatsapp={item.whatsapp}
-                            // onClick={() => {}}
+                        // onClick={() => {}}
                         />
                     )
                 })}
