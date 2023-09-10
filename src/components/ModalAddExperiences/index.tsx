@@ -1,48 +1,61 @@
 import React, { FC, useState } from 'react'
+import { useLogicExperience } from '@/app/[locale]/experiencias/logic'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { Box } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 interface ExperienceModalProps {
     isOpen: boolean
     onClose: () => void
-    experience: {
-        title: string
-        category: string
-        description: string
-        price: string
-        phone: string
-        url: string
-        role: string
-    }
 }
 
-const ExperienceModal: FC<ExperienceModalProps> = ({
-    isOpen,
-    onClose,
-    experience,
-}) => {
+const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
+    const {
+        postExperience,
+        title,
+        setTitle,
+        picture,
+        setPicture,
+        category,
+        setCategory,
+        description,
+        setDescription,
+        price,
+        setPrice,
+        phone,
+        setPhone,
+        city,
+        setCity,
+        whatsapp,
+        setWhatsapp,
+        url,
+        setUrl,
+    } = useLogicExperience()
+
     const [loading, setLoading] = useState(false)
 
-    const [formData, setFormData] = useState({
-        title: experience.title,
-        description: experience.description,
-        price: experience.price,
-        phone: experience.phone,
-        url: experience.url,
-    })
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }))
-    }
+        const experienceData = {
+            title,
+            picture,
+            category,
+            description,
+            price,
+            phone,
+            city,
+            whatsapp,
+            url,
+        }
 
-    const handleSubmit = () => {
+        try {
+            await postExperience(experienceData)
+        } catch (error) {
+            console.log(error)
+        }
         // Aquí puedes manejar la lógica de envío del formulario
         // Puedes enviar los datos a la API o realizar otras acciones necesarias
         // Luego, cierra el modal
@@ -88,8 +101,8 @@ const ExperienceModal: FC<ExperienceModalProps> = ({
                         label="Titulo de la experiencia"
                         variant="outlined"
                         fullWidth
-                        value={formData.title}
-                        onChange={handleChange}
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
                     />
                     <TextField
                         margin="dense"
@@ -98,18 +111,34 @@ const ExperienceModal: FC<ExperienceModalProps> = ({
                         variant="outlined"
                         fullWidth
                         multiline
-                        rows={4}
-                        value={formData.description}
-                        onChange={handleChange}
+                        rows={2}
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
                     />
+                    <FormControl sx={{ mb: '4px', mt: '8px' }} fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                            Categoria
+                        </InputLabel>
+                        <Select
+                            margin="dense"
+                            name="categoria"
+                            label="Categoria"
+                            variant="outlined"
+                            fullWidth
+                            value={category}
+                            onChange={e => setCategory(e.target.value)}
+                        >
+                            <MenuItem value="Accesorios">Accesorios</MenuItem>
+                        </Select>
+                    </FormControl>
                     <TextField
                         margin="dense"
                         name="price"
                         label="Precio"
                         variant="outlined"
                         fullWidth
-                        value={formData.price}
-                        onChange={handleChange}
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
                     />
                     <TextField
                         margin="dense"
@@ -117,8 +146,26 @@ const ExperienceModal: FC<ExperienceModalProps> = ({
                         label="Teléfono de contacto"
                         variant="outlined"
                         fullWidth
-                        value={formData.phone}
-                        onChange={handleChange}
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
+                    />
+                    <TextField
+                        margin="dense"
+                        name="phone"
+                        label="Whatsapp de contacto"
+                        variant="outlined"
+                        fullWidth
+                        value={whatsapp}
+                        onChange={e => setWhatsapp(e.target.value)}
+                    />
+                    <TextField
+                        margin="dense"
+                        name="phone"
+                        label="Ciudad"
+                        variant="outlined"
+                        fullWidth
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
                     />
                     <Box
                         sx={{

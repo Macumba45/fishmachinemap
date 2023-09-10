@@ -7,10 +7,45 @@ import { Button, CardActionArea, CardActions, IconButton } from '@mui/material'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { CardContainer, Spanbold } from './style'
 import { Phone, WhatsApp, WhatshotRounded } from '@mui/icons-material'
+import { FC } from 'react'
 
-export default function MultiActionAreaCard() {
+interface Props {
+    title: string
+    description: string
+    price: string
+    city: string
+    country: string
+    picture: string
+    category: string
+    whatsapp: string
+    onClick?: () => void
+}
+
+const MultiActionAreaCard: FC<Props> = ({
+    title,
+    description,
+    price,
+    city,
+    country,
+    picture,
+    category,
+    whatsapp,
+    onClick,
+}) => {
+    const handleWhatsAppClick = () => {
+        // Construir el enlace de WhatsApp con el número de teléfono
+        const phoneNumber = whatsapp.replace(/\D/g, '') // Eliminar todos los caracteres que no sean dígitos del número de teléfono
+        const whatsAppLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`
+        const message = `Hola, esoty interesado en la experiencia ${title} en ${city}.`
+        const encodedMessage = encodeURIComponent(message)
+        const finalWhatsAppLink = `${whatsAppLink}&text=${encodedMessage}`
+
+        // Abrir el enlace de WhatsApp en una nueva ventana o pestaña
+        window.open(finalWhatsAppLink)
+    }
+
     return (
-        <Card sx={{ maxWidth: 345, margin: 2 }}>
+        <Card sx={{ maxWidth: 345, margin: 2, minWidth: 310 }}>
             <CardMedia
                 component="img"
                 height="140"
@@ -19,25 +54,24 @@ export default function MultiActionAreaCard() {
             />
             <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
-                    Pescar en Alta Mar - Atún Rojo
+                    {title}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                    Disfruta de una experiencia única en alta mar, pesca atúnes
-                    y disfruta de la brisa del mar.
+                    {description}
                 </Typography>
                 <Typography
                     sx={{ mt: 2 }}
                     variant="body2"
                     color="text.secondary"
                 >
-                    <Spanbold>Precio:</Spanbold> 100€
+                    <Spanbold>Precio:</Spanbold> {price} €
                 </Typography>
                 <Typography
                     sx={{ mt: 2 }}
                     variant="body2"
                     color="text.secondary"
                 >
-                    <Spanbold>Ciudad:</Spanbold> Cádiz
+                    <Spanbold>Ciudad:</Spanbold> {city}
                 </Typography>
                 <Typography
                     sx={{ mt: 2 }}
@@ -68,6 +102,7 @@ export default function MultiActionAreaCard() {
                     + Info
                 </Button>
                 <IconButton
+                    onClick={handleWhatsAppClick}
                     sx={{
                         fontSize: '1rem',
                         color: '#49007a',
@@ -86,3 +121,5 @@ export default function MultiActionAreaCard() {
         </Card>
     )
 }
+
+export default MultiActionAreaCard

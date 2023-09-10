@@ -20,7 +20,8 @@
         "createAccount": "Crear cuenta",
         "alreadyAccount": "¿Ya tienes una cuenta? Inicia sesión",
         "login": "Iniciar sesión",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "errorLogin": "Usuario o contraseña inválidos"
     },
     "LocaleSwitcher": {
         "label": "Idiomma",

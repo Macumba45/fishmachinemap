@@ -59,7 +59,6 @@ export const CardContainer = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: 8rem;
     margin-bottom: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
@@ -67,4 +66,25 @@ export const CardContainer = styled.div`
         flex-wrap: wrap;
         
     } */
+`
+
+export const ContainerInFluencer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9rem;
+    margin-bottom: 8rem;
+
+    /* @media screen and (min-width: 375px) {
+        flex-wrap: wrap;
+        
+    } */
+`
+
+export const NoDataText = styled.h1`
+    font-family: Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 200;
+    color: #49007a;
+    text-align: center;
 `

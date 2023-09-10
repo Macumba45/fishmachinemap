@@ -13,14 +13,19 @@ import CircularIndeterminate from '@/components/Loader'
 import {
     CardContainer,
     Container,
+    ContainerInFluencer,
     ContainerMenu,
     FilterContainer,
     MainContainer,
     TextNav,
+    NoDataText,
 } from './style'
+import { Button, Typography } from '@mui/material'
 
 const Experiencias: FC = () => {
-    const { currentUser, getUserInfo, loading } = useLogicExperience()
+    const { currentUser, getUserInfo, getExperiences, experiences, loading } =
+        useLogicExperience()
+    console.log('experiences', experiences)
     const [selectedCategory, setSelectedCategory] =
         useState<string>('Influencers')
     const [filteredData, setFilteredData] = useState<Experiences[]>([])
@@ -28,6 +33,7 @@ const Experiencias: FC = () => {
     const isInfluencer = currentUser?.role === 'INFLUENCER'
     useEffect(() => {
         getUserInfo()
+        getExperiences()
     }, [])
 
     const filterByCategory = (selectedCategory: string) => {
@@ -43,6 +49,10 @@ const Experiencias: FC = () => {
         setFilteredData(filteredData)
     }
 
+    const sendUsEmail = () => {
+        window.open('mailto:gonzalolovo@gmailcom')
+    }
+
     if (loading) {
         return (
             <>
@@ -51,6 +61,40 @@ const Experiencias: FC = () => {
             </>
         )
     }
+
+    if (!experiences.length) {
+        return (
+            <>
+                <ContainerMenu>
+                    <AccountMenu userPicture={currentUser?.picture} />
+                </ContainerMenu>
+                <Container>
+                    <TextNav>Experiencias. Inolvidables</TextNav>
+                </Container>
+                <FilterContainer>
+                    <FilterExperiencias
+                        value={selectedCategory}
+                        onChange={filterByCategory}
+                    />
+                </FilterContainer>
+                {!isInfluencer && (
+                    <ContainerInFluencer>
+                        <Typography variant="body1">
+                            ¿Eres Influencer?
+                        </Typography>
+                        <Button
+                            sx={{ color: '#49007a' }}
+                            onClick={() => sendUsEmail()}
+                        >
+                            ¡Envíanos un email!
+                        </Button>
+                    </ContainerInFluencer>
+                )}
+                <NoDataText>No hay experiencias disponibles</NoDataText>
+            </>
+        )
+    }
+
     return (
         <>
             <ContainerMenu>
@@ -65,13 +109,36 @@ const Experiencias: FC = () => {
                     onChange={filterByCategory}
                 />
             </FilterContainer>
-            <CardContainer>
-                <MultiActionAreaCard />
-                <MultiActionAreaCard />
-                <MultiActionAreaCard />
-                <MultiActionAreaCard />
-                <MultiActionAreaCard />
-                <MultiActionAreaCard />
+            {!isInfluencer && (
+                <ContainerInFluencer>
+                    <Typography variant="body1">¿Eres Influencer?</Typography>
+                    <Button
+                        sx={{ color: '#49007a' }}
+                        onClick={() => sendUsEmail()}
+                    >
+                        ¡Envíanos un email!
+                    </Button>
+                </ContainerInFluencer>
+            )}
+            <CardContainer
+                style={{ marginTop: !isInfluencer ? '1rem' : '8rem' }}
+            >
+                {experiences.map((item: any) => {
+                    return (
+                        <MultiActionAreaCard
+                            key={item.id}
+                            title={item.title}
+                            description={item.description}
+                            picture={item.picture}
+                            category={item.category}
+                            price={item.price}
+                            city={item.city}
+                            country={item.country}
+                            whatsapp={item.whatsapp}
+                            // onClick={() => {}}
+                        />
+                    )
+                })}
             </CardContainer>
             <MainContainer>
                 {isInfluencer && (
@@ -81,15 +148,6 @@ const Experiencias: FC = () => {
                     />
                 )}
                 <ExperienceModal
-                    experience={{
-                        title: '',
-                        category: '',
-                        description: '',
-                        price: '',
-                        phone: '',
-                        url: '',
-                        role: '',
-                    }}
                     isOpen={openModal}
                     onClose={() => setOpenModal(false)}
                 />

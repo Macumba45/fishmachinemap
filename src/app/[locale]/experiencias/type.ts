@@ -9,9 +9,12 @@ export type User = {
 
 export type Experiences = {
     title: string
+    picture: string
     category: string
     description: string
     price: string
     phone: string
+    city: string
+    whatsapp: string
     url: string
 }

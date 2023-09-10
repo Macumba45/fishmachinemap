@@ -111,7 +111,6 @@ model Experiencies {
   city        String?
   whatsapp    String?
   url         String?
-  role        String?
   user        User?    @relation(fields: [userId], references: [id])
   userId      String?
   createdAt   DateTime @default(now())
