@@ -1,4 +1,8 @@
 import { FC, useState } from 'react'
+import { InputsContainer } from './styles'
+import { useLogicBlaBla } from '@/app/[locale]/blablafish/logic'
+import { LoadingButton } from '@mui/lab'
+import { BlaBlaFish } from '@/app/[locale]/blablafish/type'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
@@ -7,12 +11,8 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
-import { InputsContainer } from './styles'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
-import { useLogicBlaBla } from '@/app/[locale]/blablafish/logic'
-import { LoadingButton } from '@mui/lab'
-import { BlaBlaFish } from '@/app/[locale]/blablafish/type'
 
 interface Props {
     open: boolean

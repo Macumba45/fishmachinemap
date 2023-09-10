@@ -73,7 +73,7 @@ export const ContainerInFluencer = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 9rem;
-    margin-bottom: 8rem;
+    margin-bottom: 1rem;
 
     /* @media screen and (min-width: 375px) {
         flex-wrap: wrap;

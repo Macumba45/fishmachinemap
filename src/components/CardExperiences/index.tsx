@@ -21,7 +21,7 @@ interface Props {
     onClick?: () => void
 }
 
-const MultiActionAreaCard: FC<Props> = ({
+const CardExperiences: FC<Props> = ({
     title,
     description,
     price,
@@ -95,9 +95,15 @@ const MultiActionAreaCard: FC<Props> = ({
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
                 <Button
-                    sx={{ color: 'white', backgroundColor: '#49007a', ml: 1 }}
+                    sx={{
+                        color: 'white',
+                        backgroundColor: '#49007a',
+                        ml: 1,
+                        '&:hover': { backgroundColor: '#7900ca' },
+                    }}
                     size="small"
                     color="primary"
+                    onClick={() => console.log('click')}
                 >
                     + Info
                 </Button>
@@ -122,4 +128,4 @@ const MultiActionAreaCard: FC<Props> = ({
     )
 }
 
-export default MultiActionAreaCard
+export default CardExperiences

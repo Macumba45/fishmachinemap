@@ -6,7 +6,7 @@ import { Experiences } from './type'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
 import FilterExperiencias from '@/components/FilterExperiencias'
-import MultiActionAreaCard from '@/components/CardExperiences'
+import CardExperiences from '@/components/CardExperiences'
 import FloatAddExperiences from '@/components/FloatAddExperiences'
 import ExperienceModal from '@/components/ModalAddExperiences'
 import CircularIndeterminate from '@/components/Loader'
@@ -92,7 +92,7 @@ const Experiencias: FC = () => {
             >
                 {experiences.map((item: any) => {
                     return (
-                        <MultiActionAreaCard
+                        <CardExperiences
                             key={item.id}
                             title={item.title}
                             description={item.description}
@@ -102,7 +102,7 @@ const Experiencias: FC = () => {
                             city={item.city}
                             country={item.country}
                             whatsapp={item.whatsapp}
-                        // onClick={() => {}}
+                            // onClick={() => {}}
                         />
                     )
                 })}
