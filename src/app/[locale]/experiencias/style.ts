@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
     flex-direction: column;
     height: 100%;
     object-fit: cover;
-    margin-top: 8rem;
+    margin-top: 1rem;
     margin-bottom: 0rem;
     background-size: cover;
 `
@@ -59,7 +59,7 @@ export const CardContainer = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 5rem;
     margin-left: 1rem;
     margin-right: 1rem;
     /* @media screen and (min-width: 375px) {

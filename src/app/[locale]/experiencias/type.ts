@@ -17,4 +17,5 @@ export type Experiences = {
     city: string
     whatsapp: string
     url: string
+    user: User
 }

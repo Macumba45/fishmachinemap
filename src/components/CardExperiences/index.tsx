@@ -1,13 +1,20 @@
-import * as React from 'react'
+import { FC } from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { Button, CardActionArea, CardActions, IconButton } from '@mui/material'
+import PaidIcon from '@mui/icons-material/Paid'
+import PlaceIcon from '@mui/icons-material/Place'
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import { CardContainer, Spanbold } from './style'
-import { Phone, WhatsApp, WhatshotRounded } from '@mui/icons-material'
-import { FC } from 'react'
+import CategoryIcon from '@mui/icons-material/Category'
+import {
+    CardContainer,
+    ContainerInfo,
+    LogoInfluencerContainer,
+    Spanbold,
+} from './style'
 
 interface Props {
     title: string
@@ -18,6 +25,8 @@ interface Props {
     picture: string
     category: string
     whatsapp: string
+    influencer: string
+    userPicture?: string
     onClick?: () => void
 }
 
@@ -31,6 +40,8 @@ const CardExperiences: FC<Props> = ({
     category,
     whatsapp,
     onClick,
+    influencer,
+    userPicture,
 }) => {
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
@@ -45,42 +56,113 @@ const CardExperiences: FC<Props> = ({
     }
 
     return (
-        <Card sx={{ maxWidth: 345, margin: 2, minWidth: 310 }}>
+        <Card sx={{ minWidth: 320, margin: 2, maxWidth: 320, height: '500px' }}>
             <CardMedia
                 component="img"
                 height="140"
                 image="https://upload.wikimedia.org/wikipedia/commons/d/d5/Recreational-fishing-colombia.jpg"
-                alt="green iguana"
             />
-            <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
+            <LogoInfluencerContainer>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <CardMedia
+                        style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: '50%',
+                            border: '1px solid #49007a',
+                        }}
+                        image={userPicture}
+                    />
+                    <Typography
+                        marginBottom={0}
+                        fontSize={10}
+                        marginLeft={1}
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                    >
+                        {influencer}
+                    </Typography>
+                </div>
+                <Button
+                    onClick={() => console.log('click')}
+                    sx={{
+                        color: '#49007a',
+                        mr: 4,
+                        fontSize: 10,
+                        '&:hover': {
+                            backgroundColor: '#7900ca',
+                            color: 'white',
+                        },
+                    }}
+                >
+                    Compartir
+                </Button>
+            </LogoInfluencerContainer>
+            <CardContent sx={{ paddingBottom: 0 }}>
+                <Typography
+                    fontSize={18}
+                    marginBottom={2}
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                >
                     {title}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography
+                    style={{ overflow: 'auto' }}
+                    fontSize={12}
+                    variant="h5"
+                    color="text.secondary"
+                    height={100}
+                    component="div"
+                >
                     {description}
                 </Typography>
-                <Typography
-                    sx={{ mt: 2 }}
-                    variant="body2"
-                    color="text.secondary"
-                >
-                    <Spanbold>Precio:</Spanbold> {price} €
-                </Typography>
-                <Typography
-                    sx={{ mt: 2 }}
-                    variant="body2"
-                    color="text.secondary"
-                >
-                    <Spanbold>Ciudad:</Spanbold> {city}
-                </Typography>
-                <Typography
-                    sx={{ mt: 2 }}
-                    variant="body2"
-                    color="text.secondary"
-                >
-                    <Spanbold>Teléfono:</Spanbold> +34 666 666 666
-                </Typography>
-                <Typography
+                <ContainerInfo>
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                        variant="body2"
+                        color="text.secondary"
+                        component="div"
+                    >
+                        <PaidIcon
+                            sx={{ width: 20, mr: 0.5, color: '#49007a' }}
+                        />{' '}
+                        {price} €
+                    </Typography>
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                        variant="body2"
+                        color="text.secondary"
+                        component="div"
+                    >
+                        <PlaceIcon
+                            sx={{ width: 20, mr: 0.5, color: '#49007a' }}
+                        />{' '}
+                        {city}
+                    </Typography>
+                    <Typography
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                        variant="body2"
+                        color="text.secondary"
+                        component="div"
+                    >
+                        <CategoryIcon
+                            sx={{ width: 20, mr: 1, color: '#49007a' }}
+                        />{' '}
+                        {category}
+                    </Typography>
+                </ContainerInfo>
+                {/* <Typography
                     sx={{
                         mt: 2,
                         display: 'flex',
@@ -89,17 +171,20 @@ const CardExperiences: FC<Props> = ({
                     }}
                     variant="body2"
                     color="text.primary"
-                ></Typography>
+                >
+
+                </Typography> */}
             </CardContent>
             <CardActions
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
             >
                 <Button
                     sx={{
-                        color: 'white',
-                        backgroundColor: '#49007a',
-                        ml: 1,
-                        '&:hover': { backgroundColor: '#7900ca' },
+                        color: '#49007a',
+                        '&:hover': {
+                            backgroundColor: '#7900ca',
+                            color: 'white',
+                        },
                     }}
                     size="small"
                     color="primary"

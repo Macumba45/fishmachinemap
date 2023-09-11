@@ -109,7 +109,7 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 300,
+                        minWidth: 280,
                         bgcolor: 'background.paper',
                         boxShadow: 24,
                         borderRadius: '30px',
@@ -145,6 +145,15 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                             value={description}
                             onChange={e => setDescription(e.target.value)}
                         />
+                        <TextField
+                            margin="dense"
+                            name="city"
+                            label="Ciudad"
+                            variant="outlined"
+                            fullWidth
+                            value={city}
+                            onChange={e => setCity(e.target.value)}
+                        />
                         <FormControl sx={{ mb: '4px', mt: '8px' }} fullWidth>
                             <InputLabel id="demo-simple-select-label">
                                 Categoria
@@ -176,9 +185,13 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                             type="number"
                             margin="dense"
                             name="price"
-                            label="Precio"
+                            label="Precio €"
                             variant="outlined"
                             fullWidth
+                            inputProps={{
+                                inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                                pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
+                            }}
                             value={price}
                             onChange={e => setPrice(e.target.value)}
                         />
@@ -191,6 +204,10 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                             fullWidth
                             value={phone}
                             onChange={e => setPhone(e.target.value)}
+                            inputProps={{
+                                inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                                pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
+                            }}
                         />
                         <TextField
                             type="number"
@@ -201,16 +218,12 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                             fullWidth
                             value={whatsapp}
                             onChange={e => setWhatsapp(e.target.value)}
+                            inputProps={{
+                                inputMode: 'numeric', // Indica que solo se deben permitir números en el teclado
+                                pattern: '[0-9]*', // Patrón para garantizar que solo se permitan números válidos
+                            }}
                         />
-                        <TextField
-                            margin="dense"
-                            name="city"
-                            label="Ciudad"
-                            variant="outlined"
-                            fullWidth
-                            value={city}
-                            onChange={e => setCity(e.target.value)}
-                        />
+
                         <Box
                             sx={{
                                 display: 'flex',

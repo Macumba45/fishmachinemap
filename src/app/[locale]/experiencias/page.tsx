@@ -10,6 +10,7 @@ import CardExperiences from '@/components/CardExperiences'
 import FloatAddExperiences from '@/components/FloatAddExperiences'
 import ExperienceModal from '@/components/ModalAddExperiences'
 import CircularIndeterminate from '@/components/Loader'
+import { Button, Typography } from '@mui/material'
 import {
     CardContainer,
     Container,
@@ -18,14 +19,11 @@ import {
     FilterContainer,
     MainContainer,
     TextNav,
-    NoDataText,
 } from './style'
-import { Button, Typography } from '@mui/material'
 
 const Experiencias: FC = () => {
     const { currentUser, getUserInfo, getExperiences, experiences, loading } =
         useLogicExperience()
-    console.log('experiences', experiences)
     const [selectedCategory, setSelectedCategory] =
         useState<string>('Influencers')
     const [filteredData, setFilteredData] = useState<Experiences[]>([])
@@ -64,60 +62,64 @@ const Experiencias: FC = () => {
 
     return (
         <>
-            <ContainerMenu>
-                <AccountMenu userPicture={currentUser?.picture} />
-            </ContainerMenu>
-            <Container>
-                <TextNav>Experiencias. Inolvidables</TextNav>
-            </Container>
-            <FilterContainer>
-                <FilterExperiencias
-                    value={selectedCategory}
-                    onChange={filterByCategory}
-                />
-            </FilterContainer>
-            {!isInfluencer && (
-                <ContainerInFluencer>
-                    <Typography variant="body1">¿Eres Influencer?</Typography>
-                    <Button
-                        sx={{ color: '#49007a' }}
-                        onClick={() => sendUsEmail()}
-                    >
-                        ¡Envíanos un email!
-                    </Button>
-                </ContainerInFluencer>
-            )}
-            <CardContainer
-                style={{ marginTop: !isInfluencer ? '1rem' : '8rem' }}
-            >
-                {experiences.map((item: any) => {
-                    return (
-                        <CardExperiences
-                            key={item.id}
-                            title={item.title}
-                            description={item.description}
-                            picture={item.picture}
-                            category={item.category}
-                            price={item.price}
-                            city={item.city}
-                            country={item.country}
-                            whatsapp={item.whatsapp}
-                            // onClick={() => {}}
-                        />
-                    )
-                })}
-            </CardContainer>
             <MainContainer>
-                {isInfluencer && (
-                    <FloatAddExperiences
-                        title="Añadir Experiencia"
-                        onClick={() => setOpenModal(true)}
+                <ContainerMenu>
+                    <AccountMenu userPicture={currentUser?.picture} />
+                </ContainerMenu>
+                <Container>
+                    <TextNav>Experiencias. Inolvidables</TextNav>
+                </Container>
+                <FilterContainer>
+                    <FilterExperiencias
+                        value={selectedCategory}
+                        onChange={filterByCategory}
                     />
+                </FilterContainer>
+                {!isInfluencer && (
+                    <ContainerInFluencer>
+                        <Typography variant="body1">
+                            ¿Eres Influencer?
+                        </Typography>
+                        <Button
+                            sx={{ color: '#49007a' }}
+                            onClick={() => sendUsEmail()}
+                        >
+                            ¡Envíanos un email!
+                        </Button>
+                    </ContainerInFluencer>
                 )}
-                <ExperienceModal
-                    isOpen={openModal}
-                    onClose={() => setOpenModal(false)}
-                />
+                <CardContainer
+                    style={{ marginTop: !isInfluencer ? '1rem' : '8rem' }}
+                >
+                    {experiences.map((item: any) => {
+                        return (
+                            <CardExperiences
+                                key={item.id}
+                                title={item.title}
+                                description={item.description}
+                                picture={item.picture}
+                                category={item.category}
+                                price={item.price}
+                                city={item.city}
+                                country={item.country}
+                                whatsapp={item.whatsapp}
+                                influencer={item.user.name}
+                                userPicture={item.user.picture}
+                                // onClick={() => {}}
+                            />
+                        )
+                    })}
+                    {isInfluencer && (
+                        <FloatAddExperiences
+                            title="Añadir Experiencia"
+                            onClick={() => setOpenModal(true)}
+                        />
+                    )}
+                    <ExperienceModal
+                        isOpen={openModal}
+                        onClose={() => setOpenModal(false)}
+                    />
+                </CardContainer>
                 <SimpleBottomNavigation />
             </MainContainer>
         </>
