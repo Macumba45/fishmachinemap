@@ -1,6 +1,12 @@
 'use client'
 
 import { FC, useEffect, useState } from 'react'
+import { setAuthenticatedToken } from '../../../../lib/storage/storage'
+import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { LoadingButton } from '@mui/lab'
+import { Checkbox, FormControlLabel, Snackbar, Stack } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
@@ -10,31 +16,40 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useRouter } from 'next/navigation'
-import { setAuthenticatedToken } from '../../../../lib/storage/storage'
-import { toast } from 'react-toastify'
-import { LoadingButton } from '@mui/lab'
-import { Stack } from '@mui/material'
-import { useLocale, useTranslations } from 'next-intl'
+import MuiAlert from '@mui/material/Alert'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
 
 const SignUp: FC = () => {
     const t = useTranslations('login')
+    const router = useRouter()
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [hasReadConditions, setHasReadConditions] = useState(false)
+    const conditionsPDF = './LOPD.pdf'
 
-    const notifySucces = () => {
-        toast.success('Registro correctamente', {
-            position: toast.POSITION.TOP_LEFT,
-            toastId: 'success1',
-        })
+    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
+    const handleSnackbarClose = (event?: any, reason?: string) => {
+        if (reason === 'clickaway') {
+            return
+        }
+        setSnackbarOpen(false)
     }
 
-    const router = useRouter()
+    const handleSuccessSnackbarClose = (event?: any, reason?: string) => {
+        if (reason === 'clickaway') {
+            return
+        }
+        setSuccessSnackbarOpen(false)
+    }
+
+    const handleCheckboxChange = (event: any) => {
+        setHasReadConditions(event.target.checked)
+    }
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         const form = event.currentTarget as HTMLFormElement
@@ -42,10 +57,10 @@ const SignUp: FC = () => {
         const name = formData.get('firstName') as string
         const email = (formData.get('email') as string).toLowerCase()
         const password = formData.get('password') as string
-        setLoading(true)
 
-        if (email && password && name) {
+        if (email && password && name && hasReadConditions) {
             try {
+                setLoading(true)
                 const response = await fetch('/api/auth/signup', {
                     method: 'POST',
                     body: JSON.stringify({ email, password, name }),
@@ -54,7 +69,7 @@ const SignUp: FC = () => {
                 if (response.ok) {
                     const data = await response.json()
                     setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
-                    notifySucces()
+                    setSuccessSnackbarOpen(true)
                     router.push(`/${locale}/maps`)
                     // Realiza alguna acción en respuesta al éxito
                 } else {
@@ -68,6 +83,8 @@ const SignUp: FC = () => {
                 // Realiza alguna acción en caso de error de red u otro error
             }
         } else {
+            setSnackbarOpen(true)
+
             console.log('Los valores de email y/o password son nulos')
         }
     }
@@ -146,6 +163,24 @@ const SignUp: FC = () => {
                                     autoComplete="new-password"
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={hasReadConditions}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                    }
+                                    label={
+                                        <Typography style={{ fontSize: 14 }}>
+                                            {t('lopd')}.{' '}
+                                            <Link href="https://www.dropbox.com/scl/fi/wvlhtwdf6csdqvpb75bti/LOPD-FISHGRAM.pdf?rlkey=0yoi285b7jvdire3rh4qrp9nx&dl=0">
+                                                {t('readPdf')}
+                                            </Link>
+                                        </Typography>
+                                    }
+                                />
+                            </Grid>
                         </Grid>
                         {error && (
                             <Typography
@@ -180,6 +215,33 @@ const SignUp: FC = () => {
                         </Grid>
                     </Box>
                 </Box>
+                <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={4000}
+                    onClose={handleSnackbarClose}
+                >
+                    <MuiAlert
+                        onClose={handleSnackbarClose}
+                        severity="error"
+                        sx={{ width: '100%' }}
+                    >
+                        Por favor, completa todos los campos para registrarte
+                    </MuiAlert>
+                </Snackbar>
+
+                <Snackbar
+                    open={successSnackbarOpen}
+                    autoHideDuration={4000}
+                    onClose={handleSuccessSnackbarClose}
+                >
+                    <MuiAlert
+                        onClose={handleSuccessSnackbarClose}
+                        severity="success"
+                        sx={{ width: '100%' }}
+                    >
+                        ¡Viaje creado exitosamente!
+                    </MuiAlert>
+                </Snackbar>
             </Container>
         </ThemeProvider>
     )

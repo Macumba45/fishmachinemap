@@ -15,7 +15,9 @@
         "createAccount": "Create account",
         "alreadyAccount": "Already have an account? Sign in",
         "login": "Login",
-        "register": "Register"
+        "register": "Register",
+        "lopd": "Accept terms and conditions",
+        "readPdf": "Read conditions"
     },
     "LocaleSwitcher": {
         "label": "Language",

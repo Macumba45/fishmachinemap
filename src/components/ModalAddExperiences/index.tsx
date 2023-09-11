@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import MuiAlert from '@mui/material/Alert'
 import {
     Box,
     Dialog,
@@ -13,7 +14,6 @@ import {
     Select,
     Snackbar,
 } from '@mui/material'
-import MuiAlert from '@mui/material/Alert'
 
 interface ExperienceModalProps {
     isOpen: boolean

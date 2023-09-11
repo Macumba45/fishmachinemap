@@ -9,19 +9,21 @@
         "errorLogin": "Usuario o contraseña inválidos",
         "noAccount": "¿No tienes una cuenta? Regístrate",
         "password": "Contraseña",
-        "nameRegister": "Name",
+        "nameRegister": "Nombre",
         "createAccount": "Crear cuenta",
         "alreadyAccount": "¿Ya tienes una cuenta? Inicia sesión"
     },
     "login": {
         "noAccount": "¿No tienes una cuenta? Regístrate",
         "password": "Contraseña",
-        "nameRegister": "Name",
+        "nameRegister": "Nombre",
         "createAccount": "Crear cuenta",
         "alreadyAccount": "¿Ya tienes una cuenta? Inicia sesión",
         "login": "Iniciar sesión",
         "register": "Registrarse",
-        "errorLogin": "Usuario o contraseña inválidos"
+        "errorLogin": "Usuario o contraseña inválidos",
+        "lopd": "Acepto términos y condiciones",
+        "readPdf": "Leer condiciones"
     },
     "LocaleSwitcher": {
         "label": "Idiomma",
