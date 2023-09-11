@@ -68,10 +68,10 @@ export const DescriptionContainer = styled.div`
 
 export const Description = styled.p`
     display: flex;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-family: 'Roboto', sans-serif;
     word-wrap: break-word;
-    line-height: 1.5rem;
+    line-height: 1.3rem;
     padding-bottom: 0.5rem;
     width: 90%;
 `

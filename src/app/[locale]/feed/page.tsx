@@ -109,7 +109,7 @@ const Feed: FC = () => {
                             user={item.user}
                             date={fechaCreacion.toLocaleString('es-ES', {
                                 day: 'numeric',
-                                month: 'long',
+                                month: 'short',
                             })}
                             handleShareOnWhatsApp={() =>
                                 handleShareOnWhatsApp(item.userId)

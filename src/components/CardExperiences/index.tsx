@@ -3,10 +3,16 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Button, CardActionArea, CardActions, IconButton } from '@mui/material'
+import {
+    Button,
+    CardActionArea,
+    CardActions,
+    Divider,
+    IconButton,
+} from '@mui/material'
 import PaidIcon from '@mui/icons-material/Paid'
 import PlaceIcon from '@mui/icons-material/Place'
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
+import InfoIcon from '@mui/icons-material/Info'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import CategoryIcon from '@mui/icons-material/Category'
 import {
@@ -56,7 +62,7 @@ const CardExperiences: FC<Props> = ({
     }
 
     return (
-        <Card sx={{ minWidth: 320, margin: 2, maxWidth: 320, height: '500px' }}>
+        <Card sx={{ minWidth: 320, margin: 2, maxWidth: 320 }}>
             <CardMedia
                 component="img"
                 height="140"
@@ -96,10 +102,10 @@ const CardExperiences: FC<Props> = ({
                         },
                     }}
                 >
-                    Compartir Exp
+                    Compártelo
                 </Button>
             </LogoInfluencerContainer>
-            <CardContent sx={{ paddingBottom: 0 }}>
+            <CardContent>
                 <Typography
                     fontSize={18}
                     marginBottom={2}
@@ -176,38 +182,57 @@ const CardExperiences: FC<Props> = ({
                 </Typography> */}
             </CardContent>
             <CardActions
-                sx={{ display: 'flex', justifyContent: 'space-between' }}
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    backgroundColor: '#49007a ',
+                    padding: 0,
+                    borderTopRightRadius: '4px',
+                    borderTopLeftRadius: '4px',
+                    height: '40px',
+                }}
             >
-                <Button
-                    sx={{
-                        color: '#49007a',
-                        '&:hover': {
-                            backgroundColor: '#7900ca',
+                <div
+                    style={{
+                        width: '50%',
+                        height: '50px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Button
+                        sx={{
                             color: 'white',
-                        },
+                        }}
+                        size="small"
+                        color="primary"
+                        onClick={() => console.log('click')}
+                    >
+                        <InfoIcon fontSize="medium" />
+                    </Button>
+                </div>
+                <Divider
+                    sx={{ width: 2, color: 'white', backgroundColor: 'white' }}
+                    orientation="vertical"
+                    flexItem
+                />
+                <div
+                    style={{
+                        width: '50%',
+                        height: '50px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
-                    size="small"
-                    color="primary"
-                    onClick={() => console.log('click')}
                 >
-                    + Info
-                </Button>
-                <IconButton
-                    onClick={handleWhatsAppClick}
-                    sx={{
-                        fontSize: '1rem',
-                        color: '#49007a',
-                        backgroundColor: '#25D366',
-                        borderRadius: '30px',
-                        mr: 2,
-                        mb: 1,
-                        '&:hover': {
-                            backgroundColor: '#1a8642', // Cambiar color del hover
-                        },
-                    }}
-                >
-                    <WhatsAppIcon sx={{ color: 'white' }} />
-                </IconButton>
+                    <IconButton onClick={handleWhatsAppClick}>
+                        <WhatsAppIcon
+                            fontSize="medium"
+                            sx={{ color: '#25D366' }}
+                        />
+                    </IconButton>
+                </div>
             </CardActions>
         </Card>
     )
