@@ -12,6 +12,9 @@ export const getAllExperiences = async () => {
                 },
             },
         },
+        orderBy: {
+            createdAt: 'desc',
+        },
     })
 
     return data
