@@ -96,7 +96,7 @@ const CardExperiences: FC<Props> = ({
                         },
                     }}
                 >
-                    Compartir
+                    Compartir Exp
                 </Button>
             </LogoInfluencerContainer>
             <CardContent sx={{ paddingBottom: 0 }}>
