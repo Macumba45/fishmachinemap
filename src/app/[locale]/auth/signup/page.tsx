@@ -28,10 +28,12 @@ const SignUp: FC = () => {
     const [loading, setLoading] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [hasReadConditions, setHasReadConditions] = useState(false)
-    const conditionsPDF = './LOPD.pdf'
-
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
+
+    const handleOpenLOPD = () => {
+        window.open('https://jade-mora-53.tiiny.site/')
+    }
     const handleSnackbarClose = (event?: any, reason?: string) => {
         if (reason === 'clickaway') {
             return
@@ -174,9 +176,12 @@ const SignUp: FC = () => {
                                     label={
                                         <Typography style={{ fontSize: 14 }}>
                                             {t('lopd')}.{' '}
-                                            <Link href="https://www.dropbox.com/scl/fi/wvlhtwdf6csdqvpb75bti/LOPD-FISHGRAM.pdf?rlkey=0yoi285b7jvdire3rh4qrp9nx&dl=0">
+                                            <a
+                                                target="blank"
+                                                href="https://ivory-georgia-49.tiiny.site/"
+                                            >
                                                 {t('readPdf')}
-                                            </Link>
+                                            </a>
                                         </Typography>
                                     }
                                 />

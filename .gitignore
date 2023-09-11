@@ -36,5 +36,10 @@ yarn-error.log*
 next-env.d.ts
 next.config.js
 
+# Ignorar archivos de pruebas
+__tests__/
+*.test.js
+*.spec.js
+
 
 

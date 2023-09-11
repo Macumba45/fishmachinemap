@@ -5,6 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
+        "precommit": "prettier --write . && yarn lint --fix",
         "local": "next build",
         "build": "prisma generate & next build",
         "start": "next start",
