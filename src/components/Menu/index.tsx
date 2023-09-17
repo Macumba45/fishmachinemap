@@ -119,10 +119,6 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
                             size="small"
                             sx={{
                                 ml: 3,
-                                backgroundColor: '#49007a',
-                                '&:hover': {
-                                    backgroundColor: '#7b00cd', // Cambiar color del hover
-                                },
                             }}
                             aria-controls={open ? 'account-menu' : undefined}
                             aria-haspopup="true"
@@ -145,6 +141,13 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
                 >
                     <MenuItem onClick={goToLogin}>
                         {t('logintoProfile')} <br /> {t('logintoProfile2')}
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={emailMe}>
+                        <ListItemIcon>
+                            <EmailIcon fontSize="small" />
+                        </ListItemIcon>
+                        {t('contact')}
                     </MenuItem>
                     <Divider />
                     <MenuItem>
@@ -178,13 +181,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
                     <IconButton
                         onClick={handleClick}
                         size="small"
-                        sx={{
-                            ml: 3,
-                            backgroundColor: '#49007a',
-                            '&:hover': {
-                                backgroundColor: '#7b00cd', // Cambiar color del hover
-                            },
-                        }}
+                        sx={{ ml: 3 }}
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}

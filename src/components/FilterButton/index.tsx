@@ -16,7 +16,13 @@ const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
     )
 
     const toggleFilters = () => {
-        setIsOpen(prevOpen => !prevOpen)
+        console.log('toggleFilters')
+        console.log('isOpen', isOpen)
+        setIsOpen(true)
+    }
+
+    const handleClose = () => {
+        setIsOpen(false)
     }
 
     const handleFilterChange = (newFilter: MarkerType) => {
@@ -33,6 +39,8 @@ const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
                 <FilterComponent
                     onChange={handleFilterChange}
                     selectedFilter={selectedFilter}
+                    open={isOpen}
+                    onClose={handleClose}
                 />
             )}
         </ButtonContainer>

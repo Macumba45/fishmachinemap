@@ -62,5 +62,13 @@
         "cancel": "Cancelar",
         "required": " Por favor, completa todos los campos requeridos antes de crear el marcador.",
         "success": "Marcador creado con exitosamente"
+    },
+    "FilterComponent": {
+        "all": "Todos",
+        "spots": "Spots",
+        "stores": "Tiendas de Pesca",
+        "cebos": " Cebos 24H",
+        "pictures": "Fotos de Capturas",
+        "likes": " Mis Likes"
     }
 }

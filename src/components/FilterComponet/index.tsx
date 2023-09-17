@@ -1,208 +1,172 @@
 'use client'
 
 import React, { FC, useState } from 'react'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import { useTranslations } from 'next-intl'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import { MainContainer } from './style'
+import { MarkerType } from '@/app/[locale]/maps/type'
 import customMarkerIcon from '../../assets/anzuelo.png'
 import customMarkerIconShop from '../../assets/tienda.png'
 import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import customMarkerIconLikes from '../../assets/likes.png'
-import { Icon } from '@mui/material'
-import { MainContainer } from './style'
-import { MarkerType } from '@/app/[locale]/maps/type'
+import customMarkerIconAll from '../../assets/all.png'
+
+import { ListItemIcon } from '@mui/material'
 
 type FilterComponentProps = {
     onChange: (newFilter: MarkerType) => void
-    selectedFilter: MarkerType // Nuevo prop para recibir el filtro seleccionado
+    selectedFilter: MarkerType
+    open: boolean
+    onClose?: () => void
 }
 
 const FilterComponent: FC<FilterComponentProps> = ({
     onChange,
     selectedFilter,
+    open,
+    onClose,
 }) => {
-    // Añadir el estado local para el filtro
-    const [filter, setFilter] = useState<MarkerType>(selectedFilter)
-    const [filterAll, setFilterAll] = useState(false)
+    const t = useTranslations('FilterComponent')
 
-    // Añadir la función handleFilterChange
-
-    const handleFilterChange = (
-        event: React.MouseEvent<HTMLElement>,
-        newFilter: MarkerType
-    ) => {
-        setFilter(newFilter)
-        onChange(newFilter) // Invocar la función onChange para propagar el cambio al componente padre
-    }
-    let widthFilter
-    if (window.innerWidth < 350) {
-        widthFilter = '300px'
-    } else {
-        widthFilter = '100%'
+    const handleFilterChange = (event: any) => {
+        const newFilter = event.target.value as MarkerType
+        onChange(newFilter)
+        onClose && onClose()
     }
 
     return (
         <MainContainer>
-            <ToggleButtonGroup
-                value={filter}
-                exclusive
-                onChange={handleFilterChange}
-                sx={{
-                    borderRadius: '10px',
-                    display: 'flex',
-                }}
-            >
-                <ToggleButton
+            <Dialog open={open} onClose={onClose}>
+                <DialogTitle sx={{ textAlign: 'center' }}>
+                    Filtra Marcadores
+                </DialogTitle>
+                <DialogContent
                     sx={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: 'white',
-                        fontSize: '0.7rem',
-                        fontWeight: filter === 'all' ? 800 : 'inherit',
-                        fontFamily: 'Roboto',
-                        '&.MuiToggleButton-root.Mui-selected': {
-                            color: '#b649ff',
-                            backgroundColor: 'white',
-                        },
+                        padding: '10px',
+                        height: '100px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
-                    value="all"
                 >
-                    <Icon
-                        component="img"
-                        sx={{
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            marginRight: '0.2rem',
-                        }}
-                        src={customMarkerIcon.src}
-                    ></Icon>
-                </ToggleButton>
-                <ToggleButton
-                    sx={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: 'white',
-                        fontSize: '0.7rem',
-                        fontWeight: filter === 'tienda' ? 800 : 'inherit',
-                        fontFamily: 'Roboto',
-                        '&.MuiToggleButton-root.Mui-selected': {
-                            color: '#b649ff',
-                            backgroundColor: 'white',
-                        },
-                    }}
-                    value="spot"
-                >
-                    <Icon
-                        component="img"
-                        sx={{
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            marginRight: '0.2rem',
-                        }}
-                        src={customMarkerIconPlace.src}
-                    ></Icon>
-                </ToggleButton>
-                <ToggleButton
-                    sx={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: 'white',
-                        fontSize: '0.7rem',
-                        fontWeight: filter === 'spot' ? 800 : 'inherit',
-                        fontFamily: 'Roboto',
-                        '&.MuiToggleButton-root.Mui-selected': {
-                            color: '#b649ff',
-                            backgroundColor: 'white',
-                        },
-                    }}
-                    value="tienda"
-                >
-                    <Icon
-                        component="img"
-                        sx={{
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            marginRight: '0.2rem',
-                        }}
-                        src={customMarkerIconShop.src}
-                    ></Icon>
-                </ToggleButton>
-                <ToggleButton
-                    sx={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: 'white',
-                        fontSize: '0.7rem',
-                        fontWeight: filter === 'cebos' ? 800 : 'inherit',
-                        fontFamily: 'Roboto',
-                        '&.MuiToggleButton-root.Mui-selected': {
-                            color: '#b649ff',
-                            backgroundColor: 'white',
-                        },
-                    }}
-                    value="cebos"
-                >
-                    <Icon
-                        component="img"
-                        sx={{
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            marginRight: '0.2rem',
-                        }}
-                        src={customMarkerIcon.src}
-                    ></Icon>
-                </ToggleButton>
-                <ToggleButton
-                    sx={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: 'white',
-                        fontSize: '0.7rem',
-                        fontWeight: filter === 'fotos' ? 800 : 'inherit',
-                        fontFamily: 'Roboto',
-                        '&.MuiToggleButton-root.Mui-selected': {
-                            color: '#b649ff',
-                            backgroundColor: 'white',
-                        },
-                    }}
-                    value="fotos"
-                >
-                    <Icon
-                        component="img"
-                        sx={{
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            marginRight: '0.2rem',
-                        }}
-                        src={customMarkerIconPicture.src}
-                    ></Icon>
-                </ToggleButton>
-                <ToggleButton
-                    sx={{
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: 'white',
-                        fontSize: '0.7rem',
-                        fontWeight: filter === 'fotos' ? 800 : 'inherit',
-                        fontFamily: 'Roboto',
-                        '&.MuiToggleButton-root.Mui-selected': {
-                            color: '#b649ff',
-                            backgroundColor: 'white',
-                        },
-                    }}
-                    value="likes"
-                >
-                    <Icon
-                        component="img"
-                        sx={{
-                            width: '1.5rem',
-                            height: '1.5rem',
-                            marginRight: '0.2rem',
-                        }}
-                        src={customMarkerIconLikes.src}
-                    ></Icon>
-                </ToggleButton>
-            </ToggleButtonGroup>
+                    <FormControl variant="outlined" fullWidth>
+                        <InputLabel sx={{ height: '100px' }} id="filter-label">
+                            Filtrar
+                        </InputLabel>
+                        <Select
+                            labelId="filter-label"
+                            value={selectedFilter}
+                            onChange={handleFilterChange}
+                            label="Filtrar"
+                        >
+                            <MenuItem value="all">
+                                <ListItemIcon
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'black',
+                                    }}
+                                >
+                                    <img
+                                        style={{ width: 30, paddingRight: 15 }}
+                                        src={customMarkerIconAll.src}
+                                        alt="Anzuelo"
+                                    />
+                                    {t('all')}
+                                </ListItemIcon>
+                            </MenuItem>
+                            <MenuItem value="spot">
+                                <ListItemIcon
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'black',
+                                    }}
+                                >
+                                    <img
+                                        style={{ width: 30, paddingRight: 15 }}
+                                        src={customMarkerIconPlace.src}
+                                        alt="Destino"
+                                    />
+                                    {t('spots')}
+                                </ListItemIcon>
+                            </MenuItem>
+                            <MenuItem value="tienda">
+                                <ListItemIcon
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'black',
+                                    }}
+                                >
+                                    <img
+                                        style={{ width: 30, paddingRight: 15 }}
+                                        src={customMarkerIconShop.src}
+                                        alt="Tienda"
+                                    />
+                                    {t('stores')}
+                                </ListItemIcon>
+                            </MenuItem>
+                            <MenuItem value="cebos">
+                                <ListItemIcon
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'black',
+                                    }}
+                                >
+                                    <img
+                                        style={{ width: 30, paddingRight: 15 }}
+                                        src={customMarkerIcon.src}
+                                        alt="Anzuelo"
+                                    />
+                                    {t('cebos')}
+                                </ListItemIcon>
+                            </MenuItem>
+                            <MenuItem value="fotos">
+                                <ListItemIcon
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'black',
+                                    }}
+                                >
+                                    <img
+                                        style={{ width: 30, paddingRight: 15 }}
+                                        src={customMarkerIconPicture.src}
+                                        alt="Cámara"
+                                    />
+                                    {t('pictures')}
+                                </ListItemIcon>
+                            </MenuItem>
+                            <MenuItem value="likes">
+                                <ListItemIcon
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'black',
+                                    }}
+                                >
+                                    <img
+                                        style={{ width: 30, paddingRight: 15 }}
+                                        src={customMarkerIconLikes.src}
+                                        alt="Likes"
+                                    />
+                                    {t('likes')}
+                                </ListItemIcon>
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
+                </DialogContent>
+            </Dialog>
         </MainContainer>
     )
 }

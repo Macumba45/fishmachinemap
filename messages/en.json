@@ -56,5 +56,13 @@
         "cancel": "Cancel",
         "required": "Please complete all required fields before creating the marker.",
         "success": "Marker created successfully"
+    },
+    "FilterComponent": {
+        "all": "All",
+        "spots": "Spots",
+        "stores": "Stores",
+        "cebos": "Bait 24H",
+        "pictures": "Pictures",
+        "likes": "Likes"
     }
 }
