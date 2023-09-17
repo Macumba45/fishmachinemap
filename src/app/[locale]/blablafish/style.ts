@@ -13,6 +13,9 @@ export const MainContainer = styled.div`
 export const CardContainer = styled.div`
     margin-top: 5.5rem;
     margin-bottom: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 `
 
 export const Container = styled.div`

@@ -58,11 +58,6 @@ import {
     ContainerModalSmall,
 } from './style'
 
-import IntroJs from 'intro.js'
-import 'intro.js/introjs.css' // Estilo CSS de intro.js
-import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
-import IntroTour from '@/components/AAintroJS'
-
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
 
@@ -628,7 +623,8 @@ const GoogleMapComp: FC = () => {
                                 top: '50%',
                                 left: '50%',
                                 transform: 'translate(-50%, -50%)',
-                                width: '90%',
+                                minWidth: '32   0px',
+                                maxWidth: '500px',
                                 height: 'auto',
                                 maxHeight: '90%',
                                 backgroundColor: '#fff',

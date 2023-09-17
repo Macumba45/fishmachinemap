@@ -62,7 +62,7 @@ const CardExperiences: FC<Props> = ({
     }
 
     return (
-        <Card sx={{ minWidth: 320, margin: 2, maxWidth: 320 }}>
+        <Card sx={{ minWidth: 300, margin: 2, maxWidth: 450 }}>
             <CardMedia
                 component="img"
                 height="140"
@@ -192,7 +192,7 @@ const CardExperiences: FC<Props> = ({
                     height: '40px',
                 }}
             >
-                <div
+                {/* <div
                     style={{
                         width: '50%',
                         height: '50px',
@@ -216,17 +216,19 @@ const CardExperiences: FC<Props> = ({
                     sx={{ width: 2, color: 'white', backgroundColor: 'white' }}
                     orientation="vertical"
                     flexItem
-                />
+                /> */}
                 <div
+                    onClick={handleWhatsAppClick}
                     style={{
-                        width: '50%',
+                        width: '100%',
                         height: '50px',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        cursor: 'pointer',
                     }}
                 >
-                    <IconButton onClick={handleWhatsAppClick}>
+                    <IconButton>
                         <WhatsAppIcon
                             fontSize="medium"
                             sx={{ color: '#25D366' }}

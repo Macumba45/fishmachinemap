@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import ImageListItem from '@mui/material/ImageListItem'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import IconButton from '@mui/material/IconButton'
@@ -13,30 +12,6 @@ interface Props {
     price: string
 }
 
-let width: any
-
-if (typeof window !== 'undefined') {
-    if (window.innerWidth <= 320) {
-        width = 150
-    } else if (window.innerWidth <= 449) {
-        width = 170
-    } else if (window.innerWidth >= 450) {
-        width = 180
-    }
-}
-
-let height: any
-
-if (typeof window !== 'undefined') {
-    if (window.innerWidth <= 320) {
-        height = 150
-    } else if (window.innerWidth <= 449) {
-        height = 160
-    } else if (window.innerWidth >= 450) {
-        height = 180
-    }
-}
-
 const TitlebarImageList: FC<Props> = ({
     id,
     title,
@@ -44,6 +19,29 @@ const TitlebarImageList: FC<Props> = ({
     picture,
     price,
 }) => {
+    const [width, setWidth] = useState<number>(0)
+    const [height, setHeight] = useState<number>(0)
+
+    const calculateSize = () => {
+        if (window.innerWidth <= 320) {
+            setWidth(150)
+            setHeight(150)
+        } else if (window.innerWidth <= 449) {
+            setWidth(170)
+            setHeight(160)
+        } else if (window.innerWidth >= 615) {
+            setWidth(300)
+            setHeight(180)
+        }
+    }
+
+    useEffect(() => {
+        calculateSize()
+        window.addEventListener('resize', calculateSize)
+        return () => {
+            window.removeEventListener('resize', calculateSize)
+        }
+    }, []) // Este efecto se ejecuta solo una vez al montar el componente
     return (
         <ImageListItem
             component="div"
@@ -68,9 +66,15 @@ const TitlebarImageList: FC<Props> = ({
             <ImageListItemBar
                 title={title}
                 subtitle={description}
-                style={{
+                sx={{
                     borderBottomRightRadius: '10px',
                     borderBottomLeftRadius: '10px',
+                    '.MuiImageListItemBar-title': {
+                        fontSize: '0.8rem',
+                    },
+                    '.MuiImageListItemBar-subtitle': {
+                        fontSize: '0.6rem',
+                    },
                 }}
                 actionIcon={
                     <IconButton

@@ -50,12 +50,13 @@ const CardBlaBlaFish: FC<Props> = ({
         <Card
             key={id}
             sx={{
-                maxWidth: 800,
+                maxWidth: 300,
                 minWidth: 320,
                 maxHeight: 900,
                 borderRadius: 0,
                 marginBottom: '2rem',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                margin: '0.5rem',
             }}
         >
             <CardMedia
@@ -134,7 +135,13 @@ const CardBlaBlaFish: FC<Props> = ({
                     />{' '}
                     {departureTime}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                    marginTop={3}
+                    height={100}
+                    overflow="scroll"
+                    variant="body2"
+                    color="text.secondary"
+                >
                     {description}
                 </Typography>
             </CardContent>

@@ -60,8 +60,8 @@ export const CardContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: 5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    /* margin-left: 1rem;
+    margin-right: 1rem; */
     /* @media screen and (min-width: 375px) {
         flex-wrap: wrap;
         
