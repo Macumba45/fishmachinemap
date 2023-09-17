@@ -15,12 +15,11 @@ export const MainContainer = styled.div`
 `
 
 export const LogoPicture = styled.img`
-    width: 500px;
-    height: 300px;
+    width: 350px;
     object-fit: cover;
     background-size: cover;
     @media screen and (max-width: 600px) {
-        width: 320px;
+        width: 280px;
     }
 `
 
@@ -73,10 +72,11 @@ export const TitleContainer = styled.div`
     position: absolute;
     justify-content: center;
     width: 100%;
-    z-index: 999;
-    margin-top: 3rem;
+    z-index: 1;
+    margin-top: 15rem;
 
     @media screen and (max-width: 600px) {
+        margin-top: 10rem;
     }
 `
 export const TitleHeader = styled.h1`
@@ -94,7 +94,7 @@ export const SubtitleContainer = styled.div`
     position: absolute;
     justify-content: center;
     width: 100%;
-    margin-top: 15rem;
+    margin-top: 20rem;
     z-index: 999;
     @media screen and (max-width: 600px) {
         margin-top: 14.5rem;
@@ -138,7 +138,7 @@ export const ButtonContainer = styled.div`
     position: absolute;
     margin: 0 auto;
     z-index: 999999;
-    margin-top: 20rem;
+    margin-top: 25rem;
     flex-direction: column;
 
     @media screen and (max-width: 600px) {
