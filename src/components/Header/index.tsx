@@ -7,9 +7,12 @@ import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 import LocaleSwitcher from '../LocaleSwitcher'
+import fishgram from '../../assets/fishgram.png'
+
 import {
     ButtonContainer,
     ContainerLanguage,
+    LogoPicture,
     MainContainer,
     SpanBold,
     SubtitleContainer,
@@ -47,13 +50,17 @@ const HeaderComp: FC = () => {
                 {/* Pasa setCurrentLanguage a LocaleSwitcher */}
             </ContainerLanguage>
             <TitleContainer>
-                <TitleHeader>{t('HomeHeaderTitle')}</TitleHeader>
+                {/* <TitleHeader>{t('HomeHeaderTitle')}</TitleHeader> */}
+                <LogoPicture src={fishgram.src} />
             </TitleContainer>
-            <SubtitleContainer>
+            {/* <SubtitleContainer>
                 <SubtitleHeader>
                     {t('homeSubHeaderTitle')}
                     <br /> <SpanBold>{t('homeSubHeaderTitle2')}</SpanBold>
                 </SubtitleHeader>
+            </SubtitleContainer> */}
+            <SubtitleContainer>
+                <SubtitleHeader>¡Dale caña al carrete!</SubtitleHeader>
             </SubtitleContainer>
             <ButtonContainer>
                 <Link
@@ -97,11 +104,11 @@ const HeaderComp: FC = () => {
                 </Link>
             </ButtonContainer>
             <VideoContainer>
-                <VideoPlayer
+                {/* <VideoPlayer
                     url={
                         'https://res.cloudinary.com/dinasxwdf/video/upload/v1693586993/backgroundVideo_tgdz7p.mp4'
                     }
-                />
+                /> */}
             </VideoContainer>
         </MainContainer>
     )

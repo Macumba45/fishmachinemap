@@ -5,6 +5,23 @@ export const MainContainer = styled.div`
     flex-direction: column;
     height: 100vh;
     width: 100%;
+    background: rgb(70, 117, 166);
+    background: linear-gradient(
+        180deg,
+        rgba(70, 117, 166, 1) 0%,
+        rgba(66, 172, 232, 1) 35%,
+        rgba(172, 204, 237, 1) 100%
+    );
+`
+
+export const LogoPicture = styled.img`
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    background-size: cover;
+    @media screen and (max-width: 600px) {
+        width: 320px;
+    }
 `
 
 export const ContainerLanguage = styled.div`
@@ -57,10 +74,9 @@ export const TitleContainer = styled.div`
     justify-content: center;
     width: 100%;
     z-index: 999;
-    margin-top: 10rem;
+    margin-top: 3rem;
 
     @media screen and (max-width: 600px) {
-        margin-top: 12rem;
     }
 `
 export const TitleHeader = styled.h1`
@@ -77,22 +93,27 @@ export const SubtitleContainer = styled.div`
     display: flex;
     position: absolute;
     justify-content: center;
+    margin: 0 auto;
     width: 100%;
-    margin-top: 17rem;
+    margin-top: 15rem;
     z-index: 999;
     @media screen and (max-width: 600px) {
-        margin-top: 17rem;
+        margin-top: 15rem;
     }
 `
 export const SubtitleHeader = styled.h2`
     font-family: Roboto, sans-serif;
     color: white;
-    font-size: 2rem;
+    font-size: 1rem;
     text-align: center;
     line-height: 3rem;
-    font-weight: 200;
+    border-radius: 10px;
+    font-weight: 500;
+    background-color: #4675a6;
+    width: 330px;
     @media screen and (max-width: 600px) {
-        font-size: 1.5rem;
+        width: 220px;
+        font-size: 0.8rem;
     }
 `
 
@@ -118,9 +139,11 @@ export const ButtonContainer = styled.div`
     position: absolute;
     margin: 0 auto;
     z-index: 999999;
-    margin-top: 30rem;
+    margin-top: 20rem;
+    flex-direction: column;
+
     @media screen and (max-width: 600px) {
         flex-direction: column;
-        margin-top: 25rem;
+        margin-top: 20rem;
     }
 `
