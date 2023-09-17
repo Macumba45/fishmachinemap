@@ -93,7 +93,6 @@ export const SubtitleContainer = styled.div`
     display: flex;
     position: absolute;
     justify-content: center;
-    margin: 0 auto;
     width: 100%;
     margin-top: 15rem;
     z-index: 999;
@@ -106,7 +105,7 @@ export const SubtitleHeader = styled.h2`
     color: white;
     font-size: 1rem;
     text-align: center;
-    line-height: 3rem;
+    padding: 0.5rem;
     border-radius: 10px;
     font-weight: 500;
     background-color: #4675a6;

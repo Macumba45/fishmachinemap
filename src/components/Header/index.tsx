@@ -60,7 +60,7 @@ const HeaderComp: FC = () => {
                 </SubtitleHeader>
             </SubtitleContainer> */}
             <SubtitleContainer>
-                <SubtitleHeader>¡Dale caña al carrete!</SubtitleHeader>
+                <SubtitleHeader>{t('homeSubHeaderTitle')}</SubtitleHeader>
             </SubtitleContainer>
             <ButtonContainer>
                 <Link
