@@ -97,7 +97,7 @@ export const SubtitleContainer = styled.div`
     margin-top: 15rem;
     z-index: 999;
     @media screen and (max-width: 600px) {
-        margin-top: 15rem;
+        margin-top: 14.5rem;
     }
 `
 export const SubtitleHeader = styled.h2`
@@ -109,9 +109,9 @@ export const SubtitleHeader = styled.h2`
     border-radius: 10px;
     font-weight: 500;
     background-color: #4675a6;
-    width: 330px;
+    width: 310px;
     @media screen and (max-width: 600px) {
-        width: 220px;
+        width: 200px;
         font-size: 0.8rem;
     }
 `
