@@ -9,14 +9,14 @@
         "errorLogin": "Usuario o contraseña inválidos",
         "noAccount": "¿No tienes una cuenta? Regístrate",
         "password": "Contraseña",
-        "nameRegister": "Nombre",
+        "nameRegister": "Nickname",
         "createAccount": "Crear cuenta",
         "alreadyAccount": "¿Ya tienes una cuenta? Inicia sesión"
     },
     "login": {
         "noAccount": "¿No tienes una cuenta? Regístrate",
         "password": "Contraseña",
-        "nameRegister": "Nombre",
+        "nameRegister": "Nickname",
         "createAccount": "Crear cuenta",
         "alreadyAccount": "¿Ya tienes una cuenta? Inicia sesión",
         "login": "Iniciar sesión",

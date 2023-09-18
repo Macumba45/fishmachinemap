@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useEffect, memo } from 'react'
+import React, { FC, useEffect, memo, useState, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
@@ -157,6 +157,10 @@ const GoogleMapComp: FC = () => {
     let service: google.maps.places.PlacesService
     const t = useTranslations('maps')
     const router = useRouter()
+    const [selectedFilters, setSelectedFilters] = useState<MarkerType>(
+        MarkerType.ALL
+    )
+    const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
 
     const getMyPosition = async () => {
         setLoadingLocation(true)
@@ -243,7 +247,7 @@ const GoogleMapComp: FC = () => {
                 algorithmOptions: clusterOptions,
             })
 
-            renderMarkers(userMarkers) // Renderiza los marcadores en el mapa
+            // renderMarkers(filteredMarkers) // Renderiza los marcadores en el mapa
 
             const updateResultsButton = document.getElementById(
                 'updateResultsButton'
@@ -259,6 +263,7 @@ const GoogleMapComp: FC = () => {
 
                 updateResultsButton.addEventListener('click', handleClick)
             }
+
             map.addListener('drag', () => {
                 // Obtener el valor actual del zoom
                 const zoom = map.getZoom()
@@ -270,6 +275,8 @@ const GoogleMapComp: FC = () => {
                 }
 
                 if (center && userMarkers) {
+                    const currentFilter = selectedFiltersRef.current
+
                     // Crear un arreglo de objetos que contienen los marcadores y sus distancias al centro
                     const markersWithDistance = userMarkers.map(marker => {
                         const location = marker.location
@@ -287,15 +294,32 @@ const GoogleMapComp: FC = () => {
 
                     // Filtrar los marcadores dentro del rango de distancia deseado
                     const maxDistance = 50000 // Por ejemplo, 50 km
-                    const filteredMarkers = markersWithDistance.filter(
+                    const filteredMarkersDistance = markersWithDistance.filter(
                         item => item && item.distance <= maxDistance
                     )
 
+                    // Aplicar el filtro según markerType
+                    const filteredMarkersByType =
+                        filteredMarkersDistance.filter(item => {
+                            // Cambia 'currentFilter' por el valor actual del filtro seleccionado
+                            if (currentFilter === MarkerType.ALL) {
+                                return item
+                            } else if (currentFilter === MarkerType.LIKES) {
+                                return item?.marker.likes?.some(
+                                    like => like.userId === userId
+                                )
+                            } else {
+                                return item?.marker.markerType === currentFilter
+                            }
+                        })
+
                     // Ordenar los marcadores en función de la distancia, los más cercanos primero
-                    filteredMarkers.sort((a, b) => a!.distance - b!.distance)
+                    filteredMarkersByType.sort(
+                        (a, b) => a!.distance - b!.distance
+                    )
 
                     // Obtener los marcadores ordenados en un arreglo separado
-                    const orderedMarkers = filteredMarkers.map(
+                    const orderedMarkers = filteredMarkersByType.map(
                         item => item!.marker
                     )
 
@@ -510,6 +534,8 @@ const GoogleMapComp: FC = () => {
             )
         }
         setFilteredMarkers(filteredMarkerInstances)
+        selectedFiltersRef.current = filter
+        // markersSetSmallModal([...filteredMarkerInstances])
     }
 
     // Maneja el cambio de filtro.

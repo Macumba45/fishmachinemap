@@ -196,6 +196,7 @@ export const useLogicMaps = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const [filteredMarkers, setFilteredMarkers] =
         useState<UserMarker[]>(userMarkers)
+
     const [openDetailModal, setOpenDetailModal] = useState(false)
     const [activateMiniModal, setActivateMiniModal] = useState(true)
     const token = getAuthenticatedToken()
@@ -331,7 +332,7 @@ export const useLogicMaps = () => {
     >([])
 
     const [markersSmallModal, markersSetSmallModal] =
-        useState<UserMarker[]>(userMarkers)
+        useState<UserMarker[]>(filteredMarkers)
 
     const [locationUser, setLocationUser] =
         useState<google.maps.LatLngLiteral>()
