@@ -204,6 +204,8 @@ export const useLogicMaps = () => {
     const [isLogged, setIsLogged] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const [openSmallModal, setOpenSmallModal] = useState(false)
+    const [selectedFilters] = useState<MarkerType>(MarkerType.ALL)
+    const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
 
     const handleMarkerClickMiniModal = async (
         marker: any,
@@ -575,5 +577,6 @@ export const useLogicMaps = () => {
         setActivateMiniModal,
         disableMiniModal,
         enableMiniModal,
+        selectedFiltersRef,
     }
 }

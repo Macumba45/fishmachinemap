@@ -6,10 +6,8 @@ import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
 import { useRouter } from 'next/navigation'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
+import { introJs } from './intro'
 import Link from 'next/link'
-import IntroJs from 'intro.js'
-import 'intro.js/introjs.css' // Estilo CSS de intro.js
-import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
 import RoomIcon from '@mui/icons-material/Room'
 import ModalSmallMarkers from '@/components/ModalSmallMarkers'
 import CommentModal from '@/components/ModalComments'
@@ -60,7 +58,6 @@ import {
     stylesMaps,
     ContainerModalSmall,
 } from './style'
-import IntroTour from '@/components/AAintroJS'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -141,9 +138,9 @@ const GoogleMapComp: FC = () => {
         token,
         userId,
         activateMiniModal,
-        setActivateMiniModal,
         disableMiniModal,
         enableMiniModal,
+        selectedFiltersRef,
     } = useLogicMaps()
 
     useEffect(() => {
@@ -155,68 +152,11 @@ const GoogleMapComp: FC = () => {
         }
     }, [])
 
-    // Crea una referencia mutable para almacenar el mapa de Google Maps.
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
-    const intro = IntroJs()
     const t = useTranslations('maps')
     const router = useRouter()
-    const [selectedFilters, setSelectedFilters] = useState<MarkerType>(
-        MarkerType.ALL
-    )
-    const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
-
-    const getMyPosition = async () => {
-        setLoadingLocation(true)
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords
-                    const currentLatLng = { lat: latitude, lng: longitude }
-
-                    const infoWindow = new google.maps.InfoWindow({
-                        content: 'Usted está aquí',
-                        ariaLabel: 'Usted está aquí',
-                    })
-                    // Crea un nuevo marcador para la ubicación actual
-                    const marker = new google.maps.Marker({
-                        position: currentLatLng,
-                        map: mapRef.current,
-                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillColor: '#9900ff',
-                            fillOpacity: 8,
-                            strokeWeight: 8,
-                            scale: 8,
-                        },
-                    })
-
-                    marker.addListener('click', () => {
-                        infoWindow.open({
-                            anchor: marker,
-                            map: mapRef.current,
-                        })
-                    })
-                    // Actualiza la variable de estado con el nuevo marcador
-                    setCurrentLocationMarker(marker)
-                    // Centra el mapa en la ubicación actual
-                    mapRef.current?.setCenter(currentLatLng)
-                    setLoadingLocation(false)
-                },
-                error => {
-                    console.error('Error getting current location:', error)
-                    setLoadingLocation(false)
-                    // Manejar la situación de ubicación desactivada en la interfaz de usuario
-                }
-            )
-        } else {
-            // El navegador no admite la geolocalización
-            setLoadingLocation(false)
-            // Manejar la situación de geolocalización no admitida en la interfaz de usuario
-        }
-    }
 
     async function initMap() {
         if (typeof window !== 'undefined' && confirmedMarkers) {
@@ -338,6 +278,57 @@ const GoogleMapComp: FC = () => {
             await getMyPosition()
 
             setLoading(false)
+        }
+    }
+
+    const getMyPosition = async () => {
+        setLoadingLocation(true)
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords
+                    const currentLatLng = { lat: latitude, lng: longitude }
+
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: 'Usted está aquí',
+                        ariaLabel: 'Usted está aquí',
+                    })
+                    // Crea un nuevo marcador para la ubicación actual
+                    const marker = new google.maps.Marker({
+                        position: currentLatLng,
+                        map: mapRef.current,
+                        animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillColor: '#9900ff',
+                            fillOpacity: 8,
+                            strokeWeight: 8,
+                            scale: 8,
+                        },
+                    })
+
+                    marker.addListener('click', () => {
+                        infoWindow.open({
+                            anchor: marker,
+                            map: mapRef.current,
+                        })
+                    })
+                    // Actualiza la variable de estado con el nuevo marcador
+                    setCurrentLocationMarker(marker)
+                    // Centra el mapa en la ubicación actual
+                    mapRef.current?.setCenter(currentLatLng)
+                    setLoadingLocation(false)
+                },
+                error => {
+                    console.error('Error getting current location:', error)
+                    setLoadingLocation(false)
+                    // Manejar la situación de ubicación desactivada en la interfaz de usuario
+                }
+            )
+        } else {
+            // El navegador no admite la geolocalización
+            setLoadingLocation(false)
+            // Manejar la situación de geolocalización no admitida en la interfaz de usuario
         }
     }
 
@@ -564,7 +555,7 @@ const GoogleMapComp: FC = () => {
         if (mapRef.current) {
             renderMarkers(filteredMarkers)
             // Inicia el tour de introducción
-            intro.start()
+            introJs()
         }
     }, [filteredMarkers])
 
@@ -626,78 +617,6 @@ const GoogleMapComp: FC = () => {
             </>
         )
     }
-
-    intro.setOptions({
-        steps: [
-            {
-                title: '¡FishGram!',
-                intro: 'Descubre los mejores lugares para pescar',
-                step: 1,
-            },
-
-            {
-                title: '!El menú!',
-                element: '.menu',
-                intro: 'Aquí puedes visitar tu perfil, ver la meteorología y más',
-                step: 2,
-            },
-            {
-                title: 'Busca por la zona',
-                element: '.buscarZona',
-                intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
-                step: 3,
-            },
-            {
-                title: '¡Últimos marcadores!',
-                element: '.badge',
-                intro: 'Aquí puedes ver los marcadores nuevos',
-                step: 4,
-            },
-            {
-                title: '!Cambia el color del mapa!',
-                element: '.switch',
-                intro: 'Pulsa este botón para cambiar el color del mapa',
-                step: 5,
-            },
-            {
-                title: '¡Añade un marcador!',
-                element: '.addMarker',
-                intro: 'Pulsa este botón para añadir un marcador',
-                step: 6,
-            },
-            {
-                title: 'Disfruta de FishGram!',
-                element: '.marker',
-                intro: '!Buena pesca!',
-                step: 7,
-            },
-
-            // Agrega más pasos según sea necesario
-        ],
-        showBullets: true,
-        exitOnOverlayClick: false, // Evita que se cierre el tutorial haciendo clic en el fondo
-        dontShowAgain: true,
-    })
-
-    // // Escucha el evento 'after-change' para controlar la navegación manualmente
-    // intro.onafterchange(function (element) {
-    //     currentStep++; // Aumenta el paso actual
-    //     if (currentStep === 3) {
-    //         // En el segundo paso, simula un clic en el elemento del menú para abrirlo
-    //         const menuElement = document.querySelector('.menuClick') as HTMLElement;
-    //         if (menuElement) {
-    //             menuElement.click(); // Realiza un clic en el elemento del menú para abrirlo
-    //         }
-    //     } else if (currentStep >= 3) {
-    //         console.log('cierro')
-    //         // A partir del tercer paso, simula un clic en el elemento del menú para cerrarlo
-    //         const menuElement = document.querySelector('.menuClick') as HTMLElement;
-    //         if (menuElement) {
-    //             console.log('le doy a cierro')
-    //             menuElement.click(); // Realiza un clic en el elemento del menú para cerrarlo
-    //         }
-    //     }
-    // });
 
     return (
         <MainContainer className="intro">
