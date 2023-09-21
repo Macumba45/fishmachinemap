@@ -38,9 +38,9 @@ const FloatLogOut: FC<Props> = ({ onClick, disabled, id }) => {
                             bottom: '5rem',
                             left: 0,
                             marginLeft: '1rem',
-                            backgroundColor: '#9900ff',
+                            backgroundColor: '#42ACE8',
                             '&:hover': {
-                                backgroundColor: '#49007a', // Cambiar color del hover
+                                backgroundColor: '#4675A6', // Cambiar color del hover
                             },
                         }}
                         disabled={disabled}

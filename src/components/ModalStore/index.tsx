@@ -281,7 +281,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                     onClick={handleSubmit}
                                     variant="contained"
                                     sx={{
-                                        backgroundColor: '#49007a',
+                                        backgroundColor: '#4675A6',
                                         color: 'white',
                                     }}
                                 >
@@ -289,7 +289,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                 </LoadingButton>
                                 <Button
                                     hidden={loading}
-                                    sx={{ color: '#49007a' }}
+                                    sx={{ color: '#4675A6' }}
                                     onClick={onClose}
                                 >
                                     Cancelar

@@ -189,8 +189,8 @@ const Page: FC<Props> = ({ params }) => {
                         >
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('capturas')}
                             >
@@ -199,8 +199,8 @@ const Page: FC<Props> = ({ params }) => {
                             <Button
                                 onClick={() => handleViewChange('userMarkers')}
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                     borderColor: 'white',
                                 }}
                             >
@@ -208,8 +208,8 @@ const Page: FC<Props> = ({ params }) => {
                             </Button>
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('blablafish')}
                             >
@@ -217,8 +217,8 @@ const Page: FC<Props> = ({ params }) => {
                             </Button>
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('stores')}
                             >
@@ -228,7 +228,7 @@ const Page: FC<Props> = ({ params }) => {
                         <Divider
                             sx={{
                                 my: 2,
-                                backgroundColor: '#49007a',
+                                backgroundColor: '#4675A6',
                                 width: '200px',
                                 marginBottom: '2rem',
                             }}
@@ -241,7 +241,7 @@ const Page: FC<Props> = ({ params }) => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -350,7 +350,7 @@ const Page: FC<Props> = ({ params }) => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -419,7 +419,7 @@ const Page: FC<Props> = ({ params }) => {
                                                     fontSize: '0.8rem',
                                                     alignItems: 'center',
                                                     display: 'flex',
-                                                    color: '#49007a',
+                                                    color: '#4675A6',
                                                 }}
                                             >
                                                 {blabla.departureCity
@@ -463,7 +463,7 @@ const Page: FC<Props> = ({ params }) => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         marginTop: '2rem',
-                                        color: '#49007a',
+                                        color: '#4675A6',
                                         flexDirection: 'column',
                                         textAlign: 'center',
                                     }}
@@ -518,7 +518,7 @@ const Page: FC<Props> = ({ params }) => {
                                     >
                                         <AddCommentIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 cursor: 'pointer',
                                                 marginRight: 1,
                                             }}
@@ -539,7 +539,7 @@ const Page: FC<Props> = ({ params }) => {
                                     >
                                         <FavoriteIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 marginRight: 1,
                                             }}
                                         />
@@ -563,7 +563,7 @@ const Page: FC<Props> = ({ params }) => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -630,7 +630,7 @@ const Page: FC<Props> = ({ params }) => {
                                                     fontSize: '0.8rem',
                                                     alignItems: 'center',
                                                     display: 'flex',
-                                                    color: '#49007a',
+                                                    color: '#4675A6',
                                                 }}
                                             >
                                                 {store.price}€

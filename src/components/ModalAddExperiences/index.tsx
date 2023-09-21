@@ -235,7 +235,7 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                                 style={{
                                     backgroundColor: loading
                                         ? 'white'
-                                        : '#49007a',
+                                        : '#4675A6',
                                     marginRight: loading ? '0' : '0.5rem',
                                 }}
                                 type="submit"
@@ -246,7 +246,7 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                             </Button>
                             <Button
                                 style={{
-                                    backgroundColor: '#49007a',
+                                    backgroundColor: '#4675A6',
                                     display: loading ? 'none' : 'block',
                                 }}
                                 variant="contained"

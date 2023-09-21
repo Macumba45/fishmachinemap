@@ -7,6 +7,7 @@ import CardFeed from '@/components/CardFeed'
 import AccountMenu from '@/components/Menu'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
+import logo from '../../../assets/fishgram.png'
 import { Container, ContainerMenu, MainContainer, TextNav } from './style'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import { useRouter } from 'next/navigation'
@@ -79,7 +80,7 @@ const Feed: FC = () => {
                 <AccountMenu userPicture={dataFeedUser?.picture} />
             </ContainerMenu>
             <Container>
-                <TextNav>Marcadores Recientes</TextNav>
+                <TextNav src={logo.src} />
             </Container>
             <MainContainer>
                 {fotosMarkers.map(item => {

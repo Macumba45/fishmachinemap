@@ -299,7 +299,7 @@ const ModalCrearMarcador: FC<Props> = ({
                                 style={{
                                     backgroundColor: loading
                                         ? 'white'
-                                        : '#49007a',
+                                        : '#4675A6',
                                     marginRight: loading ? '0' : '0.5rem',
                                 }}
                                 loading={loading}
@@ -311,7 +311,7 @@ const ModalCrearMarcador: FC<Props> = ({
                                 type="button"
                                 variant="contained"
                                 style={{
-                                    backgroundColor: '#49007a',
+                                    backgroundColor: '#4675A6',
                                     display: loading ? 'none' : 'block',
                                 }}
                                 title={t('cancel')}

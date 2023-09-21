@@ -300,7 +300,7 @@ const GoogleMapComp: FC = () => {
                         animation: window.google.maps.Animation.DROP, // Agregar la animación de "drop"
                         icon: {
                             path: google.maps.SymbolPath.CIRCLE,
-                            fillColor: '#9900ff',
+                            fillColor: '#42ACE8',
                             fillOpacity: 8,
                             strokeWeight: 8,
                             scale: 8,
@@ -622,7 +622,6 @@ const GoogleMapComp: FC = () => {
         <MainContainer className="intro">
             <>
                 <MapContainer id="map" />
-
                 <AccountMenu userPicture={currentUser?.picture as string} />
                 <FilterButton onChange={handleFilterChange} />
                 <BadgeContainer className="badge">
@@ -903,8 +902,8 @@ const GoogleMapComp: FC = () => {
                             link={
                                 <Link
                                     style={{
-                                        textDecorationColor: '#49007a',
-                                        color: '#49007a',
+                                        textDecorationColor: '#4675A6',
+                                        color: '#4675A6',
                                     }}
                                     href={`/${locale}/feed/${dataMarkerUser?.user?.id}`}
                                 >
@@ -978,7 +977,7 @@ const GoogleMapComp: FC = () => {
                                     >
                                         <AddCommentIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 cursor: 'pointer',
                                             }}
                                         />
@@ -1023,8 +1022,8 @@ const GoogleMapComp: FC = () => {
                         link={
                             <Link
                                 style={{
-                                    textDecorationColor: '#49007a',
-                                    color: '#49007a',
+                                    textDecorationColor: '#4675A6',
+                                    color: '#4675A6',
                                 }}
                                 href={`/${locale}/feed/${dataMarkerUser?.user?.id}`}
                             >
@@ -1093,7 +1092,7 @@ const GoogleMapComp: FC = () => {
                                 >
                                     <AddCommentIcon
                                         sx={{
-                                            color: '#49007a',
+                                            color: '#4675A6',
                                             cursor: 'pointer',
                                         }}
                                     />
@@ -1235,7 +1234,7 @@ const GoogleMapComp: FC = () => {
                         }}
                         variant="contained"
                         onClick={handlerConfirmation}
-                        icon={<RoomIcon sx={{ mr: 1, color: '#49007a' }} />}
+                        icon={<RoomIcon sx={{ mr: 1, color: '#4675A6' }} />}
                     />
                     <ButtonComp
                         key="cancelarButton"

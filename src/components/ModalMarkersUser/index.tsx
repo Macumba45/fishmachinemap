@@ -185,7 +185,7 @@ const ModalUserMarkers: FC<Props> = ({
                                             <FavoriteIcon
                                                 style={{
                                                     color: isLogged
-                                                        ? '#49007a'
+                                                        ? '#4675A6'
                                                         : 'grey',
                                                 }}
                                             />
@@ -193,7 +193,7 @@ const ModalUserMarkers: FC<Props> = ({
                                             <FavoriteBorderIcon
                                                 style={{
                                                     color: isLogged
-                                                        ? '#49007a'
+                                                        ? '#4675A6'
                                                         : 'grey',
                                                 }}
                                             />
@@ -261,7 +261,7 @@ const ModalUserMarkers: FC<Props> = ({
                                 sx={{ paddingLeft: 0 }}
                                 onClick={handleShareModalOpen}
                             >
-                                <ShareIcon style={{ color: '#49007a' }} />
+                                <ShareIcon style={{ color: '#4675A6' }} />
                             </IconButton>
                         </TypographyContainer>
                     </TypographyContainer>
@@ -292,7 +292,7 @@ const ModalUserMarkers: FC<Props> = ({
                         title="Abrir en Google Maps"
                         variant="contained"
                         onClick={onClick}
-                        bgColor="#49007a"
+                        bgColor="#4675A6"
                     />
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>

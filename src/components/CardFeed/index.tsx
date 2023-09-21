@@ -113,8 +113,8 @@ const CardFeed: FC<FeedPros> = ({
                         {iconCreator}
                         <Link
                             style={{
-                                textDecorationColor: '#49007a',
-                                color: '#49007a',
+                                textDecorationColor: '#4675A6',
+                                color: '#4675A6',
                             }}
                             href={`/${locale}/feed/${user?.id}`}
                         >
@@ -122,13 +122,13 @@ const CardFeed: FC<FeedPros> = ({
                         </Link>
                     </Typography>
                     <IconButton onClick={handleShareModalOpen}>
-                        <ShareIcon style={{ color: '#49007a' }} />
+                        <ShareIcon style={{ color: '#4675A6' }} />
                     </IconButton>
                     <IconButton
                         onClick={handleCommentModalOpen}
                         style={{ justifySelf: 'end' }}
                     >
-                        <AddCommentIcon style={{ color: '#49007a' }} />
+                        <AddCommentIcon style={{ color: '#4675A6' }} />
                         <LikesLabel>{numberOfComments}</LikesLabel>
                     </IconButton>
                     <IconButton
@@ -138,11 +138,11 @@ const CardFeed: FC<FeedPros> = ({
                     >
                         {isLiked ? (
                             <FavoriteIcon
-                                style={{ color: isLogged ? '#49007a' : 'grey' }}
+                                style={{ color: isLogged ? '#4675A6' : 'grey' }}
                             />
                         ) : (
                             <FavoriteBorderIcon
-                                style={{ color: isLogged ? '#49007a' : 'grey' }}
+                                style={{ color: isLogged ? '#4675A6' : 'grey' }}
                             />
                         )}
                         <LikesLabel>{likes}</LikesLabel>
@@ -150,7 +150,7 @@ const CardFeed: FC<FeedPros> = ({
                 </HearthContainerTop>
                 <HearthContainer>
                     <Icons>
-                        {/* <CommentIcon style={{ color: '#49007a' }} /> */}
+                        {/* <CommentIcon style={{ color: '#4675A6' }} /> */}
                         <Description>{description}</Description>
                     </Icons>
                     <DateContainer>{date}</DateContainer>

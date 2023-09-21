@@ -71,7 +71,7 @@ const MediaCard: FC<Props> = ({
                 </CardContent>
                 <CardActions>
                     <Button
-                        sx={{ marginLeft: '0.4rem', color: '#49007a' }}
+                        sx={{ marginLeft: '0.4rem', color: '#4675A6' }}
                         onClick={() => openMap(city)}
                         size="small"
                     >

@@ -61,7 +61,7 @@ export const ContainerPrice = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #49007a;
+    background-color: #4675a6;
     padding: 1rem;
     border-radius: 10px;
     color: #fff;

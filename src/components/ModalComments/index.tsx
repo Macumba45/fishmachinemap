@@ -141,7 +141,7 @@ const CommentSection: FC<CommentSectionProps> = ({
                 />
                 <Button
                     variant="contained"
-                    sx={{ backgroundColor: '#49007a', color: 'white' }}
+                    sx={{ backgroundColor: '#4675A6', color: 'white' }}
                     onClick={onCommentSubmit}
                     endIcon={<CheckIcon />}
                     disabled={!isLogged}

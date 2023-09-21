@@ -61,8 +61,8 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
             const nextArrowIcon = nextArrow[0] as HTMLElement
             const prevArrowIcon = prevArrow[0] as HTMLElement
             // Aplica los estilos CSS personalizados al icono de siguiente
-            nextArrowIcon.style.color = '#49007a'
-            prevArrowIcon.style.color = '#49007a'
+            nextArrowIcon.style.color = '#4675A6'
+            prevArrowIcon.style.color = '#4675A6'
 
             // Agrega otros estilos según tus necesidades
         }

@@ -201,7 +201,7 @@ const BasicModal: FC<Props> = ({
                             icon={<NavigationIcon fontSize="medium" />}
                             color="white"
                             title="Abrir en Google Maps"
-                            bgColor="#49007a"
+                            bgColor="#4675A6"
                             variant="contained"
                             onClick={() => openMap(direction || '')}
                         ></ButtonComp>

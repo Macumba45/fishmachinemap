@@ -39,7 +39,7 @@ const FloatAddBlaBlaFish: FC<Props> = ({ onClick, disabled, title }) => {
                             bottom: '5rem',
                             right: 0,
                             marginRight: '1rem',
-                            backgroundColor: '#49007a',
+                            backgroundColor: '#4675A6',
                             '&:hover': {
                                 backgroundColor: '#7b00cd', // Cambiar color del hover
                             },

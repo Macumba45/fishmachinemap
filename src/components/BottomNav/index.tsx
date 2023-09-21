@@ -61,10 +61,10 @@ const SimpleBottomNavigation: FC = () => {
     // Añadir el componente BottomNavigation
 
     const buttonStyles = {
-        color: '#49007a',
+        color: '#4675A6',
         minWidth: '50px',
         '&.MuiSelected': {
-            color: '#49007a', // Color cuando está activo
+            color: '#4675A6', // Color cuando está activo
             fontSize: '0.9rem',
         },
     }
@@ -82,9 +82,9 @@ const SimpleBottomNavigation: FC = () => {
                     // label="Mapa"
                     icon={
                         value === 0 ? (
-                            <LocationOnIcon sx={{ color: '#49007a' }} />
+                            <LocationOnIcon sx={{ color: '#4675A6' }} />
                         ) : (
-                            <LocationOnOutlinedIcon sx={{ color: '#49007a' }} />
+                            <LocationOnOutlinedIcon sx={{ color: '#4675A6' }} />
                         )
                     }
                     component={Link}
@@ -95,10 +95,10 @@ const SimpleBottomNavigation: FC = () => {
                     // label="Capturas"
                     icon={
                         value === 1 ? (
-                            <ViewCarouselIcon sx={{ color: '#49007a' }} />
+                            <ViewCarouselIcon sx={{ color: '#4675A6' }} />
                         ) : (
                             <ViewCarouselOutlinedIcon
-                                sx={{ color: '#49007a' }}
+                                sx={{ color: '#4675A6' }}
                             />
                         )
                     }
@@ -110,9 +110,9 @@ const SimpleBottomNavigation: FC = () => {
                     // label="Experiencias"
                     icon={
                         value === 2 ? (
-                            <SailingIcon sx={{ color: '#49007a' }} />
+                            <SailingIcon sx={{ color: '#4675A6' }} />
                         ) : (
-                            <SailingOutlinedIcon sx={{ color: '#49007a' }} />
+                            <SailingOutlinedIcon sx={{ color: '#4675A6' }} />
                         )
                     }
                     component={Link}
@@ -123,10 +123,10 @@ const SimpleBottomNavigation: FC = () => {
                     // label="BlaBlaFish"
                     icon={
                         value === 3 ? (
-                            <AirportShuttleIcon sx={{ color: '#49007a' }} />
+                            <AirportShuttleIcon sx={{ color: '#4675A6' }} />
                         ) : (
                             <AirportShuttleOutlinedIcon
-                                sx={{ color: '#49007a' }}
+                                sx={{ color: '#4675A6' }}
                             />
                         )
                     }
@@ -138,10 +138,10 @@ const SimpleBottomNavigation: FC = () => {
                     // label="BlaBlaFish"
                     icon={
                         value === 4 ? (
-                            <ShoppingBagIcon sx={{ color: '#49007a' }} />
+                            <ShoppingBagIcon sx={{ color: '#4675A6' }} />
                         ) : (
                             <ShoppingBagOutlinedIcon
-                                sx={{ color: '#49007a' }}
+                                sx={{ color: '#4675A6' }}
                             />
                         )
                     }

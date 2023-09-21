@@ -197,13 +197,13 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                         loading={loading}
                         onClick={handleCreateTrip}
                         variant="contained"
-                        sx={{ backgroundColor: '#49007a', color: 'white' }}
+                        sx={{ backgroundColor: '#4675A6', color: 'white' }}
                     >
                         Crear Viaje
                     </LoadingButton>
                     <Button
                         hidden={loading}
-                        sx={{ color: '#49007a' }}
+                        sx={{ color: '#4675A6' }}
                         onClick={onClose}
                     >
                         Cancelar

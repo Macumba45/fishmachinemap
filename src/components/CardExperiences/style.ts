@@ -14,7 +14,7 @@ export const CardContainer = styled.div`
 export const Spanbold = styled.span`
     font-weight: 700;
     font-family: ${({ theme }) => theme.fonts.roboto};
-    color: #49007a;
+    color: #4675a6;
 `
 
 export const LogoInfluencerContainer = styled.div`

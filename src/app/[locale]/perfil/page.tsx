@@ -347,10 +347,10 @@ const Profile: FC = () => {
                         <ButtonComp
                             title="Añade tu primer marcador"
                             variant="contained"
-                            color="#49007a"
+                            color="#4675A6"
                             style={{
                                 marginTop: '2rem',
-                                backgroundColor: '#49007a',
+                                backgroundColor: '#4675A6',
                             }}
                             onClick={goToMaps}
                         />
@@ -373,8 +373,8 @@ const Profile: FC = () => {
                         >
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('capturas')}
                             >
@@ -383,8 +383,8 @@ const Profile: FC = () => {
                             <Button
                                 onClick={() => handleViewChange('userMarkers')}
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                     borderColor: 'white',
                                 }}
                             >
@@ -392,8 +392,8 @@ const Profile: FC = () => {
                             </Button>
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('blablafish')}
                             >
@@ -401,8 +401,8 @@ const Profile: FC = () => {
                             </Button>
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('stores')}
                             >
@@ -410,8 +410,8 @@ const Profile: FC = () => {
                             </Button>
                             <Button
                                 sx={{
-                                    backgroundColor: '#49007a',
-                                    '&:hover': { backgroundColor: '#7900ca' },
+                                    backgroundColor: '#4675A6',
+                                    '&:hover': { backgroundColor: '#42ACE8' },
                                 }}
                                 onClick={() => handleViewChange('likes')}
                             >
@@ -421,7 +421,7 @@ const Profile: FC = () => {
                         <Divider
                             sx={{
                                 my: 2,
-                                backgroundColor: '#49007a',
+                                backgroundColor: '#4675A6',
                                 width: '200px',
                                 marginBottom: '2rem',
                             }}
@@ -435,7 +435,7 @@ const Profile: FC = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -590,7 +590,7 @@ const Profile: FC = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -659,7 +659,7 @@ const Profile: FC = () => {
                                                     fontSize: '0.8rem',
                                                     alignItems: 'center',
                                                     display: 'flex',
-                                                    color: '#49007a',
+                                                    color: '#4675A6',
                                                 }}
                                             >
                                                 {blabla.departureCity
@@ -737,7 +737,7 @@ const Profile: FC = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -804,7 +804,7 @@ const Profile: FC = () => {
                                                     fontSize: '0.8rem',
                                                     alignItems: 'center',
                                                     display: 'flex',
-                                                    color: '#49007a',
+                                                    color: '#4675A6',
                                                 }}
                                             >
                                                 {store.price}€
@@ -862,7 +862,7 @@ const Profile: FC = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             marginTop: '2rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             flexDirection: 'column',
                             textAlign: 'center',
                         }}
@@ -938,7 +938,7 @@ const Profile: FC = () => {
                                     >
                                         <AddCommentIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 cursor: 'pointer',
                                                 marginRight: 1,
                                             }}
@@ -959,7 +959,7 @@ const Profile: FC = () => {
                                     >
                                         <FavoriteIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 marginRight: 1,
                                             }}
                                         />
@@ -997,7 +997,7 @@ const Profile: FC = () => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         marginTop: '2rem',
-                                        color: '#49007a',
+                                        color: '#4675A6',
                                         flexDirection: 'column',
                                         textAlign: 'center',
                                     }}
@@ -1052,7 +1052,7 @@ const Profile: FC = () => {
                                     >
                                         <AddCommentIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 cursor: 'pointer',
                                                 marginRight: 1,
                                             }}
@@ -1073,7 +1073,7 @@ const Profile: FC = () => {
                                     >
                                         <FavoriteIcon
                                             sx={{
-                                                color: '#49007a',
+                                                color: '#4675A6',
                                                 marginRight: 1,
                                             }}
                                         />

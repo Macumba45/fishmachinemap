@@ -11,6 +11,7 @@ import FloatAddExperiences from '@/components/FloatAddExperiences'
 import ExperienceModal from '@/components/ModalAddExperiences'
 import CircularIndeterminate from '@/components/Loader'
 import { Button, Typography } from '@mui/material'
+import logo from '../../../assets/fishgram.png'
 import {
     CardContainer,
     Container,
@@ -67,7 +68,7 @@ const Experiencias: FC = () => {
                     <AccountMenu userPicture={currentUser?.picture} />
                 </ContainerMenu>
                 <Container>
-                    <TextNav>Experiencias. Inolvidables</TextNav>
+                    <TextNav src={logo.src} />
                 </Container>
                 <FilterContainer>
                     <FilterExperiencias
@@ -81,7 +82,7 @@ const Experiencias: FC = () => {
                             ¿Eres Influencer?
                         </Typography>
                         <Button
-                            sx={{ color: '#49007a' }}
+                            sx={{ color: '#4675A6' }}
                             onClick={() => sendUsEmail()}
                         >
                             ¡Envíanos un email!

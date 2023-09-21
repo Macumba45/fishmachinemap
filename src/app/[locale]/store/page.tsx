@@ -15,6 +15,7 @@ import CircularIndeterminate from '@/components/Loader'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import LimitTags from '@/components/FilterStore'
 import { useRouter } from 'next/navigation'
+import logo from '../../../assets/fishgram.png'
 import {
     Container,
     ContainerMenu,
@@ -99,7 +100,7 @@ const Store: FC = () => {
                 <AccountMenu userPicture={dataStoreUser?.picture} />
             </ContainerMenu>
             <Container>
-                <TextNav>Compra, vende. Reutiliza</TextNav>
+                <TextNav src={logo.src} />
             </Container>
             <FilterContainer>
                 <LimitTags

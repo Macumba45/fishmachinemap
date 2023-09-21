@@ -76,11 +76,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
     }
 
     let position
+    let top
     if (typeof window !== 'undefined') {
         if (window.location.pathname === `/${locale}/maps`) {
             position = 'fixed'
+            top = '20px'
         } else {
             position = 'absolute'
+            top = '10px'
         }
     }
 
@@ -89,7 +92,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
         alignItems: 'center',
         textAlign: 'center',
         position: position as any,
-        top: '20px',
+        top: top as any,
         zIndex: 999,
     }
 
@@ -402,7 +405,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
                         title="Ver meteorología"
                         color="white"
                         variant="contained"
-                        bgColor="#49007a"
+                        bgColor="#4675A6"
                         onClick={() =>
                             fetchUrlMeteorologia(pais, provincia, ciudad)
                         }

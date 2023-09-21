@@ -75,7 +75,7 @@ const CardExperiences: FC<Props> = ({
                             width: 24,
                             height: 24,
                             borderRadius: '50%',
-                            border: '1px solid #49007a',
+                            border: '1px solid #4675A6',
                         }}
                         image={userPicture}
                     />
@@ -93,11 +93,11 @@ const CardExperiences: FC<Props> = ({
                 <Button
                     onClick={() => console.log('click')}
                     sx={{
-                        color: '#49007a',
+                        color: '#4675A6',
                         mr: 4,
                         fontSize: 10,
                         '&:hover': {
-                            backgroundColor: '#7900ca',
+                            backgroundColor: '#42ACE8',
                             color: 'white',
                         },
                     }}
@@ -137,7 +137,7 @@ const CardExperiences: FC<Props> = ({
                         component="div"
                     >
                         <PaidIcon
-                            sx={{ width: 20, mr: 0.5, color: '#49007a' }}
+                            sx={{ width: 20, mr: 0.5, color: '#4675A6' }}
                         />{' '}
                         {price} €
                     </Typography>
@@ -152,7 +152,7 @@ const CardExperiences: FC<Props> = ({
                         component="div"
                     >
                         <PlaceIcon
-                            sx={{ width: 20, mr: 0.5, color: '#49007a' }}
+                            sx={{ width: 20, mr: 0.5, color: '#4675A6' }}
                         />{' '}
                         {city}
                     </Typography>
@@ -163,7 +163,7 @@ const CardExperiences: FC<Props> = ({
                         component="div"
                     >
                         <CategoryIcon
-                            sx={{ width: 20, mr: 1, color: '#49007a' }}
+                            sx={{ width: 20, mr: 1, color: '#4675A6' }}
                         />{' '}
                         {category}
                     </Typography>
@@ -173,7 +173,7 @@ const CardExperiences: FC<Props> = ({
                         mt: 2,
                         display: 'flex',
                         alignItems: 'center',
-                        color: '#49007a',
+                        color: '#4675A6',
                     }}
                     variant="body2"
                     color="text.primary"
@@ -185,7 +185,7 @@ const CardExperiences: FC<Props> = ({
                 sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    backgroundColor: '#49007a ',
+                    backgroundColor: '#4675A6 ',
                     padding: 0,
                     borderTopRightRadius: '4px',
                     borderTopLeftRadius: '4px',

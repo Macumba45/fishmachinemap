@@ -27,7 +27,7 @@ export const Container = styled.div`
 `
 
 export const UserContainerData = styled.div`
-    background-color: #49007a;
+    background-color: #4675a6;
     width: 100%;
     display: flex;
     justify-content: center;

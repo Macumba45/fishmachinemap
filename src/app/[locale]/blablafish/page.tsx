@@ -12,6 +12,7 @@ import { BlaBlaFish } from './type'
 import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
 import FloatLoginButton from '@/components/FloatLoginButton'
+import logo from '../../../assets/fishgram.png'
 import {
     CardContainer,
     Container,
@@ -73,7 +74,7 @@ const BlaBlaFish: FC = () => {
                         <AccountMenu userPicture={dataBlablaUser?.picture} />
                     </ContainerMenu>
                     <Container>
-                        <TextNav>Conoce, pesca. Comparte Gastos</TextNav>
+                        <TextNav src={logo.src} />
                     </Container>
                     <CreateTripModal
                         open={openModal}
@@ -84,7 +85,7 @@ const BlaBlaFish: FC = () => {
                     <AirportShuttleIcon
                         sx={{
                             fontSize: '3rem',
-                            color: '#49007a',
+                            color: '#4675A6',
                             marginBottom: '2rem',
                         }}
                     />
@@ -118,11 +119,10 @@ const BlaBlaFish: FC = () => {
             <MainContainer>
                 <ContainerMenu>
                     <AccountMenu userPicture={dataBlablaUser?.picture} />
-                    <Container>
-                        <TextNav>Conoce, pesca. Comparte Gastos</TextNav>
-                    </Container>
                 </ContainerMenu>
-
+                <Container>
+                    <TextNav src={logo.src} />
+                </Container>
                 <CreateTripModal
                     open={openModal}
                     onClose={() => {

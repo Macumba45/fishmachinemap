@@ -62,7 +62,7 @@ const Page: FC<Props> = ({ params }) => {
                     variant="contained"
                     style={{
                         color: 'white',
-                        backgroundColor: '#49007a',
+                        backgroundColor: '#4675A6',
                         width: '100%',
                         borderRadius: '0px',
                         height: '3rem',

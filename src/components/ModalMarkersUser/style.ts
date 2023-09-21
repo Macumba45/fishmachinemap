@@ -98,7 +98,7 @@ export const CreatorLink = styled.div`
     font-size: 0.8rem;
     margin-left: 0.5rem;
     text-decoration: none;
-    color: #49007a;
+    color: #4675a6;
 `
 export const LikesLabel = styled.div`
     display: flex;
