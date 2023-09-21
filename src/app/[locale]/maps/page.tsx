@@ -676,6 +676,7 @@ const GoogleMapComp: FC = () => {
         ],
         showBullets: true,
         exitOnOverlayClick: false, // Evita que se cierre el tutorial haciendo clic en el fondo
+        dontShowAgain: true,
     })
 
     // // Escucha el evento 'after-change' para controlar la navegación manualmente
