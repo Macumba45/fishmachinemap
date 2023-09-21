@@ -34,7 +34,7 @@ const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
     }, []) // [] significa que se ejecuta solo una vez al cargar el componente
 
     return (
-        <ButtonContainer>
+        <ButtonContainer className="filterButton">
             <IconButton onClick={toggleFilters}>
                 <FilterAltIcon sx={{ color: 'white', fontSize: '2rem' }} />
             </IconButton>

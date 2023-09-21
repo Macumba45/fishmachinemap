@@ -191,12 +191,14 @@ interface Props {
     style?: React.CSSProperties
     onClick?: () => void
     label?: string
+    clasName?: string
 }
 
-const CustomizedSwitches: FC<Props> = ({ style, onClick, label }) => {
+const CustomizedSwitches: FC<Props> = ({ style, onClick, label, clasName }) => {
     return (
         <FormGroup sx={{ display: 'flex' }}>
             <FormControlLabel
+                className="switch"
                 sx={{
                     backgroundColor: 'white',
                     borderRadius: '100px',

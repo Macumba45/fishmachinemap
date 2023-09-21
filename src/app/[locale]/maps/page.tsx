@@ -7,6 +7,9 @@ import { useLogicMaps } from './logic'
 import { useRouter } from 'next/navigation'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import Link from 'next/link'
+import IntroJs from 'intro.js'
+import 'intro.js/introjs.css' // Estilo CSS de intro.js
+import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
 import RoomIcon from '@mui/icons-material/Room'
 import ModalSmallMarkers from '@/components/ModalSmallMarkers'
 import CommentModal from '@/components/ModalComments'
@@ -57,6 +60,7 @@ import {
     stylesMaps,
     ContainerModalSmall,
 } from './style'
+import IntroTour from '@/components/AAintroJS'
 
 // Declara una variable llamada markerClusterer para agrupar los marcadores.
 let markerClusterer: MarkerClusterer | null = null
@@ -155,6 +159,7 @@ const GoogleMapComp: FC = () => {
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
+    const intro = IntroJs()
     const t = useTranslations('maps')
     const router = useRouter()
     const [selectedFilters, setSelectedFilters] = useState<MarkerType>(
@@ -558,6 +563,8 @@ const GoogleMapComp: FC = () => {
     useEffect(() => {
         if (mapRef.current) {
             renderMarkers(filteredMarkers)
+            // Inicia el tour de introducción
+            intro.start()
         }
     }, [filteredMarkers])
 
@@ -619,15 +626,86 @@ const GoogleMapComp: FC = () => {
             </>
         )
     }
+
+    intro.setOptions({
+        steps: [
+            {
+                title: '¡FishGram!',
+                intro: 'Descubre los mejores lugares para pescar',
+                step: 1,
+            },
+
+            {
+                title: '!El menú!',
+                element: '.menu',
+                intro: 'Aquí puedes visitar tu perfil, ver la meteorología y más',
+                step: 2,
+            },
+            {
+                title: 'Busca por la zona',
+                element: '.buscarZona',
+                intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
+                step: 3,
+            },
+            {
+                title: '¡Últimos marcadores!',
+                element: '.badge',
+                intro: 'Aquí puedes ver los marcadores nuevos',
+                step: 4,
+            },
+            {
+                title: '!Cambia el color del mapa!',
+                element: '.switch',
+                intro: 'Pulsa este botón para cambiar el color del mapa',
+                step: 5,
+            },
+            {
+                title: '¡Añade un marcador!',
+                element: '.addMarker',
+                intro: 'Pulsa este botón para añadir un marcador',
+                step: 6,
+            },
+            {
+                title: 'Disfruta de FishGram!',
+                element: '.marker',
+                intro: '!Buena pesca!',
+                step: 7,
+            },
+
+            // Agrega más pasos según sea necesario
+        ],
+        showBullets: true,
+        exitOnOverlayClick: false, // Evita que se cierre el tutorial haciendo clic en el fondo
+    })
+
+    // // Escucha el evento 'after-change' para controlar la navegación manualmente
+    // intro.onafterchange(function (element) {
+    //     currentStep++; // Aumenta el paso actual
+    //     if (currentStep === 3) {
+    //         // En el segundo paso, simula un clic en el elemento del menú para abrirlo
+    //         const menuElement = document.querySelector('.menuClick') as HTMLElement;
+    //         if (menuElement) {
+    //             menuElement.click(); // Realiza un clic en el elemento del menú para abrirlo
+    //         }
+    //     } else if (currentStep >= 3) {
+    //         console.log('cierro')
+    //         // A partir del tercer paso, simula un clic en el elemento del menú para cerrarlo
+    //         const menuElement = document.querySelector('.menuClick') as HTMLElement;
+    //         if (menuElement) {
+    //             console.log('le doy a cierro')
+    //             menuElement.click(); // Realiza un clic en el elemento del menú para cerrarlo
+    //         }
+    //     }
+    // });
+
     return (
-        <MainContainer>
+        <MainContainer className="intro">
             <>
-                <AccountMenu
-                    className="menu"
-                    userPicture={currentUser?.picture as string}
-                />
+                <MapContainer id="map" />
+
+                <AccountMenu userPicture={currentUser?.picture as string} />
                 <FilterButton onChange={handleFilterChange} />
-                <BadgeContainer>
+                <BadgeContainer className="badge">
                     <IconButton onClick={openModalBadge} sx={{ padding: 0 }}>
                         <Badge
                             badgeContent={badgeNewMarkers.length}
@@ -792,7 +870,6 @@ const GoogleMapComp: FC = () => {
                         </Box>
                     </>
                 </Modal>
-                <MapContainer id="map" />
                 {activateMiniModal ? (
                     <>
                         <Button
@@ -1183,6 +1260,7 @@ const GoogleMapComp: FC = () => {
                 )}
                 <SimpleBottomNavigation />
                 <CustomizedSwitches
+                    clasName="switch"
                     style={{
                         bottom: bottomPosition,
                         position: 'fixed',
@@ -1260,6 +1338,7 @@ const GoogleMapComp: FC = () => {
                     isSmallScreen ? t('buttonPlacesShort') : t('buttonPlaces')
                 } // Cambia el título si la pantalla es pequeña
                 id="updateResultsButton"
+                className="buscarZona"
                 style={{
                     display: isButtonDisabled ? 'none' : 'flex',
                     opacity: isButtonDisabledPlaces || !isLogged ? 0 : 1,

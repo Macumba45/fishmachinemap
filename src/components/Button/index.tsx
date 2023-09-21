@@ -20,6 +20,7 @@ const ButtonComp: FC<Props> = ({
     type,
     id,
     width,
+    className,
 }) => {
     const ButtonStyles = {
         backgroundColor: bgColor || 'transparent',
@@ -39,6 +40,7 @@ const ButtonComp: FC<Props> = ({
     return (
         <MainContainer>
             <Button
+                className={className}
                 id={id}
                 target="blank"
                 style={style || ButtonStyles}

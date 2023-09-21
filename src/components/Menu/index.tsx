@@ -175,9 +175,9 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
     }
 
     return (
-        <div className={className}>
+        <div>
             <Box sx={boxStyles}>
-                <Tooltip title="Menu">
+                <Tooltip className="menu" title="Menu">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -185,6 +185,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
+                        className="menuClick"
                     >
                         <MenuIcon sx={{ fontSize: '2rem', color: 'white' }} />
                     </IconButton>
@@ -193,13 +194,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
+                className="menuClickClose"
                 open={open}
                 onClose={handleClose}
                 sx={{ mt: 1 }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={gotoProfile}>
+                <MenuItem className="perfil custom-class" onClick={gotoProfile}>
                     {userPicture ? (
                         <img
                             style={{
