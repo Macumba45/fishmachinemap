@@ -51,6 +51,8 @@ export const introJs = () => {
         nextLabel: 'Siguiente',
         dontShowAgainLabel: 'No volver a mostrar',
         buttonClass: 'buttonSteps',
+        dontShowAgainCookie: 'introjs-feed',
+
     })
 
     intro.onafterchange(() => {
