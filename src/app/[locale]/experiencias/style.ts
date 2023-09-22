@@ -41,7 +41,7 @@ export const FilterContainer = styled.div`
     width: 100%;
     top: 10px;
     align-items: center;
-    margin-top: 3.5rem;
+    margin-top: 3rem;
     background-color: white;
     z-index: 1;
 `
@@ -64,7 +64,7 @@ export const ContainerInFluencer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 8rem;
+    margin-top: 6.5rem;
 
     /* @media screen and (min-width: 375px) {
         flex-wrap: wrap;

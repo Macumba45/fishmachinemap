@@ -1,6 +1,5 @@
 import IntroJs from 'intro.js'
 import 'intro.js/introjs.css' // Estilo CSS de intro.js
-import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
 
 export const introJs = () => {
     const intro = IntroJs()
@@ -18,6 +17,7 @@ export const introJs = () => {
                 element: '.menu',
                 intro: 'Aquí puedes visitar tu perfil, ver la meteorología y más',
                 step: 2,
+                position: 'right',
             },
             {
                 title: 'Filtra marcadores',
@@ -61,6 +61,8 @@ export const introJs = () => {
         showBullets: true,
         exitOnOverlayClick: false, // Evita que se cierre el tutorial haciendo clic en el fondo
         dontShowAgain: true,
+        prevLabel: 'Anterior',
+        nextLabel: 'Siguiente',
     })
 
     intro.start()

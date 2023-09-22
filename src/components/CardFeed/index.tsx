@@ -101,6 +101,7 @@ const CardFeed: FC<FeedPros> = ({
             <IconsContainer>
                 <HearthContainerTop>
                     <Typography
+                        className="profile"
                         component={'div'}
                         style={{
                             fontSize: '0.8rem',
@@ -122,13 +123,19 @@ const CardFeed: FC<FeedPros> = ({
                         </Link>
                     </Typography>
                     <IconButton onClick={handleShareModalOpen}>
-                        <ShareIcon style={{ color: '#4675A6' }} />
+                        <ShareIcon
+                            className="share"
+                            style={{ color: '#4675A6' }}
+                        />
                     </IconButton>
                     <IconButton
                         onClick={handleCommentModalOpen}
                         style={{ justifySelf: 'end' }}
                     >
-                        <AddCommentIcon style={{ color: '#4675A6' }} />
+                        <AddCommentIcon
+                            className="comment"
+                            style={{ color: '#4675A6' }}
+                        />
                         <LikesLabel>{numberOfComments}</LikesLabel>
                     </IconButton>
                     <IconButton
@@ -138,10 +145,12 @@ const CardFeed: FC<FeedPros> = ({
                     >
                         {isLiked ? (
                             <FavoriteIcon
+                                className="heart"
                                 style={{ color: isLogged ? '#4675A6' : 'grey' }}
                             />
                         ) : (
                             <FavoriteBorderIcon
+                                className="heart"
                                 style={{ color: isLogged ? '#4675A6' : 'grey' }}
                             />
                         )}

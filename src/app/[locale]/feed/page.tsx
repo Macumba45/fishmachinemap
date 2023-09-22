@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, use, useEffect, useState } from 'react'
 import { feedUseLogic } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
@@ -12,6 +12,7 @@ import { Container, ContainerMenu, MainContainer, TextNav } from './style'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { introJs } from './intro'
 
 const Feed: FC = () => {
     const {
@@ -64,6 +65,12 @@ const Feed: FC = () => {
     useEffect(() => {
         getUserInfo()
     }, [getUserInfo])
+
+    useEffect(() => {
+        if (!loading) {
+            introJs()
+        }
+    }, [loading])
 
     if (loading) {
         return (
