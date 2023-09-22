@@ -49,6 +49,32 @@ export const introJs = () => {
         dontShowAgain: true,
         prevLabel: 'Anterior',
         nextLabel: 'Siguiente',
+        dontShowAgainLabel: 'No volver a mostrar',
+        buttonClass: 'buttonSteps',
+    })
+
+    intro.onafterchange(() => {
+        const tooltipContainer = document.querySelector(
+            '.introjs-tooltip-title'
+        )
+        tooltipContainer?.setAttribute(
+            'style',
+            'color: #4675A6; font-size: 18px;'
+        )
+        const arrows = document.querySelectorAll('.introjs-arrow')
+        arrows.forEach((arrow: any) => {
+            arrow.style.border = 'none'
+        })
+        const buttosStyles = document.querySelectorAll('.buttonSteps')
+        buttosStyles.forEach((button: any) => {
+            button.style.backgroundColor = '#4675A6'
+            button.style.color = '#fff'
+            button.style.border = 'none'
+            button.style.borderRadius = '5px'
+            button.style.padding = '10px'
+            button.style.margin = '10px'
+            button.style.cursor = 'pointer'
+        })
     })
 
     intro.start()

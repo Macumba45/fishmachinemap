@@ -13,7 +13,7 @@ export default function CircularIndeterminate() {
             }}
         >
             <Box>
-                <CircularProgress size={'80px'} />
+                <CircularProgress sx={{ color: '#4675A6' }} size={'80px'} />
             </Box>
         </div>
     )
