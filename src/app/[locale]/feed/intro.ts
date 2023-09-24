@@ -1,3 +1,4 @@
+import { BorderColor } from '@mui/icons-material'
 import IntroJs from 'intro.js'
 import 'intro.js/introjs.css' // Estilo CSS de intro.js
 
@@ -76,6 +77,15 @@ export const introJs = () => {
             button.style.padding = '10px'
             button.style.margin = '10px'
             button.style.cursor = 'pointer'
+        })
+        const bulletsIntro = document.querySelectorAll('.introjs-bullets')
+
+        bulletsIntro.forEach(bulletContainer => {
+            const bulletList = bulletContainer.querySelectorAll('a')
+
+            bulletList.forEach(bullet => {
+                bullet.style.background = '#4675A6'
+            })
         })
     })
 

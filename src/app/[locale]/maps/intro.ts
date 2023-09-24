@@ -1,9 +1,9 @@
 import IntroJs from 'intro.js'
 import 'intro.js/introjs.css' // Estilo CSS de intro.js
 
-const isLogged = localStorage.getItem('token')
-
 export const introJs = () => {
+    const isLogged = window.localStorage.getItem('token')
+
     const intro = IntroJs()
 
     intro.setOptions({
@@ -27,12 +27,19 @@ export const introJs = () => {
                 intro: 'Pulsa este botón para filtrar los marcadores',
                 step: 3,
             },
-            {
-                title: '¡Busca por la zona!',
-                element: '.buscarZona',
-                intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
-                step: 4,
-            },
+            isLogged
+                ? {
+                    title: '¡Busca por la zona!',
+                    element: '.buscarZona',
+                    intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
+                    step: 4,
+                }
+                : {
+                    title: '¡Inicia sesión!',
+                    element: '.login',
+                    intro: 'Pulsa este botón para iniciar sesión y disfrutar de FishGram',
+                    step: 4,
+                },
             {
                 title: '¡Últimos marcadores!',
                 element: '.badge',
@@ -52,10 +59,40 @@ export const introJs = () => {
                 step: 7,
             },
             {
+                title: '¡Sección mapas!',
+                element: '.maps',
+                intro: 'Aquí puedes ver los marcadores de los usuarios',
+                step: 8,
+            },
+            {
+                title: '¡Sección Feed!',
+                element: '.feed',
+                intro: 'Aquí puedes ver los marcadores de los usuarios al estilo Instagram',
+                step: 9,
+            },
+            {
+                title: '¡Sección Experiencias!',
+                element: '.experiencias',
+                intro: 'Compra, disfruta de la mejores expereincias de pesca',
+                step: 10,
+            },
+            {
+                title: '¡Sección BlaBlaFish!',
+                element: '.blablafish',
+                intro: 'Comparte viaje con otros pescadores y conoce gente nueva',
+                step: 11,
+            },
+            {
+                title: '¡Sección Tiendas!',
+                element: '.store',
+                intro: 'Compra, vende y cambia material de pesca',
+                step: 12,
+            },
+            {
                 title: '¡Disfruta de FishGram!',
                 element: '.marker',
                 intro: '!Buena pesca!',
-                step: 8,
+                step: 13,
             },
 
             // Agrega más pasos según sea necesario
@@ -93,9 +130,17 @@ export const introJs = () => {
             button.style.margin = '10px'
             button.style.cursor = 'pointer'
         })
+
+        const bulletsIntro = document.querySelectorAll('.introjs-bullets')
+
+        bulletsIntro.forEach(bulletContainer => {
+            const bulletList = bulletContainer.querySelectorAll('a')
+
+            bulletList.forEach(bullet => {
+                bullet.style.background = '#4675A6'
+            })
+        })
     })
 
-    if (isLogged) {
-        intro.start()
-    }
+    intro.start()
 }

@@ -90,7 +90,7 @@ const Experiencias: FC = () => {
                     </ContainerInFluencer>
                 )}
                 <CardContainer
-                    style={{ marginTop: !isInfluencer ? '1rem' : '7rem' }}
+                    style={{ marginTop: !isInfluencer ? '1rem' : '6rem' }}
                 >
                     {experiences.map((item: any) => {
                         return (

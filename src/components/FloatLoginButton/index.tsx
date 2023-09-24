@@ -12,6 +12,7 @@ interface Props {
 const FloatLoginButton: FC<Props> = ({ onClick, disabled, title, style }) => {
     return (
         <Fab
+            className="login"
             style={style}
             onClick={onClick}
             disabled={disabled}

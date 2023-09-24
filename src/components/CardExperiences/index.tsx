@@ -80,7 +80,10 @@ const CardExperiences: FC<Props> = ({
                         variant="h6"
                         component="div"
                     >
-                        <Link style={{ color: '#4675A6' }} href={`/${locale}/feed/${userId}`}>
+                        <Link
+                            style={{ color: '#4675A6' }}
+                            href={`/${locale}/feed/${userId}`}
+                        >
                             {influencer}
                         </Link>
                     </Typography>

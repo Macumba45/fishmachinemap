@@ -80,6 +80,7 @@ const SimpleBottomNavigation: FC = () => {
             >
                 <BottomNavigationAction
                     // label="Mapa"
+                    className="maps"
                     icon={
                         value === 0 ? (
                             <LocationOnIcon sx={{ color: '#4675A6' }} />
@@ -93,6 +94,7 @@ const SimpleBottomNavigation: FC = () => {
                 />
                 <BottomNavigationAction
                     // label="Capturas"
+                    className="feed"
                     icon={
                         value === 1 ? (
                             <ViewCarouselIcon sx={{ color: '#4675A6' }} />
@@ -108,6 +110,7 @@ const SimpleBottomNavigation: FC = () => {
                 />
                 <BottomNavigationAction
                     // label="Experiencias"
+                    className="experiencias"
                     icon={
                         value === 2 ? (
                             <SailingIcon sx={{ color: '#4675A6' }} />
@@ -121,6 +124,7 @@ const SimpleBottomNavigation: FC = () => {
                 />
                 <BottomNavigationAction
                     // label="BlaBlaFish"
+                    className="blablafish"
                     icon={
                         value === 3 ? (
                             <AirportShuttleIcon sx={{ color: '#4675A6' }} />
@@ -136,6 +140,7 @@ const SimpleBottomNavigation: FC = () => {
                 />
                 <BottomNavigationAction
                     // label="BlaBlaFish"
+                    className="store"
                     icon={
                         value === 4 ? (
                             <ShoppingBagIcon sx={{ color: '#4675A6' }} />
