@@ -4,7 +4,7 @@ export const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 `
 
@@ -18,13 +18,12 @@ export const PictureContainer = styled.div`
 `
 
 export const Picture = styled.img`
-    width: 400px;
-    object-fit: cover;
-    height: 300px;
+    width: 100%;
+    max-width: 500px;
 `
 
 export const ContainerTitle = styled.div`
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: center;
@@ -78,4 +77,5 @@ export const ContainerButton = styled.div`
     position: fixed;
     bottom: 0;
     width: 100%;
+    margin-top: 2rem;
 `

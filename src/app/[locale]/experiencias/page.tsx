@@ -106,7 +106,7 @@ const Experiencias: FC = () => {
                                 whatsapp={item.whatsapp}
                                 influencer={item.user.name}
                                 userPicture={item.user.picture}
-                                // onClick={() => {}}
+                                userId={item.user.id}
                             />
                         )
                     })}

@@ -41,7 +41,7 @@ const FloatAddExperiences: FC<Props> = ({ onClick, disabled, title }) => {
                             marginRight: '1rem',
                             backgroundColor: '#4675A6',
                             '&:hover': {
-                                backgroundColor: '#7b00cd', // Cambiar color del hover
+                                backgroundColor: '#42ACE8', // Cambiar color del hover
                             },
                         }}
                         disabled={disabled}

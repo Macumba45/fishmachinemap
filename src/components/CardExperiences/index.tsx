@@ -1,26 +1,16 @@
 import { FC } from 'react'
+import Link from 'next/link'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import {
-    Button,
-    CardActionArea,
-    CardActions,
-    Divider,
-    IconButton,
-} from '@mui/material'
 import PaidIcon from '@mui/icons-material/Paid'
 import PlaceIcon from '@mui/icons-material/Place'
-import InfoIcon from '@mui/icons-material/Info'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import CategoryIcon from '@mui/icons-material/Category'
-import {
-    CardContainer,
-    ContainerInfo,
-    LogoInfluencerContainer,
-    Spanbold,
-} from './style'
+import { Button, CardActions, IconButton } from '@mui/material'
+import { ContainerInfo, LogoInfluencerContainer } from './style'
+import { useLocale } from 'next-intl'
 
 interface Props {
     title: string
@@ -34,6 +24,7 @@ interface Props {
     influencer: string
     userPicture?: string
     onClick?: () => void
+    userId?: string
 }
 
 const CardExperiences: FC<Props> = ({
@@ -48,7 +39,9 @@ const CardExperiences: FC<Props> = ({
     onClick,
     influencer,
     userPicture,
+    userId,
 }) => {
+    const locale = useLocale()
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
         const phoneNumber = whatsapp.replace(/\D/g, '') // Eliminar todos los caracteres que no sean dígitos del número de teléfono
@@ -87,7 +80,9 @@ const CardExperiences: FC<Props> = ({
                         variant="h6"
                         component="div"
                     >
-                        {influencer}
+                        <Link href={`/${locale}/feed/${userId}`}>
+                            {influencer}
+                        </Link>
                     </Typography>
                 </div>
                 <Button
