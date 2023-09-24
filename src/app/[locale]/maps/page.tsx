@@ -808,30 +808,6 @@ const GoogleMapComp: FC = () => {
                             Cerrar
                         </Button>
 
-                        {/* <span
-                            style={{
-                                position: 'fixed',
-                                display: 'flex',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    position: 'fixed',
-                                    top: '50%',
-                                    left: '50%',
-                                    alignItems: 'center', // Centra verticalmente
-                                    justifyContent: 'center', // Centra horizontalmente
-                                    width: '6px',
-                                    height: '6px',
-                                    borderRadius: '50%',
-                                    backgroundColor: 'white',
-                                    display: markersSmallModal.length ? 'flex' : 'none',
-                                }}
-                            >
-
-                            </span>
-                        </span> */}
-
                         {markersSmallModal && markersSmallModal.length > 0 && (
                             <ContainerModalSmall>
                                 {markersSmallModal.map(marker => (

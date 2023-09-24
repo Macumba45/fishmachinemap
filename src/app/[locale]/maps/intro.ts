@@ -1,6 +1,8 @@
 import IntroJs from 'intro.js'
 import 'intro.js/introjs.css' // Estilo CSS de intro.js
 
+const isLogged = localStorage.getItem('token')
+
 export const introJs = () => {
     const intro = IntroJs()
 
@@ -20,13 +22,13 @@ export const introJs = () => {
                 position: 'right',
             },
             {
-                title: 'Filtra marcadores',
+                title: '¡Filtra marcadores!',
                 element: '.filterButton',
                 intro: 'Pulsa este botón para filtrar los marcadores',
                 step: 3,
             },
             {
-                title: 'Busca por la zona',
+                title: '¡Busca por la zona!',
                 element: '.buscarZona',
                 intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
                 step: 4,
@@ -66,6 +68,7 @@ export const introJs = () => {
         buttonClass: 'buttonSteps',
         dontShowAgainLabel: 'No volver a mostrar',
         dontShowAgainCookie: 'introjs-map',
+        doneLabel: 'Finalizar',
     })
 
     intro.onafterchange(() => {
@@ -92,5 +95,7 @@ export const introJs = () => {
         })
     })
 
-    intro.start()
+    if (isLogged) {
+        intro.start()
+    }
 }

@@ -37,8 +37,6 @@ export const HearthContainerTop = styled.div`
 `
 
 export const HearthContainer = styled.div`
-    display: grid;
-    grid-template-columns: 5fr 1fr;
     align-items: center;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
@@ -88,5 +86,7 @@ export const DateContainer = styled.div`
     align-items: center;
     font-family: 'Roboto', sans-serif;
     font-size: 0.6rem;
-    justify-self: end; // Alinea la última columna a la derecha
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
 `

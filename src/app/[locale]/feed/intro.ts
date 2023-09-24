@@ -52,7 +52,7 @@ export const introJs = () => {
         dontShowAgainLabel: 'No volver a mostrar',
         buttonClass: 'buttonSteps',
         dontShowAgainCookie: 'introjs-feed',
-
+        doneLabel: 'Finalizar',
     })
 
     intro.onafterchange(() => {

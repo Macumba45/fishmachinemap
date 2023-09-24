@@ -131,26 +131,23 @@ const CardFeed: FC<FeedPros> = ({
                     <IconButton
                         onClick={handleCommentModalOpen}
                         style={{ justifySelf: 'end' }}
+                        className="comment"
                     >
-                        <AddCommentIcon
-                            className="comment"
-                            style={{ color: '#4675A6' }}
-                        />
+                        <AddCommentIcon style={{ color: '#4675A6' }} />
                         <LikesLabel>{numberOfComments}</LikesLabel>
                     </IconButton>
                     <IconButton
                         onClick={onClick}
                         style={{ justifySelf: 'end' }}
                         disabled={!isLogged}
+                        className="heart"
                     >
                         {isLiked ? (
                             <FavoriteIcon
-                                className="heart"
                                 style={{ color: isLogged ? '#4675A6' : 'grey' }}
                             />
                         ) : (
                             <FavoriteBorderIcon
-                                className="heart"
                                 style={{ color: isLogged ? '#4675A6' : 'grey' }}
                             />
                         )}
@@ -162,8 +159,8 @@ const CardFeed: FC<FeedPros> = ({
                         {/* <CommentIcon style={{ color: '#4675A6' }} /> */}
                         <Description>{description}</Description>
                     </Icons>
-                    <DateContainer>{date}</DateContainer>
                 </HearthContainer>
+                <DateContainer>{date}</DateContainer>
 
                 <CommentModal
                     open={isCommentModalOpen}

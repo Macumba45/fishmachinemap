@@ -192,31 +192,6 @@ const CardExperiences: FC<Props> = ({
                     height: '40px',
                 }}
             >
-                {/* <div
-                    style={{
-                        width: '50%',
-                        height: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Button
-                        sx={{
-                            color: 'white',
-                        }}
-                        size="small"
-                        color="primary"
-                        onClick={() => console.log('click')}
-                    >
-                        <InfoIcon fontSize="medium" />
-                    </Button>
-                </div>
-                <Divider
-                    sx={{ width: 2, color: 'white', backgroundColor: 'white' }}
-                    orientation="vertical"
-                    flexItem
-                /> */}
                 <div
                     onClick={handleWhatsAppClick}
                     style={{
@@ -229,6 +204,9 @@ const CardExperiences: FC<Props> = ({
                     }}
                 >
                     <IconButton>
+                        <Typography sx={{ color: 'white', mr: 1 }}>
+                            Contactar
+                        </Typography>
                         <WhatsAppIcon
                             fontSize="medium"
                             sx={{ color: '#25D366' }}

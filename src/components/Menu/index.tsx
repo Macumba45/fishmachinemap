@@ -116,7 +116,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
         return (
             <>
                 <Box sx={boxStyles}>
-                    <Tooltip title="Menu">
+                    <Tooltip className="menu" title="Menu">
                         <IconButton
                             onClick={handleClick}
                             size="small"
