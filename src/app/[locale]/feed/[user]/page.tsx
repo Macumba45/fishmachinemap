@@ -36,6 +36,7 @@ import {
     UserContainerData,
     nameStyles,
 } from './style'
+import CircularIndeterminate from '@/components/Loader'
 
 interface Props {
     params: {
@@ -105,6 +106,16 @@ const Page: FC<Props> = ({ params }) => {
         return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
+    // Define el título dinámico
+    const dynamicTitle = `FishGram - ${dataFeedUser?.name}`
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        if (dataFeedUser) {
+            document.title = dynamicTitle
+        }
+    }, [dataFeedUser?.name])
+
     useEffect(() => {
         userInfoFeed(params.user)
     }, [params.user])
@@ -145,6 +156,15 @@ const Page: FC<Props> = ({ params }) => {
         }
     }, [])
 
+    // Renderiza el componente.
+    if (Object.keys(dataFeedUser).length === 0) {
+        return (
+            <>
+                <CircularIndeterminate />
+                <SimpleBottomNavigation />
+            </>
+        )
+    }
     return (
         <>
             <ContainerMenu>
