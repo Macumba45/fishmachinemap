@@ -43,9 +43,7 @@ export default async function LocaleLayout({
                 <meta
                     name="description"
                     content="FishGram - APP. ¡Dale caña al carrete!"
-                />
-                <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-                <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+                /> 
                 <meta
                     property="og:title"
                     content="FishGram - APP. ¡Dale caña al carrete!"
