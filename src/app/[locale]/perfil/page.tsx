@@ -278,8 +278,7 @@ const Profile: FC = () => {
 
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
-        if (user)
-            document.title = dynamicTitle
+        if (user) document.title = dynamicTitle
     }, [user?.name])
 
     // Renderiza el componente.
@@ -933,10 +932,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.marker.location?.lat,
-                                        lng: marker.marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.marker.location?.lat,
+                                            lng: marker.marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
@@ -1047,10 +1046,10 @@ const Profile: FC = () => {
                                 onClose={handleCloseModal}
                                 onClick={() => {
                                     const location: google.maps.LatLngLiteral =
-                                    {
-                                        lat: marker.location?.lat,
-                                        lng: marker.location?.lng,
-                                    }
+                                        {
+                                            lat: marker.location?.lat,
+                                            lng: marker.location?.lng,
+                                        }
                                     goToMarkerUserLocation(location)
                                 }}
                                 icon={
