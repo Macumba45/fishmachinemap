@@ -43,7 +43,7 @@ export default async function LocaleLayout({
                 <meta
                     name="description"
                     content="FishGram - APP. ¡Dale caña al carrete!"
-                /> 
+                />
                 <meta
                     property="og:title"
                     content="FishGram - APP. ¡Dale caña al carrete!"
