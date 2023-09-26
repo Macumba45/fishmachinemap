@@ -52,6 +52,14 @@ const Experiencias: FC = () => {
         window.open('mailto:gonzalolovo@gmailcom')
     }
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - Experiencias'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
     if (loading) {
         return (
             <>

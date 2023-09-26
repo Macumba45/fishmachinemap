@@ -11,6 +11,15 @@ export const MainContainer = styled.div`
     margin-bottom: 5rem;
 `
 
+export const ContainerMenu = styled.div`
+    display: flex;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+`
+
 export const MainContainerNoUser = styled.div`
     display: flex;
     justify-content: center;

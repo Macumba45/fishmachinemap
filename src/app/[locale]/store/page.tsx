@@ -86,6 +86,14 @@ const Store: FC = () => {
         setFilteredData(store)
     }, [store])
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - Store'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
     if (loading) {
         return (
             <>

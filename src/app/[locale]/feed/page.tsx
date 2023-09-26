@@ -72,6 +72,16 @@ const Feed: FC = () => {
         }
     }, [loading])
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - Feed'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
+    // Renderiza el componen
+
     if (loading) {
         return (
             <>

@@ -57,6 +57,14 @@ const BlaBlaFish: FC = () => {
         getUserInfo()
     }, [])
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - BlaBlaFish'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
     if (loading) {
         return (
             <>

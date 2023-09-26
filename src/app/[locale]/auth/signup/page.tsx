@@ -107,6 +107,14 @@ const SignUp: FC = () => {
         }
     }, [])
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - Registro'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -119,7 +127,7 @@ const SignUp: FC = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#4675A6' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -141,6 +149,16 @@ const SignUp: FC = () => {
                                     id="firstName"
                                     label={t('nameRegister')}
                                     autoFocus
+                                    inputProps={{
+                                        select: {
+                                            '&:before': {
+                                                borderColor: 'black',
+                                            },
+                                            '&:after': {
+                                                borderColor: 'black',
+                                            },
+                                        },
+                                    }}
                                 />
                             </Grid>
 
@@ -204,6 +222,13 @@ const SignUp: FC = () => {
                                 variant="contained"
                                 fullWidth
                                 loading={loading}
+                                sx={{
+                                    backgroundColor: '#4675A6',
+                                    color: 'white',
+                                    ':hover': {
+                                        backgroundColor: '#42ACE8',
+                                    },
+                                }}
                             >
                                 {t('createAccount')}
                             </LoadingButton>
@@ -213,6 +238,7 @@ const SignUp: FC = () => {
                                 <Link
                                     href={`/${locale}/auth/login`}
                                     variant="body2"
+                                    style={{ color: '#4675A6' }}
                                 >
                                     {t('alreadyAccount')}
                                 </Link>

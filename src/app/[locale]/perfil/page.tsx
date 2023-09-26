@@ -39,6 +39,7 @@ import {
 } from '@mui/material'
 import {
     Container,
+    ContainerMenu,
     LabelIcons,
     MainContainer,
     UserContainerData,
@@ -272,6 +273,14 @@ const Profile: FC = () => {
         })
     }
 
+    // Define el título dinámico
+    const dynamicTitle = `FishGram - ${user?.name}`
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [user?.name])
+
     // Renderiza el componente.
     if (!user) {
         return (
@@ -284,9 +293,9 @@ const Profile: FC = () => {
 
     return (
         <>
-            <Container>
+            <ContainerMenu>
                 <AccountMenu userPicture={user?.picture} />
-            </Container>
+            </ContainerMenu>
             <MainContainer>
                 <UserContainerData>
                     {user?.picture ? (

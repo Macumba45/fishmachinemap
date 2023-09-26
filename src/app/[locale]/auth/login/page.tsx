@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { setAuthenticatedToken } from '../../../../lib/storage/storage'
 import { useRouter } from 'next/navigation'
-import { toast } from 'react-toastify'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { useLocale, useTranslations } from 'next-intl'
@@ -24,13 +23,6 @@ const Login: FC = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-
-    const notifySucces = () => {
-        toast.success('Inicio de sesión correctamente', {
-            position: toast.POSITION.TOP_LEFT,
-            toastId: 'success1',
-        })
-    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -48,7 +40,6 @@ const Login: FC = () => {
                 if (response.ok) {
                     const data = await response.json()
                     setAuthenticatedToken(data.token) // Almacena el token JWT en el estado
-                    notifySucces()
                     router.push(`/${locale}/maps`)
                     // Realiza alguna acción en respuesta al éxito
                 } else {
@@ -79,6 +70,14 @@ const Login: FC = () => {
         }
     }, [])
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - Inicio de sesión'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
     return (
         <>
             <CssBaseline />
@@ -91,7 +90,7 @@ const Login: FC = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, backgroundColor: '#4675A6' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -131,6 +130,13 @@ const Login: FC = () => {
                                 variant="contained"
                                 fullWidth
                                 loading={loading}
+                                sx={{
+                                    backgroundColor: '#4675A6',
+                                    color: 'white',
+                                    ':hover': {
+                                        backgroundColor: '#42ACE8',
+                                    },
+                                }}
                             >
                                 {t('login')}
                             </LoadingButton>
@@ -145,6 +151,7 @@ const Login: FC = () => {
                                 <Link
                                     href={`/${locale}/auth/signup`}
                                     variant="body2"
+                                    style={{ color: '#4675A6' }}
                                 >
                                     {t('noAccount')}
                                 </Link>

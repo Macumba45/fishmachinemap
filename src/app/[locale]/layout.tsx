@@ -38,6 +38,33 @@ export default async function LocaleLayout({
             `,
                     }}
                 ></script>
+                <title>FishGram - APP</title>
+                <meta name="theme-color" content="#000000" />
+                <meta
+                    name="description"
+                    content="FishGram - APP. ¡Dale caña al carrete!"
+                />
+                <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+                <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+                <meta
+                    property="og:title"
+                    content="FishGram - APP. ¡Dale caña al carrete!"
+                />
+                <meta
+                    property="og:description"
+                    content="FishGram - APP. ¡Comparte tus spots favoritos, capturas y mucho más!"
+                />
+                <meta
+                    property="og:image"
+                    content="https://i.postimg.cc/W4tdJ1S8/LOGOTIPO-HORIZONTAL-COLOR.png"
+                />
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:url"
+                    content="https://fishgramapp.vercel.app/"
+                />
+                <meta property="og:image:width" content="50" />
+                <meta property="og:image:height" content="50" />
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>

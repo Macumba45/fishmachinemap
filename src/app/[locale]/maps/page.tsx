@@ -608,6 +608,14 @@ const GoogleMapComp: FC = () => {
         }
     }
 
+    // Define el título dinámico
+    const dynamicTitle = 'FishGram - Maps'
+
+    // Actualiza el título cuando el componente se monta
+    useEffect(() => {
+        document.title = dynamicTitle
+    }, [])
+
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
         return (
