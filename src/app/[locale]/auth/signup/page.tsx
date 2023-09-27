@@ -17,6 +17,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import MuiAlert from '@mui/material/Alert'
+import nodemailer from 'nodemailer'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
@@ -270,7 +271,7 @@ const SignUp: FC = () => {
                         severity="success"
                         sx={{ width: '100%' }}
                     >
-                        ¡Viaje creado exitosamente!
+                        ¡Te has registrado!
                     </MuiAlert>
                 </Snackbar>
             </Container>
