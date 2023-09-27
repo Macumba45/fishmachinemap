@@ -7,7 +7,10 @@ import { FC, memo } from 'react'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import PaidIcon from '@mui/icons-material/Paid'
 import WatchLaterIcon from '@mui/icons-material/WatchLater'
-import { IconButton } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
+import { InfoBlablaContainer, WhatsappContainer } from './styles'
+import Link from 'next/link'
+import { useLocale } from 'next-intl'
 
 interface Props {
     id?: string
@@ -20,6 +23,8 @@ interface Props {
     phone: string
     user?: string
     iconCreator?: React.ReactNode
+    userId?: string
+    locale?: string
 }
 
 const CardBlaBlaFish: FC<Props> = ({
@@ -33,6 +38,8 @@ const CardBlaBlaFish: FC<Props> = ({
     date,
     user,
     iconCreator,
+    userId,
+    locale,
 }) => {
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono
@@ -52,18 +59,18 @@ const CardBlaBlaFish: FC<Props> = ({
             sx={{
                 maxWidth: 550,
                 minWidth: 320,
-                maxHeight: 900,
+                maxHeight: 600,
                 borderRadius: 0,
                 marginBottom: '2rem',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
             }}
         >
-            <CardMedia
+            {/* <CardMedia
                 component="img"
                 alt="green iguana"
-                height="180"
+                height="110"
                 image="https://www.a-alvarez.com/img/ybc_blog/post/surfcasting-lanzar-mas.jpg"
-            />
+            /> */}
             <CardContent>
                 <Typography
                     sx={{ display: 'flex', alignItems: 'center' }}
@@ -82,26 +89,28 @@ const CardBlaBlaFish: FC<Props> = ({
                     component="div"
                     sx={{
                         fontSize: '1rem',
-                        marginBottom: '0.5rem',
+                        marginBottom: '1rem',
                         fontWeight: 800,
                     }}
                 >
                     Fecha: {date}
                 </Typography>
-                <Typography
-                    gutterBottom
-                    component="div"
-                    sx={{
-                        fontSize: '0.8rem',
-                        marginBottom: '0.5rem',
-                        fontWeight: 500,
-                        alignItems: 'center',
-                        display: 'flex',
-                    }}
-                >
-                    {iconCreator}
-                    {user}
-                </Typography>
+                <Link href={`feed/${userId}`}>
+                    <Typography
+                        gutterBottom
+                        component="div"
+                        sx={{
+                            fontSize: '0.8rem',
+                            marginBottom: '0.5rem',
+                            fontWeight: 500,
+                            alignItems: 'center',
+                            display: 'flex',
+                        }}
+                    >
+                        {iconCreator}
+                        {user}
+                    </Typography>
+                </Link>
                 <Typography
                     gutterBottom
                     component="div"
@@ -136,25 +145,21 @@ const CardBlaBlaFish: FC<Props> = ({
                 </Typography>
                 <Typography
                     marginTop={3}
-                    height={100}
+                    height={80}
                     overflow="scroll"
+                    textOverflow="hidden"
                     variant="body2"
                     color="text.secondary"
                 >
                     {description}
                 </Typography>
             </CardContent>
-            <IconButton
-                onClick={handleWhatsAppClick}
-                sx={{
-                    backgroundColor: '#25D366',
-                    marginLeft: '1rem',
-                    borderRadius: '30px',
-                    marginBottom: '2rem',
-                }}
-            >
-                <WhatsAppIcon sx={{ color: 'white' }} />
-            </IconButton>
+            <WhatsappContainer>
+                <IconButton onClick={handleWhatsAppClick}>
+                    <WhatsAppIcon sx={{ color: 'white' }} />
+                </IconButton>
+                <Typography sx={{ color: 'white' }}>Contactar</Typography>
+            </WhatsappContainer>
         </Card>
     )
 }

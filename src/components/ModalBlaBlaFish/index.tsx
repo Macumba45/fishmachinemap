@@ -192,7 +192,11 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                         }}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions
+                    sx={{
+                        justifyContent: 'center',
+                    }}
+                >
                     <LoadingButton
                         loading={loading}
                         onClick={handleCreateTrip}

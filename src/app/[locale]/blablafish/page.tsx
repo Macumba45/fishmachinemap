@@ -164,6 +164,7 @@ const BlaBlaFish: FC = () => {
                                 price={item.price}
                                 phone={item.phone}
                                 user={item.user?.name}
+                                userId={item.user?.id}
                                 iconCreator={
                                     <Avatar
                                         src={item.user?.picture}
