@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 import { prisma } from '../../../src/lib/db'
-import { sendEmailNewUser } from '../../nodeMailer/nodemailer'
+import { sendEmailNewUser } from '../nodeMailer/nodemailer'
 const bcrypt = require('bcrypt')
 
 const handleSubmitSignUp = async (
