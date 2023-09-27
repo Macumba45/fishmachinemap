@@ -70,24 +70,22 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
 
     return (
         <div style={{ width: '100%', borderRadius: '100px' }}>
-            <Slider {...settings}>
-                {pictures?.map((picture, index) => {
-                    return (
-                        <div key={index} style={{ borderRadius: '10px' }}>
-                            <img
-                                style={{
-                                    width: '100%',
-                                    height: '250px',
-                                    borderRadius: '10px',
-                                    marginBottom: '1rem',
-                                }}
-                                src={picture.src}
-                                alt=""
-                            />
-                        </div>
-                    )
-                })}
-            </Slider>
+            {pictures?.map((picture, index) => {
+                return (
+                    <div key={index} style={{ borderRadius: '10px' }}>
+                        <img
+                            style={{
+                                width: '100%',
+                                height: '250px',
+                                borderRadius: '10px',
+                                marginBottom: '1rem',
+                            }}
+                            src={picture.src}
+                            alt=""
+                        />
+                    </div>
+                )
+            })}
         </div>
     )
 }

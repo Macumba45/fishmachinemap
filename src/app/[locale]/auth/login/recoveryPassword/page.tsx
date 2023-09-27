@@ -15,7 +15,6 @@ function ResetPasswordForm() {
     const query = new URLSearchParams(window.location.search)
 
     const handleSubmit = async (e: any) => {
-
         try {
             e.preventDefault()
             if (password !== confirmPassword) {
@@ -31,7 +30,7 @@ function ResetPasswordForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
+            })
             if (response.ok) {
                 console.log('Contraseña restablecida')
             } else {
@@ -39,9 +38,7 @@ function ResetPasswordForm() {
             }
         } catch (error: any) {
             console.log('Error al restablecer la contraseña', error.message)
-
         }
-
     }
 
     return (

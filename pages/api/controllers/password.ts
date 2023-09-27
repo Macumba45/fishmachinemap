@@ -39,18 +39,18 @@ export const updatePassword = async (password: string, token: string) => {
     const hashedPassword = await bcrypt.hash(password, salt)
     const userRecovery = await prisma.userRecovery.findFirst({
         where: {
-            token
-        }
+            token,
+        },
     })
     const user = await prisma.user.findFirst({
         where: {
             email: userRecovery?.email as string,
-        }
+        },
     })
     await prisma.user.update({
         where: {
             email: user?.email as string,
-            id: user?.id
+            id: user?.id,
         },
         data: {
             password: hashedPassword,
@@ -63,7 +63,7 @@ export const updatePassword = async (password: string, token: string) => {
 export const deleteUserRecovery = async (id: string) => {
     const user = await prisma.userRecovery.delete({
         where: {
-            id
+            id,
         },
     })
     return user

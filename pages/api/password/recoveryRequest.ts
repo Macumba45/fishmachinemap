@@ -16,11 +16,11 @@ export default async function requestPassword(
             console.log(
                 'Este es la URL:',
                 'http://localhost:3000/es/auth/login/recoveryPassword?token=' +
-                token
+                    token
             )
             res.status(200).json(
                 'http://localhost:3000/es/auth/login/recoveryPassword?token=' +
-                token
+                    token
             )
         } catch (error: any) {
             res.status(500).json({ message: error.message })

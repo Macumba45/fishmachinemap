@@ -21,9 +21,8 @@
         "@mui/icons-material": "^5.11.16",
         "@mui/lab": "^5.0.0-alpha.136",
         "@mui/material": "^5.13.6",
-        "@prisma/client": "^5.3.1",
+        "@prisma/client": "^5.2.0",
         "@react-google-maps/api": "^2.18.1",
-        "@types/crypto-js": "^4.1.2",
         "@types/googlemaps": "^3.43.3",
         "@types/jsonwebtoken": "^9.0.2",
         "@types/node": "20.5.7",
@@ -37,7 +36,6 @@
         "bcrypt": "^5.1.0",
         "cloudinary": "^1.37.3",
         "clsx": "^2.0.0",
-        "crypto-js": "^4.1.1",
         "dotenv": "^16.3.1",
         "eslint": "8.48.0",
         "eslint-config-next": "13.4.12",
@@ -77,7 +75,7 @@
         "eslint-plugin-next": "^0.0.0",
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "prisma": "^5.3.1"
+        "prisma": "^5.2.0"
     },
     "resolutions": {
         "styled-components": "^5"
