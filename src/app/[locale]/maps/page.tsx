@@ -1221,10 +1221,21 @@ const GoogleMapComp: FC = () => {
                         icon={<RoomIcon sx={{ mr: 1, color: '#4675A6' }} />}
                     />
                     <ButtonComp
+                        icon={
+                            <CloseIcon
+                                sx={{
+                                    color: 'white',
+                                    backgroundColor: 'red',
+                                    p: 1.5,
+                                    borderRadius: '50%',
+                                }}
+                            />
+                        }
                         key="cancelarButton"
-                        title={t('cancelMarker')}
+                        // title={t('cancelMarker')}
                         style={{
                             position: 'fixed',
+                            borderColor: 'transparent',
                             ...ButtonStyleCancelarLugar,
                         }}
                         variant="outlined"

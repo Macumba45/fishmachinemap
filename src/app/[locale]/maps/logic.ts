@@ -352,7 +352,7 @@ export const useLogicMaps = () => {
 
     const openAddMarkerMode = useCallback(() => {
         if (mapRef.current) {
-            setIsButtonDisabled(true) // Deshabilita el botón
+            setIsButtonDisabled(true)
             setFloatMarker(true)
         }
     }, [])

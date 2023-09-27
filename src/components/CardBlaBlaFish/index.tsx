@@ -155,10 +155,10 @@ const CardBlaBlaFish: FC<Props> = ({
                 </Typography>
             </CardContent>
             <WhatsappContainer>
-                <IconButton onClick={handleWhatsAppClick}>
-                    <WhatsAppIcon sx={{ color: 'white' }} />
-                </IconButton>
                 <Typography sx={{ color: 'white' }}>Contactar</Typography>
+                <IconButton onClick={handleWhatsAppClick}>
+                    <WhatsAppIcon sx={{ color: '#25D366' }} />
+                </IconButton>
             </WhatsappContainer>
         </Card>
     )

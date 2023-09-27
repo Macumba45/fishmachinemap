@@ -97,9 +97,6 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
             <Dialog open={open} onClose={onClose}>
                 <DialogTitle>Crear BlaBlaFish</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Rellena los siguientes campos para crear un nuevo viaje:
-                    </DialogContentText>
                     <TextField
                         autoFocus
                         label="Fecha"
@@ -195,6 +192,7 @@ const CreateTripModal: FC<Props> = ({ open, onClose }) => {
                 <DialogActions
                     sx={{
                         justifyContent: 'center',
+                        mb: 2,
                     }}
                 >
                     <LoadingButton

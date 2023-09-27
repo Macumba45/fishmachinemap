@@ -285,7 +285,7 @@ const StoreModal: FC<Props> = ({ open, onClose }) => {
                                         color: 'white',
                                     }}
                                 >
-                                    Vender Producto
+                                    Vender
                                 </LoadingButton>
                                 <Button
                                     hidden={loading}
