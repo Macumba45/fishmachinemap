@@ -142,11 +142,6 @@ const Login: FC = () => {
                             </LoadingButton>
                         </Stack>
                         <Grid container>
-                            {/* <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Olvidaste la contraseña?
-                                </Link>
-                            </Grid> */}
                             <Grid item>
                                 <Link
                                     href={`/${locale}/auth/signup`}
@@ -156,6 +151,15 @@ const Login: FC = () => {
                                     {t('noAccount')}
                                 </Link>
                             </Grid>
+                        </Grid>
+                        <Grid marginTop={2} item xs>
+                            <Link
+                                style={{ color: '#4675A6' }}
+                                href={`/${locale}/auth/login/requestPassword`}
+                                variant="body2"
+                            >
+                                ¿Olvidaste la contraseña?
+                            </Link>
                         </Grid>
                     </Box>
                 </Box>
