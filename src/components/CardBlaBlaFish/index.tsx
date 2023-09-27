@@ -95,7 +95,7 @@ const CardBlaBlaFish: FC<Props> = ({
                 >
                     Fecha: {date}
                 </Typography>
-                <Link href={`feed/${userId}`}>
+                <Link style={{ color: '#4675A6' }} href={`feed/${userId}`}>
                     <Typography
                         gutterBottom
                         component="div"
