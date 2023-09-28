@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material'
-import { FC, useState, memo, useEffect } from 'react'
+import { FC, useState, memo, useEffect, useCallback } from 'react'
 import { ButtonContainer } from './styles'
 import FilterComponent from '../FilterComponet'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
@@ -23,10 +23,13 @@ const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
         setIsOpen(false)
     }
 
-    const handleFilterChange = (newFilter: MarkerType) => {
-        setSelectedFilter(newFilter) // Actualiza el estado con el nuevo filtro seleccionado
-        onChange(newFilter) // Llama a la función `onChange` pasando el nuevo filtro
-    }
+    const handleFilterChange = useCallback(
+        (newFilter: MarkerType) => {
+            setSelectedFilter(newFilter)
+            onChange(newFilter)
+        },
+        [onChange]
+    )
 
     // Aplicar el filtro inicialmente cuando se carga el componente
     useEffect(() => {

@@ -52,7 +52,7 @@ const CardExperiences: FC<Props> = ({
     }
 
     return (
-        <Card sx={{ minWidth: 300, margin: 2, maxWidth: 450 }}>
+        <Card sx={{ minWidth: 300, margin: 2, maxWidth: 450, width: '100%' }}>
             <CardMedia
                 component="img"
                 height="140"

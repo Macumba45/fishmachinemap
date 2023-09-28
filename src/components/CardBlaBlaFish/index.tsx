@@ -57,9 +57,10 @@ const CardBlaBlaFish: FC<Props> = ({
                 maxWidth: 550,
                 minWidth: 320,
                 maxHeight: 600,
+                width: '100%',
                 borderRadius: 0,
                 marginBottom: '2rem',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
             }}
         >
             {/* <CardMedia

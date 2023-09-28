@@ -39,7 +39,7 @@ const BlaBlaFish: FC = () => {
         formatDate,
         capitalizeString,
         goToLogin,
-        dynamicTitle
+        dynamicTitle,
     } = useLogicBlaBla()
 
     useEffect(() => {
@@ -58,11 +58,10 @@ const BlaBlaFish: FC = () => {
         getUserInfo()
     }, [getUserInfo, fetchBlaBlaFish])
 
-
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
         document.title = dynamicTitle
-    }, [])
+    }, [dynamicTitle])
 
     if (loading) {
         return (

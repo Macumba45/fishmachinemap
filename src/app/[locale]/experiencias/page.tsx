@@ -45,7 +45,7 @@ const Experiencias: FC = () => {
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
         document.title = dynamicTitle
-    }, [])
+    }, [dynamicTitle])
 
     if (loading) {
         return (

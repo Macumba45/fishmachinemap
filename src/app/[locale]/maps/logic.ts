@@ -10,6 +10,7 @@ import { useMediaQuery } from 'react-responsive'
 import { MarkerType } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 export const useLogicMaps = () => {
     // Define los estados del componente.
@@ -76,6 +77,8 @@ export const useLogicMaps = () => {
     const [openSmallModal, setOpenSmallModal] = useState(false)
     const [selectedFilters] = useState<MarkerType>(MarkerType.ALL)
     const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
+    const router = useRouter()
+    const dynamicTitle = 'FishGram - Maps'
 
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
@@ -453,6 +456,38 @@ export const useLogicMaps = () => {
         return icon
     }
 
+    // Función para filtrar los marcadores según el tipo de filtro.
+    const filterMarkers = (filter: MarkerType) => {
+        let filteredMarkerInstances: UserMarker[] = []
+
+        if (filter === MarkerType.ALL) {
+            filteredMarkerInstances = [...userMarkers]
+        } else if (filter === MarkerType.LIKES) {
+            filteredMarkerInstances = [
+                ...(userMarkers &&
+                    userMarkers.filter((marker: any) =>
+                        marker.likes.some((like: any) => like.userId === userId)
+                    )),
+            ]
+        } else {
+            filteredMarkerInstances = userMarkers.filter(
+                (marker: any) => marker.markerType === filter
+            )
+        }
+        setFilteredMarkers(filteredMarkerInstances)
+        selectedFiltersRef.current = filter
+        // markersSetSmallModal([...filteredMarkerInstances])
+    }
+
+    // Maneja el cambio de filtro.
+    const handleFilterChange = (newFilter: MarkerType) => {
+        filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
+    }
+
+    const goToLogin = () => {
+        router.push(`/${locale}/auth/login`)
+    }
+
     const handleCloseModal = useCallback(() => {
         setAddingMarker(false)
         setIsButtonDisabled(false)
@@ -575,5 +610,8 @@ export const useLogicMaps = () => {
         disableMiniModal,
         enableMiniModal,
         selectedFiltersRef,
+        handleFilterChange,
+        goToLogin,
+        dynamicTitle,
     }
 }

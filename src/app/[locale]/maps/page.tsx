@@ -4,7 +4,6 @@ import React, { FC, useEffect, memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
-import { useRouter } from 'next/navigation'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import { introJs } from './intro'
 import Link from 'next/link'
@@ -106,7 +105,6 @@ const GoogleMapComp: FC = () => {
         isSmallScreen,
         currentUser,
         filteredMarkers,
-        setFilteredMarkers,
         openModalComments,
         handleOpenModalComments,
         handleCloseModalComments,
@@ -141,6 +139,9 @@ const GoogleMapComp: FC = () => {
         disableMiniModal,
         enableMiniModal,
         selectedFiltersRef,
+        handleFilterChange,
+        goToLogin,
+        dynamicTitle,
     } = useLogicMaps()
 
     useEffect(() => {
@@ -156,7 +157,6 @@ const GoogleMapComp: FC = () => {
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
     const t = useTranslations('maps')
-    const router = useRouter()
 
     async function initMap() {
         if (typeof window !== 'undefined' && confirmedMarkers) {
@@ -507,38 +507,6 @@ const GoogleMapComp: FC = () => {
         })
     }
 
-    // Función para filtrar los marcadores según el tipo de filtro.
-    const filterMarkers = (filter: MarkerType) => {
-        let filteredMarkerInstances: UserMarker[] = []
-
-        if (filter === MarkerType.ALL) {
-            filteredMarkerInstances = [...userMarkers]
-        } else if (filter === MarkerType.LIKES) {
-            filteredMarkerInstances = [
-                ...(userMarkers &&
-                    userMarkers.filter((marker: any) =>
-                        marker.likes.some((like: any) => like.userId === userId)
-                    )),
-            ]
-        } else {
-            filteredMarkerInstances = userMarkers.filter(
-                (marker: any) => marker.markerType === filter
-            )
-        }
-        setFilteredMarkers(filteredMarkerInstances)
-        selectedFiltersRef.current = filter
-        // markersSetSmallModal([...filteredMarkerInstances])
-    }
-
-    // Maneja el cambio de filtro.
-    const handleFilterChange = (newFilter: MarkerType) => {
-        filterMarkers(newFilter) // Aplica el filtro y actualiza la lista de marcadores filtrados
-    }
-
-    const goToLogin = () => {
-        router.push(`/${locale}/auth/login`)
-    }
-
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -605,12 +573,9 @@ const GoogleMapComp: FC = () => {
         if (window.innerWidth < 600) {
             bottomPosition = '150px'
         } else {
-            bottomPosition = '160px'
+            bottomPosition = '150px'
         }
     }
-
-    // Define el título dinámico
-    const dynamicTitle = 'FishGram - Maps'
 
     // Actualiza el título cuando el componente se monta
     useEffect(() => {

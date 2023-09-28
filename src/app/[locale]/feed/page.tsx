@@ -38,7 +38,7 @@ const Feed: FC = () => {
         } else {
             setIsLogged(true)
         }
-    }, [])
+    }, [setIsLogged])
 
     useEffect(() => {
         getMarkersUser()
@@ -57,7 +57,7 @@ const Feed: FC = () => {
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
         document.title = dynamicTitle
-    }, [])
+    }, [dynamicTitle])
 
     // Renderiza el componen
 

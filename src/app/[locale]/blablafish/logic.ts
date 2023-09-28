@@ -28,7 +28,6 @@ export const useLogicBlaBla = () => {
     })
     const dynamicTitle = 'FishGram - BlaBlaFish'
 
-
     const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
             const token = getAuthenticatedToken()
@@ -142,6 +141,6 @@ export const useLogicBlaBla = () => {
         formatDate,
         capitalizeString,
         goToLogin,
-        dynamicTitle
+        dynamicTitle,
     }
 }
