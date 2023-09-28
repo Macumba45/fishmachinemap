@@ -5,9 +5,9 @@ type Props = {
 }
 
 export const metadata = {
-    title: 'FishGram - APP',
+    title: 'FishGram - Tus Spots | Tus Capturas. Tu pasión. ¡Buena pesca!',
     description:
-        'FishGram - ¡Comparte tus spots favoritos, capturas y mucho más!',
+        'FishGram te permite encontrar los mejores spots de pesca, compartir tus capturas y conectarte con otros pescadores apasionados. ¡Descubre una comunidad de pesca en línea!',
     keywords:
         'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 }
