@@ -7,14 +7,14 @@ type Props = {
 export const metadata = {
     title: 'FishGram - Tus Spots | Tus Capturas. Tu pasión. ¡Buena pesca!',
     description:
-        'FishGram te permite encontrar los mejores spots de pesca, compartir tus capturas y conectarte con otros pescadores apasionados. ¡Descubre una comunidad de pesca en línea!',
+        'FishGram te permite encontrar los mejores spots de pesca, compartir tus capturas y conectarte con otros pescadores apasionados. ¡Buena pesca!',
     keywords:
         'pesca, pescadores, pesca deportiva, pesca submarina, tienda de pesca, articulos de pesca',
 
     openGraph: {
         title: 'FishGram - Tus Spots | Tus Capturas. Tu pasión. ¡Buena pesca!',
         description:
-            'FishGram te permite encontrar los mejores spots de pesca, compartir tus capturas y conectarte con otros pescadores apasionados. ¡Descubre una comunidad de pesca en línea!',
+            'FishGram te permite encontrar los mejores spots de pesca, compartir tus capturas y conectarte con otros pescadores apasionados. ¡Buena pesca!',
         url: 'https://fishgramapp.vercel.app/',
         siteName: 'FisgGram - APP',
         images: [
