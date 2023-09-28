@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import { useLocale } from 'next-intl'
 import { Modal, Box, Typography, IconButton } from '@mui/material'
 import ButtonComp from '../Button'
 import NavigationIcon from '@mui/icons-material/Navigation'
@@ -15,7 +16,6 @@ import {
     CreatorLink,
     LikesLabel,
 } from './style'
-import { useLocale } from 'next-intl'
 
 interface Props {
     disabled?: boolean
@@ -48,20 +48,16 @@ interface Props {
 }
 
 const ModalUserMarkers: FC<Props> = ({
-    disabled,
     isOpen,
     onClose,
     direction,
     description,
-    markerType,
     pictures,
-    creator,
     onClick,
     onClickLike,
     link,
     icon,
     icon2,
-    icon3,
     isLiked,
     likes,
     handleShareOnWhatsApp,

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import CheckIcon from '@mui/icons-material/Check'
 import { Comments } from '@/app/[locale]/maps/type'
-import { feedUseLogic } from '@/app/[locale]/feed/logic'
+import { useFeedLogic } from '@/app/[locale]/feed/logic'
 import { Container } from './styles'
 import { Delete } from '@mui/icons-material'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
@@ -32,7 +32,6 @@ const CommentSection: FC<CommentSectionProps> = ({
     setNewComment,
     onCommentSubmit,
     onDeleteComment,
-    disabled,
 }) => {
     const token = getAuthenticatedToken()
     const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
@@ -52,7 +51,7 @@ const CommentSection: FC<CommentSectionProps> = ({
         } else {
             setIsLogged(true)
         }
-    }, [])
+    }, [setIsLogged, token])
 
     return (
         <div>
@@ -167,7 +166,7 @@ const CommentModal: FC<CommentModalProps> = ({
     updateComments,
 }) => {
     const { addComment, getAllComments, allComents, deleteCommentUser } =
-        feedUseLogic()
+        useFeedLogic()
     const [comments, setComments] = useState<Comments[]>([])
     const [newComment, setNewComment] = useState<string>('')
 
@@ -186,7 +185,7 @@ const CommentModal: FC<CommentModalProps> = ({
                 setComments(updatedComments)
             })
         }
-    }, [open])
+    }, [open, getAllComments, id])
 
     return (
         <Modal sx={{ outline: 'none' }} open={open} onClose={onClose}>

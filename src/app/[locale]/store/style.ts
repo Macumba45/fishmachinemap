@@ -4,7 +4,7 @@ export const MainContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     height: 100%;
-    margin-top: 9.5rem;
+    margin-top: 9rem;
     margin-bottom: 5rem;
     justify-content: center;
 `
@@ -50,6 +50,7 @@ export const ContainerMenu = styled.div`
     z-index: 2;
     height: 60px;
 `
+
 export const TextNav = styled.img`
     width: 130px;
 `

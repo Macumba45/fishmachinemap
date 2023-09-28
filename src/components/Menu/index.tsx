@@ -19,10 +19,9 @@ import { Avatar, FormControl, InputLabel, Modal, Select } from '@mui/material'
 
 interface AccountMenuProps {
     userPicture?: string | null
-    className?: string
 }
 
-const AccountMenu: FC<AccountMenuProps> = ({ userPicture, className }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ userPicture }) => {
     const t = useTranslations('menu')
     const locale = useLocale()
     const router = useRouter()

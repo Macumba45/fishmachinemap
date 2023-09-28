@@ -12,6 +12,71 @@ import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useLocale } from 'next-intl'
 
 export const useLogicMaps = () => {
+    // Define los estados del componente.
+    const [positionMarkerUser, setpositionMarkerUser] = useState<
+    | google.maps.LatLngLiteral
+    | {
+        lat: number | undefined
+        lng: number | undefined
+    }
+    >()
+    const [loading, setLoading] = useState<boolean>(true)
+    const [center] = useState<google.maps.LatLngLiteral>({
+        lat: 40.463667 || undefined,
+        lng: -3.74922 || undefined,
+    })
+    // Define los estados del componente.
+    const mapRef = useRef<google.maps.Map>()
+    const [currentUser, setCurrentUser] = useState<User | null>(null)
+    const [addingMarker, setAddingMarker] = useState(false)
+    const [currentLocationMarker, setCurrentLocationMarker] =
+        useState<google.maps.Marker | null>(null)
+    const [style, setStyle] = useState<Array<Style>>([])
+    const [styledMap, setStyledMap] = useState(true)
+    const [floatMarker, setFloatMarker] = useState(false)
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+    const [direccion, setDireccion] = useState('')
+    const [tipoLugar, setTipoLugar] = useState('')
+    const [descripcion, setDescripcion] = useState('')
+    const [fotos, setFotos] = useState<string>('')
+    const [confirmedMarkers, setConfirmedMarkers] = useState(false)
+    const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
+    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
+        null
+    )
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false)
+
+    const [dataMarkerUser, setDataMarkerUser] = useState<UserMarker>({
+        id: '',
+        location: positionMarkerUser as google.maps.LatLngLiteral,
+        direction: direccion,
+        markerType: tipoLugar,
+        description: descripcion,
+        picture: fotos,
+        user: {
+            id: '',
+            name: '',
+            email: '',
+            picture: '',
+        },
+    })
+    const [modalUserMarker, setModalUserMarker] = useState(false)
+    const [loadingLocation, setLoadingLocation] = useState(false)
+    const isSmallScreen = useMediaQuery({ maxWidth: 360 })
+    const [filteredMarkers, setFilteredMarkers] =
+        useState<UserMarker[]>(userMarkers)
+
+    const [openDetailModal, setOpenDetailModal] = useState(false)
+    const [activateMiniModal, setActivateMiniModal] = useState(true)
+    const token = getAuthenticatedToken()
+    const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
+    const [isLogged, setIsLogged] = useState(false)
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [openSmallModal, setOpenSmallModal] = useState(false)
+    const [selectedFilters] = useState<MarkerType>(MarkerType.ALL)
+    const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
+
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
             const token = getAuthenticatedToken()
@@ -104,7 +169,7 @@ export const useLogicMaps = () => {
         } catch (error) {
             console.error('Error al enviar el objeto:', error)
         }
-    }, [])
+    }, [currentUser?.id, getUserInfo])
 
     const [likedMarkers, setLikedMarkers] = useState<Record<string, boolean>>(
         {}
@@ -141,71 +206,6 @@ export const useLogicMaps = () => {
         },
         [setLikedMarkers, getAllMarkersUser]
     )
-
-    // Define los estados del componente.
-    const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
-    >()
-    const [loading, setLoading] = useState<boolean>(true)
-    const [center] = useState<google.maps.LatLngLiteral>({
-        lat: 40.463667 || undefined,
-        lng: -3.74922 || undefined,
-    })
-    // Define los estados del componente.
-    const mapRef = useRef<google.maps.Map>()
-    const [addingMarker, setAddingMarker] = useState(false)
-    const [currentLocationMarker, setCurrentLocationMarker] =
-        useState<google.maps.Marker | null>(null)
-    const [style, setStyle] = useState<Array<Style>>([])
-    const [styledMap, setStyledMap] = useState(true)
-    const [floatMarker, setFloatMarker] = useState(false)
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
-    const [direccion, setDireccion] = useState('')
-    const [tipoLugar, setTipoLugar] = useState('')
-    const [descripcion, setDescripcion] = useState('')
-    const [fotos, setFotos] = useState<string>('')
-    const [confirmedMarkers, setConfirmedMarkers] = useState(false)
-    const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
-    const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
-        null
-    )
-    const [modalIsOpen, setModalIsOpen] = useState(false)
-    const [isButtonDisabledPlaces, setIsButtonDisabledPlaces] = useState(false)
-
-    const [dataMarkerUser, setDataMarkerUser] = useState<UserMarker>({
-        id: '',
-        location: positionMarkerUser as google.maps.LatLngLiteral,
-        direction: direccion,
-        markerType: tipoLugar,
-        description: descripcion,
-        picture: fotos,
-        user: {
-            id: '',
-            name: '',
-            email: '',
-            picture: '',
-        },
-    })
-    const [modalUserMarker, setModalUserMarker] = useState(false)
-    const [loadingLocation, setLoadingLocation] = useState(false)
-    const isSmallScreen = useMediaQuery({ maxWidth: 360 })
-    const [currentUser, setCurrentUser] = useState<User | null>(null)
-    const [filteredMarkers, setFilteredMarkers] =
-        useState<UserMarker[]>(userMarkers)
-
-    const [openDetailModal, setOpenDetailModal] = useState(false)
-    const [activateMiniModal, setActivateMiniModal] = useState(true)
-    const token = getAuthenticatedToken()
-    const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : ''
-    const [isLogged, setIsLogged] = useState(false)
-    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    const [openSmallModal, setOpenSmallModal] = useState(false)
-    const [selectedFilters] = useState<MarkerType>(MarkerType.ALL)
-    const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
 
     const handleMarkerClickMiniModal = async (
         marker: any,
@@ -401,7 +401,7 @@ export const useLogicMaps = () => {
             setAddingMarker(false)
             setIsButtonDisabled(false)
         },
-        []
+        [addUserMarker]
     )
 
     const handlerConfirmation = () => {

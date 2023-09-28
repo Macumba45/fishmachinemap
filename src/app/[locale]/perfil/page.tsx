@@ -24,7 +24,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { BlaBlaFish } from '../blablafish/type'
-import { Store } from '../store/type'
+import { StoreData } from '../store/type'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
@@ -49,15 +49,6 @@ import {
 import CircularIndeterminate from '@/components/Loader'
 
 const Profile: FC = () => {
-    const router = useRouter()
-    useEffect(() => {
-        const token = getAuthenticatedToken()
-
-        if (!token && !user) {
-            router.push('/auth/login') // Redirige al usuario a la página de inicio de sesión si no hay token
-        }
-    }, [])
-
     const {
         user,
         userMarkers,
@@ -84,6 +75,15 @@ const Profile: FC = () => {
         picture,
         setPicture,
     } = useLogicUser()
+
+    const router = useRouter()
+    useEffect(() => {
+        const token = getAuthenticatedToken()
+
+        if (!token && !user) {
+            router.push('/auth/login') // Redirige al usuario a la página de inicio de sesión si no hay token
+        }
+    }, [router, user])
 
     const [openModal, setOpenModal] = useState(false)
     const [selectedImage, setSelectedImage] = useState('')
@@ -117,23 +117,26 @@ const Profile: FC = () => {
         setOpenModalComments(false)
     }, [])
 
-    const handleVisibilityToggle = useCallback(async (markerId: string) => {
-        try {
-            // Lógica para actualizar la visibilidad del marcador en el servidor
-            await updateMarkerVisible(markerId)
+    const handleVisibilityToggle = useCallback(
+        async (markerId: string) => {
+            try {
+                // Lógica para actualizar la visibilidad del marcador en el servidor
+                await updateMarkerVisible(markerId)
 
-            // Actualiza el estado local para reflejar la nueva visibilidad
-            setMarkerVisibility(prevState => ({
-                ...prevState,
-                [markerId]: !prevState[markerId],
-            }))
-        } catch (error: any) {
-            console.error(
-                'Error al actualizar la visibilidad del marcador:',
-                error.message
-            )
-        }
-    }, [])
+                // Actualiza el estado local para reflejar la nueva visibilidad
+                setMarkerVisibility(prevState => ({
+                    ...prevState,
+                    [markerId]: !prevState[markerId],
+                }))
+            } catch (error: any) {
+                console.error(
+                    'Error al actualizar la visibilidad del marcador:',
+                    error.message
+                )
+            }
+        },
+        [setMarkerVisibility, updateMarkerVisible]
+    )
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -154,7 +157,7 @@ const Profile: FC = () => {
                 window.removeEventListener('resize', handleResize)
             }
         }
-    }, [])
+    }, [setWidth])
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -187,7 +190,7 @@ const Profile: FC = () => {
 
     useEffect(() => {
         getUser()
-    }, [toBeDeletedMarkers, toBeDeletedBlaBlaFish, toBeDeletedStores])
+    }, [toBeDeletedMarkers, toBeDeletedBlaBlaFish, toBeDeletedStores, getUser])
 
     const goToMarkerUserLocation = useCallback(
         (location: { lat: number; lng: number } | undefined) => {
@@ -279,7 +282,7 @@ const Profile: FC = () => {
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
         if (user) document.title = dynamicTitle
-    }, [user?.name])
+    }, [user?.name, dynamicTitle, user])
 
     // Renderiza el componente.
     if (!user) {
@@ -293,10 +296,10 @@ const Profile: FC = () => {
 
     return (
         <>
-            <ContainerMenu>
-                <AccountMenu userPicture={user?.picture} />
-            </ContainerMenu>
             <MainContainer>
+                <ContainerMenu>
+                    <AccountMenu userPicture={user?.picture} />
+                </ContainerMenu>
                 <UserContainerData>
                     {user?.picture ? (
                         <Avatar
@@ -758,7 +761,7 @@ const Profile: FC = () => {
                 )}
 
                 {activeView === 'stores' &&
-                    stores.map((store: Store) => (
+                    stores.map((store: StoreData) => (
                         <React.Fragment key={store.id}>
                             <ListItem
                                 sx={{

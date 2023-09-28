@@ -63,7 +63,7 @@
         "styled-components": "^6.0.0-rc.6",
         "styled-reset": "^4.5.1",
         "ts-node": "^10.9.1",
-        "typescript": "5.2.2",
+        "typescript": "^5.2.2",
         "vercel": "^31.0.1"
     },
     "devDependencies": {

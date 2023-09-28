@@ -36,7 +36,6 @@ interface Props {
 const ModalCrearMarcador: FC<Props> = ({
     isOpen,
     onClose,
-    onClick,
     positionMarkerUser,
 }) => {
     const {

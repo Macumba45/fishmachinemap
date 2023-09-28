@@ -38,8 +38,8 @@ const ModalSmallMarkers: FC<Props> = ({
                                 fontWeight: 600,
                             }}
                         >
-                            {markerType!.charAt(0).toUpperCase() +
-                                markerType?.slice(1)}
+                            {markerType?.charAt(0).toUpperCase() +
+                                markerType!.slice(1)}
                         </Typography>
                         <Typography
                             sx={{

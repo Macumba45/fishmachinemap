@@ -24,7 +24,7 @@ const IntroTour: FC = () => {
 
         // Inicia el tour de introducción
         intro.start()
-    }, [])
+    }, [intro])
 
     return (
         <div>

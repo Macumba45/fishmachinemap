@@ -7,21 +7,18 @@ import ButtonComp from '@/components/Button'
 import CloseIcon from '@mui/icons-material/Close'
 import NavigationIcon from '@mui/icons-material/Navigation'
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
+import BasicRating from '../Rating'
 import {
     ButtonContainer,
     CallNumber,
     ContenidoGoogle,
-    ImageContainer,
     MainContainer,
     NumberContainer,
     NumberOfRating,
     RatingContainer,
-    ReviewsContainer,
     TotalRating,
     TypographyContainer,
 } from './style'
-import BasicRating from '../Rating'
-import ReviewsComp from '../Reviews'
 
 export const openMap = (address: string) => {
     const baseUrl = 'https://www.google.com/maps/search/?api=1&query='

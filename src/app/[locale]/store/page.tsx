@@ -1,9 +1,7 @@
 'use client'
 
-import { FC, useEffect, memo, useState } from 'react'
+import { FC, useEffect, memo } from 'react'
 import { useLogicStore } from './logic'
-import { Store } from './type'
-import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import { Typography } from '@mui/material'
 import SimpleBottomNavigation from '@/components/BottomNav'
@@ -14,7 +12,6 @@ import StoreModal from '@/components/ModalStore'
 import CircularIndeterminate from '@/components/Loader'
 import FloatLoginButton from '@/components/FloatLoginButton'
 import LimitTags from '@/components/FilterStore'
-import { useRouter } from 'next/navigation'
 import logo from '../../../assets/fishgram.png'
 import {
     Container,
@@ -27,49 +24,28 @@ import {
 const Store: FC = () => {
     const {
         open,
-        setOpen,
         fetchStore,
         store,
         loading,
         dataStoreUser,
         getUserInfo,
+        isLogged,
+        setIsLogged,
+        filteredData,
+        setFilteredData,
+        selectedCategory,
+        locale,
+        goToLogin,
+        handleClose,
+        handleOpen,
+        dynamicTitle,
+        filterByCategory,
     } = useLogicStore()
-
-    const [filteredData, setFilteredData] = useState<Store[]>(store)
-    const [selectedCategory, setSelectedCategory] = useState<string>('Todos') // Establecer el valor predeterminado como "Todos"
-    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    const router = useRouter()
-
-    const goToLogin = () => {
-        router.push(`/${locale}/auth/login`)
-    }
-    const handleClose = () => {
-        setOpen(false)
-    }
-
-    const handleOpen = () => {
-        setOpen(true)
-    }
-
-    const filterByCategory = (selectedCategory: string) => {
-        if (selectedCategory === 'Todos') {
-            setSelectedCategory('Todos') // Update the selected category
-            setFilteredData(store) // Si el valor seleccionado es "all", entonces mostrar todos los datos
-            return
-        }
-        setSelectedCategory(selectedCategory) // Update the selected category
-        const filteredData = store.filter(
-            (item: any) => item.category === selectedCategory
-        )
-        setFilteredData(filteredData)
-    }
 
     useEffect(() => {
         fetchStore()
         getUserInfo()
     }, [])
-
-    const [isLogged, setIsLogged] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -86,13 +62,10 @@ const Store: FC = () => {
         setFilteredData(store)
     }, [store])
 
-    // Define el título dinámico
-    const dynamicTitle = 'FishGram - Store'
-
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
         document.title = dynamicTitle
-    }, [])
+    }, [dynamicTitle])
 
     if (loading) {
         return (

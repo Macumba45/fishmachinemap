@@ -5,16 +5,8 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-interface Picture {
-    src: string
-}
-
-interface Props {
-    pictures?: Picture[]
-}
-
-const SimpleSlider: FC<Props> = ({ pictures }) => {
-    const arrowStyle: CustomArrowProps = {
+const SimpleSlider = ({ pictures }) => {
+    const arrowStyle = {
         style: {
             color: 'black',
             fontSize: '4rem',
@@ -50,7 +42,7 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
             'slick-arrow slick-prev'
         )
         if (dots.length > 0) {
-            const dotList = dots[0] as HTMLElement
+            const dotList = dots[0]
             // Aplica los estilos CSS personalizados
             dotList.style.color = 'black'
             dotList.style.marginTop = '10px'
@@ -58,8 +50,8 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
             // Agrega otros estilos según tus necesidades
         }
         if (nextArrow.length > 0 && prevArrow.length > 0) {
-            const nextArrowIcon = nextArrow[0] as HTMLElement
-            const prevArrowIcon = prevArrow[0] as HTMLElement
+            const nextArrowIcon = nextArrow[0]
+            const prevArrowIcon = prevArrow[0]
             // Aplica los estilos CSS personalizados al icono de siguiente
             nextArrowIcon.style.color = '#4675A6'
             prevArrowIcon.style.color = '#4675A6'
@@ -70,22 +62,24 @@ const SimpleSlider: FC<Props> = ({ pictures }) => {
 
     return (
         <div style={{ width: '100%', borderRadius: '100px' }}>
-            {pictures?.map((picture, index) => {
-                return (
-                    <div key={index} style={{ borderRadius: '10px' }}>
-                        <img
-                            style={{
-                                width: '100%',
-                                height: '250px',
-                                borderRadius: '10px',
-                                marginBottom: '1rem',
-                            }}
-                            src={picture.src}
-                            alt=""
-                        />
-                    </div>
-                )
-            })}
+            <Slider {...settings}>
+                {pictures?.map((picture, index) => {
+                    return (
+                        <div key={index} style={{ borderRadius: '10px' }}>
+                            <img
+                                style={{
+                                    width: '100%',
+                                    height: '250px',
+                                    borderRadius: '10px',
+                                    marginBottom: '1rem',
+                                }}
+                                src={picture.src}
+                                alt=""
+                            />
+                        </div>
+                    )
+                })}
+            </Slider>
         </div>
     )
 }

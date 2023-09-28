@@ -7,7 +7,6 @@ import Button from '@mui/material/Button'
 import MuiAlert from '@mui/material/Alert'
 import {
     Box,
-    Dialog,
     FormControl,
     InputLabel,
     MenuItem,
@@ -26,7 +25,6 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
         title,
         setTitle,
         picture,
-        setPicture,
         category,
         setCategory,
         description,
@@ -40,7 +38,6 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
         whatsapp,
         setWhatsapp,
         url,
-        setUrl,
     } = useLogicExperience()
 
     const [loading, setLoading] = useState(false)

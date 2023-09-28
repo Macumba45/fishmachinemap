@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react'
 import { getAuthenticatedToken } from '../../../lib/storage/storage'
-import { Store } from './type'
+import { StoreData } from './type'
+import { useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 export const useLogicStore = () => {
     const [title, setTitle] = useState('')
@@ -9,13 +11,19 @@ export const useLogicStore = () => {
     const [phone, setPhone] = useState('')
     const [price, setPrice] = useState('')
     const [open, setOpen] = useState(false)
-    const [store, setStore] = useState<Store[]>([])
+    const [store, setStore] = useState<StoreData[]>([])
     const [loading, setLoading] = useState<boolean>(false)
-    const [storeId, setStoreId] = useState<Store>()
+    const [storeId, setStoreId] = useState<StoreData>()
     const [dataStoreUser, setDataStoreUser] = useState<any>({})
     const [category, setCategory] = useState<string>('')
+    const [isLogged, setIsLogged] = useState(false)
+    const [filteredData, setFilteredData] = useState<StoreData[]>(store)
+    const [selectedCategory, setSelectedCategory] = useState<string>('Todos') // Establecer el valor predeterminado como "Todos"
+    const dynamicTitle = 'FishGram - Store'
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const router = useRouter()
 
-    const postStore = async (store: Store) => {
+    const postStore = async (store: StoreData) => {
         try {
             const token = getAuthenticatedToken()
             const headers = {
@@ -99,6 +107,30 @@ export const useLogicStore = () => {
         }
     }, [])
 
+    const filterByCategory = (selectedCategory: string) => {
+        if (selectedCategory === 'Todos') {
+            setSelectedCategory('Todos') // Update the selected category
+            setFilteredData(store) // Si el valor seleccionado es "all", entonces mostrar todos los datos
+            return
+        }
+        setSelectedCategory(selectedCategory) // Update the selected category
+        const filteredData = store.filter(
+            (item: any) => item.category === selectedCategory
+        )
+        setFilteredData(filteredData)
+    }
+
+    const goToLogin = () => {
+        router.push(`/${locale}/auth/login`)
+    }
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
     return {
         title,
         setTitle,
@@ -122,5 +154,18 @@ export const useLogicStore = () => {
         getUserInfo,
         category,
         setCategory,
+        isLogged,
+        setIsLogged,
+        filteredData,
+        setFilteredData,
+        selectedCategory,
+        setSelectedCategory,
+        locale,
+        router,
+        goToLogin,
+        handleClose,
+        handleOpen,
+        dynamicTitle,
+        filterByCategory,
     }
 }

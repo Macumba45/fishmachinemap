@@ -4,6 +4,7 @@ import StyledTheme from '@/style/styledTheme'
 import './reset.css'
 import StyledComponentsRegistry from '@/lib/registry'
 import dotenv from 'dotenv'
+import Script from 'next/script'
 dotenv.config()
 
 export default async function LocaleLayout({
@@ -20,15 +21,16 @@ export default async function LocaleLayout({
     return (
         <html lang={locale}>
             <head>
-                <script
+                <Script
                     async
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=Function.prototype&libraries=places,geometry`}
-                ></script>
-                <script
+                ></Script>
+                <Script
                     async
                     src="https://www.googletagmanager.com/gtag/js?id=G-YQKPKC8399"
-                ></script>
-                <script
+                ></Script>
+                <Script
+                    id="gtag"
                     dangerouslySetInnerHTML={{
                         __html: `
                 window.dataLayer = window.dataLayer || [];
@@ -37,7 +39,7 @@ export default async function LocaleLayout({
                 gtag('config', 'G-YQKPKC8399');
             `,
                     }}
-                ></script>
+                ></Script>
             </head>
             <body>
                 <NextIntlClientProvider locale={locale} messages={messages}>

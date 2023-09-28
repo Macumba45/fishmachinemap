@@ -10,25 +10,11 @@ import {
 
 interface PlaceReview {
     author_name?: string
-    author_url?: string
-    language?: string
-    profile_photo_url?: string
     rating?: number
-    relative_time_description?: string
     text?: string
-    time?: number
 }
 
-const ReviewsComp: FC<PlaceReview> = ({
-    author_name,
-    author_url,
-    language,
-    profile_photo_url,
-    rating,
-    relative_time_description,
-    text,
-    time,
-}) => {
+const ReviewsComp: FC<PlaceReview> = ({ author_name, rating, text }) => {
     return (
         <MainContainer>
             <ReviewsContainer>

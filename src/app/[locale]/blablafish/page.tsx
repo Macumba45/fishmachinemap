@@ -50,12 +50,12 @@ const BlaBlaFish: FC = () => {
         } else {
             setIsLogged(true)
         }
-    }, [])
+    }, [setIsLogged])
 
     useEffect(() => {
         fetchBlaBlaFish()
         getUserInfo()
-    }, [])
+    }, [getUserInfo, fetchBlaBlaFish])
 
     // Define el título dinámico
     const dynamicTitle = 'FishGram - BlaBlaFish'

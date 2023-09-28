@@ -36,7 +36,8 @@
         "pages/api/upload.js",
         "webpack.config.js",
         "pages/api/markers/autoDeleteMarkers.ts",
-        "i18n.js"
+        "i18n.js",
+        "src/components/Carousel/page.jsx"
     ],
     "exclude": ["node_modules"]
 }

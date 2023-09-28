@@ -57,7 +57,7 @@ const SimpleBottomNavigation: FC = () => {
         } else if (locationNav === `/${locale}/store`) {
             setValue(4)
         }
-    }, [locationNav])
+    }, [locationNav, locale])
     // Añadir el componente BottomNavigation
 
     const buttonStyles = {

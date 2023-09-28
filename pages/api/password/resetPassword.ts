@@ -22,6 +22,6 @@ export default async function resetPassword(
     } catch (error: any) {
         res.status(500).json({ message: error.message })
     } finally {
-        deleteUserRecovery(tokenTemporary!.id)
+        deleteUserRecovery(tokenTemporary?.id as string)
     }
 }

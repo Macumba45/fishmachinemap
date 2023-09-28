@@ -33,7 +33,7 @@ const Experiencias: FC = () => {
     useEffect(() => {
         getUserInfo()
         getExperiences()
-    }, [])
+    }, [getUserInfo, getExperiences])
 
     const filterByCategory = (selectedCategory: string) => {
         if (selectedCategory === 'Influencers') {

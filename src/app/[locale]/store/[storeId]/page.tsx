@@ -40,7 +40,7 @@ const Page: FC<Props> = ({ params }) => {
 
     useEffect(() => {
         getProductId(params.storeId)
-    }, [])
+    }, [getProductId, params.storeId])
 
     return (
         <MainContainer>

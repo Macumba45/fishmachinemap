@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, memo, use, useEffect, useState } from 'react'
-import { feedUseLogic } from './logic'
+import { useFeedLogic } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
 import AccountMenu from '@/components/Menu'
@@ -23,7 +23,7 @@ const Feed: FC = () => {
         loading,
         getUserInfo,
         dataFeedUser,
-    } = feedUseLogic()
+    } = useFeedLogic()
 
     const router = useRouter()
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale

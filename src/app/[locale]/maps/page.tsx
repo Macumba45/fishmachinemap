@@ -150,7 +150,7 @@ const GoogleMapComp: FC = () => {
         } else {
             setIsLogged(true)
         }
-    }, [])
+    }, [setIsLogged, token])
 
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
@@ -549,15 +549,20 @@ const GoogleMapComp: FC = () => {
         if (!confirmedMarkers) {
             getAllMarkersUser()
         }
-    }, [confirmedMarkers])
+    }, [getAllMarkersUser, confirmedMarkers])
 
     useEffect(() => {
         if (mapRef.current) {
             renderMarkers(filteredMarkers)
-            // Inicia el tour de introducción
+        }
+    }, [filteredMarkers, mapRef])
+
+    // Efecto que introduce el IntroJs
+    useEffect(() => {
+        if (mapRef.current) {
             introJs()
         }
-    }, [filteredMarkers])
+    }, [mapRef])
 
     // Efecto que se ejecuta cuando cambian los marcadores para actualizar el cluster de marcadores.
     useEffect(() => {
@@ -571,7 +576,7 @@ const GoogleMapComp: FC = () => {
     useEffect(() => {
         const updatedStyle = styledMap ? stylesMaps : []
         setStyle(updatedStyle)
-    }, [styledMap])
+    }, [styledMap, setStyle])
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -875,7 +880,7 @@ const GoogleMapComp: FC = () => {
                             creator={dataMarkerUser?.user?.name}
                             icon={
                                 <Avatar
-                                    src={dataMarkerUser!.user?.picture}
+                                    src={dataMarkerUser.user?.picture}
                                     sx={{
                                         width: 25,
                                         height: 25,
@@ -895,22 +900,22 @@ const GoogleMapComp: FC = () => {
                                 </Link>
                             }
                             direction={
-                                dataMarkerUser!.direction
+                                dataMarkerUser.direction
                                     .charAt(0)
                                     .toUpperCase() +
-                                dataMarkerUser!.direction.slice(1)
+                                dataMarkerUser.direction.slice(1)
                             }
                             markerType={
-                                dataMarkerUser!.markerType
+                                dataMarkerUser.markerType
                                     .charAt(0)
                                     .toUpperCase() +
-                                dataMarkerUser!.markerType.slice(1)
+                                dataMarkerUser.markerType.slice(1)
                             }
                             description={
-                                dataMarkerUser!.description
+                                dataMarkerUser.description
                                     .charAt(0)
                                     .toUpperCase() +
-                                dataMarkerUser!.description.slice(1)
+                                dataMarkerUser.description.slice(1)
                             }
                             onClick={() => {
                                 if (
@@ -1128,15 +1133,7 @@ const GoogleMapComp: FC = () => {
                                     <ReviewsComp
                                         key={review.place_id} // Aquí usa un identificador único, como 'id', si está disponible
                                         author_name={review.author_name}
-                                        author_url={review.author_url}
-                                        language={review.language}
-                                        profile_photo_url={
-                                            review.profile_photo_url
-                                        }
                                         rating={review.rating}
-                                        relative_time_description={
-                                            review.relative_time_description
-                                        }
                                         text={review.text}
                                     />
                                 </>

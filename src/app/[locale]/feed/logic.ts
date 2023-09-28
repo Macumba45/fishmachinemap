@@ -1,10 +1,10 @@
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { useCallback, useState } from 'react'
 import { Comments, UserMarker } from '../maps/type'
-import { Store } from '../store/type'
+import { StoreData } from '../store/type'
 import { BlaBlaFish } from '../blablafish/type'
 
-export const feedUseLogic = () => {
+export const useFeedLogic = () => {
     const [fotosMarkers, setFotosMarkers] = useState<any[]>([])
     const [likedMarkers, setLikedMarkers] = useState<Record<string, boolean>>(
         {}
@@ -13,7 +13,7 @@ export const feedUseLogic = () => {
     const [dataFeedUser, setDataFeedUser] = useState<any>({})
     const [userMarkers, setUserMarkers] = useState<UserMarker[]>([])
     const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
-    const [userStores, setUserStores] = useState<Store[]>([])
+    const [userStores, setUserStores] = useState<StoreData[]>([])
     const [allComents, setAllComents] = useState<Comments[]>([])
 
     const getMarkersUser = useCallback(async () => {

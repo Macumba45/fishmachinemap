@@ -13,11 +13,11 @@ export const MainContainer = styled.div`
 
 export const ContainerMenu = styled.div`
     display: flex;
-    height: 80px;
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 2;
+    height: 60px;
 `
 
 export const MainContainerNoUser = styled.div`

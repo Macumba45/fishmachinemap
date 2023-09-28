@@ -2,7 +2,7 @@
 
 import { FC, memo, useCallback, useEffect, useState } from 'react'
 import React from 'react'
-import { feedUseLogic } from '../logic'
+import { useFeedLogic } from '../logic'
 import AccountMenu from '@/components/Menu'
 import RoomIcon from '@mui/icons-material/Room'
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel'
@@ -10,7 +10,7 @@ import ModalUserMarkers from '@/components/ModalMarkersUser'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import { UserMarker } from '../../maps/type'
 import { BlaBlaFish } from '../../blablafish/type'
-import { Store } from '../../store/type'
+import { StoreData } from '../../store/type'
 import CommentModal from '@/components/ModalComments'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import SimpleBottomNavigation from '@/components/BottomNav'
@@ -37,6 +37,7 @@ import {
     nameStyles,
 } from './style'
 import CircularIndeterminate from '@/components/Loader'
+import Image from 'next/image'
 
 interface Props {
     params: {
@@ -46,7 +47,7 @@ interface Props {
 
 const Page: FC<Props> = ({ params }) => {
     const { userInfoFeed, dataFeedUser, userMarkers, blablaFish, userStores } =
-        feedUseLogic()
+        useFeedLogic()
 
     const [activeView, setActiveView] = useState('capturas')
     const [width, setWidth] = useState<number>(0)
@@ -114,11 +115,11 @@ const Page: FC<Props> = ({ params }) => {
         if (dataFeedUser) {
             document.title = dynamicTitle
         }
-    }, [dataFeedUser?.name])
+    }, [dataFeedUser?.name, dynamicTitle, dataFeedUser])
 
     useEffect(() => {
         userInfoFeed(params.user)
-    }, [params.user])
+    }, [params.user, userInfoFeed])
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -293,7 +294,8 @@ const Page: FC<Props> = ({ params }) => {
                                             sx={{ margin: '0' }}
                                         >
                                             <div>
-                                                <img
+                                                <Image
+                                                    alt=""
                                                     key={marker.id}
                                                     style={{
                                                         width: '50px',
@@ -595,7 +597,7 @@ const Page: FC<Props> = ({ params }) => {
                 )}
 
                 {activeView === 'stores' &&
-                    userStores.map((store: Store) => (
+                    userStores.map((store: StoreData) => (
                         <React.Fragment key={store.id}>
                             <ListItem
                                 sx={{

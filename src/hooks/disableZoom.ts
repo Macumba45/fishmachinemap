@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 function usePreventZoom(scrollCheck = true, keyboardCheck = true) {
     useEffect(() => {

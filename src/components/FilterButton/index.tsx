@@ -31,7 +31,7 @@ const FilterButton: FC<FilterButtonProps> = ({ onChange }) => {
     // Aplicar el filtro inicialmente cuando se carga el componente
     useEffect(() => {
         onChange(selectedFilter)
-    }, []) // [] significa que se ejecuta solo una vez al cargar el componente
+    }, [selectedFilter]) // [] significa que se ejecuta solo una vez al cargar el componente
 
     return (
         <ButtonContainer className="filterButton">
