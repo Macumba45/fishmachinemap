@@ -1,18 +1,13 @@
 'use client'
 
 import clsx from 'clsx'
-import { useLocale, useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 import { usePathname, useRouter } from 'next-intl/client'
 import { FC, useTransition } from 'react'
 import spain from '../assets/icons8-spain-96.png'
 import usa from '../assets/icons8-usa-96.png'
 
-interface LocaleSwitcherProps {
-    setLanguage: (nextLocale: string) => void
-}
-
-const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ setLanguage }) => {
-    const t = useTranslations('LocaleSwitcher')
+const LocaleSwitcher: FC = () => {
     const [isPending] = useTransition()
     const locale = useLocale()
     const router = useRouter()

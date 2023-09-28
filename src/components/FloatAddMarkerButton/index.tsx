@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Fab, Tooltip, useMediaQuery } from '@mui/material'
+import { Fab } from '@mui/material'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt'
 
 interface Props {
@@ -8,16 +8,6 @@ interface Props {
 }
 
 const FloatAddMarkerButton: FC<Props> = ({ onClick, disabled }) => {
-    const isSmallScreen = useMediaQuery('(max-width:600px)')
-
-    const CustomTooltip = ({ title, children }: any) => {
-        return (
-            <Tooltip className="addMarker" title={title} placement="top">
-                <span>{children}</span>
-            </Tooltip>
-        )
-    }
-
     return (
         <>
             <Fab

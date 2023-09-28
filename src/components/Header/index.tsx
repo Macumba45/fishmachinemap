@@ -2,30 +2,25 @@
 
 import { FC, memo, useEffect } from 'react'
 import ButtonComp from '../Button'
-import VideoPlayer from '../VideoPlayer'
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 import LocaleSwitcher from '../LocaleSwitcher'
 import fishgram from '../../assets/fishgram.png'
-
 import {
     ButtonContainer,
     ContainerLanguage,
     LogoPicture,
     MainContainer,
-    SpanBold,
     SubtitleContainer,
     SubtitleHeader,
     TitleContainer,
-    TitleHeader,
     VideoContainer,
 } from './style'
 
 const HeaderComp: FC = () => {
     const t = useTranslations('Index')
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    const [currentLanguage, setCurrentLanguage] = React.useState(locale)
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -46,7 +41,7 @@ const HeaderComp: FC = () => {
     return (
         <MainContainer>
             <ContainerLanguage>
-                <LocaleSwitcher setLanguage={setCurrentLanguage} />{' '}
+                <LocaleSwitcher />
                 {/* Pasa setCurrentLanguage a LocaleSwitcher */}
             </ContainerLanguage>
             <TitleContainer>
@@ -65,7 +60,7 @@ const HeaderComp: FC = () => {
             <ButtonContainer>
                 <Link
                     style={{ textDecoration: 'none' }}
-                    href={`${currentLanguage + '/auth/login'}`}
+                    href={`${locale + '/auth/login'}`}
                 >
                     <ButtonComp
                         color="#00a5f2"
@@ -76,7 +71,7 @@ const HeaderComp: FC = () => {
                 </Link>
                 <Link
                     style={{ textDecoration: 'none' }}
-                    href={`${currentLanguage + '/auth/signup'}`}
+                    href={`${locale + '/auth/signup'}`}
                 >
                     <ButtonComp
                         color="#00a5f2"
@@ -85,14 +80,9 @@ const HeaderComp: FC = () => {
                         title={t('register')}
                     />
                 </Link>
-                {/* <Link style={{ textDecoration: 'none' }} href="/maps">
-                    <ContinueWithGoogleButton
-
-                    />
-                </Link> */}
                 <Link
                     style={{ textDecoration: 'none' }}
-                    href={`${currentLanguage + '/maps'}`}
+                    href={`${locale + '/maps'}`}
                 >
                     <ButtonComp
                         color="white"

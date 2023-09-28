@@ -5,10 +5,9 @@ import ReplayIcon from '@mui/icons-material/Replay'
 interface Props {
     onClick?: () => void
     disabled?: boolean
-    id?: string
 }
 
-const FloatReloadMarkersButton: FC<Props> = ({ onClick, disabled, id }) => {
+const FloatReloadMarkersButton: FC<Props> = ({ onClick, disabled }) => {
     const isSmallScreen = useMediaQuery('(max-width:600px)')
 
     const CustomTooltip = ({ title, children }: any) => {

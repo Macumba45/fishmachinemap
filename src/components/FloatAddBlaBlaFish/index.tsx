@@ -1,7 +1,6 @@
 import { FC } from 'react'
-import { Fab, Tooltip, useMediaQuery } from '@mui/material'
+import { Fab, Tooltip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { title } from 'process'
 
 interface Props {
     onClick?: () => void
@@ -10,8 +9,6 @@ interface Props {
 }
 
 const FloatAddBlaBlaFish: FC<Props> = ({ onClick, disabled, title }) => {
-    const isSmallScreen = useMediaQuery('(max-width:600px)')
-
     const CustomTooltip = ({ title, children }: any) => {
         return (
             <Tooltip title={title} placement="top">

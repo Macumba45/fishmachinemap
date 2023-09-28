@@ -1,5 +1,5 @@
-import React, { FC, memo, useEffect } from 'react'
-import Slider, { CustomArrowProps } from 'react-slick'
+import React, { memo, useEffect } from 'react'
+import Slider from 'react-slick'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import 'slick-carousel/slick/slick.css'

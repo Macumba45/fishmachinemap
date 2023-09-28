@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation'
 export const useLogicBlaBla = () => {
     const locale = useLocale() // Obtén el idioma actual utilizando useLocale
     const router = useRouter()
-
     const [openModal, setOpenModal] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
     const [departureCity, setDepartureCity] = useState('')
@@ -27,6 +26,8 @@ export const useLogicBlaBla = () => {
         // Verifica si la fecha del viaje es menor o igual a la fecha actual
         return viajeDate < currentDate
     })
+    const dynamicTitle = 'FishGram - BlaBlaFish'
+
 
     const postBlaBlaFish = useCallback(async (blaBlaFish: BlaBlaFish) => {
         try {
@@ -141,5 +142,6 @@ export const useLogicBlaBla = () => {
         formatDate,
         capitalizeString,
         goToLogin,
+        dynamicTitle
     }
 }

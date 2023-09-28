@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { prisma } from '@/lib/db'
 import { postBlablaFish } from '../controllers/blablaFish'
 
 const postBlaBlaFish = async (req: NextApiRequest, res: NextApiResponse) => {

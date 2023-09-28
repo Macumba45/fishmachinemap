@@ -4,6 +4,7 @@ import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { BlaBlaFish } from '../blablafish/type'
 import { StoreData } from '../store/type'
 import { ProfileProps, userLikesProps } from './type'
+import { useRouter } from 'next/navigation'
 
 export const useLogicUser = () => {
     const [user, setUser] = useState<ProfileProps | null>(null)
@@ -25,8 +26,15 @@ export const useLogicUser = () => {
         [key: string]: boolean
     }>({})
     const noMarkers = userMarkers.length === 0
-
     const [width, setWidth] = useState<number>(0)
+    const router = useRouter()
+    const [openModal, setOpenModal] = useState(false)
+    const [selectedImage, setSelectedImage] = useState('')
+    const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
+    const [openModalComments, setOpenModalComments] = useState(false)
+    const [activeView, setActiveView] = useState('capturas')
+    const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
+    const dynamicTitle = `FishGram - ${user?.name}`
 
     const getUser = useCallback(async () => {
         try {
@@ -171,11 +179,155 @@ export const useLogicUser = () => {
                 body: JSON.stringify({ picture }),
             })
             const data = await response.json()
-            return response
+            return data
         } catch (error: any) {
             console.error('Error al subir la imagen:', error.message)
         }
     }, [])
+
+    const handleVisibilityToggle = useCallback(
+        async (markerId: string) => {
+            try {
+                // Lógica para actualizar la visibilidad del marcador en el servidor
+                await updateMarkerVisible(markerId)
+
+                // Actualiza el estado local para reflejar la nueva visibilidad
+                setMarkerVisibility(prevState => ({
+                    ...prevState,
+                    [markerId]: !prevState[markerId],
+                }))
+            } catch (error: any) {
+                console.error(
+                    'Error al actualizar la visibilidad del marcador:',
+                    error.message
+                )
+            }
+        },
+        [setMarkerVisibility, updateMarkerVisible]
+    )
+
+    const getBase64FromUrl = async (url: string) => {
+        const data = await fetch(url)
+        const blob = await data.blob()
+        return new Promise<string>(resolve => {
+            const reader = new FileReader()
+            reader.readAsDataURL(blob)
+            reader.onloadend = () => {
+                const base64data = reader.result as string
+                resolve(base64data)
+            }
+        })
+    }
+
+    const handleFotosChange = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const files = event.target.files
+        if (files && files.length > 0) {
+            const file = files[0]
+
+            // Reducir el tamaño de la imagen antes de convertirla a Base64
+            const resizedFile = await resizeImage(file, {
+                maxWidth: 1024,
+                maxHeight: 1024,
+            })
+
+            const fileUrl = URL.createObjectURL(resizedFile)
+            const base64Data = await getBase64FromUrl(fileUrl)
+            setPicture(base64Data) // Guarda la imagen en formato Base64 en el estado
+            uploadProfilePicture(base64Data)
+        }
+    }
+
+    const resizeImage = (
+        file: File,
+        options: { maxWidth: number; maxHeight: number }
+    ) => {
+        return new Promise<File>(resolve => {
+            const img = new Image()
+            img.src = URL.createObjectURL(file)
+
+            img.onload = () => {
+                const { width, height } = img
+                const canvas = document.createElement('canvas')
+                const ctx = canvas.getContext('2d')
+                canvas.width = options.maxWidth
+                canvas.height = options.maxHeight
+
+                const scaleFactor = Math.min(
+                    options.maxWidth / width,
+                    options.maxHeight / height
+                )
+                canvas.width = width * scaleFactor
+                canvas.height = height * scaleFactor
+
+                ctx?.drawImage(img, 0, 0, canvas.width, canvas.height)
+                canvas.toBlob(resizedBlob => {
+                    if (resizedBlob) {
+                        const resizedFile = new File([resizedBlob], file.name, {
+                            type: file.type,
+                        })
+                        resolve(resizedFile)
+                    } else {
+                        resolve(file)
+                    }
+                }, file.type)
+            }
+        })
+    }
+
+    const goToMarkerUserLocation = useCallback(
+        (location: { lat: number; lng: number } | undefined) => {
+            if (location) {
+                const baseUrl =
+                    'https://www.google.com/maps/search/?api=1&query='
+                const encodedCoordinates = encodeURIComponent(
+                    `${location.lat},${location.lng}`
+                )
+                window.open(baseUrl + encodedCoordinates)
+            }
+        },
+        []
+    )
+
+    const goToMaps = useCallback(() => {
+        window.location.href = '/maps'
+    }, [])
+    const handleViewChange = useCallback((view: any) => {
+        setActiveView(view)
+    }, [])
+
+    const handleOpenModal = useCallback((item: any) => {
+        setSelectedImage(item.picture)
+        setSelectedMarkerId(item.id)
+        setOpenModal(true)
+    }, [])
+
+    const handleCloseModal = useCallback(() => {
+        setOpenModal(false)
+    }, [])
+
+    const handleOpenModalComments = useCallback(() => {
+        setOpenModalComments(true)
+    }, [])
+
+    const handleCloseModalComments = useCallback(() => {
+        setOpenModalComments(false)
+    }, [])
+
+    // Función de utilidad para formatear la fecha
+    function formatDate(date: Date) {
+        return date.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+        })
+    }
+
+    // Función para capitalizar la primera letra
+    function capitalizeFirstLetter(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+    }
 
     return {
         user,
@@ -202,5 +354,29 @@ export const useLogicUser = () => {
         uploadProfilePicture,
         picture,
         setPicture,
+        router,
+        openModal,
+        setOpenModal,
+        selectedImage,
+        setSelectedImage,
+        selectedMarkerId,
+        setSelectedMarkerId,
+        openModalComments,
+        setOpenModalComments,
+        activeView,
+        setActiveView,
+        fotosMarkers,
+        handleViewChange,
+        handleOpenModal,
+        handleCloseModal,
+        handleOpenModalComments,
+        handleCloseModalComments,
+        goToMaps,
+        handleVisibilityToggle,
+        dynamicTitle,
+        goToMarkerUserLocation,
+        handleFotosChange,
+        formatDate,
+        capitalizeFirstLetter,
     }
 }

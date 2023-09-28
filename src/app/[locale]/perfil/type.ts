@@ -1,8 +1,3 @@
-interface userMarker {
-    id: string
-    title: string
-}
-
 export interface ProfileProps {
     id: string
     name: string

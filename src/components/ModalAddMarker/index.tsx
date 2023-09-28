@@ -48,7 +48,6 @@ const ModalCrearMarcador: FC<Props> = ({
         setDescripcion,
         fotos,
         setFotos,
-        setAddingMarker,
     } = useLogicMaps()
 
     const t = useTranslations('modalAddMarker')

@@ -3,6 +3,8 @@ import { useCallback, useState } from 'react'
 import { Comments, UserMarker } from '../maps/type'
 import { StoreData } from '../store/type'
 import { BlaBlaFish } from '../blablafish/type'
+import { useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export const useFeedLogic = () => {
     const [fotosMarkers, setFotosMarkers] = useState<any[]>([])
@@ -15,6 +17,10 @@ export const useFeedLogic = () => {
     const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
     const [userStores, setUserStores] = useState<StoreData[]>([])
     const [allComents, setAllComents] = useState<Comments[]>([])
+    const dynamicTitle = 'FishGram - Feed'
+    const router = useRouter()
+    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
+    const [isLogged, setIsLogged] = useState(false)
 
     const getMarkersUser = useCallback(async () => {
         try {
@@ -36,9 +42,9 @@ export const useFeedLogic = () => {
             if (response.ok) {
                 const data = await response.json()
 
-                const capturasMarkers = data.markers.filter(
-                    (marker: any) => marker.markerType === 'fotos'
-                )
+                // const capturasMarkers = data.markers.filter(
+                //     (marker: any) => marker.markerType === 'fotos'
+                // )
                 setFotosMarkers(data.markers)
 
                 const likedMarkerStates = data.markers.reduce(
@@ -63,7 +69,7 @@ export const useFeedLogic = () => {
     }, [])
 
     const fetchLikesMarkers = useCallback(
-        async (markerId: string, userId: string) => {
+        async (markerId: string) => {
             try {
                 const token = getAuthenticatedToken()
                 const headers = {
@@ -224,6 +230,24 @@ export const useFeedLogic = () => {
         }
     }
 
+    const handleShareOnFacebook = (userId: string) => {
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            feedUrl
+        )}`
+        window.open(url, '_blank')
+    }
+
+    const handleShareOnWhatsApp = (userId: string) => {
+        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
+        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
+        window.open(url, '_blank')
+    }
+
+    const goToLogin = () => {
+        router.push(`/${locale}/auth/login`)
+    }
+
     return {
         getMarkersUser,
         fotosMarkers,
@@ -240,5 +264,13 @@ export const useFeedLogic = () => {
         allComents,
         deleteCommentUser,
         getUserInfo,
+        dynamicTitle,
+        router,
+        locale,
+        isLogged,
+        setIsLogged,
+        handleShareOnFacebook,
+        handleShareOnWhatsApp,
+        goToLogin,
     }
 }

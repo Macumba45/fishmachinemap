@@ -1,4 +1,3 @@
-import { BorderColor } from '@mui/icons-material'
 import IntroJs from 'intro.js'
 import 'intro.js/introjs.css' // Estilo CSS de intro.js
 

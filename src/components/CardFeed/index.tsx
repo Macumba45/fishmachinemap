@@ -25,13 +25,10 @@ import { useLocale } from 'next-intl'
 
 const CardFeed: FC<FeedPros> = ({
     id,
-    userName,
     picture,
-    direction,
     description,
     date,
     onClick,
-    userId,
     isLiked,
     likes,
     user,
@@ -39,7 +36,6 @@ const CardFeed: FC<FeedPros> = ({
     iconCreator,
     handleShareOnWhatsApp,
     handleShareOnFacebook,
-    disabled,
 }) => {
     const [isCommentModalOpen, setCommentModalOpen] = useState(false)
     const [isShareModalOpen, setShareModalOpen] = useState(false)

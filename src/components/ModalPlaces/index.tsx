@@ -62,7 +62,6 @@ const BasicModal: FC<Props> = ({
     onClose,
     isOpenProp,
     children,
-    selectedMarker,
     onClick,
     value,
     numberRating,
@@ -76,9 +75,6 @@ const BasicModal: FC<Props> = ({
         setIsOpen(isOpenProp || true)
     }, [isOpenProp])
 
-    const handleOpen = () => {
-        setIsOpen(true)
-    }
     let width = window.innerWidth
     if (width < 600) {
         width = 300

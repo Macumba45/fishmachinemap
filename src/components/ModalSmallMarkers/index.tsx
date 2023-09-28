@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, memo } from 'react'
+import React, { FC, memo } from 'react'
 import { Container, PictureMarker, MainContainer } from './style'
 import usePreventZoom from '@/hooks/disableZoom'
 import { Typography } from '@mui/material'

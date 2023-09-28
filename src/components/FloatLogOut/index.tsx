@@ -5,10 +5,9 @@ import LogoutIcon from '@mui/icons-material/Logout'
 interface Props {
     onClick?: () => void
     disabled?: boolean
-    id?: string
 }
 
-const FloatLogOut: FC<Props> = ({ onClick, disabled, id }) => {
+const FloatLogOut: FC<Props> = ({ onClick, disabled }) => {
     const isSmallScreen = useMediaQuery('(max-width:600px)')
 
     const CustomTooltip = ({ title, children }: any) => {

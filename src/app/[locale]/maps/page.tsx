@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useEffect, memo, useState, useRef } from 'react'
+import React, { FC, useEffect, memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
@@ -210,9 +210,6 @@ const GoogleMapComp: FC = () => {
             }
 
             map.addListener('drag', () => {
-                // Obtener el valor actual del zoom
-                const zoom = map.getZoom()
-
                 // Obtener las coordenadas del centro del mapa
                 if (map) {
                     center.lat = map.getCenter()?.lat() || 0
@@ -428,8 +425,7 @@ const GoogleMapComp: FC = () => {
 
     function callback(
         results: google.maps.places.PlaceResult[] | null,
-        status: google.maps.places.PlacesServiceStatus,
-        pagination: google.maps.places.PlaceSearchPagination | null
+        status: google.maps.places.PlacesServiceStatus
     ) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (const place of results!) {
@@ -1127,18 +1123,16 @@ const GoogleMapComp: FC = () => {
                         }
                         <ReviewsContainer>Reviews</ReviewsContainer>
 
-                        {place?.reviews?.map(
-                            (review: PlaceReview, index: number) => (
-                                <>
-                                    <ReviewsComp
-                                        key={review.place_id} // Aquí usa un identificador único, como 'id', si está disponible
-                                        author_name={review.author_name}
-                                        rating={review.rating}
-                                        text={review.text}
-                                    />
-                                </>
-                            )
-                        )}
+                        {place?.reviews?.map((review: PlaceReview) => (
+                            <>
+                                <ReviewsComp
+                                    key={review.place_id} // Aquí usa un identificador único, como 'id', si está disponible
+                                    author_name={review.author_name}
+                                    rating={review.rating}
+                                    text={review.text}
+                                />
+                            </>
+                        ))}
                     </BasicModal>
                 )}
                 {loadingLocation && (

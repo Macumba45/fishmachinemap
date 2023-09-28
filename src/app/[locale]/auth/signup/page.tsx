@@ -17,7 +17,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import MuiAlert from '@mui/material/Alert'
-import nodemailer from 'nodemailer'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme()
@@ -32,9 +31,6 @@ const SignUp: FC = () => {
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
 
-    const handleOpenLOPD = () => {
-        window.open('https://jade-mora-53.tiiny.site/')
-    }
     const handleSnackbarClose = (event?: any, reason?: string) => {
         if (reason === 'clickaway') {
             return

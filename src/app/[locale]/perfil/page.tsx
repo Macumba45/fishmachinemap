@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState, memo } from 'react'
+import { FC, useEffect, memo } from 'react'
 import React from 'react'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import { useLogicUser } from './logic'
@@ -28,8 +28,8 @@ import { StoreData } from '../store/type'
 import ModalUserMarkers from '@/components/ModalMarkersUser'
 import CommentModal from '@/components/ModalComments'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { useRouter } from 'next/navigation'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
+import CircularIndeterminate from '@/components/Loader'
 import {
     Button,
     ButtonGroup,
@@ -38,7 +38,6 @@ import {
     ImageListItem,
 } from '@mui/material'
 import {
-    Container,
     ContainerMenu,
     LabelIcons,
     MainContainer,
@@ -46,7 +45,6 @@ import {
     emailStyles,
     nameStyles,
 } from './style'
-import CircularIndeterminate from '@/components/Loader'
 
 const Profile: FC = () => {
     const {
@@ -60,9 +58,7 @@ const Profile: FC = () => {
         width,
         setWidth,
         blablaFish,
-        updateMarkerVisible,
         markerVisibility,
-        setMarkerVisibility,
         deleteBlaBlaFish,
         toBeDeletedBlaBlaFish,
         setToBeDeletedBlaBlaFish,
@@ -71,12 +67,26 @@ const Profile: FC = () => {
         toBeDeletedStores,
         setToBeDeletedStores,
         deleteStore,
-        uploadProfilePicture,
-        picture,
-        setPicture,
+        router,
+        openModal,
+        selectedMarkerId,
+        openModalComments,
+        activeView,
+        fotosMarkers,
+        handleViewChange,
+        handleOpenModal,
+        handleCloseModal,
+        handleOpenModalComments,
+        handleCloseModalComments,
+        goToMaps,
+        handleVisibilityToggle,
+        dynamicTitle,
+        goToMarkerUserLocation,
+        handleFotosChange,
+        capitalizeFirstLetter,
+        formatDate,
     } = useLogicUser()
 
-    const router = useRouter()
     useEffect(() => {
         const token = getAuthenticatedToken()
 
@@ -84,59 +94,6 @@ const Profile: FC = () => {
             router.push('/auth/login') // Redirige al usuario a la página de inicio de sesión si no hay token
         }
     }, [router, user])
-
-    const [openModal, setOpenModal] = useState(false)
-    const [selectedImage, setSelectedImage] = useState('')
-    const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
-    const [openModalComments, setOpenModalComments] = useState(false)
-    const [activeView, setActiveView] = useState('capturas')
-    const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
-
-    const goToMaps = useCallback(() => {
-        window.location.href = '/maps'
-    }, [])
-    const handleViewChange = useCallback((view: any) => {
-        setActiveView(view)
-    }, [])
-
-    const handleOpenModal = useCallback((item: any) => {
-        setSelectedImage(item.picture)
-        setSelectedMarkerId(item.id)
-        setOpenModal(true)
-    }, [])
-
-    const handleCloseModal = useCallback(() => {
-        setOpenModal(false)
-    }, [])
-
-    const handleOpenModalComments = useCallback(() => {
-        setOpenModalComments(true)
-    }, [])
-
-    const handleCloseModalComments = useCallback(() => {
-        setOpenModalComments(false)
-    }, [])
-
-    const handleVisibilityToggle = useCallback(
-        async (markerId: string) => {
-            try {
-                // Lógica para actualizar la visibilidad del marcador en el servidor
-                await updateMarkerVisible(markerId)
-
-                // Actualiza el estado local para reflejar la nueva visibilidad
-                setMarkerVisibility(prevState => ({
-                    ...prevState,
-                    [markerId]: !prevState[markerId],
-                }))
-            } catch (error: any) {
-                console.error(
-                    'Error al actualizar la visibilidad del marcador:',
-                    error.message
-                )
-            }
-        },
-        [setMarkerVisibility, updateMarkerVisible]
-    )
 
     useEffect(() => {
         // Check if window is available before setting the initial width
@@ -174,110 +131,9 @@ const Profile: FC = () => {
         }
     }, [])
 
-    // Función de utilidad para formatear la fecha
-    function formatDate(date: Date) {
-        return date.toLocaleDateString('es-ES', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-        })
-    }
-
-    // Función para capitalizar la primera letra
-    function capitalizeFirstLetter(str: string) {
-        return str.charAt(0).toUpperCase() + str.slice(1)
-    }
-
     useEffect(() => {
         getUser()
     }, [toBeDeletedMarkers, toBeDeletedBlaBlaFish, toBeDeletedStores, getUser])
-
-    const goToMarkerUserLocation = useCallback(
-        (location: { lat: number; lng: number } | undefined) => {
-            if (location) {
-                const baseUrl =
-                    'https://www.google.com/maps/search/?api=1&query='
-                const encodedCoordinates = encodeURIComponent(
-                    `${location.lat},${location.lng}`
-                )
-                window.open(baseUrl + encodedCoordinates)
-            }
-        },
-        []
-    )
-
-    const getBase64FromUrl = async (url: string) => {
-        const data = await fetch(url)
-        const blob = await data.blob()
-        return new Promise<string>(resolve => {
-            const reader = new FileReader()
-            reader.readAsDataURL(blob)
-            reader.onloadend = () => {
-                const base64data = reader.result as string
-                resolve(base64data)
-            }
-        })
-    }
-
-    const handleFotosChange = async (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const files = event.target.files
-        if (files && files.length > 0) {
-            const file = files[0]
-
-            // Reducir el tamaño de la imagen antes de convertirla a Base64
-            const resizedFile = await resizeImage(file, {
-                maxWidth: 1024,
-                maxHeight: 1024,
-            })
-
-            const fileUrl = URL.createObjectURL(resizedFile)
-            const base64Data = await getBase64FromUrl(fileUrl)
-            setPicture(base64Data) // Guarda la imagen en formato Base64 en el estado
-            uploadProfilePicture(base64Data)
-        }
-    }
-
-    const resizeImage = (
-        file: File,
-        options: { maxWidth: number; maxHeight: number }
-    ) => {
-        return new Promise<File>(resolve => {
-            const img = new Image()
-            img.src = URL.createObjectURL(file)
-
-            img.onload = () => {
-                const { width, height } = img
-                const canvas = document.createElement('canvas')
-                const ctx = canvas.getContext('2d')
-                canvas.width = options.maxWidth
-                canvas.height = options.maxHeight
-
-                const scaleFactor = Math.min(
-                    options.maxWidth / width,
-                    options.maxHeight / height
-                )
-                canvas.width = width * scaleFactor
-                canvas.height = height * scaleFactor
-
-                ctx?.drawImage(img, 0, 0, canvas.width, canvas.height)
-                canvas.toBlob(resizedBlob => {
-                    if (resizedBlob) {
-                        const resizedFile = new File([resizedBlob], file.name, {
-                            type: file.type,
-                        })
-                        resolve(resizedFile)
-                    } else {
-                        resolve(file)
-                    }
-                }, file.type)
-            }
-        })
-    }
-
-    // Define el título dinámico
-    const dynamicTitle = `FishGram - ${user?.name}`
 
     // Actualiza el título cuando el componente se monta
     useEffect(() => {

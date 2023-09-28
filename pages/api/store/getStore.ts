@@ -3,8 +3,7 @@ import { getAllStore } from '../controllers/store'
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse,
-    userId: string
+    res: NextApiResponse
 ) {
     if (req.method === 'GET') {
         try {

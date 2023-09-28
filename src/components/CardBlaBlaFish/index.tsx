@@ -1,16 +1,14 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import Typography from '@mui/material/Typography'
 import { FC, memo } from 'react'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import PaidIcon from '@mui/icons-material/Paid'
 import WatchLaterIcon from '@mui/icons-material/WatchLater'
-import { Button, IconButton } from '@mui/material'
-import { InfoBlablaContainer, WhatsappContainer } from './styles'
+import { IconButton } from '@mui/material'
+import { WhatsappContainer } from './styles'
 import Link from 'next/link'
-import { useLocale } from 'next-intl'
 
 interface Props {
     id?: string
@@ -39,7 +37,6 @@ const CardBlaBlaFish: FC<Props> = ({
     user,
     iconCreator,
     userId,
-    locale,
 }) => {
     const handleWhatsAppClick = () => {
         // Construir el enlace de WhatsApp con el número de teléfono

@@ -2,7 +2,6 @@ import React, { FC, useEffect } from 'react'
 import IntroJs from 'intro.js'
 import 'intro.js/introjs.css' // Estilo CSS de intro.js
 import 'intro.js/themes/introjs-modern.css' // Tema moderno de intro.js
-import { Modal } from '@mui/material'
 
 const IntroTour: FC = () => {
     const intro = IntroJs()

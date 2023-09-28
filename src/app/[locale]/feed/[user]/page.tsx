@@ -55,7 +55,6 @@ const Page: FC<Props> = ({ params }) => {
     const [openModal, setOpenModal] = useState(false)
     const [openModalComments, setOpenModalComments] = useState(false)
     const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
-    const fotosMarkers = userMarkers.filter(item => item.markerType === 'fotos')
 
     const handleOpenModal = useCallback((item: any) => {
         setSelectedImage(item.picture)

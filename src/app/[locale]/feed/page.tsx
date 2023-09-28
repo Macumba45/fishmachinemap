@@ -1,7 +1,9 @@
 'use client'
 
-import { FC, memo, use, useEffect, useState } from 'react'
+import { FC, memo, useEffect } from 'react'
+import { introJs } from './intro'
 import { useFeedLogic } from './logic'
+import FloatLoginButton from '@/components/FloatLoginButton'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import CardFeed from '@/components/CardFeed'
 import AccountMenu from '@/components/Menu'
@@ -9,10 +11,6 @@ import CircularIndeterminate from '@/components/Loader'
 import { Avatar } from '@mui/material'
 import logo from '../../../assets/fishgram.png'
 import { Container, ContainerMenu, MainContainer, TextNav } from './style'
-import FloatLoginButton from '@/components/FloatLoginButton'
-import { useRouter } from 'next/navigation'
-import { useLocale } from 'next-intl'
-import { introJs } from './intro'
 
 const Feed: FC = () => {
     const {
@@ -23,11 +21,13 @@ const Feed: FC = () => {
         loading,
         getUserInfo,
         dataFeedUser,
+        dynamicTitle,
+        isLogged,
+        setIsLogged,
+        handleShareOnFacebook,
+        handleShareOnWhatsApp,
+        goToLogin,
     } = useFeedLogic()
-
-    const router = useRouter()
-    const locale = useLocale() // Obtén el idioma actual utilizando useLocale
-    const [isLogged, setIsLogged] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -39,24 +39,6 @@ const Feed: FC = () => {
             setIsLogged(true)
         }
     }, [])
-
-    const handleShareOnFacebook = (userId: string) => {
-        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            feedUrl
-        )}`
-        window.open(url, '_blank')
-    }
-
-    const handleShareOnWhatsApp = (userId: string) => {
-        const feedUrl = `https://fishgramapp.vercel.app/feed/${userId}` // Reemplaza con la URL real del feed
-        const url = `https://wa.me/?text=${encodeURIComponent(feedUrl)}`
-        window.open(url, '_blank')
-    }
-
-    const goToLogin = () => {
-        router.push(`/${locale}/auth/login`)
-    }
 
     useEffect(() => {
         getMarkersUser()
@@ -71,9 +53,6 @@ const Feed: FC = () => {
             introJs()
         }
     }, [loading])
-
-    // Define el título dinámico
-    const dynamicTitle = 'FishGram - Feed'
 
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
@@ -118,9 +97,7 @@ const Feed: FC = () => {
                             id={item.id}
                             description={item.description}
                             picture={item.picture}
-                            onClick={() =>
-                                fetchLikesMarkers(item.id, item.userId)
-                            }
+                            onClick={() => fetchLikesMarkers(item.id)}
                             likes={item.likes.length}
                             isLiked={likedMarkers[item.id] || false}
                             numberOfComments={item.comments.length}

@@ -1,9 +1,8 @@
 'use client'
 
-import React, { FC, useState } from 'react'
+import { FC } from 'react'
 import { useTranslations } from 'next-intl'
 import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Select from '@mui/material/Select'
@@ -18,7 +17,6 @@ import customMarkerIconPlace from '../../assets/destino.png'
 import customMarkerIconPicture from '../../assets/back-camera.png'
 import customMarkerIconLikes from '../../assets/likes.png'
 import customMarkerIconAll from '../../assets/all.png'
-
 import { ListItemIcon } from '@mui/material'
 
 type FilterComponentProps = {

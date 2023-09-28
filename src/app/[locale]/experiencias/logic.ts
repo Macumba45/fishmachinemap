@@ -14,8 +14,13 @@ export const useLogicExperience = () => {
     const [city, setCity] = useState('')
     const [whatsapp, setWhatsapp] = useState('')
     const [url, setUrl] = useState('')
-
     const [loading, setLoading] = useState(false)
+    const [selectedCategory, setSelectedCategory] =
+        useState<string>('Influencers')
+    const [filteredData, setFilteredData] = useState<Experiences[]>([])
+    const [openModal, setOpenModal] = useState(false)
+    const isInfluencer = currentUser?.role === 'INFLUENCER'
+    const dynamicTitle = 'FishGram - Experiencias'
 
     const getUserInfo = useCallback(async () => {
         try {
@@ -88,6 +93,23 @@ export const useLogicExperience = () => {
         }
     }, [])
 
+    const filterByCategory = (selectedCategory: string) => {
+        if (selectedCategory === 'Influencers') {
+            setSelectedCategory('Influencers') // Update the selected category
+            // setFilteredData(store) // Si el valor seleccionado es "all", entonces mostrar todos los datos
+            return
+        }
+        setSelectedCategory(selectedCategory) // Update the selected category
+        // const filteredData = store.filter(
+        //     (item: any) => item.category === selectedCategory
+        // )
+        setFilteredData(filteredData)
+    }
+
+    const sendUsEmail = () => {
+        window.open('mailto:gonzalolovo@gmailcom')
+    }
+
     return {
         getUserInfo,
         currentUser,
@@ -113,5 +135,15 @@ export const useLogicExperience = () => {
         setWhatsapp,
         url,
         setUrl,
+        selectedCategory,
+        setSelectedCategory,
+        filteredData,
+        setFilteredData,
+        filterByCategory,
+        openModal,
+        setOpenModal,
+        isInfluencer,
+        dynamicTitle,
+        sendUsEmail,
     }
 }

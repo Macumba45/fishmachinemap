@@ -176,7 +176,7 @@ export const useLogicMaps = () => {
     )
 
     const fetchLikesMarkers = useCallback(
-        async (markerId: string, userId: string) => {
+        async (markerId: string) => {
             try {
                 const token = getAuthenticatedToken()
                 const headers = {
@@ -278,10 +278,7 @@ export const useLogicMaps = () => {
 
     const handleToogleLikeModal = async () => {
         // Perform like/unlike action here
-        await fetchLikesMarkers(
-            dataMarkerUser?.id as string,
-            currentUser?.id as string
-        )
+        await fetchLikesMarkers(dataMarkerUser?.id as string)
         // Actualizar el estado del corazón en tiempo real
         setLikedMarkers(prevState => ({
             ...prevState,

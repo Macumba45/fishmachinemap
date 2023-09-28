@@ -2,7 +2,7 @@ import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Switch, { SwitchProps } from '@mui/material/Switch'
+import Switch from '@mui/material/Switch'
 import { FC } from 'react'
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -64,7 +64,7 @@ const CustomizedSwitches: FC<Props> = ({ style, onClick, label, clasName }) => {
     return (
         <FormGroup sx={{ display: 'flex' }}>
             <FormControlLabel
-                className="switch"
+                className={clasName}
                 sx={{
                     backgroundColor: 'white',
                     borderRadius: '100px',
