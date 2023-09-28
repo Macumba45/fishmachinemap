@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { UserMarker } from '../maps/type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
 import { BlaBlaFish } from '../blablafish/type'
-import { Store } from '../store/type'
+import { StoreData } from '../store/type'
 import { ProfileProps, userLikesProps } from './type'
 
 export const useLogicUser = () => {
@@ -19,7 +19,7 @@ export const useLogicUser = () => {
         [key: string]: boolean
     }>({})
     const [blablaFish, setBlaBlaFish] = useState<BlaBlaFish[]>([])
-    const [stores, setStores] = useState<Store[]>([])
+    const [stores, setStores] = useState<StoreData[]>([])
     const [picture, setPicture] = useState<string>('')
     const [markerVisibility, setMarkerVisibility] = useState<{
         [key: string]: boolean
