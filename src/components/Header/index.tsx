@@ -49,7 +49,7 @@ const HeaderComp: FC = () => {
                     name="FishGram"
                     content="FishGram - ¡Comparte tus spots favoritos, capturas y mucho más!"
                 />
-                <TitleHeader aria-hidden="true" title="Fishgram">
+                <TitleHeader aria-hidden="true" title="FishGram - ¡Comparte tus spots favoritos, capturas y mucho más!">
                     FishGram
                 </TitleHeader>
                 <LogoPicture alt="FishGram Logo" src={fishgram.src} />
