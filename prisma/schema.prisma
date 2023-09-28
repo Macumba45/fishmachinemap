@@ -109,6 +109,7 @@ model Store {
 
 model Experiencies {
   id          String   @id @default(cuid())
+  type        String?
   picture     String?
   title       String?
   category    String?

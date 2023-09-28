@@ -34,8 +34,8 @@ export const LogoInfluencerContainer = styled.div`
 export const ContainerInfo = styled.div`
     display: grid;
     align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
     justify-content: center;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;

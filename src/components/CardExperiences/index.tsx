@@ -116,6 +116,7 @@ const CardExperiences: FC<Props> = ({
                     variant="h5"
                     color="text.secondary"
                     height={100}
+                    maxHeight={100}
                     component="div"
                 >
                     {description}

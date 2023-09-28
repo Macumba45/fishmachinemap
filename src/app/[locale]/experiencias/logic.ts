@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { getAuthenticatedToken } from '../../../lib/storage/storage'
-import { Experiences, User } from './type'
+import { Experiences, ExperiencesType, User } from './type'
 
 export const useLogicExperience = () => {
     const [experiences, setExperiences] = useState<Experiences[]>([])
@@ -15,9 +15,8 @@ export const useLogicExperience = () => {
     const [whatsapp, setWhatsapp] = useState('')
     const [url, setUrl] = useState('')
     const [loading, setLoading] = useState(false)
-    const [selectedCategory, setSelectedCategory] =
-        useState<string>('Influencers')
-    const [filteredData, setFilteredData] = useState<Experiences[]>([])
+    const [selectedCategory, setSelectedCategory] = useState<string>('all')
+    const [filteredData, setFilteredData] = useState<Experiences[]>(experiences)
     const [openModal, setOpenModal] = useState(false)
     const isInfluencer = currentUser?.role === 'INFLUENCER'
     const dynamicTitle = 'FishGram - Experiencias'
@@ -93,16 +92,16 @@ export const useLogicExperience = () => {
         }
     }, [])
 
-    const filterByCategory = (selectedCategory: string) => {
-        if (selectedCategory === 'Influencers') {
-            setSelectedCategory('Influencers') // Update the selected category
-            // setFilteredData(store) // Si el valor seleccionado es "all", entonces mostrar todos los datos
+    const filterByCategory = (selectedCategory: ExperiencesType) => {
+        if (selectedCategory === ExperiencesType.ALL) {
+            setSelectedCategory(ExperiencesType.ALL) // Update the selected category
+            setFilteredData(experiences) // Si el valor seleccionado es "all", entonces mostrar todos los datos
             return
         }
         setSelectedCategory(selectedCategory) // Update the selected category
-        // const filteredData = store.filter(
-        //     (item: any) => item.category === selectedCategory
-        // )
+        const filteredData = experiences.filter(
+            (item: Experiences) => item.type === selectedCategory
+        )
         setFilteredData(filteredData)
     }
 

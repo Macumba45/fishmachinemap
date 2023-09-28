@@ -37,11 +37,18 @@ const TitlebarImageList: FC<Props> = ({
 
     useEffect(() => {
         calculateSize()
-        window.addEventListener('resize', calculateSize)
-        return () => {
-            window.removeEventListener('resize', calculateSize)
+
+        const handleResize = () => {
+            calculateSize()
         }
-    }, []) // Este efecto se ejecuta solo una vez al montar el componente
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, []) // El efecto se ejecuta solo una vez al montar el componente
+
     return (
         <ImageListItem
             component="div"

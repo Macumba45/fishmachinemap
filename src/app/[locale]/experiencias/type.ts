@@ -8,6 +8,7 @@ export type User = {
 }
 
 export type Experiences = {
+    type?: string
     title: string
     picture: string
     category: string
@@ -18,4 +19,10 @@ export type Experiences = {
     whatsapp: string
     url: string
     user?: User
+}
+
+export enum ExperiencesType {
+    ALL = 'all',
+    INFLUENCER = 'influencer',
+    BUSINESS = 'business',
 }

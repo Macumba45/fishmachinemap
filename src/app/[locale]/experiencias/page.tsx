@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo, useEffect } from 'react'
+import { FC, memo, use, useEffect } from 'react'
 import { useLogicExperience } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
@@ -20,6 +20,7 @@ import {
     MainContainer,
     TextNav,
 } from './style'
+import { get } from 'http'
 
 const Experiencias: FC = () => {
     const {
@@ -35,12 +36,21 @@ const Experiencias: FC = () => {
         isInfluencer,
         dynamicTitle,
         sendUsEmail,
+        filteredData,
+        setFilteredData,
     } = useLogicExperience()
 
     useEffect(() => {
         getUserInfo()
+    }, [getUserInfo])
+
+    useEffect(() => {
         getExperiences()
-    }, [getUserInfo, getExperiences])
+    }, [getExperiences])
+
+    useEffect(() => {
+        setFilteredData(experiences)
+    }, [experiences])
 
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
@@ -87,7 +97,7 @@ const Experiencias: FC = () => {
                 <CardContainer
                     style={{ marginTop: !isInfluencer ? '1rem' : '6rem' }}
                 >
-                    {experiences.map((item: any) => {
+                    {filteredData.map((item: any) => {
                         return (
                             <CardExperiences
                                 key={item.id}

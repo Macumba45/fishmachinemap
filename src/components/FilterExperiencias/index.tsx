@@ -15,7 +15,7 @@ const FilterExperiencias: FC<Props> = ({ onChange, value }) => {
     return (
         <Container>
             <Tabs
-                value={value} // Asegúrate de que value sea una cadena, por ejemplo, value="Accesorios"
+                value={value}
                 onChange={handleOnChange}
                 variant="scrollable"
                 scrollButtons
@@ -43,7 +43,20 @@ const FilterExperiencias: FC<Props> = ({ onChange, value }) => {
                             color: '#4675A6', // Cambia el color del texto del tab activo
                         },
                     }}
-                    value="Influencers"
+                    value="all"
+                    label="Todo"
+                />
+                <Tab
+                    sx={{
+                        fontSize: '0.8rem',
+                        '&.MuiTab-root': {
+                            color: '#5c5c5c', // Cambia el color del texto de los tabs no activos
+                        },
+                        '&.Mui-selected': {
+                            color: '#4675A6', // Cambia el color del texto del tab activo
+                        },
+                    }}
+                    value="influencer"
                     label="Influencers"
                 />
                 <Tab
@@ -56,7 +69,7 @@ const FilterExperiencias: FC<Props> = ({ onChange, value }) => {
                             color: '#4675A6', // Cambia el color del texto del tab activo
                         },
                     }}
-                    value="Empresas"
+                    value="business"
                     label="Empresas"
                 />
             </Tabs>

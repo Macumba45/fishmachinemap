@@ -56,7 +56,7 @@ const Store: FC = () => {
         } else {
             setIsLogged(true)
         }
-    }, [setIsLogged])
+    }, [])
 
     useEffect(() => {
         setFilteredData(store)

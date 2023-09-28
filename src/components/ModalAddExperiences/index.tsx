@@ -64,6 +64,7 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
             return
         }
         const experienceData = {
+            type: '',
             title,
             picture,
             category,
@@ -164,18 +165,16 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
                                 value={category}
                                 onChange={e => setCategory(e.target.value)}
                             >
-                                <MenuItem value="Accesorios">
+                                <MenuItem value="AltaMar">
                                     Pesca Alta Mar
                                 </MenuItem>
-                                <MenuItem value="Accesorios">
+                                <MenuItem value="Surfcasting">
                                     Surfcasting
                                 </MenuItem>
-                                <MenuItem value="Accesorios">Spinning</MenuItem>
-                                <MenuItem value="Accesorios">
-                                    Submarinismo
-                                </MenuItem>
-                                <MenuItem value="Accesorios">Kayak</MenuItem>
-                                <MenuItem value="Accesorios">Rio/lago</MenuItem>
+                                <MenuItem value="Spinning">Spinning</MenuItem>
+                                <MenuItem value="Sub">Submarinismo</MenuItem>
+                                <MenuItem value="Kayak">Kayak</MenuItem>
+                                <MenuItem value="Rio">Rio/lago</MenuItem>
                             </Select>
                         </FormControl>
                         <TextField
