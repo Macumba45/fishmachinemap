@@ -1,7 +1,6 @@
 'use client'
 
 import React, { FC, useEffect, memo } from 'react'
-import { useTranslations } from 'next-intl'
 import { MarkerType, UserMarker } from './type'
 import { useLogicMaps } from './logic'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
@@ -142,21 +141,13 @@ const GoogleMapComp: FC = () => {
         handleFilterChange,
         goToLogin,
         dynamicTitle,
+        t,
+        bottomPosition,
     } = useLogicMaps()
-
-    useEffect(() => {
-        if (!token) {
-            setIsLogged(false)
-            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
-        } else {
-            setIsLogged(true)
-        }
-    }, [setIsLogged, token])
 
     const markers: google.maps.Marker[] = []
     let map: google.maps.Map
     let service: google.maps.places.PlacesService
-    const t = useTranslations('maps')
 
     async function initMap() {
         if (typeof window !== 'undefined' && confirmedMarkers) {
@@ -507,6 +498,15 @@ const GoogleMapComp: FC = () => {
         })
     }
 
+    useEffect(() => {
+        if (!token) {
+            setIsLogged(false)
+            // router.push('/auth/login'); // Redirige al usuario a la página de inicio de sesión si no hay token
+        } else {
+            setIsLogged(true)
+        }
+    }, [setIsLogged, token])
+
     // Efecto que se ejecuta cuando se carga el API de Google Maps y se establece el centro del mapa.
     useEffect(() => {
         initMap()
@@ -560,16 +560,6 @@ const GoogleMapComp: FC = () => {
 
         // ... tu lógica para inicializar el mapa aquí ...
     }, [])
-
-    // cambia la posición del switch dependiendo del tamaño de la pantalla
-    let bottomPosition
-    if (typeof window !== 'undefined') {
-        if (window.innerWidth < 600) {
-            bottomPosition = '150px'
-        } else {
-            bottomPosition = '150px'
-        }
-    }
 
     // Actualiza el título cuando el componente se monta
     useEffect(() => {

@@ -15,6 +15,7 @@ import {
     SubtitleContainer,
     SubtitleHeader,
     TitleContainer,
+    TitleHeader,
     VideoContainer,
 } from './style'
 
@@ -42,18 +43,17 @@ const HeaderComp: FC = () => {
         <MainContainer>
             <ContainerLanguage>
                 <LocaleSwitcher />
-                {/* Pasa setCurrentLanguage a LocaleSwitcher */}
             </ContainerLanguage>
             <TitleContainer>
-                {/* <TitleHeader>{t('HomeHeaderTitle')}</TitleHeader> */}
-                <LogoPicture src={fishgram.src} />
+                <meta
+                    name="FishGram"
+                    content="FishGram - ¡Comparte tus spots favoritos, capturas y mucho más!"
+                />
+                <TitleHeader aria-hidden="true" title="Fishgram">
+                    FishGram
+                </TitleHeader>
+                <LogoPicture alt="FishGram Logo" src={fishgram.src} />
             </TitleContainer>
-            {/* <SubtitleContainer>
-                <SubtitleHeader>
-                    {t('homeSubHeaderTitle')}
-                    <br /> <SpanBold>{t('homeSubHeaderTitle2')}</SpanBold>
-                </SubtitleHeader>
-            </SubtitleContainer> */}
             <SubtitleContainer>
                 <SubtitleHeader>{t('homeSubHeaderTitle')}</SubtitleHeader>
             </SubtitleContainer>

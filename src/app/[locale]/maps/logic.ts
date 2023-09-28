@@ -9,7 +9,7 @@ import { Style, User, UserMarker } from './type'
 import { useMediaQuery } from 'react-responsive'
 import { MarkerType } from './type'
 import { getAuthenticatedToken } from '@/lib/storage/storage'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 
 export const useLogicMaps = () => {
@@ -79,6 +79,7 @@ export const useLogicMaps = () => {
     const selectedFiltersRef = useRef<MarkerType>(selectedFilters) // Referencia mutable
     const router = useRouter()
     const dynamicTitle = 'FishGram - Maps'
+    const t = useTranslations('maps')
 
     const addUserMarker = useCallback(async (userMark: UserMarker) => {
         try {
@@ -517,6 +518,16 @@ export const useLogicMaps = () => {
         setOpenModalComments(false)
     }, [])
 
+    // cambia la posición del switch dependiendo del tamaño de la pantalla
+    let bottomPosition
+    if (typeof window !== 'undefined') {
+        if (window.innerWidth < 600) {
+            bottomPosition = '150px'
+        } else {
+            bottomPosition = '150px'
+        }
+    }
+
     return {
         styledMap,
         selectMapStyle,
@@ -613,5 +624,7 @@ export const useLogicMaps = () => {
         handleFilterChange,
         goToLogin,
         dynamicTitle,
+        t,
+        bottomPosition,
     }
 }

@@ -84,6 +84,15 @@ export const TitleHeader = styled.h1`
     color: white;
     font-size: 5rem;
     text-align: center;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
     @media screen and (max-width: 600px) {
         font-size: 2rem;
     }
