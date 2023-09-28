@@ -162,8 +162,8 @@ const BasicModal: FC<Props> = ({
                         {type?.includes('natural_feature')
                             ? undefined
                             : isOpenStore
-                                ? 'Abierto'
-                                : 'Cerrado'}
+                            ? 'Abierto'
+                            : 'Cerrado'}
                     </Typography>
                     <TypographyContainer>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>

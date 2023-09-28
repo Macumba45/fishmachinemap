@@ -518,15 +518,9 @@ const GoogleMapComp: FC = () => {
     useEffect(() => {
         if (mapRef.current) {
             renderMarkers(filteredMarkers)
-        }
-    }, [filteredMarkers, mapRef])
-
-    // Efecto que introduce el IntroJs
-    useEffect(() => {
-        if (mapRef.current) {
             introJs()
         }
-    }, [mapRef])
+    }, [filteredMarkers, mapRef])
 
     // Efecto que se ejecuta cuando cambian los marcadores para actualizar el cluster de marcadores.
     useEffect(() => {
@@ -580,7 +574,7 @@ const GoogleMapComp: FC = () => {
     // Actualiza el título cuando el componente se monta
     useEffect(() => {
         document.title = dynamicTitle
-    }, [])
+    }, [dynamicTitle])
 
     // Renderiza el componente.
     if (loading && userMarkers.length === 0) {
@@ -734,19 +728,19 @@ const GoogleMapComp: FC = () => {
                                                     {new Date(
                                                         marker.createdAt
                                                     ) >= oneWeekAgoNew ? (
-                                                            <Typography
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="secondary"
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection:
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="secondary"
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection:
                                                                     'column',
-                                                                }}
-                                                            >
-                                                                {t('new')}
-                                                            </Typography>
-                                                        ) : null}
+                                                            }}
+                                                        >
+                                                            {t('new')}
+                                                        </Typography>
+                                                    ) : null}
                                                 </>
                                             }
                                         />

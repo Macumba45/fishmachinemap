@@ -22,11 +22,11 @@ interface Props {
     onClose?: () => void
     onClick?: () => void
     positionMarkerUser?:
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+              lat: number | undefined
+              lng: number | undefined
+          }
     direction?: string
     markerType?: string
     description?: string

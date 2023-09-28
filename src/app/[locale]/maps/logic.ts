@@ -15,11 +15,11 @@ import { useRouter } from 'next/navigation'
 export const useLogicMaps = () => {
     // Define los estados del componente.
     const [positionMarkerUser, setpositionMarkerUser] = useState<
-    | google.maps.LatLngLiteral
-    | {
-        lat: number | undefined
-        lng: number | undefined
-    }
+        | google.maps.LatLngLiteral
+        | {
+              lat: number | undefined
+              lng: number | undefined
+          }
     >()
     const [loading, setLoading] = useState<boolean>(true)
     const [center] = useState<google.maps.LatLngLiteral>({
@@ -330,7 +330,7 @@ export const useLogicMaps = () => {
     )
 
     const [selectedMarkers, setSelectedMarkers] = useState<
-    google.maps.Marker[]
+        google.maps.Marker[]
     >([])
 
     const [markersSmallModal, markersSetSmallModal] =
@@ -373,9 +373,9 @@ export const useLogicMaps = () => {
     const confirmMarker = useCallback(
         async (
             location:
-            | google.maps.LatLngLiteral
-            | { lat: number | undefined; lng: number | undefined }
-            | undefined,
+                | google.maps.LatLngLiteral
+                | { lat: number | undefined; lng: number | undefined }
+                | undefined,
             direction: string,
             markerType: string,
             description: string,

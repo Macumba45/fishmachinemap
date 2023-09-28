@@ -29,17 +29,17 @@ export const introJs = () => {
             },
             isLogged
                 ? {
-                    title: '¡Busca por la zona!',
-                    element: '.buscarZona',
-                    intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
-                    step: 4,
-                }
+                      title: '¡Busca por la zona!',
+                      element: '.buscarZona',
+                      intro: 'Pulsa este boton para traer los mejores resultados de Google Maps, como tiendas, o playas',
+                      step: 4,
+                  }
                 : {
-                    title: '¡Inicia sesión!',
-                    element: '.login',
-                    intro: 'Pulsa este botón para iniciar sesión y disfrutar de FishGram',
-                    step: 4,
-                },
+                      title: '¡Inicia sesión!',
+                      element: '.login',
+                      intro: 'Pulsa este botón para iniciar sesión y disfrutar de FishGram',
+                      step: 4,
+                  },
             {
                 title: '¡Últimos marcadores!',
                 element: '.badge',

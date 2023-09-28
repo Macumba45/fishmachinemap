@@ -168,36 +168,36 @@ const ModalUserMarkers: FC<Props> = ({
                             {typeof window !== 'undefined' &&
                                 window.location.pathname ===
                                     `/${locale}/maps` && (
-                                <div style={{ display: 'flex' }}>
-                                    <IconButton
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                        }}
-                                        onClick={onClickLike}
-                                        disabled={!isLogged}
-                                    >
-                                        {isLiked ? (
-                                            <FavoriteIcon
-                                                style={{
-                                                    color: isLogged
-                                                        ? '#4675A6'
-                                                        : 'grey',
-                                                }}
-                                            />
-                                        ) : (
-                                            <FavoriteBorderIcon
-                                                style={{
-                                                    color: isLogged
-                                                        ? '#4675A6'
-                                                        : 'grey',
-                                                }}
-                                            />
-                                        )}
-                                    </IconButton>
-                                    <LikesLabel>{likes}</LikesLabel>
-                                </div>
-                            )}
+                                    <div style={{ display: 'flex' }}>
+                                        <IconButton
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                            }}
+                                            onClick={onClickLike}
+                                            disabled={!isLogged}
+                                        >
+                                            {isLiked ? (
+                                                <FavoriteIcon
+                                                    style={{
+                                                        color: isLogged
+                                                            ? '#4675A6'
+                                                            : 'grey',
+                                                    }}
+                                                />
+                                            ) : (
+                                                <FavoriteBorderIcon
+                                                    style={{
+                                                        color: isLogged
+                                                            ? '#4675A6'
+                                                            : 'grey',
+                                                    }}
+                                                />
+                                            )}
+                                        </IconButton>
+                                        <LikesLabel>{likes}</LikesLabel>
+                                    </div>
+                                )}
                         </ContenidoGoogle>
                     </TypographyContainer>
                     <TypographyContainer>
