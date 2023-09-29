@@ -1,3 +1,4 @@
+import { emailHTMLContent } from '@/utils/marketingEmail/newUserEmail'
 import nodemailer from 'nodemailer'
 
 export const sendEmailNewUser = async (email: string) => {
@@ -30,7 +31,7 @@ export const sendEmailNewUser = async (email: string) => {
         from: 'gonzalolovo@gmail.com',
         to: email,
         subject: 'Registro exitoso',
-        text: '¡Gracias por registrarte en nuestro sitio!',
+        html: emailHTMLContent,
     }
 
     // Enviar el correo electrónico

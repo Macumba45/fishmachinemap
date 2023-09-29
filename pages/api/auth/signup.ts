@@ -59,7 +59,7 @@ const handleSubmitSignUp = async (
         res.status(500).json({ message: 'Internal Server Error' })
     } finally {
         await newUserNotification(email)
-        // await sendEmailNewUser(email)
+        await sendEmailNewUser(email)
     }
 }
 
