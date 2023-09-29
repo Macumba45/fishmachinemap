@@ -25,8 +25,6 @@ function RecoveryRequest() {
             if (response.ok) {
                 // Muestra un mensaje de éxito o redirige al usuario a una página de confirmación
                 console.log('Solicitud de recuperación de contraseña enviada')
-            } else {
-                alert(`Este ${email} no está registrado en FishGram`)
             }
         } catch (error) {
             console.error(

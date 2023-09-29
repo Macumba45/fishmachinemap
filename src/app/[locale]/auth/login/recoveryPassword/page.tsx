@@ -41,7 +41,6 @@ function ResetPasswordForm() {
             console.log('Error al restablecer la contraseña', error.message)
         }
     }
-    const url = `https://fishgramapp.vercel.app/${locale}/auth/login/`
     return (
         <Container
             sx={{
@@ -86,6 +85,7 @@ function ResetPasswordForm() {
                         fullWidth
                         variant="contained"
                         color="primary"
+                        disabled={confirmed}
                         sx={{ mt: 2 }}
                     >
                         Restablecer Contraseña
@@ -105,9 +105,10 @@ function ResetPasswordForm() {
                     </Typography>
                     <ButtonComp
                         bgColor="#4675A6"
+                        style={{ marginTop: '1rem' }}
                         color="white"
                         title="Volvel a iniciar sesión"
-                        href={url}
+                        onClick={() => router.push(`/${locale}/auth/login`)}
                     ></ButtonComp>
                 </>
             )}
