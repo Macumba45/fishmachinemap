@@ -2,11 +2,13 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Container, Typography, TextField, Button, Box } from '@mui/material'
+import ButtonComp from '@/components/Button'
 import { useTranslations } from 'next-intl'
 
 function ResetPasswordForm() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [confirmed, setConfirmed] = useState(false)
     const query = new URLSearchParams(window.location.search)
     const router = useRouter()
     const locale = useTranslations()
@@ -30,13 +32,12 @@ function ResetPasswordForm() {
             })
             if (response.ok) {
                 console.log('Contraseña restablecida')
+                setConfirmed(true)
             } else {
                 console.log('Error al restablecer la contraseña')
             }
         } catch (error: any) {
             console.log('Error al restablecer la contraseña', error.message)
-        } finally {
-            router.push(`${locale}/auth/login`)
         }
     }
 
@@ -90,6 +91,23 @@ function ResetPasswordForm() {
                     </Button>
                 </form>
             </Box>
+            {confirmed && (
+                <>
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: 2,
+                        }}
+                    >
+                        Contraseña restablecida correctamente
+                    </Typography>
+                    <ButtonComp
+                        title="Volver a iniciar sesión"
+                        onClick={() => router.push(`/${locale}/auth/login`)}
+                    ></ButtonComp>
+                </>
+            )}
         </Container>
     )
 }
