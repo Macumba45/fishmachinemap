@@ -9,6 +9,20 @@ export const sendEmailNewUser = async (email: string) => {
             user: 'gonzalolovo@gmail.com',
             pass: process.env.EMAIL_PASSWORD,
         },
+        secure: true,
+    })
+
+    await new Promise((resolve, reject) => {
+        // verify connection configuration
+        transporter.verify(function (error, success) {
+            if (error) {
+                console.log(error)
+                reject(error)
+            } else {
+                console.log('Server is ready to take our messages')
+                resolve(success)
+            }
+        })
     })
 
     // Configurar el contenido del correo electrónico
@@ -20,11 +34,14 @@ export const sendEmailNewUser = async (email: string) => {
     }
 
     // Enviar el correo electrónico
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error al enviar el correo electrónico:', error)
-        } else {
-            console.log('Correo electrónico enviado:', info.response)
-        }
+    await new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error al enviar el correo electrónico:', error)
+                reject(error)
+            } else {
+                resolve(info)
+            }
+        })
     })
 }

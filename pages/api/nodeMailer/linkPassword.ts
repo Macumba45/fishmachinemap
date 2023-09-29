@@ -40,7 +40,6 @@ export const sendLinkPasswordRecovery = async (email: string, link: string) => {
                 console.error('Error al enviar el correo electrónico:', error)
                 reject(error)
             } else {
-                console.log('Correo electrónico enviado:', info.response)
                 resolve(info)
             }
         })

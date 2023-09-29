@@ -17,11 +17,6 @@ export default async function requestPassword(
             const url =
                 'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
                 token
-            console.log(
-                'Este es la URL:',
-                'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
-                    token
-            )
             await sendLinkPasswordRecovery(email, url)
             res.status(200).json(
                 'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +

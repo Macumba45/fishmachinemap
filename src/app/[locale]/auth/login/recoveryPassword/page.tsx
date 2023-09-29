@@ -1,11 +1,15 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Container, Typography, TextField, Button, Box } from '@mui/material'
+import { useTranslations } from 'next-intl'
 
 function ResetPasswordForm() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const query = new URLSearchParams(window.location.search)
+    const router = useRouter()
+    const locale = useTranslations()
 
     const handleSubmit = async (e: any) => {
         try {
@@ -31,6 +35,8 @@ function ResetPasswordForm() {
             }
         } catch (error: any) {
             console.log('Error al restablecer la contraseña', error.message)
+        } finally {
+            router.push(`${locale}/auth/login`)
         }
     }
 
