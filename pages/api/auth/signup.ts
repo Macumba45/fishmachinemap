@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 import { prisma } from '../../../src/lib/db'
 import { sendEmailNewUser } from '../nodeMailer/newUser'
+import { newUserNotification } from '../nodeMailer/newUserNotification'
 const bcrypt = require('bcrypt')
 
 const handleSubmitSignUp = async (
@@ -56,10 +57,10 @@ const handleSubmitSignUp = async (
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Internal Server Error' })
+    } finally {
+        await newUserNotification(email)
+        // await sendEmailNewUser(email)
     }
-    // finally {
-    //     sendEmailNewUser(email)
-    // }
 }
 
 export default handleSubmitSignUp
