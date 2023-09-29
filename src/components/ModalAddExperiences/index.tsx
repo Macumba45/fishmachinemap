@@ -72,6 +72,7 @@ const ExperienceModal: FC<ExperienceModalProps> = ({ isOpen, onClose }) => {
             price,
             phone,
             city,
+            comunidad: '',
             whatsapp,
             url,
         }

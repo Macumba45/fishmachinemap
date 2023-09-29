@@ -9,6 +9,7 @@ export const sendLinkPasswordRecovery = async (email: string, link: string) => {
             user: 'gonzalolovo@gmail.com',
             pass: process.env.EMAIL_PASSWORD,
         },
+        secure: true,
     })
 
     // Configurar el contenido del correo electrónico
