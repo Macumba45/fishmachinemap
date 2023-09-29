@@ -16,6 +16,7 @@ export type Experiences = {
     price: string
     phone: string
     city: string
+    comunidad?: string
     whatsapp: string
     url: string
     user?: User

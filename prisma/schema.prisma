@@ -117,6 +117,7 @@ model Experiencies {
   price       String?
   phone       String?
   city        String?
+  comunidad   String?
   whatsapp    String?
   url         String?
   user        User?    @relation(fields: [userId], references: [id])

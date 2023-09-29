@@ -1,13 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import {
-    Container,
-    CssBaseline,
-    Typography,
-    TextField,
-    Button,
-    Paper,
-} from '@mui/material'
+import { Container, Typography, TextField, Button, Box } from '@mui/material'
 
 function ResetPasswordForm() {
     const [password, setPassword] = useState('')
@@ -42,16 +35,25 @@ function ResetPasswordForm() {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Paper elevation={3}>
-                <Typography component="h1" variant="h5">
-                    Restablecer Contraseña
-                </Typography>
+        <Container
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                mt: 3,
+            }}
+            component="main"
+            maxWidth="xs"
+        >
+            <Typography component="h1" variant="h5">
+                Restablece tu contraseña
+            </Typography>
+            <Box sx={{ mt: 2 }}>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         variant="outlined"
-                        margin="normal"
+                        margin="dense"
                         required
                         fullWidth
                         id="password"
@@ -62,7 +64,7 @@ function ResetPasswordForm() {
                     />
                     <TextField
                         variant="outlined"
-                        margin="normal"
+                        margin="dense"
                         required
                         fullWidth
                         id="confirmPassword"
@@ -76,11 +78,12 @@ function ResetPasswordForm() {
                         fullWidth
                         variant="contained"
                         color="primary"
+                        sx={{ mt: 2 }}
                     >
                         Restablecer Contraseña
                     </Button>
                 </form>
-            </Paper>
+            </Box>
         </Container>
     )
 }

@@ -22,6 +22,7 @@ export default async function LocaleLayout({
         <html lang={locale}>
             <head>
                 <Script
+                    rel="preconnect"
                     async
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=Function.prototype&libraries=places,geometry`}
                 ></Script>

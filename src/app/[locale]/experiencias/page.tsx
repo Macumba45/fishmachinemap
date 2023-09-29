@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, memo, use, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { useLogicExperience } from './logic'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import AccountMenu from '@/components/Menu'
@@ -20,7 +20,6 @@ import {
     MainContainer,
     TextNav,
 } from './style'
-import { get } from 'http'
 
 const Experiencias: FC = () => {
     const {

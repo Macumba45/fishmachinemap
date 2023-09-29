@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { findEmailToRecover, insertUserRecovery } from '../controllers/password'
+import { sendLinkPasswordRecovery } from '../nodeMailer/linkPassword'
 
 export default async function requestPassword(
     req: NextApiRequest,
@@ -13,13 +14,17 @@ export default async function requestPassword(
                 res.status(404).json({ message: 'Usuario no encontrado' })
             }
             const token = await insertUserRecovery(user?.email || '')
+            const url =
+                'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
+                token
             console.log(
                 'Este es la URL:',
-                'http://localhost:3000/es/auth/login/recoveryPassword?token=' +
+                'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
                     token
             )
+            sendLinkPasswordRecovery(email, url)
             res.status(200).json(
-                'http://localhost:3000/es/auth/login/recoveryPassword?token=' +
+                'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
                     token
             )
         } catch (error: any) {
