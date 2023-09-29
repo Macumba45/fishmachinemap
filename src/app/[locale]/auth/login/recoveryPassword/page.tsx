@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { Container, Typography, TextField, Button, Box } from '@mui/material'
 import ButtonComp from '@/components/Button'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
 function ResetPasswordForm() {
     const [password, setPassword] = useState('')
@@ -102,10 +103,9 @@ function ResetPasswordForm() {
                     >
                         Contraseña restablecida correctamente
                     </Typography>
-                    <ButtonComp
-                        title="Volver a iniciar sesión"
-                        onClick={() => router.replace(`/${locale}/auth/login`)}
-                    ></ButtonComp>
+                    <Link href={`/${locale}/auth/login`}>
+                        Volver a iniciar sesión
+                    </Link>
                 </>
             )}
         </Container>
