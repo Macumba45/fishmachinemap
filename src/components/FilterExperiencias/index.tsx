@@ -11,7 +11,15 @@ const FilterExperiencias: FC<Props> = ({ onChange, value }) => {
     const handleOnChange = (event: any, newValue: any) => {
         onChange && onChange(newValue)
     }
-
+    const tabStyles = {
+        fontSize: '0.7rem',
+        '&.MuiTab-root': {
+            color: '#5c5c5c', // Cambia el color del texto de los tabs no activos
+        },
+        '&.Mui-selected': {
+            color: '#4675A6', // Cambia el color del texto del tab activo
+        },
+    }
     return (
         <Container>
             <Tabs
@@ -33,45 +41,9 @@ const FilterExperiencias: FC<Props> = ({ onChange, value }) => {
                     },
                 }}
             >
-                <Tab
-                    sx={{
-                        fontSize: '0.8rem',
-                        '&.MuiTab-root': {
-                            color: '#5c5c5c', // Cambia el color del texto de los tabs no activos
-                        },
-                        '&.Mui-selected': {
-                            color: '#4675A6', // Cambia el color del texto del tab activo
-                        },
-                    }}
-                    value="all"
-                    label="Todo"
-                />
-                <Tab
-                    sx={{
-                        fontSize: '0.8rem',
-                        '&.MuiTab-root': {
-                            color: '#5c5c5c', // Cambia el color del texto de los tabs no activos
-                        },
-                        '&.Mui-selected': {
-                            color: '#4675A6', // Cambia el color del texto del tab activo
-                        },
-                    }}
-                    value="influencer"
-                    label="Influencers"
-                />
-                <Tab
-                    sx={{
-                        fontSize: '0.8rem',
-                        '&.MuiTab-root': {
-                            color: '#5c5c5c', // Cambia el color del texto de los tabs no activos
-                        },
-                        '&.Mui-selected': {
-                            color: '#4675A6', // Cambia el color del texto del tab activo
-                        },
-                    }}
-                    value="business"
-                    label="Empresas"
-                />
+                <Tab sx={tabStyles} value="all" label="Todos" />
+                <Tab sx={tabStyles} value="influencer" label="Influencers" />
+                <Tab sx={tabStyles} value="business" label="Empresas" />
             </Tabs>
         </Container>
     )
