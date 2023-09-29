@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Container, Typography, TextField, Button, Box } from '@mui/material'
 import ButtonComp from '@/components/Button'
-import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 import Link from 'next/link'
 
 function ResetPasswordForm() {
@@ -12,7 +12,7 @@ function ResetPasswordForm() {
     const [confirmed, setConfirmed] = useState(false)
     const query = new URLSearchParams(window.location.search)
     const router = useRouter()
-    const locale = useTranslations()
+    const locale = useLocale()
 
     const handleSubmit = async (e: any) => {
         try {
@@ -41,7 +41,7 @@ function ResetPasswordForm() {
             console.log('Error al restablecer la contraseña', error.message)
         }
     }
-
+    const url = `https://fishgramapp.vercel.app/${locale}/auth/login/`
     return (
         <Container
             sx={{
@@ -103,9 +103,12 @@ function ResetPasswordForm() {
                     >
                         Contraseña restablecida correctamente
                     </Typography>
-                    <Link href={`/${locale}/auth/login`}>
-                        Volver a iniciar sesión
-                    </Link>
+                    <ButtonComp
+                        bgColor="#4675A6"
+                        color="white"
+                        title="Volvel a iniciar sesión"
+                        href={url}
+                    ></ButtonComp>
                 </>
             )}
         </Container>
