@@ -104,7 +104,7 @@ function ResetPasswordForm() {
                     </Typography>
                     <ButtonComp
                         title="Volver a iniciar sesión"
-                        onClick={() => router.push(`/${locale}/auth/login`)}
+                        onClick={() => router.replace(`/${locale}/auth/login`)}
                     ></ButtonComp>
                 </>
             )}
