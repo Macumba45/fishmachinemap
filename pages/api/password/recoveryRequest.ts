@@ -22,7 +22,7 @@ export default async function requestPassword(
                 'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
                     token
             )
-            sendLinkPasswordRecovery(email, url)
+            await sendLinkPasswordRecovery(email, url)
             res.status(200).json(
                 'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
                     token

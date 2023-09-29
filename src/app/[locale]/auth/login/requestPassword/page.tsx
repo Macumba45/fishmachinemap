@@ -7,6 +7,7 @@ import { LoadingButton } from '@mui/lab'
 function RecoveryRequest() {
     const [email, setEmail] = useState('')
     const [loading, setLoading] = useState(false)
+    const [emailSent, setEmailSent] = useState(false)
 
     const handleSubmit = async (e: any) => {
         try {
@@ -35,6 +36,7 @@ function RecoveryRequest() {
             )
         } finally {
             setLoading(false)
+            setEmailSent(true)
         }
     }
 
@@ -91,6 +93,19 @@ function RecoveryRequest() {
                     </LoadingButton>
                 </form>
             </div>
+            {emailSent && (
+                <Typography
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '16px',
+                    }}
+                >
+                    Si el correo electrónico está registrado, recibirás un
+                    correo electrónico con instrucciones para restablecer tu
+                    contraseña.
+                </Typography>
+            )}
         </Container>
     )
 }
