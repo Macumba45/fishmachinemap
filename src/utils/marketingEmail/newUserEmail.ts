@@ -22,15 +22,13 @@ export const emailHTMLContent = `
         <section style="padding: 20px; background-color: #ffffff;">
             <h2 style="font-size: 20px; color: #333;">Descubre lo que Fishgram tiene para ofrecer:</h2>
             <ul style="font-size: 16px; color: #666; list-style-type: none; padding: 0;">
-                <li style="margin-bottom: 10px;">🗺️ Maps: Explora mapas de pesca colaborativos y descubre nuevos lugares
-                    para lanzar tu caña.</li>
+                <li style="margin-bottom: 10px;">🗺️ Maps: Explora nuestro mapa de pesca en donde puedes descubrir nuevos spots
+                    para lanzar tu caña, ver las capturas de otros pescadores, avisar de si hay algas, subir tu tienda y mucho más.</li>
                 <li style="margin-bottom: 10px;">🏞️ Feed: Comparte tus éxitos de pesca y encuentra inspiración en las
                     capturas de otros pescadores.</li>
-                <li style="margin-bottom: 10px;">🎣 Experiencias: Aprende y comparte consejos y trucos de pesca con una
-                    comunidad apasionada.</li>
-                <li style="margin-bottom: 10px;">🐟 Blablafish: Conecta con otros pescadores, haz preguntas y comparte
-                    historias.</li>
-                <li style="margin-bottom: 10px;">🛒 Store: Explora equipos de pesca de alta calidad en nuestra tienda.</li>
+                <li style="margin-bottom: 10px;">🎣 Experiencias: Compra, descubre y vive experiencias inolvidables con los mejores planes de FishGram .</li>
+                <li style="margin-bottom: 10px;">🐟 Blablafish: Conecta con otros pescadores, comparte gastos y conoce a nuevos amigos!.</li>
+                <li style="margin-bottom: 10px;">🛒 Store: Compra y vende tus productos que no usas, gana dinero y dale una segunda vida!.</li>
             </ul>
         </section>
         <!-- Pie de página -->
