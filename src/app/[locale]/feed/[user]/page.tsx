@@ -12,6 +12,7 @@ import { UserMarker } from '../../maps/type'
 import { BlaBlaFish } from '../../blablafish/type'
 import { StoreData } from '../../store/type'
 import CommentModal from '@/components/ModalComments'
+import CircularIndeterminate from '@/components/Loader'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import SimpleBottomNavigation from '@/components/BottomNav'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
@@ -36,8 +37,6 @@ import {
     UserContainerData,
     nameStyles,
 } from './style'
-import CircularIndeterminate from '@/components/Loader'
-import Image from 'next/image'
 
 interface Props {
     params: {
@@ -51,13 +50,13 @@ const Page: FC<Props> = ({ params }) => {
 
     const [activeView, setActiveView] = useState('capturas')
     const [width, setWidth] = useState<number>(0)
-    const [selectedImage, setSelectedImage] = useState('')
+    const [selectedimg, setSelectedimg] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const [openModalComments, setOpenModalComments] = useState(false)
     const [selectedMarkerId, setSelectedMarkerId] = useState(null) // Estado para almacenar el ID del marcador seleccionado
 
     const handleOpenModal = useCallback((item: any) => {
-        setSelectedImage(item.picture)
+        setSelectedimg(item.picture)
         setSelectedMarkerId(item.id)
         setOpenModal(true)
     }, [])
@@ -293,7 +292,7 @@ const Page: FC<Props> = ({ params }) => {
                                             sx={{ margin: '0' }}
                                         >
                                             <div>
-                                                <Image
+                                                <img
                                                     alt=""
                                                     key={marker.id}
                                                     style={{

@@ -18,10 +18,7 @@ export default async function requestPassword(
                 'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
                 token
             await sendLinkPasswordRecovery(email, url)
-            res.status(200).json(
-                'http://fishgramapp.vercel.app/es/auth/login/recoveryPassword?token=' +
-                    token
-            )
+            res.status(200).json(url)
         } catch (error: any) {
             res.status(500).json({ message: error.message })
         }

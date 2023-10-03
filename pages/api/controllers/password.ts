@@ -12,7 +12,7 @@ export const findEmailToRecover = async (email: string) => {
 }
 
 export const insertUserRecovery = async (email: string) => {
-    const token = jwt.sign({ email: email }, 'token')
+    const token = jwt.sign({ email: email }, 'token', { expiresIn: '1h' })
 
     await prisma.userRecovery.create({
         data: {

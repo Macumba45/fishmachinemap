@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import { Container, Typography, TextField, Button, Box } from '@mui/material'
 import ButtonComp from '@/components/Button'
 import { useLocale } from 'next-intl'
-import Link from 'next/link'
 
 function ResetPasswordForm() {
     const [password, setPassword] = useState('')
